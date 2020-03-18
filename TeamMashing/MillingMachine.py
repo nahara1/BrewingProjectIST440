@@ -1,3 +1,11 @@
+# Project: Brewing Project
+# Purpose Details: Automate milling machine process
+# Course: IST 440W
+# Author: Team Mashing
+# Date Developed: 3/17/2020
+# Last Date Changed: 3/18/2020
+# Rev: 1.1
+
 import sys
 import datetime
 from Log import Log
