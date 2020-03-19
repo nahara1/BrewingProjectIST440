@@ -1,3 +1,12 @@
+
+#Project: IST 440 Barlog Brewery 
+#Purpose Details: To create a Recipe Class 
+#Course: IST 440 
+#Author: Asraa Alkurdi, Jinal Parmar, Anny Espinal 
+#Date Developed: 3/16/2020
+#Last Date Changed: 3/19/2020
+#Rev: 3
+
 # default constructor added
 class Recipe:
     def __init__(self, id, name, volume, yeast, grain):
