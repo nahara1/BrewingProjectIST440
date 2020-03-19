@@ -14,9 +14,9 @@ from TeamMashing.MillingMachine import MillingMachine
 #from SpargingTank import SpargingTank
 #from HotLiquorTank import HotLiquorTank
 
-def start_mashing_process():
-    m = MillingMachine(1, 1)
-    m.mill_grains()
+def start_mashing_process(): # Mashing process start
+    m = MillingMachine(1, 1) # setting an object to milling machine, machine id and time
+    m.mill_grains() # execution to milled grains
 
-if __name__ == "__main__":
-    start_mashing_process()
+if __name__ == "__main__": # verify main method
+    start_mashing_process()  # initiates mashing process
