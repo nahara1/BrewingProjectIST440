@@ -16,34 +16,34 @@ class Recipe:
         self._yeast = None
         self._grain = None
 
-    def getID(self):
+    def get_id(self):
         return self._id
 
-    def setID(self):
+    def set_id(self):
         return self._id
 
-    def getName(self):
+    def get_name(self):
         return self._name
 
-    def setName(self):
+    def set_name(self):
         return self._name
 
-    def getVolume(self):
+    def get_volume(self):
         return self._volume
 
-    def setVolume(self):
+    def set_volume(self):
         return self._volume
 
     def getYeast(self):
         return self._yeast
 
-    def setYeast(self):
+    def set_yeast(self):
         return self._yeast
 
-    def getGrain(self):
+    def get_grain(self):
         return self._grain
 
-    def setGrain(self):
+    def set_grain(self):
         return self._grain
 
 # attributes
