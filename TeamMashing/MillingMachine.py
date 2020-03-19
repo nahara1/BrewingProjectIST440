@@ -10,14 +10,14 @@ import sys
 import datetime
 from Log import Log
 
-class MillingMachine:
-    def __init__(self, mid, mt):
+class MillingMachine:  #MillingMachine Start
+    def __init__(self, mid, mt): #constructor initalized fields
         self.machine_id = mid
         self.mill_time = mt
         self.is_milled = False
         self.is_transferred = False
 
-    def mill_grains(self):
+    def mill_grains(self): #Mill_grains process start
         try:
             log = Log(1, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
@@ -25,7 +25,7 @@ class MillingMachine:
             log = Log(2, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
             return "Grains milled"
-        except Exception as e:
+        except Exception as e: #error handling
             print(e)
     def move_motor(self):
         #move motor
