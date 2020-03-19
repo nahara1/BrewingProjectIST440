@@ -44,13 +44,15 @@ print(data['result'])
 
 for doc in datajson:
     try:
-        for x in collection.find({},{'sys_id' : 1}):
+        col_match = 0
+        for x in client.test.testrecipes.find({},{'sys_id' : 1}):
             print(x)
             if doc['sys_id'] == x['sys_id']:
+                col_match = 1
                 print()
                 print('sys_id duplicate - no document inserted')
-            else:
-                client.test.testrecipes.insert(doc)
-                print('document inserted')
+        if col_match == 0:
+            client.test.testrecipes.insert(doc)
+            print('Document Inserted')
     except pymongo.errors.DuplicateKeyError:
         continue
