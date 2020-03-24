@@ -10,11 +10,11 @@
 # default constructor added
 class Recipe:
     def __init__(self, id, name, volume, yeast, grain):
-        self._id = None
-        self._name = ""
-        self._volume = 0.0
-        self._yeast = None
-        self._grain = None
+        self._id = id
+        self._name = name
+        self._volume = volume
+        self._yeast = yeast
+        self._grain = grain
 
     def get_id(self):
         return self._id
