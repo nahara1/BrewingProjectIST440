@@ -1,11 +1,10 @@
-
-#Project: IST 440 Barlog Brewery 
-#Purpose Details: To create a Recipe Class 
-#Course: IST 440 
-#Author: Asraa Alkurdi, Jinal Parmar, Anny Espinal 
-#Date Developed: 3/16/2020
-#Last Date Changed: 3/19/2020
-#Rev: 3
+# Project: IST 440 Barlog Brewery
+# Purpose Details: To create a Recipe Class
+# Course: IST 440
+# Author: Asraa Alkurdi, Jinal Parmar, Anny Espinal
+# Date Developed: 3/16/2020
+# Last Date Changed: 3/25/2020
+# Rev: 4
 
 # default constructor added
 class Recipe:
@@ -47,13 +46,8 @@ class Recipe:
         return self._grain
 
 # attributes
-# _recipe_id = None
-# _recipe_name = ""
-# _recipe_volume = 0.0
 # _recipe_yeast_storage_amt = 0.0
-# _recipe_yeast = None
 # _recipe_yeast_begin_temp = 0.0
-# _recipe_grain = None
 # _recipe_sparge_time = 0.0
 # _recipe_sparge_temp = 0.0
 # _recipe_wort_volume = 0.0
