@@ -8,7 +8,10 @@
 
 # default constructor added
 class Recipe:
-    def __init__(self, id, name, volume, yeast_storage_amt, yeast, yeast_begin_temp, grain, sparge_time, sparge_temp, wort_volume, boil_temp, boil_time, add_hop_time, hop_amt, hops, after_boil_chill_temp, ferment_time, add_yeast_time, add_yeast_temp, ferment_temp, wort_cool_temp, carbonation, bitter_units, wort_cool_time, ferment_cool_temp):
+    def __init__(self, id, name, volume, yeast_storage_amt, yeast, yeast_begin_temp, grain, sparge_time, sparge_temp,
+                 wort_volume, boil_temp, boil_time, add_hop_time, hop_amt, hops, after_boil_chill_temp, ferment_time,
+                 add_yeast_time, add_yeast_temp, ferment_temp, wort_cool_temp, carbonation, bitter_units,
+                 wort_cool_time, ferment_cool_temp):
         self._id = id
         self._name = name
         self._volume = volume
@@ -77,25 +80,110 @@ class Recipe:
     def set_grain(self):
         return self._grain
 
-# attributes
-# _recipe_yeast_storage_amt = 0.0
-# _recipe_yeast_begin_temp = 0.0
-# _recipe_sparge_time = 0.0
-# _recipe_sparge_temp = 0.0
-# _recipe_wort_volume = 0.0
-# _recipe_boil_temp = 0.0
-# _recipe_boil_time = 0.0
-# _recipe_add_hop_time = 0.0
-# _recipe_hop_amt = 0.0
-# _recipe_hops = None
-# _recipe_after_boil_chill_temp = 0.0
-# _recipe_ferment_time = 0.0
-# _recipe_add_yeast_time = 0.0
-# _recipe_add_yeast_temp = 0.0
-# _recipe_ferment_temp = 0.0
-# _recipe_wort_cool_temp = 0.0
-# _recipe_carbonation = 0.0
-# _recipe_bitter_units = 0.0
-# _recipe_wort_cool_time = 0.0
-# _recipe_wort_cool_temp = 0.0
-# _recipe_ferment__cool_temp = 0.0
+    def get_sparge_time(self):
+        return self._sparge_time
+
+    def set_sparge_time(self):
+        return self._sparge_time
+
+    def get_sparge_temp(self):
+        return self._sparge_temp
+
+    def set_sparge_temp(self):
+        return self._sparge_temp
+
+    def get_wort_volume(self):
+        return self._wort_volume
+
+    def set_wort_volume(self):
+        return self._wort_volume
+
+    def get_boil_temp(self):
+        return self._boil_temp
+
+    def set_boil_temp(self):
+        return self._boil_temp
+
+    def get_boil_time(self):
+        return self._boil_time
+
+    def set_boil_time(self):
+        return self._boil_time
+
+    def get_add_hop_time(self):
+        return self._add_hop_time
+
+    def set_add_hop_time(self):
+        return self._add_hop_time
+
+    def get_hop_amt(self):
+        return self._hop_amt
+
+    def set_hop_amt(self):
+        return self._hop_amt
+
+    def get_hops(self):
+        return self._hops
+
+    def set_hops(self):
+        return self._hops
+
+    def get_after_boil_chill_temp(self):
+        return self._after_boil_chill_temp
+
+    def set_after_boil_chill_temp(self):
+        return self._after_boil_chill_temp
+
+    def get_ferment_time(self):
+        return self._ferment_time
+
+    def set_ferment_time(self):
+        return self._ferment_time
+
+    def get_add_yeast_time(self):
+        return self._add_yeast_time
+
+    def set_add_yeast_time(self):
+        return self._add_yeast_time
+
+    def get_add_yeast_temp(self):
+        return self._add_yeast_temp
+
+    def set_add_yeast_temp(self):
+        return self._add_yeast_temp
+
+    def get_ferment_temp(self):
+        return self._ferment_temp
+
+    def set_ferment_temp(self):
+        return self._ferment_temp
+
+    def get_wort_cool_temp(self):
+        return self._wort_cool_temp
+
+    def set_wort_cool_temp(self):
+        return self._wort_cool_temp
+
+    def get_carbonation(self):
+        return self._carbonation
+
+    def set_carbonation(self):
+        return self._carbonation
+
+    def get_bitter_units(self):
+        return self._bitter_units
+
+    def set_bitter_units(self):
+        return self._bitter_units
+
+    def get_wort_cool_time(self):
+        return self._wort_cool_time
+
+    def set_wort_cool_time(self):
+        return self._wort_cool_time
+
+    def get_ferment_cool_temp(self):
+        return self._ferment_cool_temp
+
+    def set_ferment_cool_temp(self):
+        return self._ferment_cool_temp
