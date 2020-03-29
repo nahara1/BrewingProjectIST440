@@ -1,6 +1,10 @@
-# Team Boil
-# Created By Alex Hirsh, ajh6196@psu.edu
-#Joe 34
+# Project: Brewing Automation System - Capstone Project
+# Purpose Details: class for connecting between cloud and local databases
+# Course: IST 440W - 001
+# Author: Alex Hirsh (ajh6196@psu.edu)
+# Date Developed: 3/18/20
+# Last Date Changed:
+# Rev 1
 
 import datetime
 import time
