@@ -52,30 +52,32 @@ GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 try:
-    print("Press up button when sanitization is done.")
+    print("\n      Press up button when sanitization is done.")
     GPIO.wait_for_edge(s_button_pin,GPIO.FALLING)
     message = '  Sanitization \n   Completed'
-    print(message)
+    print("\t\t" + message.replace(" \n ",""))
     display_msg_in_lcd(message)
     try:
-        print("press down button to measure temperature.")
+        print("\n      press down button to measure temperature.")
         GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
         humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
         temperature = 9.0/5.0 * temperature + 32
-        print('Temp={0:0.1f}* F'.format(temperature))
+        print('\t\t   Temp={0:0.1f}* F'.format(temperature))
         while( temperature > 70 or temperature < 60):
             display_msg_in_led_matrix(msg = str(temperature),color="red")
             display_msg_in_lcd(str(temperature))
-            print("press down button to measure temperature.")
+	    print("\t Temperature of yeast is out of range \n")
+            print("      press down button to measure temperature.")
             GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
             humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
             temperature = 9.0/5.0 * temperature + 32
-            print('Temp={0:0.1f}* F'.format(temperature))
-        display_msg_in_led_matrix(msg = str(temperature),color="green")
+            print('\t\t   Temp={0:0.1f}* F'.format(temperature))
+       	    display_msg_in_led_matrix(msg = str(temperature),color="green")
         display_msg_in_lcd(str(temperature))
-        print("temperature is in range.")
+        print("\t   temperature is in range.\n")
     except:
         GPIO.cleanup()
 except:
     GPIO.cleanup()
 GPIO.cleanup()
+ 
