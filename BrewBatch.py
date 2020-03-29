@@ -1,5 +1,6 @@
 import datetime
 import time
+import BrewBatchStage
 
 class BrewBatch():
 
@@ -7,7 +8,7 @@ class BrewBatch():
     _recipe_id = 0
     _bb_start_date_time = datetime
     _bb_end_date_time = datetime
-    #_bb_stage = BrewBatchStage
+    _bb_stage = BrewBatchStage
     _bb_duration = time
     _bb_status = ""
     _bb_size = ""
@@ -28,6 +29,7 @@ class BrewBatch():
         self._bb_start_date_time = bb_start_date_time
         self._bb_end_date_time = bb_end_date_time
         self._bb_duration = bb_end_date_time - bb_start_date_time
+        self._bb_stage = bb_stage
         self._bb_status = bb_status
         self._bb_size = bb_size
 
