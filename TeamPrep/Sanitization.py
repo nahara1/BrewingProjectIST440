@@ -16,6 +16,7 @@ GPIO.setup(button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 while True:
         time.sleep(0.3)
+
         # Turn backlight on
         lcd.set_backlight(0)
         if(GPIO.input(button_pin) == 0):
