@@ -16,6 +16,6 @@
         </ServerConfiguration>
       </list>
     </option>
-    <option name="shellPath" value="$USER_HOME$/Desktop/mongodb-osx-x86_64-4.0.17/bin/mongo" />
+    <option name="shellPath" value="C:\Program Files\MongoDB\Server\4.2\bin\mongo.exe" />
   </component>
 </project>

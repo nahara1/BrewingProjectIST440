@@ -1,7 +1,10 @@
-# Team Boiling
-# 3/17/2020
-# Created by Erik Ellis, eae5206@psu.edu
-
+# Project: Brewing Automation System - Capstone Project
+# Purpose Details: class for connecting between cloud and local databases
+# Course: IST 440W - 001
+# Author: Erik Ellis (eae5206@psu.edu)
+# Date Developed: 3/18/20
+# Last Date Changed:
+# Rev 1
 
 class DisplayHelper():
 
