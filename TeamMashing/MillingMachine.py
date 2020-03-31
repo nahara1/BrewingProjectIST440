@@ -8,7 +8,10 @@
 
 import sys
 import datetime
+import time
+
 from Log import Log
+import pyglet
 
 class MillingMachine:  #MillingMachine Start
     def __init__(self, mid, mt): #constructor initalized fields
@@ -19,9 +22,28 @@ class MillingMachine:  #MillingMachine Start
 
     def mill_grains(self): #Mill_grains process start
         try:
+            #log to begin process
             log = Log(1, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
-            #mill grains
+
+            #mill grains animation
+            ag_file = "millgrains.gif"
+            animation = pyglet.resource.animation(ag_file)
+            sprite = pyglet.sprite.Sprite(animation)
+            win = pyglet.window.Window(width=sprite.width, height=sprite.height)
+            green = 0, 1, 0, 1
+            pyglet.gl.glClearColor(*green)
+
+            @win.event
+            def on_draw():
+                win.clear()
+                sprite.draw()
+
+            pyglet.app.run()
+
+            pyglet.app.exit()
+
+            #log to end process
             log = Log(2, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
             return "Grains milled"
