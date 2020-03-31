@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 3/18/2020
-# Rev: 1.1
+# Last Date Changed: 3/31/2020
+# Rev: 1.2
 
 import sys
 import datetime
@@ -21,6 +21,14 @@ class MillingMachine:  #MillingMachine Start
         self.is_transferred = False
 
     def mill_grains(self): #Mill_grains process start
+        """
+        The start of milling grains
+        :param mid: machine id
+        :param mt: milling time
+        :param ismilled: milling completes (bool)
+        :param istransferred: transfer indication (bool)
+        :return: Return Log and animation of milling grains
+        """
         try:
             #log to begin process
             log = Log(1, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "pass")
@@ -51,7 +59,16 @@ class MillingMachine:  #MillingMachine Start
             print(e)
     def move_motor(self):
         #move motor
+        """
+        Motor is starting to move
+        :param
+        :return:
+        """
         return "Motor moving"
     def stop_motor(self):
         #stop motor
+        """
+
+        :return:
+        """
         return "Motor stopped"
