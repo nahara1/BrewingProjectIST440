@@ -16,6 +16,12 @@ from TeamMashing.SpargingTank import SpargingTank
 from TeamMashing.Wort import Wort
 
 def start_mashing_process(): # Mashing process start
+
+    """
+    Mashing Process Executes
+    :returns: void
+    """
+
     m = MillingMachine(1, 1) # setting an object to milling machine, machine id and time
     m.mill_grains() # execution to milled grains
 
