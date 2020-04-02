@@ -15,11 +15,11 @@ class BrewMaster:
 
 
 
-        def add_yeast(self) :
-            #TODO: Add Code
+     #   def add_yeast(self) :
+        # TODO: Add Code
 
-        def log_yeast(self):
-            #TODO: Add Code
+     #   def log_yeast(self):
+    # TODO: Add Code
 
 
 

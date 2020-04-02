@@ -1,4 +1,3 @@
-
 # Project: MongoDB - Barlog Brewery
 # Purpose Details: Stores all logging information of application runs.
 # Course: IST 440
@@ -16,10 +15,9 @@ def connectToDB():
     db = client.dbTeamFerment
     collection = db.logMessages
 
-
-def mongoInstance(typer, text):
-    try:
-        post = {"type": typer,
-                "text": text,
-                "date": datetime.datetime.utcnow()}
-        post_id = self.collection.insert_one(post)
+# def mongoInstance(typer, text):
+#    try:
+#       post = {"type": typer,
+#               "text": text,
+#               "date": datetime.datetime.utcnow()}
+# post_id = self.collection.insert_one(post)
