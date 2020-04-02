@@ -21,6 +21,10 @@ of Lager.
 """
 
 class ServiceNOWtoMongo:
+
+    """
+
+    """
     def get_recipe(self):
         """
         This Try block ensures the URL of the ServiceNOW database, as well as the user log in credentials.
@@ -42,6 +46,24 @@ class ServiceNOWtoMongo:
               The contents printed are needed to connect to the Local Host, and to provide logging messages, confirming 
               the recipe has been retrieved. 
             """
+            url = 'https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_recipe?sysparm_fields=sys_id%2Crecipe_name%2Ctype%2Cstyle%2Cog%2Cfg%2Cabv%2Cibu%2Cwater_volume%2Cwater_temperature%2Cgrain_bill%2Cboiling_duration%2Cyeast&sysparm_limit=100'
+            user = 'IST440'
+            pwd = 'IST440'
+
+            # Set proper headers
+            headers = {"Content-Type": "application/json", "Accept": "application/json"}
+
+            # Do the HTTP request
+            response = requests.get(url, auth=(user, pwd), headers=headers)
+            data = response.json()
+
+            # print(data)
+            """
+              The contents printed are needed to connect to the Local Host, and to provide logging messages, confirming 
+              the recipe has been retrieved. 
+            """
+            with open('data.json', 'w') as f:
+                json.dump(data, f)
             with open('data.json', 'w') as f:
                 json.dump(data, f)
 

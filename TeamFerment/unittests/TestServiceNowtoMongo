@@ -1,7 +1,0 @@
-import unittest
-
-class TestServiceNowtoMongo(unittest.TestCase):
-
-	def test_get_recipe_check_status_code_equals_200(): 
-		response = requests.get("https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_recipe/3De3d236381b7304107bd975541a4bcbf1")
-		assert response.status_code = 200
