@@ -1,5 +1,5 @@
 # Project: IST 440 Barlog Brewery
-# Purpose Details: To create a Recipe Class
+# Purpose Details: Communication between ServiceNOW and MongoDB to display Lager recipe information
 # Course: IST 440
 # Author: Asraa Alkurdi, Jinal Parmar, Anny Espinal
 # Date Developed: 4/1/2020
