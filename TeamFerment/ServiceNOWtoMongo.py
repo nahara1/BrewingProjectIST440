@@ -16,16 +16,26 @@ import requests
 url = 'https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_recipe?sysparm_fields=sys_id%2Crecipe_name%2Ctype%2Cstyle%2Cog%2Cfg%2Cabv%2Cibu%2Cwater_volume%2Cwater_temperature%2Cgrain_bill%2Cboiling_duration%2Cyeast&sysparm_limit=100'
 user = 'IST440'
 pwd = 'IST440'
+
+
 # Set proper headers
 headers = {"Content-Type": "application/json", "Accept": "application/json"}
+
+
 # Do the HTTP request
 response = requests.get(url, auth=(user, pwd), headers=headers)
+
+
 # Check for HTTP codes other than 200
 if response.status_code != 200:
     print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
     exit()
+
+
 # Decoding the JSON response into a dictionary and use the data
 data = response.json()
+
+
 # print(data)
 with open('data.json', 'w') as f:
     json.dump(data, f)
