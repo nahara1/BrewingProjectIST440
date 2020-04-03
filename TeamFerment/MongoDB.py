@@ -10,10 +10,12 @@
 import sys, datetime
 from pymongo import MongoClient
 
-            """
-              The contents printed are needed to connect to the Local Host, and to provide logging messages, confirming 
-              the recipe has been retrieved. 
-            """
+"""
+  The contents printed are needed to connect to the Local Host, and to provide logging messages, confirming 
+  the recipe has been retrieved. 
+"""
+
+
 def connectToDB():
     client = MongoClient('localhost', 27017)
     db = client['TeamFerment']
