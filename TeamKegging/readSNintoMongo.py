@@ -3,8 +3,15 @@
 import requests
 import pymongo
 from pymongo import MongoClient
-from dal import dal
 
+class dal:
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+    def getHost(self):
+        return self.host
+    def getPort(self):
+        return self.port
 
 dalHandler = dal('localhost', 27017)
 # Connection to MongoDB
@@ -43,22 +50,26 @@ data = response.json()
 datajson = data['result']
 #print(data['result'])
 
-for doc in datajson:
-    try:
-        col_match = 0
-        for x in client.test.testrecipes.find({},{'sys_id' : 1}):
-            print('inserting document')
+def updaterecipes():
+    docs_inserted = 0
+    duplicate_records = 0
+    for doc in datajson:
+        try:
+            col_match = 0
+            for x in client.test.testrecipes.find({},{'sys_id' : 1}):
+                if doc['sys_id'] == x['sys_id']:
+                    col_match += 1
 
-            if doc['sys_id'] == x['sys_id']:
-                col_match += 1
+            if col_match == 0:
+                client.test.testrecipes.insert(doc)
+                docs_inserted +=1
+            if col_match > 0:
+                duplicate_records +=1
 
-        if col_match == 0:
-            client.test.testrecipes.insert(doc)
-            print('Document Inserted')
-        if col_match > 0:
-            print('sys_id duplicate - found ' + str(col_match) + ' duplicate(s) - no document inserted')
+        except pymongo.errors.DuplicateKeyError:
+            continue
 
-        #for x in client.test.testrecipes.find({}, {'_id': 0}):
-            #print(x)
-    except pymongo.errors.DuplicateKeyError:
-        continue
+    print(str(docs_inserted) + ' document(s) inserted.')
+    print(str(duplicate_records)+ ' duplicate record(s)')
+
+updaterecipes()
