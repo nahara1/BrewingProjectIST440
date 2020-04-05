@@ -3,17 +3,23 @@
 # Course: IST 440
 # Author: Jinal Parmar
 # Date Developed: 3/18/2020
-# Last Date Changed: 3/22/2020
+# Last Date Changed: 4/2/2020
+# Rev: 2
 
 
 import sys, datetime
 from pymongo import MongoClient
 
+"""
+  The contents printed are needed to connect to the Local Host, and to provide logging messages, confirming 
+  the recipe has been retrieved. 
+"""
+
 
 def connectToDB():
     client = MongoClient('localhost', 27017)
-    db = client.dbTeamFerment
-    collection = db.logMessages
+    db = client['TeamFerment']
+    collection_log = db['logMessages']
 
 # def mongoInstance(typer, text):
 #    try:

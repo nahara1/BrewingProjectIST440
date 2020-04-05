@@ -12,9 +12,6 @@ import urllib.request
 import requests
 from pymongo import MongoClient
 
-
-# Get the record from the table, save it as a json file and add it to a mongodb file
-# Getting the record from the table
 """
 This class was created to pull information from ServiceNOW to MongoDB for the Brew Master to view whilst making a batch 
 of Lager.
@@ -30,18 +27,7 @@ class ServiceNOWtoMongo:
         This Try block ensures the URL of the ServiceNOW database, as well as the user log in credentials.
         """
         try:
-            url = 'https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_recipe?sysparm_fields=sys_id%2Crecipe_name%2Ctype%2Cstyle%2Cog%2Cfg%2Cabv%2Cibu%2Cwater_volume%2Cwater_temperature%2Cgrain_bill%2Cboiling_duration%2Cyeast&sysparm_limit=100'
-            user = 'IST440'
-            pwd = 'IST440'
 
-            # Set proper headers
-            headers = {"Content-Type": "application/json", "Accept": "application/json"}
-
-            # Do the HTTP request
-            response = requests.get(url, auth=(user, pwd), headers=headers)
-            data = response.json()
-
-            # print(data)
             """
               The contents printed are needed to connect to the Local Host, and to provide logging messages, confirming 
               the recipe has been retrieved. 
@@ -62,10 +48,11 @@ class ServiceNOWtoMongo:
               The contents printed are needed to connect to the Local Host, and to provide logging messages, confirming 
               the recipe has been retrieved. 
             """
+
+
             with open('data.json', 'w') as f:
                 json.dump(data, f)
-            with open('data.json', 'w') as f:
-                json.dump(data, f)
+
 
             client = MongoClient('localhost', 27017)
             db = client['Retrieved Recipe']
