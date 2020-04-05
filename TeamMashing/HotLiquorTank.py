@@ -57,12 +57,12 @@ class HotLiquorTank:
         """
         return self.wVolume
 
-    def send_hot_water(self):
+    def send_hot_water_to_sparging_tank(self):
         """
         
-        :return:
+        :return: print statement
         """
-        return ("Hot water is sent.")
+        print("Hot water is sent to Sparging Tank.")
 
     def check_water_temp(self):
         """
