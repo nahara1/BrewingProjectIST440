@@ -7,16 +7,18 @@
 # Rev: 1.3
 
 import datetime
+import time
 from Log import Log
 import pyglet
 
 
 class Wort:
-    def __init__(self, wid, wortvolume, hotWaterTemp, waterVolume):
+    def __init__(self, wid, wortvolume, hotWaterTemp, waterVolume, st):
         self.wort_id = wid
         self._wort_volume = wortvolume
         self.HotWaterTemp = hotWaterTemp
         self.waterVolume = waterVolume
+        self.separation_time = st
         self._wort_volume = False
         self.HotWater = False
 
@@ -60,24 +62,34 @@ class Wort:
         """
         :return: Return Log and animation
         """
-        log = Log(4, "Mashing.Wort", "Wort Separation", datetime.datetime.now(), "pass")
+        log = Log(4, "Mashing.Wort", "Wort Separation Started", datetime.datetime.now(), "pass")
         print(log.generate_log())
 
         # wort sepration animation
-        ag_file = "filtermash.gif"
-        animation = pyglet.resource.animation(ag_file)
-        sprite = pyglet.sprite.Sprite(animation)
-        win = pyglet.window.Window(width=sprite.width, height=sprite.height)
-        green = 0, 1, 0, 1
-        pyglet.gl.glClearColor(*green)
+        # ag_file = "filtermash.gif"
+        # animation = pyglet.resource.animation(ag_file)
+        # sprite = pyglet.sprite.Sprite(animation)
+        # win = pyglet.window.Window(width=sprite.width, height=sprite.height)
+        # green = 0, 1, 0, 1
+        # pyglet.gl.glClearColor(*green)
 
-        @win.event
-        def on_draw():
-            win.clear()
-            sprite.draw()
+        # @win.event
+        # def on_draw():
+            # win.clear()
+            # sprite.draw()
 
-        pyglet.app.run()
+        # pyglet.app.run()
 
-        pyglet.app.exit()
+        st = 10
 
-        return "Wort Separated from Mash"
+        while st > 0:
+            print("Wort Separating Time Left: ", st, "sec")
+            time.sleep(1)
+            st -= 1
+
+            if st == 0:
+                print("Wort Separation Completed")
+
+        log = Log(4, "Mashing.Wort", "Wort Separation Ended", datetime.datetime.now(), "pass")
+        print(log.generate_log())
+        print("Wort Separated from Mash")
