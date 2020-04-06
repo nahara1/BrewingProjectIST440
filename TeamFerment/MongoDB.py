@@ -21,9 +21,10 @@ def connectToDB():
     db = client['TeamFerment']
     collection_log = db['logMessages']
 
-# def mongoInstance(typer, text):
+# def mongoInstance(typer, text, self):
 #    try:
-#       post = {"type": typer,
-#               "text": text,
-#               "date": datetime.datetime.utcnow()}
-# post_id = self.collection.insert_one(post)
+#        post = {
+#            "type": typer, "text": text, "date": datetime.datetime.utcnow()
+#                }
+#        post_id = self.collection.insert_one(post)
+
