@@ -7,7 +7,10 @@
 # Rev: 2
 
 class BrewBatch:
-	def __init__(self, _brew_master_ID, _batch_id,batchStageObj, _batch_duration):
+	"""
+	This class has been written to provide the Brew Master with information regarding the BrewBatch attributes
+	"""
+	def __init__(self, _brew_master_ID, _batch_id, batchStageObj, _batch_duration):
 
 		self._brew_master_ID = _brew_master_ID
 		self._batch_id = _batch_id
