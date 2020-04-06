@@ -9,7 +9,7 @@
 
 class CellarmanClass:  #Cellarman Class
     def __init__(self, cc_id, cc_name, cc_role):
-        self.cc_id = tc_id
+        self.cc_id = cc_id
         self.cc_name = cc_name
         self.cc_role = cc_role
 
