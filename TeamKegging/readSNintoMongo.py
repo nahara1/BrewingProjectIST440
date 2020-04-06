@@ -22,8 +22,8 @@ except:
 url = 'https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_recipe?sysparm_limit=1'
 
 # Username and Pass for Servicenow instance
-user = 'dvz5048'
-pwd = 'Raikira79'
+user = 'IST440'
+pwd = 'IST440'
 
 # headers
 headers = {"content-Type":"application/json","Accept":"application/json"}
