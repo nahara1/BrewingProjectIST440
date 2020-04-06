@@ -6,6 +6,7 @@
 # Last Date Changed: 3/31/20
 # Rev 1
 
+
 class CloudHelper():
 
     # _local_database = Database
