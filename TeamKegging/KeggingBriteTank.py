@@ -7,6 +7,7 @@
 # Rev: 1.0
 
 import datetime
+import time
 from Log import Log
 
 class KeggingBriteTank:  #Brite Tank
