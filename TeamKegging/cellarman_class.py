@@ -18,6 +18,6 @@ class CellarmanClass:  #Cellarman Class
                "Cellarman_Name: {}\n" \
                "Cellarman_Role: {}\n".format(self.cc_id, self.cc_name, self.cc_role)
 
-testCellarman = CellarmanClass(12, "Jun Baek", "Quality Assurance 1")
+testCellarman = CellarmanClass(13, "Jun Baek", "Quality Assurance 1")
 
 print(testCellarman.get_status())
