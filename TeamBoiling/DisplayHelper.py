@@ -6,12 +6,17 @@
 # Last Date Changed:
 # Rev 1
 
+import logging
 
 class DisplayHelper():
 
     def __init__(self):
+        logging.info("Thread %s: starting DisplayHelper", self)  # Threading
         _lcd_display = object
         _led_matrix = object
+        logging.info("Thread %s: finishing DisplayHelper", self)  # Threading
+
+    logging.info("Thread %s: starting Getters and Setters")  # Threading
 
     def get_lcd_display_data(self):
         '''
@@ -42,6 +47,8 @@ class DisplayHelper():
         :return: returns LEDs on the matrix
         '''
         self._led_matrix = matrix
+
+    logging.info("Thread %s: finishing Getters and Setters")  # Threading
 
     def send_data(self, display, matrix):
         '''

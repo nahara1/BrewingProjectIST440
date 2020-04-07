@@ -8,6 +8,7 @@
 
 import datetime
 import time
+import logging
 from TeamBoiling import BrewBatchStage
 
 
@@ -30,7 +31,7 @@ class BrewBatch():
         self._recipe_id
         self._bb_start_date_time = datetime.datetime.utcnow()
         self._bb_end_date_time = datetime.datetime.utcnow()
-        # self._bb_stage
+        self._bb_stage
         self._bb_duration
         self._bb_status
         self._bb_size
@@ -45,6 +46,7 @@ class BrewBatch():
         :param bb_status: the brew batch's status
         :param bb_size: size of the brew batch
         '''
+        logging.info("Thread %s: starting BrewBatch", self)  # Threading
         ++self._bb_id
         self._recipe_id = recipe_id
         self._bb_start_date_time = bb_start_date_time
@@ -52,6 +54,9 @@ class BrewBatch():
         self._bb_duration = bb_end_date_time - bb_start_date_time
         self._bb_status = bb_status
         self._bb_size = bb_size
+        logging.info("Thread %s: finishing BrewBatch", self)  # Threading
+
+    logging.info("Thread %s: starting Getters and Setters")  # Threading
 
     def get_brew_batch_id(self):
         '''
@@ -178,3 +183,5 @@ class BrewBatch():
         :return: returns and sets the size of the brew batch
         '''
         self._bb_size = bb_size
+
+    logging.info("Thread %s: finishing Getters and Setters")  # Threading
