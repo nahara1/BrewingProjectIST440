@@ -7,6 +7,7 @@
 # Rev
 
 import RPi.GPIO as GPIO
+import time
 
 # button for sanitization
 s_button_pin = 26 # UP key
@@ -20,10 +21,11 @@ class Sanitization:
         self.button = button
 
     def button_function(self):
-        print("\n      Press up button when sanitization is done.")
+        print("\n      Press up button when sanitization is done:")
         GPIO.wait_for_edge(self.button,GPIO.FALLING)
+        time.sleep(1)
         message = '  Sanitization    Completed'
-        print("\t\t" + message)
+        print("\t\t" + message + "\n")
 
 # # USAGE
 # s = sanitization(s_button_pin)
