@@ -3,22 +3,31 @@
 # Course: IST 440W - 001
 # Author: Chris Parks
 # Date Developed: Design Phase
-# Last Date Changed: 3/29/2020
+# Last Date Changed: 4/6/2020
 
 
 class Ingredients:
+
     def __init__(self, ID, quantity, weight):
         self.ID = ID
-        self.quanity = quantity
+        self.quantity = quantity
         self.weight = weight
         '''
         defines the attributes for the ingredients 
         '''
-
-
+        self.ID = int
+        self.quantity = int
+        self.weight = float
+        '''
+        Adds the methods to the attributes for the ingredients 
+        '''
 class Yeast(Ingredients):
     def __init__(self, temp):
         self.temp = temp
+        temp = float
+        '''
+        Added the temperature attribute with the yeast class with the method
+        '''
         super().__init__(ID={""}, quantity={""}, weight={""})
 
         def __float__(self):
@@ -66,6 +75,19 @@ class Sugar(Ingredients):
     '''
     prints out a list of the attributes listed for the sugar abstract class with data that goes along with the recipe pulled from the ServiceNow table
     '''
+
+class Water(Ingredients):
+    def __init__(self):
+            super().__init__(quantity={""})
+    '''
+    adds the attributes for the water
+    '''
+print(Water)
+
+    '''
+    prints out  the attribute listed for the water abstract class with data that goes along with the recipe pulled from the ServiceNow table
+    '''
+
 class get_ingredient:
     '''
     This class will pull data from ServiceNow to add to the attributes listed above
