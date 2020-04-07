@@ -1,5 +1,5 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: Employee Class
+# Purpose Details: Thread and Prep I/O
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
@@ -9,6 +9,9 @@
 import RPi.GPIO as GPIO
 from Sanitization import Sanitization
 from Temperature import Temperature
+import threading
+import time
+#from queue import Queue
 
 # sensor = 11
 pin = 4
@@ -26,18 +29,50 @@ GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 s = Sanitization(s_button_pin)
 t = Temperature(t_button_pin)
 
-try:
-    s.button_function()
+# this function will called on staring of every thread
+def thread_function(thread_id):
     try:
-        tmp = t.read_temp()
-        while( tmp > 80 or tmp < 60):
-            print("\t Temperature of yeast is out of range. \n")
-            
-            #print("      press down button to measure temperature of yeast: ")
+        s.button_function()
+        try:
             tmp = t.read_temp()
-            # GPIO.wait_for_edge(t_button_pin, GPIO.FALLING)
-        print("\t temperature of yeast is in range and ready to use.\n")
+            while( tmp > 80 or tmp < 60):
+                print("\t***Temperature of yeast is out of range.***")
+                print("  ***Bring another yeast and measure temperature again.*** \n")
+                
+                #print("      press down button to measure temperature of yeast: ")
+                tmp = t.read_temp()
+                # GPIO.wait_for_edge(t_button_pin, GPIO.FALLING)
+            print("       temperature of yeast is in range and ready to use.\n")
+            time.sleep(2)
+        except:
+            
+            GPIO.cleanup()
     except:
+        
         GPIO.cleanup()
-except:
-    GPIO.cleanup()
+
+        
+
+        
+        
+def main():
+    time.sleep(2)
+    thread_list = []
+    # to create upto 5 Threads
+    for x in range(5):
+        message = ('\n Batch: '+ str(x+1) + ' ---------------------------------------')
+        thread = threading.Thread(target=thread_function, args=(x,))
+        thread_list.append(thread)
+        # message = ('Batch: '+ str(x))
+        print( message)
+        
+
+    # for thread in thread_list:
+        thread.start()
+
+    # for thread in thread_list:
+        thread.join()
+        #GPIO.cleanup()
+
+if __name__ == '__main__':
+	main()

@@ -1,5 +1,5 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: Sanitization
+# Purpose Details: Sanitization class
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
@@ -21,11 +21,12 @@ class Sanitization:
         self.button = button
 
     def button_function(self):
-        print("\n      Press up button when sanitization is done:")
+        print("\n    1. Press up button when sanitization is done:")
         GPIO.wait_for_edge(self.button,GPIO.FALLING)
         time.sleep(1)
-        message = '  Sanitization    Completed'
+        message = '  Sanitization Completed'
         print("\t\t" + message + "\n")
+        time.sleep(2)
 
 # # USAGE
 # s = sanitization(s_button_pin)

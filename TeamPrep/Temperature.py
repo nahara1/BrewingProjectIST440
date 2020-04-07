@@ -1,5 +1,5 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: Employee Class
+# Purpose Details: Temperature Class
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
@@ -26,13 +26,14 @@ class Temperature:
 
     def read_temp(self):
         temperature = random.randrange(55, 85, 1)
-        print("      press down button to measure temperature of yeast: ")
+        print("    2. press down button to measure temperature of yeast: ")
         GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
         time.sleep(3)
         
         # humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
         # temperature = 9.0/5.0 * temperature + 32
-        print('\t\t Temp={0:0.0f}* F'.format(temperature))
+        print('\t\t\t Temp={0:0.0f}* F'.format(temperature))
+        time.sleep(2)
         return temperature
         
     
