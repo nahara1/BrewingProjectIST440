@@ -1,33 +1,34 @@
+# Project: Brewing Automation System - Capstone Project
+# Purpose Details: Sanitization
+# Course: IST 440W - 001
+# Author: TeamPrep
+# Date Developed: 3/23
+# Last Date Changed:4/5
+# Rev
+
 import RPi.GPIO as GPIO
-import time
-import Adafruit_CharLCD as LCD
 
-# Define LCD column and row size for 16x2 LCD.
-lcd_columns = 16
-lcd_rows    = 2
+# button for sanitization
+s_button_pin = 26 # UP key
 
-# Initialize the LCD using the pins
-lcd = LCD.Adafruit_CharLCDBackpack(address=0x21)
-
-button_pin = 26
-
+# Pin setup
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
-while True:
-        time.sleep(0.3)
+class Sanitization:
+    def __init__(self,button):
+        self.button = button
 
-        # Turn backlight on
-        lcd.set_backlight(0)
-        if(GPIO.input(button_pin) == 0):
-            lcd.clear()
-            message = '  Sanitization \n   Completed'
-            lcd.message(message)
-            for i in range(lcd_columns-len(message)):
-                time.sleep(0.5)
-                lcd.move_right()
-            for i in range(lcd_columns-len(message)):
-                time.sleep(0.5)
-                lcd.move_left()
-            #print("sanitization complete")
-        break
+    def button_function(self):
+        print("\n      Press up button when sanitization is done.")
+        GPIO.wait_for_edge(self.button,GPIO.FALLING)
+        message = '  Sanitization    Completed'
+        print("\t\t" + message)
+
+# # USAGE
+# s = sanitization(s_button_pin)
+# try:
+#     s.button_fun()
+# except:
+#     GPIO.cleanup()
+# GPIO.cleanup()
