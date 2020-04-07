@@ -6,29 +6,67 @@
 # Last Date Changed: 3/29/2020
 
 
-class Ingredients():
-    def __init__(self, ID,  quanity, weight):
+class Ingredients:
+    def __init__(self, ID, quantity, weight):
         self.ID = ID
-        self.quanity = quanity
+        self.quanity = quantity
         self.weight = weight
-        def __int__(self):
-            return (self.ID, self.quanity, self.weight)
+        '''
+        defines the attributes for the ingredients 
+        '''
+
+
 class Yeast(Ingredients):
     def __init__(self, temp):
         self.temp = temp
-        super().__init__(ID = {}, quanity = {}, weight = {})
+        super().__init__(ID={""}, quantity={""}, weight={""})
+
         def __float__(self):
             return self.temp
+        '''
+        adds the attributes for the yeast 
+        '''
+        print(Yeast)
+
+        '''
+       prints out a list of the attributes listed for the yeast abstract class with data that goes along with the recipe pulled from the ServiceNow table
+       '''
+
 class Grain(Ingredients):
     def __init__(self):
-        super().__init__(ID = {}, quanity = {}, weight = {})
+        super().__init__(ID={""}, quantity={""}, weight={""})
+        '''
+        adds the attributes for the grains
+        '''
+
+        print(Grain)
+
+        '''
+       prints out a list of the attributes listed for the grain abstract class with data that goes along with the recipe pulled from the ServiceNow table
+       '''
+
 class Hop(Ingredients):
     def __init__(self):
-        super().__init__(ID = {}, quanity = {}, weight = {})
+        super().__init__(ID={""}, quantity={""}, weight={""})
+        '''
+        adds the attributes for the hops
+        '''
+
+        print(Hop)
+    '''
+    prints out a list of the attributes listed for the hop abstract class with data that goes along with the recipe pulled from the ServiceNow table
+    '''
 class Sugar(Ingredients):
     def __init__(self):
-        super().__init__(ID = {}, quanity = {}, weight = {})
-
-
-
-
+        super().__init__(ID={""}, quantity={""}, weight={""})
+        '''
+        adds the attributes for the sugar
+        '''
+        print(Sugar)
+    '''
+    prints out a list of the attributes listed for the sugar abstract class with data that goes along with the recipe pulled from the ServiceNow table
+    '''
+class get_ingredient:
+    '''
+    This class will pull data from ServiceNow to add to the attributes listed above
+    '''
