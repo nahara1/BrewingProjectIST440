@@ -9,6 +9,7 @@
 import unittest
 import TeamBoiling.Logging
 
+
 class TestLogging(unittest.TestCase):
     def test_logging_add_recipe(self):
         recipe_ID = TeamBoiling.Logging.Logging.add_recipe_id
@@ -21,8 +22,6 @@ class TestLogging(unittest.TestCase):
     def test_logging_add_status(self):
         recipe_status = TeamBoiling.Logging.Logging.add_recipe_status
         self.assertEquals(recipe_status, 'test')
-
-
 
     if __name__ == '__main__':
         unittest.main()

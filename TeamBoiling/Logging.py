@@ -6,11 +6,14 @@
 # Last Date Changed: 3/31/2020
 # Rev 1
 
+import logging
+
 
 class Logging():
+
     _recipe_id = int
     _bb_id = int
-    #_bb_stage = BBStage
+    # _bb_stage = BBStage
     _recipe_status = str
 
     def __init__(self):
@@ -19,7 +22,7 @@ class Logging():
         """
         self._recipe_id
         self._bb_id
-        #self._bb_stage
+        # self._bb_stage
         self._recipe_status
 
     def __init__(self, _recipe_id, _bb_id, _bb_stage, _recipe_status):
@@ -30,10 +33,12 @@ class Logging():
         :param _bb_stage: Stage of the brew batch
         :param _recipe_status: Status of the recipe
         """
+        logging.info("Thread %s: starting Logging", self)  # Threading
         self._recipe_id = _recipe_id
         self._bb_id = _bb_id
-        #self._bb_stage = _bb_stage
+        # self._bb_stage = _bb_stage
         self._recipe_status = _recipe_status
+        logging.info("Thread %s: finishing Logging", self)  # Threading
 
     def add_recipe_id(self, _recipe_id):
         """
@@ -51,8 +56,8 @@ class Logging():
         """
         self._bb_id = _bb_id
 
-    #def add_bb_stage(self, _bb_stage):
-        #self._bb_stage = _bb_stage
+    # def add_bb_stage(self, _bb_stage):
+    # self._bb_stage = _bb_stage
 
     def add_recipe_status(self, _recipe_status):
         """

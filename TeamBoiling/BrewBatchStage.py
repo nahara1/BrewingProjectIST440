@@ -10,7 +10,7 @@
 import datetime
 import time
 import logging
-import threading
+
 
 class BrewBatchStage():
 
@@ -52,6 +52,7 @@ class BrewBatchStage():
 
     # stage ID getters and setters
     logging.info("Thread %s: Start Getters and Setters")
+
     def get_bb_stage_id(self):
         """
         Gets the Brew Batch's Stage ID

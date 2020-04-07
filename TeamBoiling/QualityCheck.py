@@ -40,7 +40,7 @@ class QualityCheck:
         self._boil_over = _boil_over
         self._overflowing = _overflowing
         self._correct_volume = _correct_volume
-        logging.info("Thread %s: finshing QACheck", self)  # Threading
+        logging.info("Thread %s: finishing QACheck", self)  # Threading
 
     # Getters and Setters
     # Recipe Boil Temp

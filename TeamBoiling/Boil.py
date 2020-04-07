@@ -11,7 +11,6 @@ import datetime
 import time
 import TeamBoiling.QualityCheck
 import logging
-import threading
 
 
 class Boil():

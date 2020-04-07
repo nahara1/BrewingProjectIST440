@@ -23,15 +23,15 @@ class SensorHelper:
         :param _buzzer_status: status of the buzzer on the CrowPi
         :param _sensor_values: values for the sensor
         """
-        logging.info("Thread %s: starting SensorHelper", self)  # Threading
+        logging.info("Thread %s: starting SensorHelper", self)
         self._touch_sensor = _touch_sensor
         self._buzzer_status = _buzzer_status
         self._sensor_values = _sensor_values
-        logging.info("Thread %s: finishing SensorHelper", self)     # Threading
+        logging.info("Thread %s: finishing SensorHelper", self)
 
     # Getters and Setters
     # Sensor Values
-    logging.info("Thread %s: starting Getters and Setters")  # Threading
+    logging.info("Thread %s: starting Getters and Setters")
 
     def get_sensor_values(self):
         """
@@ -80,7 +80,7 @@ class SensorHelper:
         """
         self._touch_sensor = _touch_sensor
 
-    logging.info("Thread %s: finishing Getters and Setters")  # Threading
+    logging.info("Thread %s: finishing Getters and Setters")
 
     # Methods
     def send_values(self):
@@ -88,9 +88,9 @@ class SensorHelper:
         Sends values to the sensors to access and utilize them
         :return: returns values sent to the sensors
         """
-        logging.info("Thread %s: starting Send_Values", self)  # Threading
+        logging.info("Thread %s: starting Send_Values", self)
         return self.send_values()
-        logging.info("Thread %s: finishing Send_Values", self)  # Threading
+        logging.info("Thread %s: finishing Send_Values", self)
 
 
 
