@@ -1,10 +1,12 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: class for controlling sensors
 # Course: IST 440W - 001
-# Author: Teresa Barker(tlb5767@psu.edu)
+# Author: Teresa Barker (tlb5767@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 3/18/2020
-# Rev 1
+# Last Date Changed: 4/6/2020
+# Rev 3
+
+import logging
 
 
 class SensorHelper:
@@ -21,12 +23,16 @@ class SensorHelper:
         :param _buzzer_status: status of the buzzer on the CrowPi
         :param _sensor_values: values for the sensor
         """
+        logging.info("Thread %s: starting SensorHelper", self)  # Threading
         self._touch_sensor = _touch_sensor
         self._buzzer_status = _buzzer_status
         self._sensor_values = _sensor_values
+        logging.info("Thread %s: finishing SensorHelper", self)     # Threading
 
     # Getters and Setters
     # Sensor Values
+    logging.info("Thread %s: starting Getters and Setters")  # Threading
+
     def get_sensor_values(self):
         """
         Calls the values of the sensor
@@ -74,13 +80,17 @@ class SensorHelper:
         """
         self._touch_sensor = _touch_sensor
 
+    logging.info("Thread %s: finishing Getters and Setters")  # Threading
+
     # Methods
     def send_values(self):
         """
         Sends values to the sensors to access and utilize them
         :return: returns values sent to the sensors
         """
+        logging.info("Thread %s: starting Send_Values", self)  # Threading
         return self.send_values()
+        logging.info("Thread %s: finishing Send_Values", self)  # Threading
 
 
 
