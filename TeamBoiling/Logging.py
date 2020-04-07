@@ -7,7 +7,6 @@
 # Rev 1
 
 
-
 class Logging():
     _recipe_id = int
     _bb_id = int
