@@ -10,12 +10,14 @@ class FermentationVessel:
         self.vesselID = vesselID
         self.brewMasterID = brewMasterID
 
-    def closeLid(self):
+     # def closeLid(self):
+        # TODO: Add Code
 
-    def brewingComplete(self):
+    # def brewingComplete(self):
+    # TODO: Add Code
 
-    def drainAle(self):
+    # def drainAle(self):
+    # TODO: Add Code
 
-    def cleaningStatus(self):
-
-#test
+    # def cleaningStatus(self):
+    # TODO: Add Code
