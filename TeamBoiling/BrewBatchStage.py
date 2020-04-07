@@ -3,12 +3,13 @@
 # Course: IST 440W - 001
 # Author: Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/1/20
-# Rev 1
+# Last Date Changed: 4/6/2020
+# Rev 2
 
 import datetime
 import time
-
+import logging
+import threading
 
 class BrewBatchStage():
 
@@ -39,13 +40,17 @@ class BrewBatchStage():
         :param _bb_stage_duration: duration of the brew batch stage
         :param _bb_stage_status: status of the brew batch stage
         """
+
+        logging.info("Thread %s: Brew Batch Starting", self)
         self._bb_stage_id = _bb_stage_id
         self._bb_stage_start_date_time = datetime
         self._bb_stage_end_date_time = datetime
         self._bb_stage_duration = time
         self._bb_stage_status = _bb_stage_status
+        logging.info("Thread %s: Brew Batch Ending", self)
 
     # stage ID getters and setters
+    logging.info("Thread %s: Start Getters and Setters")
     def get_bb_stage_id(self):
         """
         Gets the Brew Batch's Stage ID
@@ -108,4 +113,6 @@ class BrewBatchStage():
         :return: returns brew batch stage duration
         """
         self._bb_stage_duration = _bb_stage_duration
+
+    logging.info("Thread %s: End Getters and Setters")
 
