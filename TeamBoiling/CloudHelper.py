@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: David Karminski(dck5200@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 3/31/20
-# Rev 1
+# Last Date Changed: 4/6/20
+# Rev 2
 
 
 class CloudHelper():
@@ -25,9 +25,13 @@ class CloudHelper():
         :param _database_count: counts the database
         :param _local_database: local database
         '''
+        logging.info("Thread %s: starting CloudHelper", self)  # Threading
         self._database_type = _database_type
         self._database_count = _database_count
         self._local_database = _local_database
+        logging.info("Thread %s: finishing CloudHelper", self)  # Threading
+
+    logging.info("Thread %s: starting Getters and Setters")  # Threading
 
     def get_database(self):
         '''
@@ -42,3 +46,5 @@ class CloudHelper():
         :return: returns the data to send to the database
         '''
         return self.send_database()
+
+    logging.info("Thread %s: finishing Getters and Setters")  # Threading

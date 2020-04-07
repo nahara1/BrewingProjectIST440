@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: Teresa Barker (tlb5767@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/3/2020
-# Rev 3
+# Last Date Changed: 4/6/2020
+# Rev 4
 
 # Import Statements
 import time
@@ -32,6 +32,7 @@ class QualityCheck:
         :param _overflowing: mixture overflowing
         :param _correct_volume: validates volume of the batch
         """
+        logging.info("Thread %s: starting QACheck", self)  # Threading
         self._recipe_boil_temp = _recipe_boil_temp
         self._batch_boil_time = _batch_boil_time
         self._recipe_boil_time = _recipe_boil_time
@@ -39,9 +40,12 @@ class QualityCheck:
         self._boil_over = _boil_over
         self._overflowing = _overflowing
         self._correct_volume = _correct_volume
+        logging.info("Thread %s: finshing QACheck", self)  # Threading
 
     # Getters and Setters
     # Recipe Boil Temp
+    logging.info("Thread %s: starting Getters and Setters")  # Threading
+
     def get_recipe_boil_temp(self):
         """
         Calls the recipe boil temperature
@@ -152,3 +156,5 @@ class QualityCheck:
         :return: returns the correct volume and sets it for the recipe
         """
         self._correct_volume = _correct_volume
+
+    logging.info("Thread %s: finishing Getters and Setters")  # Threading

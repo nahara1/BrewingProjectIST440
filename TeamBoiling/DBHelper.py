@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: David Karminski(dck5200@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/1/20
-# Rev 1
+# Last Date Changed: 4/6/20
+# Rev 2
 
 
 class DBHelper():
@@ -25,10 +25,13 @@ class DBHelper():
         :param _db_name: name of the database
         :param _db_connection: connects to the database
         '''
+        logging.info("Thread %s: starting DBHelper", self)  # Threading
         self._db_type = _db_type
         self._db_name = _db_name
         self._db_connection = _db_connection
+        logging.info("Thread %s: finishing DBHelper", self)  # Threading
 
+    logging.info("Thread %s: starting Getters and Setters")  # Threading
     def get_db_type(self):
         '''
         Calls the database to get the type
@@ -70,4 +73,6 @@ class DBHelper():
         :return: returns the network connection
         '''
         return self.connect_to_network
+
+    logging.info("Thread %s: finishing Getters and Setters")  # Threading
 
