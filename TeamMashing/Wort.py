@@ -8,8 +8,7 @@
 
 import datetime
 import time
-from Log import Log
-import pyglet
+from Brewing.Log import Log
 
 
 class Wort:

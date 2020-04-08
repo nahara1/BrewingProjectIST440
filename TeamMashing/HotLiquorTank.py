@@ -6,10 +6,8 @@
 # Last Date Changed: 3/24/2020
 # Rev: 1.1
 
-import sys
 import datetime
-import time
-from Log import Log
+from Brewing.Log import Log
 
 
 class HotLiquorTank:

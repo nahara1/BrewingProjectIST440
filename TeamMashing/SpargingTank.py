@@ -7,9 +7,9 @@
 # Rev: 1.3
 import datetime
 import time
-from Log import Log
+from Brewing.Log import Log
 from TeamMashing.Wort import Wort
-import pyglet
+
 
 class SpargingTank: #constructor for class sparging tank
     def __init__(self, Sid,stir_time,water_temp,water_amt,heat_time, sparg_time, milled_amount):

@@ -6,10 +6,8 @@
 # Last Date Changed: 4/03/2020
 # Rev: 1.0
 
-import datetime
-import time
 import math
-from Log import Log
+
 
 class KeggingBriteTank:  #Brite Tank
     def __init__(self, bt_id, tank_temp, tank_max_volume, tank_current_volume, tank_pressure, beer_type):
