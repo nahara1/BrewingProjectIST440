@@ -6,10 +6,6 @@
 # Last Date Changed: 3/18/2020
 # Rev: 1.1
 
-import sys
-import time
-
-from Log import Log
 from TeamMashing.MillingMachine import MillingMachine
 from TeamMashing.HotLiquorTank import HotLiquorTank
 import threading

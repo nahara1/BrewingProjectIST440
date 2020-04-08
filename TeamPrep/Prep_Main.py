@@ -45,6 +45,9 @@ def thread_function(thread_id):
                 # GPIO.wait_for_edge(t_button_pin, GPIO.FALLING)
             print("\033[1;32;40m       temperature of yeast is in range and ready to use.\033[0;0m\n")   
             time.sleep(2)
+            '''
+            This thread function will be called each time this file runs to check them temperature of the yeast to see if the yeast is ready for use
+            '''
         except:
             
             GPIO.cleanup()
@@ -66,7 +69,9 @@ def main():
         thread_list.append(thread)
         # message = ('Batch: '+ str(x))
         print( message)
-        
+        '''
+       This main method
+        '''
 
     # for thread in thread_list:
         thread.start()
