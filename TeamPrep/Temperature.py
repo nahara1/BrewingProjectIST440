@@ -32,7 +32,10 @@ class Temperature:
         
         # humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
         # temperature = 9.0/5.0 * temperature + 32
-        print('\t\t\t Temp={0:0.0f}* F'.format(temperature))
+        if temperature<60 or temperature>80:
+            print('\t\t\tTemp = \033[1;31;40m{0:0.0f}*\033[0;0m F'.format(temperature))
+        else:
+            print('\t\t\tTemp = \033[1;32;40m{0:0.0f}*\033[0;0m F'.format(temperature))
         time.sleep(2)
         return temperature
         
