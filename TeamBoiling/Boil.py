@@ -4,7 +4,7 @@
 # Author: Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
 # Last Date Changed: 4/6/2020
-# Rev 1
+# Rev 2
 
 
 import datetime
