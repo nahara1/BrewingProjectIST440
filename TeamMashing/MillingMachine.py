@@ -9,7 +9,7 @@
 import datetime
 import time
 
-from Brewing.Log import Log
+from Brewing.MongoLog import Log
 from TeamMashing.SpargingTank import SpargingTank
 
 

@@ -7,7 +7,7 @@
 # Rev: 1.1
 
 import datetime
-from Brewing.Log import Log
+from Brewing.MongoLog import Log
 
 
 class HotLiquorTank:
