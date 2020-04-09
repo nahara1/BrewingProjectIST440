@@ -6,13 +6,12 @@
 # Last Date Changed: 3/31/2020
 # Rev: 1.2
 
-import sys
 import datetime
 import time
 
-from Log import Log
+from Brewing.Log import Log
 from TeamMashing.SpargingTank import SpargingTank
-import pyglet
+
 
 class MillingMachine:  # MillingMachine Start
     def __init__(self, mid, mt):  # constructor initalized fields
