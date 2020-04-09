@@ -6,10 +6,9 @@
 # Last Date Changed: 4/6/2020
 # Rev 2
 
-
 import datetime
 import time
-import TeamBoiling.QualityCheck
+# import TeamBoiling.QualityCheck
 import logging
 
 
@@ -21,6 +20,7 @@ class Boil():
     _stage_duration = datetime
     _end_stage_date_time = datetime
     _is_boiling = bool
+    status_log = "{\"boiling_stage\":\"Started Boiling\"}"
 
     def __init__(self):
         """
@@ -113,6 +113,7 @@ class Boil():
 
     logging.info("Thread %s: End Getters and Setters")
 
+
     def start_boil(self):
         """
         Initiates the boiling process
@@ -124,8 +125,8 @@ class Boil():
         print("Boil temp: " + self._boil_temp)
         print("Is it boiling? : " + self._is_boiling)
         time.sleep(self._boil_time)
-        qaCheck = TeamBoiling.QualityCheck()
-        self.finish_boil(self, qaCheck)
+        #qaCheck = TeamBoiling.QualityCheck()
+        #self.finish_boil(self, qaCheck)
 
     def finish_boil(self, qaCheck):
         print("QA Status: " + qaCheck)

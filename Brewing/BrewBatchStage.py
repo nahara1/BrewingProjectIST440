@@ -6,7 +6,6 @@
 # Last Date Changed: 4/6/2020
 # Rev 2
 
-
 import datetime
 import time
 import logging

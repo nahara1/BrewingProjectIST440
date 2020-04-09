@@ -9,7 +9,7 @@
 import datetime
 import time
 import logging
-from TeamBoiling import BrewBatchStage
+from Brewing import BrewBatchStage
 
 
 class BrewBatch():
