@@ -1,17 +1,18 @@
-#Project: IST 440 Barlog Brewery
-#Course: IST 440
-#Author: Anny Espinal (ace5139@psu.edu)
-#Date Developed: 4/6/20
-#Last Date Changed: 4/6/20
-#Rev: 1
+# Project: IST 440 Barlog Brewery
+# Course: IST 440
+# Author: Anny Espinal (ace5139@psu.edu)
+# Date Developed: 4/6/20
+# Last Date Changed: 4/6/20
+# Rev: 1
 
 class FermentationVessel:
-    def __init__(self, vesselID, brewMasterID):
-        self.vesselID = vesselID
-        self.brewMasterID = brewMasterID
 
-     # def closeLid(self):
-        # TODO: Add Code
+    def __init__(self, vessel_id, brew_master_id):
+        self.vessel_id = vessel_id
+        self.brew_master_id = brew_master_id
+
+    # def closeLid(self):
+    # TODO: Add Code
 
     # def brewingComplete(self):
     # TODO: Add Code
