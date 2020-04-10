@@ -1,7 +1,7 @@
 # Project: IST 440 Barlog Brewery
 # Purpose Details: To create a Recipe Class, used by each to retrieve information about the Lager's recipe.
 # Course: IST 440
-# Author: Asraa Alkurdi, Jinal Parmar, Anny Espinal
+# Author: Team Ferment
 # Date Developed: 3/16/2020
 # Last Date Changed: 4/6/2020
 # Rev: 5
@@ -11,6 +11,7 @@ class Recipe:
     """
     This class was written to be used by each team. All of the attributes are available to be obtained by getters.
     """
+
     def __init__(self, id, name, volume, yeast_storage_amt, yeast, yeast_begin_temp, grain, sparge_time, sparge_temp,
                  wort_volume, boil_temp, boil_time, add_hop_time, hop_amt, hops, after_boil_chill_temp, ferment_time,
                  add_yeast_time, add_yeast_temp, ferment_temp, wort_cool_temp, carbonation, bitter_units,
@@ -115,4 +116,3 @@ class Recipe:
 
     def get_ferment_cool_temp(self):
         return self._ferment_cool_temp
-

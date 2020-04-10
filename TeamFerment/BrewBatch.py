@@ -1,7 +1,7 @@
 # Project: IST 440 Barlog Brewery
 # Purpose Details: To develop a brew batch class
 # Course: IST 440
-# Author: Jinal Parmar (fjp5090@psu.edu), Asraa Alkurdi
+# Author: Team Ferment
 # Date Developed: 3/16/2020
 # Last Date Changed: 4/1/2020
 # Rev: 2

@@ -1,7 +1,7 @@
 # Project: IST 440 Barlog Brewery
 # Purpose Details: Creating communication between ServiceNOW to MongoDB, sending the Lager's recipe contents to MongoDB
 # Course: IST 440
-# Author: Asraa Alkurdi, Jinal Parmar, Anny Espinal
+# Author: Team Ferment
 # Date Developed: 4/8/2020
 # Last Date Changed: 4/8/2020
 # Rev: 1

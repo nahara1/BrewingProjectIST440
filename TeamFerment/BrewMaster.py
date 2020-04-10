@@ -1,7 +1,7 @@
 # Project: IST 440 Barlog Brewery
 # Purpose Details: To develop a Brew Master class that holds the information to the BrewMaster
 # Course: IST 440
-# Author: Jinal Parmar, Asraa Alkurdi, Anny Espinal
+# Author: Team Ferment
 # Date Developed: 3/18/2020
 # Last Date Changed: 4/6/2020
 # Rev: 2
