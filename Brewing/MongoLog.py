@@ -9,14 +9,14 @@
 import sys
 import time
 class Log:
-    def __init__(self, lid, bs, l, lt, pof): #contructor initializes fields
+    def __init__(self, lid, bs, l, lt, pof): # constructor initializes fields
         self.log_id = lid
         self.brewstage = bs
         self.log = l
         self.log_time = lt
         self._passOrFail = pof
 
-    def generate_log(self): #method generates a log in a readable format
+    def generate_log(self): # method generates a log in a readable format
         return "LogID: {}\n" \
             "Brew Stage: {}\n" \
             "Log: {}\n" \
