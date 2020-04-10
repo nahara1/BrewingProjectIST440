@@ -1,6 +1,6 @@
 # Project: IST 440 Barlog Brewery
 # Course: IST 440
-# Author: Anny Espinal (ace5139@psu.edu)
+# Author: Team Ferment
 # Date Developed: 4/6/20
 # Last Date Changed: 4/6/20
 # Rev: 1
