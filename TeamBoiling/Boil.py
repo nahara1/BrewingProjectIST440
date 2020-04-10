@@ -51,6 +51,7 @@ class Boil():
         logging.info("Thread %s: End Boiling", self)
 
     logging.info("Thread %s: Start Getters and Setters")
+
     def get_boil_time(self):
         """
         gets the boiling time
@@ -113,20 +114,21 @@ class Boil():
 
     logging.info("Thread %s: End Getters and Setters")
 
-
     def start_boil(self):
         """
         Initiates the boiling process
         :return: start of boiling process
         """
         logging.info("Thread %s: Start Boiling", self)
+        # TODO put in DisplayHelper and call that function
         print("Start time: " + self._stage_date_time)
         print("Boil time (mins): " + self._boil_time)
         print("Boil temp: " + self._boil_temp)
         print("Is it boiling? : " + self._is_boiling)
         time.sleep(self._boil_time)
-        #qaCheck = TeamBoiling.QualityCheck()
-        #self.finish_boil(self, qaCheck)
+        # TODO call QA Check from QualityCheck class
+        # qaCheck = TeamBoiling.QualityCheck()
+        # self.finish_boil(self, qaCheck)
 
     def finish_boil(self, qaCheck):
         print("QA Status: " + qaCheck)
@@ -138,6 +140,7 @@ class Boil():
         print("Ending boil")
         logging.info("Thread %s: Stop Boiling", self)
 
+    # TODO fix formatting
     def update_boil_status(self, _is_boiling):
         """
         Updates boiling status from start to finish
