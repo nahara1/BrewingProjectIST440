@@ -1,7 +1,7 @@
 # Project: MongoDB - Barlog Brewery
 # Purpose Details: Stores all logging information of application runs.
 # Course: IST 440
-# Author: Jinal Parmar
+# Author: Team Ferment
 # Date Developed: 3/18/2020
 # Last Date Changed: 4/2/2020
 # Rev: 2
