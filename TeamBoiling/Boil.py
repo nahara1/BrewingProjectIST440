@@ -3,12 +3,12 @@
 # Course: IST 440W - 001
 # Author: Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/6/2020
-# Rev 2
+# Last Date Changed: 4/10/2020
+# Rev 3
 
 import datetime
 import time
-# import TeamBoiling.QualityCheck
+import TeamBoiling.QualityCheck
 import logging
 
 
@@ -126,9 +126,15 @@ class Boil():
         print("Boil temp: " + self._boil_temp)
         print("Is it boiling? : " + self._is_boiling)
         time.sleep(self._boil_time)
-        # TODO call QA Check from QualityCheck class
-        # qaCheck = TeamBoiling.QualityCheck()
-        # self.finish_boil(self, qaCheck)
+
+    def update_boil_status(self, _is_boiling):
+        """
+        Updates boiling status from start to finish
+        :param _is_boiling: checks that boiling is in progress
+        :return: returns boiling status
+        """
+        self._is_boiling = _is_boiling
+        logging.info("Thread %s: Update Boiling Status", self)
 
     def finish_boil(self, qaCheck):
         print("QA Status: " + qaCheck)
@@ -140,12 +146,7 @@ class Boil():
         print("Ending boil")
         logging.info("Thread %s: Stop Boiling", self)
 
-    # TODO fix formatting
-    def update_boil_status(self, _is_boiling):
-        """
-        Updates boiling status from start to finish
-        :param _is_boiling: checks that boiling is in progress
-        :return: returns boiling status
-        """
-        self._is_boiling = _is_boiling
-        logging.info("Thread %s: Update Boiling Status", self)
+    #add conditions once boiling is finished
+    TeamBoiling.QualityCheck.QualityCheck.get_QA_Check()
+
+
