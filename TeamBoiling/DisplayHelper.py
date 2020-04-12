@@ -6,7 +6,8 @@
 # Last Date Changed:
 # Rev 1
 
-import logging
+import logging, time
+from TeamBoiling import Boil
 
 
 class DisplayHelper():
@@ -34,6 +35,33 @@ class DisplayHelper():
         """
         self.lcd_display = display
 
+    def print_start_info(self, stage_date_time, boil_time, boil_temp, is_boiling):
+        """
+        Prints start stage information to the screen
+        :param stage_date_time: Start time of the stage
+        :param boil_time: Time boil lasts
+        :param boil_temp: Temperature
+        :param is_boiling: Is it boiling
+        """
+        print("Start time: " + stage_date_time)
+        print("Boil time (mins): " + boil_time)
+        print("Boil temp: " + boil_temp)
+        print("Is it boiling? : " + is_boiling)
+        print('Now boiling for ' + boil_time)
+        time.sleep(boil_time)
+        print('Done boiling')
+        Boil.update_boil_status(False)
+
+    def print_end_info(self, end_stage_date_time, stage_duration):
+        """
+        Prints end stage information to the screen
+        :param end_stage_date_time:  Time that the boil ends
+        :param stage_duration:  Amount of time the stage lasted for
+        """
+        print("End time: " + end_stage_date_time)
+        print("Boil stage duration (mins): " + stage_duration)
+        print("Ending boil")
+
     def get_led_matrix_data(self):
         """
         Calls the LED Matrix on the CrowPi
@@ -59,4 +87,3 @@ class DisplayHelper():
         :return: returns the display and metrix set up on the CrowPi
         """
         display, matrix
-
