@@ -137,6 +137,7 @@ class Boil():
         duration = self._end_stage_date_time - self._stage_date_time
         self._stage_duration = duration.total_seconds()
         DisplayHelper.print_end_info(self._end_stage_date_time, self._stage_duration)
+        self.update_boil_status(False)
         logging.info("Thread %s: Stop Boiling", self)
 
     #add conditions once boiling is finished
