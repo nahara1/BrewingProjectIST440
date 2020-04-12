@@ -9,6 +9,7 @@
 import RPi.GPIO as GPIO
 from Sanitization import Sanitization
 from Temperature import Temperature
+from WeightScale import WeightScale
 import threading
 import time
 #from queue import Queue
@@ -20,19 +21,23 @@ pin = 4
 s_button_pin = 26 # UP key
 # button for temperature
 t_button_pin = 13 # DOWN key
+# button for weight
+w_button_pin = 19 # Right key
 
 # Pin setup
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(w_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 s = Sanitization(s_button_pin)
 t = Temperature(t_button_pin)
+w = WeightScale(w_button_pin)
 
 # this function will called on staring of every thread
 def thread_function(thread_id):
     try:
-        s.button_function()
+        s.sanitization()
         try:
             tmp = t.read_temp()
             while( tmp > 80 or tmp < 60):
@@ -48,6 +53,12 @@ def thread_function(thread_id):
             '''
             This thread function will be called each time this file runs to check them temperature of the yeast to see if the yeast is ready for use
             '''
+            try: 
+                w.read_weight()
+                
+            except:
+            
+                GPIO.cleanup()
         except:
             
             GPIO.cleanup()
