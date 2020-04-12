@@ -46,7 +46,7 @@ class Customer:
         return self.customer_phone
 
     def get_customer_email(self):
-       
+
         '''
         gets the customer email
         :return: customer email
