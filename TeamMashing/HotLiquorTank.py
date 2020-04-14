@@ -8,23 +8,19 @@
 
 import datetime
 from Brewing.MongoLog import Log
-
+from TeamMashing.SpargingTank import SpargingTank
 
 class HotLiquorTank:
-    def __init__(self, tID, wVolume, wtemperature):
-        self.tank_ID = tID
-        self.water_amount = wVolume
-        self.water_temp = wtemperature
-        self.is_transferred = False
+    def __init__(self):
+        self.tank_ID = 2
+        self.water_amount = 20
+        self.water_temp = 140
 
     def heat_water(self): #Water heating process starts
 
         """
         The start of water heating
-        :param tID: tank ID
-        :param wVolume: volume of water
-        :param wtemperature: temperature of the water
-        :param istransferred: transfer indication
+        :param water_temp: temperature of the water
         :return: return log and animation of burner light.
         """
 
@@ -32,39 +28,56 @@ class HotLiquorTank:
             # log to begin process
             log = Log(1, "Mashing.HotLiquorTank", "Water heating started.", datetime.datetime.now(), "pass")
             print(log.generate_log())
+            print("-----------------------------------------")
 
-            # log to end process
-            log = Log(2, "Mashing.HotLiquorTank", "Water heating completed.", datetime.datetime.now(), "pass")
-            print(log.generate_log())
-            return "Water temperature correct."
+            print("Water Temperature Heated To: ", self.water_temp, " degrees F")
+            print("-----------------------------------------")
+
+            self.check_water_temp()
 
         except Exception as e:
             print(e)
-
-    def get_tank_ID(self):
-        """
-        This gets the tank ID.
-        :return: tID
-        """
-        return self.tID
-
-    def get_water(self):
-        """
-        Getter for water volume
-        :return: water volume.
-        """
-        return self.wVolume
-
-    def send_hot_water_to_sparging_tank(self):
-        """
-        
-        :return: print statement
-        """
-        print("Hot water is sent to Sparging Tank.")
 
     def check_water_temp(self):
         """
         Checks the current temperature of the water.
         :return: current water temperature
         """
-        return self.wtemperature
+        log = Log(2, "Mashing.HotLiquorTank", "Checking Water Temperature", datetime.datetime.now(), "pass")
+        print(log.generate_log())
+        print("-----------------------------------------")
+
+        print("Water Temperature: ", self.water_temp, "degrees F")
+        print("-----------------------------------------")
+
+        self.check_water_volume()
+
+    def check_water_volume(self):
+        """
+        Getter for water volume
+        :return: water volume.
+        """
+        log = Log(3, "Mashing.HotLiquorTank", "Checking Water Volume", datetime.datetime.now(), "pass")
+        print(log.generate_log())
+        print("-----------------------------------------")
+
+        print("Water Volume: ", self.water_amount, "gallons")
+        print("-----------------------------------------")
+
+        self.send_hot_water_to_sparging_tank()
+
+    def send_hot_water_to_sparging_tank(self):
+        """
+        
+        :return: print statement
+        """
+        log = Log(3, "Mashing.HotLiquorTank", "Sending Hot Water to Sparging Tank", datetime.datetime.now(), "pass")
+        print(log.generate_log())
+        print("-----------------------------------------")
+
+        print("Hot water is sent to Sparging Tank.")
+        print("-----------------------------------------")
+
+        st = SpargingTank()
+        st.add_water()
+

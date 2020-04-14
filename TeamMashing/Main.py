@@ -17,16 +17,12 @@ def start_mashing_process(): # Mashing process start
     :returns: void
     """
 
-    m = MillingMachine(1, 10) # setting an object to milling machine, machine id and time
+    m = MillingMachine() # setting an object to milling machine, machine id and time
 
-    t1 = threading.Thread(target=m.mill_grains)
-
-    hlt = HotLiquorTank(2, 1, 1)
-
-    t2 = threading.Thread(target=hlt.send_hot_water_to_sparging_tank())
+    t1 = threading.Thread(target=m.check_grains_weight())
 
     t1.start()
-    t2.start()
+
 
 if __name__ == "__main__": # verify main method
     start_mashing_process()  # initiates mashing process
