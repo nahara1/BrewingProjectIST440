@@ -3,31 +3,40 @@
 # Course: IST 440W
 # Author: Team Kegging - Daibo Zhang
 # Date Developed: 4/03/2020
-# Last Date Changed: 4/03/2020
-# Rev: 1.0
+# Last Date Changed: 4/13/2020
+# Rev: 1.1
 
 import math
-
+from Brewing.Recipe import Recipe
 
 class KeggingBriteTank:  #Brite Tank
-    def __init__(self, bt_id, tank_temp, tank_max_volume, tank_current_volume, tank_pressure, beer_type):
+    def __init__(self, bt_id, tank_temp, tank_max_volume, tank_current_volume, tank_pressure, tank_status):
         self.bt_id = bt_id
         self.tank_temp = tank_temp
         self.tank_max_volume = tank_max_volume
         self.tank_current_volume = tank_current_volume
         self.tank_pressure = tank_pressure
-        self.beer_type = beer_type
+        self.tank_status = tank_status
 
     def get_status(self):
+        """
+
+        :return: KeggingBriteTank Status
+        """
         return "Brite_ID: {}\n" \
                "Brite_Temp: {}\n" \
                "Brite_Max_Volume: {}\n" \
                "Brite_Volume: {}\n" \
                "Brite_Pressure: {}\n" \
-               "Brite_Beer: {}\n".format(self.bt_id, self.tank_temp, self.tank_max_volume, self.tank_current_volume, self.tank_pressure, self.beer_type)
+               "Tank_Status: {}\n".format(self.bt_id, self.tank_temp, self.tank_max_volume, self.tank_current_volume, self.tank_pressure, self.tank_status)
 
     def get_carbonation(self):
-        carbchart = [["Carbchart"],[30,1.82,1.92,2.03,2.14,2.23,2.36,2.48,2.6,2.7,2.82,2.93,3.02,3.13,3.24,3.35,3.46,3.57,3.67,3.78,3.89,4,4.11,4.22,4.33,4.44,4.66,4.77,4.87,4.98,4.98],\
+        """
+
+        :return: Carbonation units
+        """
+        carbchart = [["Carbchart"],\
+        [30,1.82,1.92,2.03,2.14,2.23,2.36,2.48,2.6,2.7,2.82,2.93,3.02,3.13,3.24,3.35,3.46,3.57,3.67,3.78,3.89,4,4.11,4.22,4.33,4.44,4.66,4.77,4.87,4.98,4.98],\
         [31,1.78,1.88,2,2.1,2.2,2.31,2.42,2.54,2.65,2.76,2.86,2.96,3.07,3.17,3.28,3.39,3.5,3.6,3.71,3.82,3.93,4.03,4.14,4.25,4.35,4.46,4.57,4.68,4.78,4.89],\
         [32,1.75,1.85,1.95,2.05,2.15,2.27,2.38,2.48,2.59,2.7,2.8,2.9,3,3.11,3.21,3.31,3.42,3.52,3.63,3.73,3.84,3.94,4.04,4.15,4.25,4.36,4.46,4.57,4.67,4.77],\
         [33,1.71,1.81,1.91,2.01,2.1,2.23,2.33,2.43,2.53,2.63,2.74,2.84,2.96,3.06,3.15,3.25,3.35,3.46,3.56,3.66,3.76,3.87,3.97,4.07,4.18,4.28,4.38,4.48,4.59,4.69],\
@@ -66,8 +75,10 @@ class KeggingBriteTank:  #Brite Tank
 
         carbcharttemp = math.floor(self.tank_temp) - 29
         carbchartpsi = math.floor(self.tank_pressure)
+        batchcarb = carbchart[carbcharttemp][carbchartpsi]
+
         if self.tank_temp >= 30 and self.tank_pressure < 31:
-            print(carbchart[carbcharttemp][carbchartpsi])
+            return batchcarb
         elif self.tank_temp >= 66:
             print("Error: Brite Tank Temperature Too High")
         elif self.tank_temp < 30:
@@ -75,7 +86,24 @@ class KeggingBriteTank:  #Brite Tank
         else:
             print("Unknown Error")
 
+    def get_volume_dif(self):
+        """
+        Gets the volume difference for the brite tank
+        :param tank_current_volume
+        :param tank_max_volume
+        :return: Remaining free volume of the brite tank
+        """
+        if self.tank_current_volume < self.tank_max_volume:
+            return self.tank_max_volume - self.tank_current_volume
 
-testTank = KeggingBriteTank(1,35.78987,5.00,3.43,31,"Ale")
+    def start_brite_tank(self,Recipe):
+        try:
+            print("Test")
 
-testTank.get_carbonation()
+        except Exception as e:  # error handling
+            print(e)
+
+testTank = KeggingBriteTank(1,35.78987,5.00,3.43,21,"Ale")
+
+print(str(testTank.get_carbonation()) + " carbonation")
+print(str(testTank.get_volume_dif()) + " volume")

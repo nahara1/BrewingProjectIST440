@@ -35,35 +35,32 @@ t = Temperature(t_button_pin)
 w = WeightScale(w_button_pin)
 
 # this function will called on staring of every thread
+'''
+This thread function will be called each time this file runs to check them temperature of the yeast to see if the yeast is ready for use
+'''
 def thread_function(thread_id):
+    
     try:
         s.sanitization()
         try:
-            tmp = t.read_temp()
-            while( tmp > 80 or tmp < 60):
-                print("\033[1;31;40m\t\b***Temperature of yeast is out of range.***\033[0;0m")
-                print("\033[1;31;40m  ***Bring another yeast and measure temperature again.*** \033[0;0m\n")
-                time.sleep(5)
-                
-                #print("      press down button to measure temperature of yeast: ")
-                tmp = t.read_temp()
-                # GPIO.wait_for_edge(t_button_pin, GPIO.FALLING)
-            print("\033[1;32;40m       temperature of yeast is in range and ready to use.\033[0;0m\n")   
-            time.sleep(2)
-            '''
-            This thread function will be called each time this file runs to check them temperature of the yeast to see if the yeast is ready for use
-            '''
+            t.yeast_temp()
             try: 
-                w.read_weight()
-                
+                w.read_weight_grains()
+                try:
+                    w.read_weight_hops()
+                    """
+                    try:
+                        w.read_weight_sugar
+                    except:
+                        GPIO.cleanup()
+                    """
+                except:
+                    GPIO.cleanup()
             except:
-            
                 GPIO.cleanup()
         except:
-            
             GPIO.cleanup()
     except:
-        
         GPIO.cleanup()
 
         
