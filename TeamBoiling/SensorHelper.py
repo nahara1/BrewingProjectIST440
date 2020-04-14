@@ -1,10 +1,10 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: class for controlling sensors
 # Course: IST 440W - 001
-# Author: Teresa Barker (tlb5767@psu.edu)
+# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/6/2020
-# Rev 3
+# Last Date Changed: 4/14/2020
+# Rev 4
 
 import logging
 
@@ -91,6 +91,13 @@ class SensorHelper:
         logging.info("Thread %s: starting Send_Values", self)
         return self.send_values()
         logging.info("Thread %s: finishing Send_Values", self)
+
+
+
+
+
+    def get_buzzer(self):
+        print("Buzzzzz, Timer is done.")
 
 
 
