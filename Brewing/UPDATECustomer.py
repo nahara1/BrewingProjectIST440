@@ -1,3 +1,10 @@
+# Project: Brewing Automation System - Capstone Project
+# Purpose Details: Updated Customer data
+# Course: IST 440W - 001
+# Author: TeamPrep
+# Date Developed: Development Phase
+# Last Date Changed: 4/8/2020
+
 #Need to install requests package for python
 #easy_install requests
 import requests
