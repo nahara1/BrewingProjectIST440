@@ -95,8 +95,6 @@ class SensorHelper:
 
 
 
-
-
     def get_buzzer(self):
         print("Buzzzzz, Timer is done.")
 
