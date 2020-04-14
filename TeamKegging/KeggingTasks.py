@@ -17,6 +17,10 @@ class KeggingTasks:
         self.task_confirmation = task_confirmation
 
     def Keggingtasksmain():
+        """
+
+        :return:
+        """
         t1 = 'task 1'
         t2 = 'task 2'
         t3 = 'task 3'
