@@ -18,13 +18,19 @@ GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 class Sanitization:
     def __init__(self,button):
+        '''
+        Defines attributes of sanitization
+        '''
         self.button = button
+        '''
+        Adds method to the attribute for sanitization 
+        '''
 
-    def button_function(self):
+    def sanitization(self):
         print("\n    1. Press up button when sanitization is done:")
         GPIO.wait_for_edge(self.button,GPIO.FALLING)
         time.sleep(1)
-        message = ("\033[1;32;40m  Sanitization Completed \033[0;0m")   
+        message = ("\033[1;32;40m  Sanitization Completed. \033[0;0m")   
         print("\t\t" + message + "\n")
         time.sleep(2)
 

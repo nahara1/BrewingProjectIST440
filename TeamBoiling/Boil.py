@@ -3,13 +3,13 @@
 # Course: IST 440W - 001
 # Author: Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/6/2020
-# Rev 2
+# Last Date Changed: 4/10/2020
+# Rev 3
 
 import datetime
 import time
-# import TeamBoiling.QualityCheck
 import logging
+from TeamBoiling import DisplayHelper, QualityCheck
 
 
 class Boil():
@@ -51,6 +51,7 @@ class Boil():
         logging.info("Thread %s: End Boiling", self)
 
     logging.info("Thread %s: Start Getters and Setters")
+
     def get_boil_time(self):
         """
         gets the boiling time
@@ -113,30 +114,13 @@ class Boil():
 
     logging.info("Thread %s: End Getters and Setters")
 
-
     def start_boil(self):
         """
         Initiates the boiling process
         :return: start of boiling process
         """
         logging.info("Thread %s: Start Boiling", self)
-        print("Start time: " + self._stage_date_time)
-        print("Boil time (mins): " + self._boil_time)
-        print("Boil temp: " + self._boil_temp)
-        print("Is it boiling? : " + self._is_boiling)
-        time.sleep(self._boil_time)
-        #qaCheck = TeamBoiling.QualityCheck()
-        #self.finish_boil(self, qaCheck)
-
-    def finish_boil(self, qaCheck):
-        print("QA Status: " + qaCheck)
-        self._end_stage_date_time = datetime.datetime.now()
-        print("End time: " + self._end_stage_date_time)
-        duration = self._end_stage_date_time - self._stage_date_time
-        self._stage_duration = duration.total_seconds()
-        print("Boil stage duration (mins): " + self._stage_duration)
-        print("Ending boil")
-        logging.info("Thread %s: Stop Boiling", self)
+        DisplayHelper.print_info(self._start_date_time, self._boil_time, self._boil_temp, self._is_boiling)
 
     def update_boil_status(self, _is_boiling):
         """
@@ -146,3 +130,17 @@ class Boil():
         """
         self._is_boiling = _is_boiling
         logging.info("Thread %s: Update Boiling Status", self)
+
+    def finish_boil(self, qaCheck):
+        print("QA Status: " + qaCheck)
+        self._end_stage_date_time = datetime.datetime.now()
+        duration = self._end_stage_date_time - self._stage_date_time
+        self._stage_duration = duration.total_seconds()
+        DisplayHelper.print_end_info(self._end_stage_date_time, self._stage_duration)
+        self.update_boil_status(False)
+        logging.info("Thread %s: Stop Boiling", self)
+
+    # add conditions once boiling is finished
+    # QualityCheck.QualityCheck.get_QA_Check()
+
+

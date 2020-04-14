@@ -1,13 +1,14 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: class for implementing quality assurance
 # Course: IST 440W - 001
-# Author: Teresa Barker (tlb5767@psu.edu)
+# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/6/2020
-# Rev 4
+# Last Date Changed: 4/13/2020
+# Rev 6
 
 # Import Statements
 import time
+import logging
 
 
 class QualityCheck:
@@ -158,3 +159,13 @@ class QualityCheck:
         self._correct_volume = _correct_volume
 
     logging.info("Thread %s: finishing Getters and Setters")  # Threading
+
+    def get_QA_Check(self):
+        text = input("Please Inspect the Brew Quality. Does it Meet Our Standards? ")
+        print(text)
+        return text
+
+
+QualityCheck = QualityCheck('_recipe_boil_temp', '_batch_boil_time', '_batch_boil_temp', '_recipe_boil_time',
+                            '_boil_over','_overflowing', '_correct_volume')
+QualityCheck.get_QA_Check()
