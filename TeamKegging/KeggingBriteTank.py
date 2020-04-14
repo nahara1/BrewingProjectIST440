@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Kegging - Daibo Zhang
 # Date Developed: 4/03/2020
-# Last Date Changed: 4/03/2020
-# Rev: 1.0
+# Last Date Changed: 4/13/2020
+# Rev: 1.1
 
 import math
 from Brewing.Recipe import Recipe
@@ -87,6 +87,12 @@ class KeggingBriteTank:  #Brite Tank
             print("Unknown Error")
 
     def get_volume_dif(self):
+        """
+        Gets the volume difference for the brite tank
+        :param tank_current_volume
+        :param tank_max_volume
+        :return: Remaining free volume of the brite tank
+        """
         if self.tank_current_volume < self.tank_max_volume:
             return self.tank_max_volume - self.tank_current_volume
 

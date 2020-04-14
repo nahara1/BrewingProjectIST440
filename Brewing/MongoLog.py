@@ -14,11 +14,11 @@ class Log:
         self.brew_stage = brew_stage
         self.log = log
         self.log_time = log_time
-        self._passOrFail = pass_or_fail
+        self.pass_or_fail = pass_or_fail
 
     def generate_log(self): # method generates a log in a readable format
         return "LogID: {}\n" \
             "Brew Stage: {}\n" \
             "Log: {}\n" \
             "Log Time: {}\n" \
-            "Pass or Fail: {}\n".format(self.log_id, self.brew_stage, self.log, self.log_time, self._pass_or_fail)
+            "Pass or Fail: {}\n".format(self.log_id, self.brew_stage, self.log, self.log_time, self.pass_or_fail)
