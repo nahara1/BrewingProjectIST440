@@ -1,10 +1,10 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: Kegging - KeggingTask Class
 # Course: IST 440W - 001
-# Author: Aaleem
+# Author: Aaleem Siddiqui
 # Date Developed: 4/4/2020
 # Last Date Changed: 4/14/2020
-# Rev: 2
+# Rev: 3
 from pip._vendor.distlib.compat import raw_input
 
 
@@ -16,11 +16,9 @@ class KeggingTasks:
         self.task_status = task_status
         self.task_confirmation = task_confirmation
 
-    def Keggingtasksmain():
-        """
+    def Keggingtasksmain():  # kegging task start
 
-        :return:
-        """
+        # list of tasks
         t1 = 'task 1'
         t2 = 'task 2'
         t3 = 'task 3'
@@ -29,34 +27,43 @@ class KeggingTasks:
         t6 = 'task 6'
         t7 = 'task 7'
         t8 = 'task 8'
+
+        # adding tasks to list
         taskList = [t1, t2, t3, t4, t5, t6, t7, t8]
 
+        # declaring counters and defining length of task list
         length = len(taskList)
-        i = 0
-        j = 0
-        k = 0
+        taskCounter = 0
+        taskStatusCounter = 0
+        taskStatus = 0
 
-        while i < length:
+        # main loop for kegging tasks until completion
+        while taskCounter < length:
+
+            # prints completed / not completed based off counter (tasks must go in order)
             print("list of tasks:")
             print()
-            for i in range < length:
-                print(taskList[k] + " status: completed")
-                k += 1
+            for taskStatus in range(1, taskCounter + 1):
+                print(taskList[taskStatusCounter] + " status: completed")
+                taskStatusCounter += 1
 
-            for i in range > length:
-                print(taskList[k] + " status: not completed")
+            for taskStatus in range(taskCounter + 1, length + 1):
+                print(taskList[taskStatusCounter] + " status: not completed")
+                taskStatusCounter += 1
 
-
+            # resets task status counter
+            taskStatusCounter = 0
             print()
-            ans = raw_input("has " + taskList[i] + " been completed? Enter (y/n): ")
+
+            # prints current task and asks if complete
+            print("current task: " + taskList[taskCounter])
+            ans = raw_input("has this been completed? Enter (y/n): ")
             if ans == 'y':
-                i += 1
-                j += 1
-                k = 0
+                taskCounter += 1
             else:
-                k = 0
                 continue
 
+        # exit of while loop / all tasks completed
         print()
         print("all kegging tasks completed.")
 
