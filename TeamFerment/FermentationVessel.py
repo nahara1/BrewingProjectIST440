@@ -6,6 +6,7 @@
 # Rev: 1
 import random
 random_temp = 0
+import time
 class FermentationVessel:
 
     def __init__(self, vessel_id, brew_master_id):
@@ -24,26 +25,21 @@ class FermentationVessel:
         def closeLid(self):
             print("Begin to close lid")
 
-        def setTemperature(self):
-            for x in range(1):
-                random_temp = random.randint(67,73)
-                print("Temperture is set at: " + random_temp)
 
 
-         def setTime(self):
+         def beginFermentationProcess(self):
+             for i in range (1):
+                 time.sleep(25)
+                 print("Fermenting....")
+
              
-        #drainAle(self)
-        #QA(self, brew_master_id)
-        #sendToKegging(self)
+        def drainAle(self):
+            print("Draining Ale")
+        def QA(self, brew_master_id):
+            # TODO: Add QA code
+        def sendToKegging(self):
+            print("Sending Ale to Team Kegging")
 
-    # def closeLid(self):
-    # TODO: Add Code
 
-    # def brewingComplete(self):
-    # TODO: Add Code
 
-    # def drainAle(self):
-    # TODO: Add Code
 
-    # def cleaningStatus(self):
-    # TODO: Add Code
