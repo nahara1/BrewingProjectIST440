@@ -109,7 +109,7 @@ class FermentationVessel:
         Function for quality testing 
         :param brew_master_id: 
         :return: pass or fail and Log 
-        """""
+        """
        print("QA")
 
     def sendToKegging(self):
