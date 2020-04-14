@@ -34,6 +34,7 @@ class Sanitization:
         print("\t\t" + message + "\n")
         time.sleep(2)
 
+
 # # USAGE
 # s = sanitization(s_button_pin)
 # try:
