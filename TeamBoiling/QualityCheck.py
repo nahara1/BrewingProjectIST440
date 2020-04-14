@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/10/2020
-# Rev 5
+# Last Date Changed: 4/13/2020
+# Rev 6
 
 # Import Statements
 import time
@@ -161,9 +161,11 @@ class QualityCheck:
     logging.info("Thread %s: finishing Getters and Setters")  # Threading
 
     def get_QA_Check(self):
-        text = input("Please Inspect the Brew Quality.Does it Meet Our Standards? ")
+        text = input("Please Inspect the Brew Quality. Does it Meet Our Standards? ")
         print(text)
         return text
 
-QualityCheck = QualityCheck('_recipe_boil_temp', '_batch_boil_time', '_batch_boil_temp', '_recipe_boil_time', '_boil_over', '_overflowing', '_correct_volume')
+
+QualityCheck = QualityCheck('_recipe_boil_temp', '_batch_boil_time', '_batch_boil_temp', '_recipe_boil_time',
+                            '_boil_over','_overflowing', '_correct_volume')
 QualityCheck.get_QA_Check()

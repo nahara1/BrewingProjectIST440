@@ -83,12 +83,36 @@ class Water(Ingredients):
     adds the attributes for the water
     '''
 print(Water)
-
-    '''
-    prints out  the attribute listed for the water abstract class with data that goes along with the recipe pulled from the ServiceNow table
-    '''
+'''
+prints out  the attribute listed for the water abstract class with data that goes along with the recipe pulled from the ServiceNow table
+'''
 
 class get_ingredient:
     '''
     This class will pull data from ServiceNow to add to the attributes listed above
     '''
+    # Need to install requests package for python
+    # easy_install requests
+    import requests
+
+    # Set the request parameters
+    url = ''
+
+    # Eg. User name="admin", Password="admin" for this code sample.
+    user = 'IST440'
+    pwd = 'IST440'
+
+    # Set proper headers
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+
+    # Do the HTTP request
+    response = requests.get(url, auth=(user, pwd), headers=headers)
+
+    # Check for HTTP codes other than 200
+    if response.status_code != 200:
+        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
+    exit()
+
+    # Decode the JSON response into a dictionary and use the data
+    data = response.json()
+    print(data)

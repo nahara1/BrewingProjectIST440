@@ -8,8 +8,8 @@
 
 import datetime
 import time
-import TeamBoiling.QualityCheck
 import logging
+from TeamBoiling import DisplayHelper, QualityCheck
 
 
 class Boil():
@@ -120,12 +120,7 @@ class Boil():
         :return: start of boiling process
         """
         logging.info("Thread %s: Start Boiling", self)
-        # TODO put in DisplayHelper and call that function
-        print("Start time: " + self._stage_date_time)
-        print("Boil time (mins): " + self._boil_time)
-        print("Boil temp: " + self._boil_temp)
-        print("Is it boiling? : " + self._is_boiling)
-        time.sleep(self._boil_time)
+        DisplayHelper.print_info(self._start_date_time, self._boil_time, self._boil_temp, self._is_boiling)
 
     def update_boil_status(self, _is_boiling):
         """
@@ -139,14 +134,13 @@ class Boil():
     def finish_boil(self, qaCheck):
         print("QA Status: " + qaCheck)
         self._end_stage_date_time = datetime.datetime.now()
-        print("End time: " + self._end_stage_date_time)
         duration = self._end_stage_date_time - self._stage_date_time
         self._stage_duration = duration.total_seconds()
-        print("Boil stage duration (mins): " + self._stage_duration)
-        print("Ending boil")
+        DisplayHelper.print_end_info(self._end_stage_date_time, self._stage_duration)
+        self.update_boil_status(False)
         logging.info("Thread %s: Stop Boiling", self)
 
-    #add conditions once boiling is finished
-    TeamBoiling.QualityCheck.QualityCheck.get_QA_Check()
+    # add conditions once boiling is finished
+    # QualityCheck.QualityCheck.get_QA_Check()
 
 

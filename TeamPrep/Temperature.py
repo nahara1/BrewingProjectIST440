@@ -23,13 +23,13 @@ GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 class Temperature:
     def __init__(self,button):
         self.button = button
-
+        
+    
     def read_temp(self):
         temperature = random.randrange(55, 85, 1)
         print("    2. press down button to measure temperature of yeast: ")
         GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
         time.sleep(3)
-        
         # humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
         # temperature = 9.0/5.0 * temperature + 32
         if temperature<60 or temperature>80:
@@ -37,9 +37,24 @@ class Temperature:
         else:
             print('\t\t\tTemp = \033[1;32;40m{0:0.0f}*\033[0;0m F'.format(temperature))
         time.sleep(2)
+       
         return temperature
         
-    
+    def yeast_temp(self):
+        tmp = self.read_temp()
+        while( tmp > 80 or tmp < 60):
+            print("\033[1;31;40m\t\b***Temperature of yeast is out of range.***\033[0;0m")
+            print("\033[1;31;40m  ***Bring another yeast and measure temperature again.*** \033[0;0m\n")
+            time.sleep(5)
+            
+            #print("      press down button to measure temperature of yeast: ")
+            tmp = self.read_temp()
+
+            # GPIO.wait_for_edge(t_button_pin, GPIO.FALLING)
+        print("\033[1;32;40m       temperature of yeast is in range and ready to use.\033[0;0m\n")   
+        time.sleep(2)
+        
+         
 
 # # USAGE
 # t = temperature(t_button_pin)
