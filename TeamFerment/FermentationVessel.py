@@ -9,37 +9,40 @@ random_temp = 0
 import time
 class FermentationVessel:
 
+
     def __init__(self, vessel_id, brew_master_id):
         self.vessel_id = vessel_id
         self.brew_master_id = brew_master_id
 
-        def getWort(self,batch_id):
-            print("Wort recieved from boiling")
+    def getWort(self, batch_id):
+        print("Wort recieved from boiling")
 
+    def addToFermentationVessel(vessel_id):
+        print("Wort added to vessel" + vessel_id)
 
-        def addToFermentationVessel(vessel_id):
-            print("Wort added to vessel" + vessel_id)
+    def addYeast(self):
+        print("Yeast added")
 
-        def addYeast(self):
-            print ("Yeast added")
-        def closeLid(self):
-            print("Begin to close lid")
+    def closeLid(self):
+        print("Begin to close lid")
 
+    def beginFermentationProcess(self):
+        for i in range(1):
+            time.sleep(25)
+            print("Fermenting....")
 
+    def drainAle(self):
+        print("Draining Ale")
 
-         def beginFermentationProcess(self):
-             for i in range (1):
-                 time.sleep(25)
-                 print("Fermenting....")
+    def QA(self, brew_master_id):
+       print("QA")
 
-             
-        def drainAle(self):
-            print("Draining Ale")
-        def QA(self, brew_master_id):
-            # TODO: Add QA code
-        def sendToKegging(self):
-            print("Sending Ale to Team Kegging")
+    def sendToKegging(self):
+        print("Sending Ale to Team Kegging")
 
-
-
+    def main(self):
+        vessel = FermentationVessel()
+        vessel.beginFermentationProcess()
+    if __name__ == '__main__':
+        main(self)
 
