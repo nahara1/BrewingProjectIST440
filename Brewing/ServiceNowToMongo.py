@@ -43,7 +43,7 @@ with open('data.json', 'w') as f:
     json.dump(data, f)
 
 """
-Connecting to the Database 
+Connecting to the Mongo Database 
 """
 from pymongo import MongoClient
 
