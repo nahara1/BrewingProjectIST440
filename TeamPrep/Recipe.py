@@ -4,7 +4,7 @@
 # Author: Antonio Rivera :)
 # Date Developed: 4/9/20
 
-class recipe
+class recipe:
 
 
 
