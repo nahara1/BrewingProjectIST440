@@ -32,6 +32,7 @@ class Employee:
         '''
         return self.employee_role
 
+<<<<<<< HEAD
 class get_employee:
         # Set the request parameters
         # if sys_param=1, it returns only one record
@@ -55,3 +56,32 @@ class get_employee:
         # Decode the JSON response into a dictionary and use the data
         data = response.json()
         print(data)
+=======
+
+class get_employee:
+    #Need to install requests package for python
+    #easy_install requests
+    import requests
+
+    # Set the request parameters
+    url = ''
+
+    # Eg. User name="admin", Password="admin" for this code sample.
+    user = 'IST440'
+    pwd = 'IST440'
+
+    # Set proper headers
+    headers = {"Content-Type":"application/json","Accept":"application/json"}
+
+    # Do the HTTP request
+    response = requests.get(url, auth=(user, pwd), headers=headers )
+
+    # Check for HTTP codes other than 200
+    if response.status_code != 200:
+        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:',response.json())
+    exit()
+
+    # Decode the JSON response into a dictionary and use the data
+    data = response.json()
+    print(data)
+>>>>>>> b13a2266b1efcaf4558de5c25f14f24eb34e2573
