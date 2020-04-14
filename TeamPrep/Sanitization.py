@@ -18,7 +18,13 @@ GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 class Sanitization:
     def __init__(self,button):
+        '''
+        Defines attributes of sanitization
+        '''
         self.button = button
+        '''
+        Adds method to the attribute for sanitization 
+        '''
 
     def sanitization(self):
         print("\n    1. Press up button when sanitization is done:")
