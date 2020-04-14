@@ -3,30 +3,23 @@
 # Course: IST 440W - 001
 # Author: Team Boiling
 # Date Developed: 4/7/20
-# Last Date Changed: 4/7/2020
-# Rev 1
+# Last Date Changed: 4/13/2020
+# Rev 3
+
+#                            * * * Instructions * * *
+# Team Prep runs CreateLog.py to create a new row in the Service Now "Logging" table
+# After that, everyone runs UpdateLog.py to implement logging e.g. "Prep Stage has started",
+# "Prep has finished", "Mashing has started", "Mashing finished successfully", etc.
 
 import requests
-
-test = "{\"Boiling Stage \":\"Started Boiling\"}"
 
 
 class CreateLog():
 
-    # Set the request parameters
-
+    # URL for the Logging table
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_logging?'
 
-    """
-    To specify a number of records to be returned, add sysparm_limit=
-
-    Eg. if you want to return 100 records, set url to: 
-
-    url = 'https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_recipe?sysparm_limit=100'
-
-    """
-
-    # User name="IST440", Password="IST440" for this code sample.
+    # User name="IST440", Password="IST440" for every user
     user = 'IST440'
     pwd = 'IST440'
 
@@ -35,7 +28,7 @@ class CreateLog():
 
     # Do the HTTP request - POST is the HTTP request to create a record
     # response = requests.post(url, auth=(user, pwd), headers=headers, data="{\"recipe_name\":\"Beer 3\"}")
-    response = requests.post(url, auth=(user, pwd), headers=headers, data="{\"Boiling Stage \":\"Started Boiling\"}")
+    response = requests.post(url, auth=(user, pwd), headers=headers, data="{\"prep_stage\":\"Began Prep\"}")
 
     # Check for HTTP codes other than 200
     if response.status_code != 200:
@@ -45,3 +38,7 @@ class CreateLog():
     # Decode the JSON response into a dictionary and use the data
     data = response.json()
     print(data)
+
+    # get sys_id for row_id for UpdateLog.py
+    sysID = data.sys_id
+    print(sysID)
