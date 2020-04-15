@@ -97,8 +97,6 @@ class SensorHelper:
         for x in reversed(range(timer)):
             print(x)
             sleep(1)
-
-    def get_buzzer(self):
         print("Buzzzzz, Timer is done.")
 
 
