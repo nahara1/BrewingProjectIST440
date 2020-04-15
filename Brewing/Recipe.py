@@ -42,6 +42,18 @@ class Recipe:
         self._wort_cool_time = wort_cool_time
         self._ferment_cool_temp = ferment_cool_temp
 
+
+    # Constructor overload
+    def __init__(self, id, name, batch_size, yeast, abv, ibu, og, fg):
+        self._id = id
+        self._name = name
+        self._batch_size = batch_size
+        self._yeast = yeast
+        self._abv = abv
+        self._ibu = ibu
+        self._og = og
+        self._fg = fg
+
     def get_id(self):
         return self._id
 
