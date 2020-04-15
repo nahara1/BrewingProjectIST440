@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/10/2020
-# Rev 3
+# Last Date Changed: 4/15/2020
+# Rev 4
 
 import datetime
 import time
@@ -147,7 +147,11 @@ class Boil:
     # add conditions once boiling is finished
     # e.g. if yes, continue and run next methods and log success message
     # else if no, stop all & log failed message
-    QualityCheck.QualityCheck.get_QA_Check()
+
+
+
+
+
 
 
 # Hard coding for current functionality
@@ -158,3 +162,4 @@ boilTime = 10
 #Boil.update_boil_status(True)
 #Boil.finish_boil(qaCheck)
 SensorHelper.SensorHelper.boil_timer(boilTime)
+QualityCheck.QualityCheck.get_QA_Check()
