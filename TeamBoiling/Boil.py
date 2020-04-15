@@ -13,7 +13,6 @@ import logging
 from TeamBoiling import QualityCheck
 from TeamBoiling import DisplayHelper
 from TeamBoiling import SensorHelper
-from TeamBoiling import TempRecipe
 
 
 class Boil:
