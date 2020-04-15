@@ -146,7 +146,7 @@ class Boil():
     # add conditions once boiling is finished
     # QualityCheck.QualityCheck.get_QA_Check()
 
-    SensorHelper.SensorHelper.boil_timer(_boil_time)
+    SensorHelper.SensorHelper.boil_timer(5)
 
 
 

@@ -7,6 +7,7 @@
 # Rev 4
 
 import logging
+from time import sleep
 
 
 class SensorHelper:
@@ -95,6 +96,7 @@ class SensorHelper:
     def boil_timer(self, timer):
         for x in reversed(range(timer)):
             print(x)
+            sleep(1)
 
     def get_buzzer(self):
         print("Buzzzzz, Timer is done.")
