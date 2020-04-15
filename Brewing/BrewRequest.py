@@ -1,5 +1,5 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: class for connecting between cloud and local databases
+# Purpose Details: Class to get a brew request
 # Course: IST 440W - 001
 # Author: Nahara (nkm5334)
 # Date Developed: 4/14/20
@@ -7,6 +7,9 @@
 # Rev 1
 
 from Brewing import Recipe
+
+user = 'IST440'
+pwd = 'IST440'
 
 # Function to work with nested JSON
 # Code from: https://hackersandslackers.com/extract-data-from-complex-json-python/
@@ -29,7 +32,6 @@ def extract_values(obj, key):
 
     results = extract(obj, arr, key)
     return results
-
 
 
 def get_brew_request_number(req_id):
@@ -221,10 +223,6 @@ def get_recipe(recipe_name):
     # Set the request parameters
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_recipe?sysparm_query=recipe_name%3D' + recipe_name + '&sysparm_limit=1'
 
-    # Eg. User name="admin", Password="admin" for this code sample.
-    user = 'IST440'
-    pwd = 'IST440'
-
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
@@ -246,32 +244,45 @@ def get_recipe(recipe_name):
     # TODO - Add ALL recipe variables
     recipe_obj = extract_values(data, 'sys_id')
     recipe_id = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'recipe_name')
     recipe_name = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'batch_size')
     batch_size = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'yeast')
     yeast = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'abv')
     abv = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'ibu')
     ibu = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'og')
     og = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'fg')
     fg = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'grain_bill')
     grain_bill = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'water_temperature')
     water_temperature = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'water_volume')
     water_volume = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'sparging_time')
     sparging_time = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'boiling_duration')
     boiling_duration = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe = Recipe.Recipe(recipe_id, recipe_name, batch_size, yeast, abv, ibu, og, fg)
+
     print(recipe)
     print("Recipe data successfully retrieved")
     return recipe
