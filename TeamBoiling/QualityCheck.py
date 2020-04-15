@@ -163,6 +163,7 @@ class QualityCheck:
     def get_QA_Check(self):
         text = input("Please Inspect the Brew Quality. Does it Meet Our Standards? ")
         print(text)
+        # save text as variable
         return text
 
 

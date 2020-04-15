@@ -145,7 +145,9 @@ class Boil:
         logging.info("Thread %s: Stop Boiling", self)
 
     # add conditions once boiling is finished
-    # QualityCheck.QualityCheck.get_QA_Check()
+    # e.g. if yes, continue and run next methods and log success message
+    # else if no, stop all & log failed message
+    QualityCheck.QualityCheck.get_QA_Check()
 
 
 # Hard coding for current functionality

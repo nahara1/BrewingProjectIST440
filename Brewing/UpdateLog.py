@@ -25,6 +25,7 @@ log = TeamBoiling.Boil.Boil.status_log
 # kegging_log
 
 # row_id is the sys_id that will come from when CreateLog.py runs
+# row_id = sysID
 row_id = '339f13db1b40d010076b777c0a4bcb0f'
 
 
