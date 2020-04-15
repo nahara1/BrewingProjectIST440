@@ -174,7 +174,7 @@ class QualityCheck:
                 print("Quality Did not Pass, Please inspect and trash.")
                 break
             else:
-                text = input("Please Enter Yes or No:")
+                text = input("Please Enter Yes or No: ")
                 quality_checked = text
 
 

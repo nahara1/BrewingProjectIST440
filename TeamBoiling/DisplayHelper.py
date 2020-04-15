@@ -8,6 +8,8 @@
 
 import logging, time
 from datetime import datetime
+from time import sleep
+from Brewing import UpdateLog
 
 
 class DisplayHelper():
@@ -33,12 +35,29 @@ class DisplayHelper():
         :param boil_temp: Temperature
         :param is_boiling: Is it boiling
         """
-        print("Start time: " + stage_date_time)
-        print("Boil time (mins): " + boil_time)
-        print("Boil temp: " + boil_temp)
-        print("Is it boiling? : " + is_boiling)
-        print('Now boiling for ' + boil_time)
-        #Boil.update_boil_status(False)
+        print("Starting Boil Stage")
+        sleep(1)
+        print("Logging to ServiceNow...")
+        sleep(1)
+        # Add log
+        # status_log = "{\"boiling_stage\":\"Started Boiling\"}"
+        # log = status_log
+        # UpdateLog.UpdateLog.log_to_service_now(log)
+        print("Successfully logged that Boil Stage has started")
+        print("-----------------------------------------")
+        sleep(1)
+        print("Start Time:", stage_date_time)
+        sleep(1)
+        print("Boil Time:", boil_time, "Minutes")
+        sleep(1)
+        print("Boil Temp:", boil_temp, "Degrees Celsius")
+        print("-----------------------------------------")
+        sleep(1)
+        print("Turning on Burner...")
+        sleep(10)
+        print("Burner is up to temp! Temperature =", boil_temp, "degrees")
+        sleep(1)
+        print('Now boiling for', boil_time, "Minutes...")
 
     def print_end_info(self, end_stage_date_time, stage_duration):
         """
@@ -46,9 +65,14 @@ class DisplayHelper():
         :param end_stage_date_time:  Time that the boil ends
         :param stage_duration:  Amount of time the stage lasted for
         """
-        print("End time: " + end_stage_date_time)
-        print("Boil stage duration (mins): " + stage_duration)
-        print("Ending boil")
+        print("-----------------------------------------")
+        print("Brew has finished boiling!")
+        sleep(1)
+        print("End time:", end_stage_date_time)
+        sleep(1)
+        print("Brew Boiled for", stage_duration, "minutes")
+        print("-----------------------------------------")
+        sleep(1)
 
     logging.info("Thread %s: finishing Getters and Setters")  # Threading
 

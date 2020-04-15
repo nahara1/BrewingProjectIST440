@@ -14,3 +14,6 @@ class TempRecipe():
 
     def get_boil_time(self):
         return self.boil_time
+
+    def get_boil_temp(self):
+        return self.boil_temp
