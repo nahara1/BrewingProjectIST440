@@ -38,7 +38,3 @@ class CreateLog():
     # Decode the JSON response into a dictionary and use the data
     data = response.json()
     print(data)
-
-    # get sys_id for row_id for UpdateLog.py
-    sysID = data.sys_id
-    print(sysID)

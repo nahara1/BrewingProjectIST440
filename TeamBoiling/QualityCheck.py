@@ -163,9 +163,10 @@ class QualityCheck:
     def get_QA_Check(self):
         text = input("Please Inspect the Brew Quality. Does it Meet Our Standards? ")
         print(text)
+        # save text as variable
         return text
 
 
 QualityCheck = QualityCheck('_recipe_boil_temp', '_batch_boil_time', '_batch_boil_temp', '_recipe_boil_time',
-                            '_boil_over','_overflowing', '_correct_volume')
-QualityCheck.get_QA_Check()
+                            '_boil_over', '_overflowing', '_correct_volume')
+# QualityCheck.get_QA_Check()

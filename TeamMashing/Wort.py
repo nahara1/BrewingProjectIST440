@@ -3,13 +3,14 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 3/31/2020
-# Rev: 1.3
+# Last Date Changed: 4/14/2020
+# Rev: 1.4
 
 import datetime
 import time
 from Brewing.MongoLog import Log
 
+# Wort class checks for water temperature, water volume and records separation time.
 class Wort:
     def __init__(self):
         self.wort_id = 4
@@ -19,12 +20,12 @@ class Wort:
         self.separation_time = 10
 
     def check_hot_water_temp(self):
-        # Sets and displays the correct water temperature
+        # Checks for water temperature
         """
-        :param int: displays correct water temp
-        :return :Return Log and animation of wort processes
+        Displays correct water temp in the wort phase / generates a log
+        :return: Displays current date, time and correct water temperature
         """
-        # Records correct hot water temp to Log and show animation
+        # Records correct hot water temp to Log
         log = Log(1, "Mashing.Wort", "Wort transferred", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------")
@@ -35,12 +36,10 @@ class Wort:
         self.check_water_volume()
 
     def check_water_volume(self):
-        # Displays the correct water volume
+        # Checks for water volume
         """
-        :param current_water_volume: get the correct water volume
-        :param set_correct_water_volume: set the correct water volume
-        :param :transfer correct water volume
-        :return: Return Log and animation of wort processes
+        Displays the correct water volume / generates a log
+        :return: Current date, time and correct water volume
         """
         log = Log(2, "Mashing.Wort", "Water Volume", datetime.datetime.now(), "pass")
         print(log.generate_log())
@@ -52,11 +51,10 @@ class Wort:
         self.check_wort_volume()
 
     def check_wort_volume(self):
-        # Sets and displays wort volume
+        # Displays wort volume
         """
-        :type :float
-        :param float: shows correct wort volume
-        :return: Return log and animation of wort processes
+        Displays the correct wort volume / generates a log
+        :return: Current date, time and correct wort volume / and a log
         """
         # Records correct wort volume to Log and show animation
         log = Log(3, "Mashing.Wort", "Wort Transferred", datetime.datetime.now(), "pass")
@@ -71,21 +69,25 @@ class Wort:
     def separate_wort(self):
         # Separates the wort from the mash
         """
-        :return: Return Log and animation
+        Displays a count down while wort separation is in process
+        :return: Current date, time and count down to separating wort.
         """
         log = Log(4, "Mashing.Wort", "Wort Separation Started", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------")
 
+        # Counts the separation time in seconds
         while self.separation_time > 0:
             print("Wort Separating Time Left: ", self.separation_time, "sec")
             time.sleep(1)
             self.separation_time -= 1
 
+            # Verifies that the wort separation has been completed.
             if self.separation_time == 0:
                 print("Wort Separation Completed")
                 print("-----------------------------------------")
 
+        # Generates a log and displays the process has been successfully completed.
         log = Log(5, "Mashing.Wort", "Wort Separation Ended", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------")

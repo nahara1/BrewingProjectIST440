@@ -48,12 +48,10 @@ def thread_function(thread_id):
                 w.read_weight_grains()
                 try:
                     w.read_weight_hops()
-                    """
                     try:
-                        w.read_weight_sugar
+                        w.read_weight_sugar()
                     except:
                         GPIO.cleanup()
-                    """
                 except:
                     GPIO.cleanup()
             except:
