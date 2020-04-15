@@ -25,7 +25,7 @@ class FermentationVessel:
         :param batch_id:
         :return: Return log
         """
-        log = Log(1, "Receieving wort", "Recieved wort from Team Boil", datetime.datetim.now(), "pass")
+        log = Log(1, "Receieving wort", "Recieved wort from Team Boil", datetime.datetime.now(), "pass")
         print(log.generate_log())
         return ("Wort recieved from boiling")
 
@@ -36,7 +36,7 @@ class FermentationVessel:
         :return: Return log
         """
 
-        log = Log(2, "Addition to Fermentation Vessel", "Adding wort to fermenation vessel ", datetime.datetim.now(),
+        log = Log(2, "Addition to Fermentation Vessel", "Adding wort to fermenation vessel ", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
         return ("Wort added to vessel" + vessel_id)
@@ -49,7 +49,7 @@ class FermentationVessel:
         """
 
         log = Log(3, "Ferment.addYeast", "Activated yeast has been added to the fermentation vessel",
-                  datetime.datetim.now(), "pass")
+                  datetime.datetime.now(), "pass")
         print(log.generate_log())
         return "Activated yeast has been added to the fermentation vessel"
 
@@ -62,7 +62,7 @@ class FermentationVessel:
         :return: Return log
         """
 
-        log = Log(4, "Ferment.closeLid", "Closing lid", datetime.datetim.now(), "pass")
+        log = Log(4, "Ferment.closeLid", "Closing lid", datetime.datetime.now(), "pass")
         print(log.generate_log())
         return "Begin to close lid"
 
@@ -72,7 +72,7 @@ class FermentationVessel:
         :param: wort and yeast mixture
         :return: return Log and brewed Ale
         """
-        log = Log(5, "Ferment.beginFermentationProcess", "Beginning Fermentation Process", datetime.datetim.now(),
+        log = Log(5, "Ferment.beginFermentationProcess", "Beginning Fermentation Process", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
         return "Beginning Fermentation Process "
@@ -87,7 +87,7 @@ class FermentationVessel:
         :param: Ale
         :return: Return log and filtered Ale
         """
-        log = Log(5, "Ferment.drainAle", "Fermentation has completed. Draining Ale", datetime.datetim.now(), "pass")
+        log = Log(5, "Ferment.drainAle", "Fermentation has completed. Draining Ale", datetime.datetime.now(), "pass")
 
         print(log.generate_log())
 
