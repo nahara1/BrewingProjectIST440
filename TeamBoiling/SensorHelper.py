@@ -92,18 +92,16 @@ class SensorHelper:
         return self.send_values()
         logging.info("Thread %s: finishing Send_Values", self)
 
-    def boil_timer(self, time):
-        for x in time:
+    def boil_timer(self, timer):
+        for x in reversed(range(timer)):
             print(x)
-
-
-
 
     def get_buzzer(self):
         print("Buzzzzz, Timer is done.")
 
 
-SensorHelperObject = SensorHelper('_touch_sensor', '_buzzer_status', '_sensor_values')
-#SensorHelperObject.boil_timer()
+SensorHelper = SensorHelper('_touch_sensor', '_buzzer_status', '_sensor_values')
+
+# SensorHelper.boil_timer()
 
 

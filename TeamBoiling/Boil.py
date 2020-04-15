@@ -9,7 +9,10 @@
 import datetime
 import time
 import logging
-from TeamBoiling import DisplayHelper, QualityCheck, SensorHelper
+
+from TeamBoiling import QualityCheck
+from TeamBoiling import DisplayHelper
+from TeamBoiling import SensorHelper
 
 
 class Boil():
@@ -143,14 +146,7 @@ class Boil():
     # add conditions once boiling is finished
     # QualityCheck.QualityCheck.get_QA_Check()
 
-   # SensorHelper.SensorHelperObject.boil_timer(5)
-
-    def boil_timer(self):
-        time = 5
-        for x in time:
-            print(x)
+    SensorHelper.SensorHelper.boil_timer(_boil_time)
 
 
-boilObject = Boil('_boil_time', '_boil_temp', '_stage_date_time', '_stage_duration', '_end_stage_date_time' , '_is_boiling', "status_log")
-boilObject.boil_timer()
 
