@@ -13,9 +13,10 @@ import logging
 from TeamBoiling import QualityCheck
 from TeamBoiling import DisplayHelper
 from TeamBoiling import SensorHelper
+from TeamBoiling import TempRecipe
 
 
-class Boil():
+class Boil:
 
     _boil_time = time
     _boil_temp = 0.0
@@ -146,7 +147,12 @@ class Boil():
     # add conditions once boiling is finished
     # QualityCheck.QualityCheck.get_QA_Check()
 
-    SensorHelper.SensorHelper.boil_timer(5)
 
+# Hard coding for current functionality
+boilTime = 10
+#Boil(10, 100, True)
 
-
+#Boil.start_boil()
+#Boil.update_boil_status(True)
+#Boil.finish_boil(qaCheck)
+SensorHelper.SensorHelper.boil_timer(boilTime)
