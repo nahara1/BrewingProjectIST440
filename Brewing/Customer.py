@@ -46,7 +46,7 @@ class Customer:
         return self.customer_phone
 
     def get_customer_email(self):
-       
+
         '''
         gets the customer email
         :return: customer email
@@ -57,7 +57,7 @@ class Customer:
 import requests
 
 # Set the request parameters
-url = 'https://emplkasperpsu2.service-now.com/api/now/table/sys_user?sysparm_fields=first_name%2Clast_name%2Cemail%2Chome_phone%2Cstreet%2Ccity%2Cstate%2Czip&sysparm_limit=1'
+url = 'https://emplkasperpsu2.service-now.com/api/now/table/sys_user?sysparm_fields=first_name%2Clast_name%2Cemail%2Chome_phone%2Cstreet%2Ccity%2Cstate%2Czip&sysparm_limit=20'
 
 # Eg. User name="admin", Password="admin" for this code sample.
 user = 'IST440'

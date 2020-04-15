@@ -1,4 +1,4 @@
-# Project: IST 440 Barlog Brewery
+# Project: IST 440 Balrog Brewery
 # Purpose Details: To develop a main class that holds the information for the Fermentation process
 # Course: IST 440
 # Author: Team Ferment
