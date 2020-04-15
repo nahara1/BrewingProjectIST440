@@ -7,33 +7,23 @@
 # Rev 1
 
 import logging, time
-#from TeamBoiling import Boil
+from datetime import datetime
 
 
 class DisplayHelper():
 
-    def __init__(self):
-        logging.info("Thread %s: starting DisplayHelper", self)  # Threading
-        _lcd_display = object
-        _led_matrix = object
-        logging.info("Thread %s: finishing DisplayHelper", self)  # Threading
+    _boil_start_time = datetime
+    _boil_time = float
+    _boil_temp = float
+    _is_boiling = bool
+
+    def __init__(self, boil_start_time, boil_time, boil_temp, is_boiling):
+        self._boil_start_time = boil_start_time
+        self._boil_time = boil_time
+        self._boil_temp = boil_temp
+        self._is_boiling = is_boiling
 
     logging.info("Thread %s: starting Getters and Setters")  # Threading
-
-    def get_lcd_display_data(self):
-        """
-        Calls the LCD Display on the CrowPi
-        :return: returns the LCD display
-        """
-        return self._lcd_display
-
-    def set_lcd_display(self, display):
-        """
-        Sets the LCD display to display something
-        :param display: LCD Display to be set
-        :return: returns the display to be shown on the LCD of the CrowPi
-        """
-        self.lcd_display = display
 
     def print_start_info(self, stage_date_time, boil_time, boil_temp, is_boiling):
         """
@@ -48,9 +38,7 @@ class DisplayHelper():
         print("Boil temp: " + boil_temp)
         print("Is it boiling? : " + is_boiling)
         print('Now boiling for ' + boil_time)
-        time.sleep(boil_time)
-        print('Done boiling')
-        Boil.update_boil_status(False)
+        #Boil.update_boil_status(False)
 
     def print_end_info(self, end_stage_date_time, stage_duration):
         """
@@ -62,28 +50,7 @@ class DisplayHelper():
         print("Boil stage duration (mins): " + stage_duration)
         print("Ending boil")
 
-    def get_led_matrix_data(self):
-        """
-        Calls the LED Matrix on the CrowPi
-        :return: returns the current LEDs on the LED Matrix
-        """
-        return self._led_matrix
-
-    def set_led_matrix(self, matrix):
-        """
-        Sets the LED Matrix to turn LED lights off or on the matrix
-        :param matrix: lights on the LED matrix
-        :return: returns LEDs on the matrix
-        """
-        self._led_matrix = matrix
-
     logging.info("Thread %s: finishing Getters and Setters")  # Threading
 
-    def send_data(self, display, matrix):
-        """
-        Sends Data to the matrix or display to change or turn on
-        :param display: LCD display on the crowPi
-        :param matrix: LED Matrix on the CrowPi
-        :return: returns the display and metrix set up on the CrowPi
-        """
-        display, matrix
+
+DisplayHelper = DisplayHelper('_boil_start_time', '_boil_time','_boil_temp', '_is_boiling')

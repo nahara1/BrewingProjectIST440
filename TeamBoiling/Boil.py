@@ -161,5 +161,6 @@ boilTime = 10
 #Boil.start_boil()
 #Boil.update_boil_status(True)
 #Boil.finish_boil(qaCheck)
+DisplayHelper.DisplayHelper.print_start_info(stage_date_time='String', boil_time='10', boil_temp='100', is_boiling='True')
 SensorHelper.SensorHelper.boil_timer(boilTime)
 QualityCheck.QualityCheck.get_QA_Check()
