@@ -10,25 +10,25 @@ import math
 from Brewing.Recipe import Recipe
 
 class KeggingBriteTank:  #Brite Tank
-    def __init__(self, bt_id, tank_temp, tank_max_volume, tank_current_volume, tank_psi, tank_status):
+    def __init__(self, bt_id, bt_temp, bt_max_volume, bt_current_volume, bt_psi, bt_status):
         self.bt_id = bt_id
-        self.tank_temp = tank_temp
-        self.tank_max_volume = tank_max_volume
-        self.tank_current_volume = tank_current_volume
-        self.tank_psi = tank_psi
-        self.tank_status = tank_status
+        self.bt_temp = bt_temp
+        self.bt_max_volume = bt_max_volume
+        self.bt_current_volume = bt_current_volume
+        self.bt_psi = bt_psi
+        self.bt_status = bt_status
 
     def get_status(self):
         """
 
         :return: KeggingBriteTank Status
         """
-        return "Brite_ID: {}\n" \
-               "Brite_Temp: {}\n" \
-               "Brite_Max_Volume: {}\n" \
-               "Brite_Volume: {}\n" \
-               "Brite_PSI: {}\n" \
-               "Tank_Status: {}\n".format(self.bt_id, self.tank_temp, self.tank_max_volume, self.tank_current_volume, self.tank_psi, self.tank_status)
+        return "Brite Tank ID: {}\n" \
+               "Brite Tank Temperature: {}\n" \
+               "Brite Tank Max_Volume: {}\n" \
+               "Brite Tank Volume: {}\n" \
+               "Brite Tank PSI: {}\n" \
+               "Brite Tank Status: {}\n".format(self.bt_id, self.bt_temp, self.bt_max_volume, self.bt_current_volume, self.bt_psi, self.bt_status)
 
     def get_carbonation(self):
         """
@@ -73,73 +73,131 @@ class KeggingBriteTank:  #Brite Tank
         [64,0.91,0.97,1.03,1.09,1.15,1.21,1.27,1.33,1.39,1.45,1.51,1.57,1.63,1.69,1.75,1.81,1.87,1.93,1.99,2.05,2.11,2.17,2.23,2.29,2.35,2.41,2.47,2.52,2.58,2.64],\
         [65,0.88,0.94,1,1.06,1.11,1.17,1.23,1.29,1.35,1.41,1.46,1.52,1.58,1.64,1.7,1.76,1.82,1.87,1.93,1.99,2.05,2.11,2.17,2.23,2.28,2.34,2.4,2.46,2.52,2.58]]
 
-        carbcharttemp = math.floor(self.tank_temp) - 29
-        carbchartpsi = math.floor(self.tank_psi)
+        carbcharttemp = math.floor(self.bt_temp) - 29
+        carbchartpsi = math.floor(self.bt_psi)
         batchcarb = carbchart[carbcharttemp][carbchartpsi]
 
-        if self.tank_temp >= 30 and self.tank_psi < 31:
+        if 30 <= self.bt_temp <= 65 and 1 <= self.bt_psi < 31:
             return batchcarb
-        elif self.tank_temp >= 66:
-            print("Error: Brite Tank Temperature Too High")
-        elif self.tank_temp < 30:
-            print("Error: Brite Tank Temperature Too Low")
+        elif self.bt_temp < 30 or self.bt_temp >= 30:
+            return "Unknown"
+            print("Temperature out of range")
+        elif self.bt_psi < 1 or self.bt_psi >= 31:
+            return "Unknown"
         else:
-            print("Unknown Error")
+            return "Error"
 
     def get_volume_dif(self):
         """
         Gets the volume difference for the brite tank
-        :param tank_current_volume
-        :param tank_max_volume
+        :param bt_current_volume
+        :param bt_max_volume
         :return: Remaining free volume of the brite tank
         """
-        if self.tank_current_volume < self.tank_max_volume:
-            return self.tank_max_volume - self.tank_current_volume
+        if self.bt_current_volume < self.bt_max_volume:
+            return self.bt_max_volume - self.bt_current_volume
 
-    def update_tank_temp(self, cur_temp):
+    def update_bt_temp(self, cur_temp):
         """
         Updates the brite tank object with the temperature and returns the value
         :param cur_temp: the current tank temperature
         :return: Current Temperature of the Brite Tank
         """
-        self.tank_temp = cur_temp
+        self.bt_temp = cur_temp
         return cur_temp
 
-    def get_tank_temp(self):
+    def get_bt_temp(self):
         """
         Gets the current tank temperature in Fahrenheit and returns the value
         :return: Tank Temperature
         """
-        return self.tank_temp
+        return self.bt_temp
 
-    def update_tank_psi(self, cur_psi):
+    def update_bt_psi(self, cur_psi):
         """
         Updates the tank pressure and returns the value
         :param cur_psi: the current tank pressure
         :return: Current PSI of the Brite Tank
         """
-        self.tank_psi = cur_psi
+        self.bt_psi = cur_psi
         return cur_psi
 
-    def get_tank_psi(self):
+    def get_bt_psi(self):
         """
         Gets the current tank pressure in PSI and returns the value
         :return: Current Tank Pressure
         """
-        return self.tank_psi
+        return self.bt_psi
 
-    def print_status(self):
-        print("Tank Temperature: " + str(self.tank_temp) + " degrees Fahrenheit|| Tank Pressure: " + str(self.tank_psi)+ " PSI || Carbonation")
+    def print_carb_status(self):
+        """
+        Prints the Temperature, Pressure, and Carbonation Status of the brite tank.
 
-    def start_brite_tank(self, recipie_carb):
+        :return: Brite Tank status text
+        """
+        print("Tank Temperature: " + str(self.bt_temp) + " degrees Fahrenheit || Tank Pressure: " + str(self.bt_psi)+ " PSI || Carbonation: " + str(self.get_carbonation()) +" vols")
+
+    def bt_temp_control(self):
         try:
+            if self.bt_temp < 30:
+                print("Tank temperature is less than 30 degrees Fahrenheit. Please raise tank temperature above 30 degrees Fahrenheit.")
+                choice = input("Would you like to Manually or Automatically Adjust Temperature? Enter (M/A)")
+                if choice in ['m', 'M', 'manual','Manual','MANUAL', 'manually','Manually','MANUALLY']
+                    self.bt_status = "WAIT_TEMPERATURE_M"
+                    input("When you have finished adjusting the temperature press Enter to continue:")
+                    bt_temp = input("Enter the current temperature (degrees Fahrenheit): ")
+                    self.update_bt_temp(bt_temp)
+                elif choice in ['a','A','auto','Auto','AUTO','automatically','Automatically','AUTOMATICALLY']
+                    self.bt_status = "WAIT_TEMPERATURE_A"
+                    self.auto_temp()
+            elif self.bt_temp >= 66:
+                print("Tank temperature is greater than 66 degrees Fahrenheit. Please lower tank temperature below 66 degrees Fahrenheit.")
+                choice = input("Would you like to Manually or Automatically Adjust Temperature? Enter (M/A)")
+                if choice in ['m', 'M', 'manual','Manual','MANUAL', 'manually','Manually','MANUALLY']
+                    self.bt_status = "WAIT_TEMPERATURE_M"
+                    input("When you have finished adjusting the temperature press Enter to continue:")
+                    bt_temp = input("Enter the current temperature (degrees Fahrenheit): ")
+                    self.update_bt_temp(bt_temp)
+                elif choice in ['a','A','auto','Auto','AUTO','automatically','Automatically','AUTOMATICALLY']
+                    self.bt_status = "WAIT_TEMPERATURE_A"
+                    self.auto_temp()
+            elif 33 <= self.bt_temp < 66:
+                print("The tank temperature is in detectable range but not between the ideal range of 30 to 32 degrees Fahrenheit.")
+                response = input("Would you like to continue with the current the temperature? Enter (Y/N): ")
+                if response in ['y', 'Y', 'yes', 'Yes', 'YES']:
+                    self.bt_status = "WAIT_PSI"
+                elif response in ['n', 'N', 'no', 'No', 'NO']:
+                    self.bt_status = "WAIT_IDEAL_TEMPERATURE"
+            elif 30 <= self.bt_temp < 33:
+                print("The tank temperature in in the ideal range.")
+                self.bt_status = "WAIT_PSI"
+        except Exception as e:
+            print(e)
 
+    def bt_psi_control(self):
+        try:
+            if self.bt_psi < 1:
+                print("Tank PSI is less than 1. Please raise tank PSI above 1.")
+                self.bt_status = "WAIT_PSI_LOW"
+            elif self.bt_temp >= 31:
+                print("Tank PSI is greater than 31. Please lower tank PSI below 31 PSI.")
+                self.bt_status = "WAIT_PSI_HIGH"
+        except Exception as e:
+            print(e)
 
+    def auto_temp(self):
+        pass
 
+    def start_brite_tank(self, recipe_carb):
+        try:
+            print("placeholder")
         except Exception as e:  # error handling
             print(e)
 
-#testTank = KeggingBriteTank(1,35.78987,5.00,3.43,21,"Ale")
 
+
+
+testTank = KeggingBriteTank(1,35.78987,5.00,3.43,21,"STARTING")
+testTank.start_brite_tank(2.4)
 #print(str(testTank.get_carbonation()) + " carbonation")
 #print(str(testTank.get_volume_dif()) + " volume")
