@@ -12,7 +12,7 @@ from Brewing.MongoLog import Log
 import Brewing.BrewMaster
 
 class FermentationVessel:
-    def __init__(self, vessel_id, brew_master_id):
+    def __init__(self):
         self.vessel_id = 1
         self.brew_master_id = 345
         self.fermentation_time = 5
@@ -42,7 +42,7 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.measure_original_gravity()
 
-    def measure_original_gravity(self,):
+    def measure_original_gravity(self):
         """
         Function for taking the original gravity (OG) reading of the mixture
         :param: OG
