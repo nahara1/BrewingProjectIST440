@@ -49,7 +49,7 @@ class FermentationVessel:
         base_measurement = 0
         try:
             while  base_measurement < self.original_gravity:
-                print("Measuring: ",  base_measurement, "grams/milliLiter")
+                print("Measuring: ",  base_measurement, "g/mL") # grams per milli-Liter
                 time.sleep(1)
                 base_measurement +=0.050
                 if base_measurement == self.original_gravity:
@@ -123,7 +123,7 @@ class FermentationVessel:
         base_measurement = 0
         try:
             while base_measurement < self.final_gravity:
-                print("Measuring Final Gravity: ", base_measurement, "grams/milliLiter")
+                print("Measuring Final Gravity: ", base_measurement, "g/mL") # grams per milli-Liter
                 time.sleep(1)
                 base_measurement += 0.050
                 if base_measurement == self.final_gravity:
