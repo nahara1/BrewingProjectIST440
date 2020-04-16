@@ -3,7 +3,7 @@
 # Course: IST 440W - 001
 # Author: Erik Ellis (eae5206@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/12/2020
+# Last Date Changed: 4/16/2020
 # Rev 1
 
 import logging, time
