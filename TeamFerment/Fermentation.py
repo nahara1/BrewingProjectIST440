@@ -6,6 +6,21 @@
 # Last Date Changed: 4/6/20
 # Rev: 1
 
-# class Main:
-# This is where threading goes
-print("Hello World ")
+from TeamFerment.FermentationVessel import FermentationVessel
+
+import threading
+
+
+
+class main:
+
+    fermentation_vessel = FermentationVessel(1,456)
+
+    t1 = threading.Thread(target=fermentation_vessel.get_wort(123))
+
+    t1.start()
+
+
+
+if __name__ == "__main__":
+    main()

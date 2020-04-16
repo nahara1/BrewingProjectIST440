@@ -2,24 +2,37 @@
 #easy_install requests
 import requests
 
-# Set the request parameters
-url = 'https://emplkasperpsu2.service-now.com/api/now/table/sys_user/fa4b8ecbdb170010fe33ffb41d961954?sysparm_fields=sys_updated_on%2Csys_updated_by%2Cuser_name%2Cfirst_name%2Clast_name%2Cstreet%2Ccity%2Cstate%2Czip%2Cemail'
 
-# Eg. User name="admin", Password="admin" for this code sample.
+url = 'https://emplkasperpsu2.service-now.com/api/now/table/sys_user/fa4b8ecbdb170010fe33ffb41d961954?sysparm_fields=sys_updated_on%2Csys_updated_by%2Cuser_name%2Cfirst_name%2Clast_name%2Cstreet%2Ccity%2Cstate%2Czip%2Cemail'
+'''
+Sets the request parameters with ServiceNow url
+'''
+
 user = 'IST440'
 pwd = 'IST440'
+'''
+Sets the Username and Password for ServiceNow
+'''
 
-# Set proper headers
 headers = {"Content-Type":"application/json","Accept":"application/json"}
+'''
+Sets the proper headers
+'''
 
-# Do the HTTP request
 response = requests.patch(url, auth=(user, pwd), headers=headers )
+'''
+Does HTTP request and authentication of headers
+'''
 
-# Check for HTTP codes other than 200
 if response.status_code != 200:
     print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:',response.json())
     exit()
+    '''
+    Checks for HTTP codes other than 200 
+    '''
 
-# Decode the JSON response into a dictionary and use the data
 data = response.json()
 print(data)
+'''
+Decodes the JSON response into a dictionary and uses the data
+'''
