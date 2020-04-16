@@ -2,8 +2,8 @@
 # Course: IST 440
 # Author: Team Ferment
 # Date Developed: 4/6/20
-# Last Date Changed: 4/6/20
-# Rev: 1
+# Last Date Changed: 4/16/20
+# Rev: 2
 import datetime
 import random
 random_temp = 0
@@ -12,7 +12,7 @@ from Brewing.MongoLog import Log
 import Brewing.BrewMaster
 
 class FermentationVessel:
-    def __init__(self, vessel_id, brew_master_id):
+    def __init__(self):
         self.vessel_id = 1
         self.brew_master_id = 345
         self.fermentation_time = 5
@@ -22,7 +22,7 @@ class FermentationVessel:
     def get_wort(self, batch_id):
         """
         Function for receiving the wort
-        :param batch_id:
+        :param batch_id: the ID of the current batch
         :return: Return log
         """
         log = Log(1, "Receiving wort", "Received wort from Team Boil", datetime.datetime.now(), "pass")
@@ -42,7 +42,12 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.measure_original_gravity()
 
-    def measure_original_gravity(self,):
+    def measure_original_gravity(self):
+        """
+        Function for taking the original gravity (OG) reading of the mixture
+        :param: OG
+        :return: Return log
+        """
         log = Log(3, "Ferment.Measure Original Gravity", "Measuring original gravity ", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
@@ -64,6 +69,8 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.add_yeast()
 
+    def get_original_gravity(self):
+        return self.original_gravity
 
 
     def add_yeast(self):
@@ -79,6 +86,8 @@ class FermentationVessel:
         self.close_lid()
 
         return ("Yeast added")
+
+
     def close_lid(self):
         """
         Function for closing lid
@@ -118,6 +127,11 @@ class FermentationVessel:
         self.measure_final_gravity()
 
     def measure_final_gravity(self):
+        """
+        Function to measure the final gravity (FG) of the mixture
+        :param: FG
+        :return: return Log
+        """
         log = Log(9, "Ferment.FinalGravity", "Measuring Final Gravity", datetime.datetime.now(), "pass")
         print(log.generate_log())
         base_measurement = 0
@@ -138,6 +152,8 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.drain_ale()
 
+    def get_final_gravity(self):
+        return self.final_gravity
 
     def drain_ale(self):
         """
