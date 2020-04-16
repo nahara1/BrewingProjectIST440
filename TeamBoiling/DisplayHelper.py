@@ -3,10 +3,10 @@
 # Course: IST 440W - 001
 # Author: Erik Ellis (eae5206@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/12/2020
-# Rev 1
+# Last Date Changed: 4/15/2020
+# Rev 2
 
-import logging, time
+import logging
 from datetime import datetime
 from time import sleep
 from Brewing import UpdateLog
@@ -39,10 +39,8 @@ class DisplayHelper():
         sleep(1)
         print("Logging to ServiceNow...")
         sleep(1)
-        # Add log
-        # status_log = "{\"boiling_stage\":\"Started Boiling\"}"
-        # log = status_log
-        # UpdateLog.UpdateLog.log_to_service_now(log)
+        status_log = "{\"boiling_stage\":\"Started Boiling\"}"
+        UpdateLog.UpdateLog.log_to_service_now(self, status_log)
         print("Successfully logged that Boil Stage has started")
         print("-----------------------------------------")
         sleep(1)
@@ -54,7 +52,7 @@ class DisplayHelper():
         print("-----------------------------------------")
         sleep(1)
         print("Turning on Burner...")
-        sleep(10)
+        sleep(3)
         print("Burner is up to temp! Temperature =", boil_temp, "degrees")
         sleep(1)
         print('Now boiling for', boil_time, "Minutes...")

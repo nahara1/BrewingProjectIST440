@@ -6,13 +6,16 @@
 # Last Date Changed: 4/15/2020
 # Rev 4
 
+# To add logging to every team, where you want logging add the following lines:
+# status_log = "{\"boiling_stage\":\"Started Boiling\"}"
+# UpdateLog.UpdateLog.log_to_service_now(self, status_log)
+# change "boiling" to your stage name in the Logging table
+# e.g. prep_stage, mashing_stage, ferment_stage, kegging_stage
+
 import requests
 
-log = ''
-
-# row_id is the sys_id that will come from when CreateLog.py runs
-# row_id = sysID
-row_id = '09b4f0481bd01410076b777c0a4bcb1a'
+# Enter in sys_id after CreateLog.py runs
+row_id = '998c0d841b141410076b777c0a4bcbb9'
 
 
 class UpdateLog():
@@ -35,7 +38,6 @@ class UpdateLog():
             print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
             exit()
 
-        # Decode the JSON response into a dictionary and use the data
-        data = response.json()
-        print(data)
+        # Print Log statement
+        print("Logged Message:", log)
 
