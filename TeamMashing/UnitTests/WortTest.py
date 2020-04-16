@@ -1,3 +1,11 @@
+# Project: Brewing Project
+# Purpose Details: Unit test for Wort
+# Course: IST 440W
+# Author: Team Mashing
+# Date Developed: 4/15/2020
+# Last Date Changed: 4/15/2020
+# Rev: 1.0
+
 import datetime
 import time
 import unittest
