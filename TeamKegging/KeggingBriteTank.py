@@ -218,6 +218,7 @@ class KeggingBriteTank:  #Brite Tank
             else:
                 print("Error")
             self.print_carb_status()
+        return self.bt_temp
 
     def bt_psi_control(self):
         """
@@ -296,6 +297,7 @@ class KeggingBriteTank:  #Brite Tank
             else:
                 print("Error")
             self.print_carb_status()
+        return self.bt_psi
 
     def auto_carb(self, target_carb, delay):
         """
@@ -317,6 +319,7 @@ class KeggingBriteTank:  #Brite Tank
             else:
                 print("Error")
             self.print_carb_status()
+
 
 
     def start_brite_tank(self):
@@ -344,5 +347,5 @@ class KeggingBriteTank:  #Brite Tank
 
 
 
-testTank = KeggingBriteTank(1,35.78987,5.00,3.43,11,"START")
-testTank.start_brite_tank()
+#testTank = KeggingBriteTank(1,35.78987,5.00,3.43,11,"START")
+#testTank.start_brite_tank()
