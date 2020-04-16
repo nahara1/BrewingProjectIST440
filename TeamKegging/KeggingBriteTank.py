@@ -10,12 +10,12 @@ import math
 from Brewing.Recipe import Recipe
 
 class KeggingBriteTank:  #Brite Tank
-    def __init__(self, bt_id, tank_temp, tank_max_volume, tank_current_volume, tank_pressure, tank_status):
+    def __init__(self, bt_id, tank_temp, tank_max_volume, tank_current_volume, tank_psi, tank_status):
         self.bt_id = bt_id
         self.tank_temp = tank_temp
         self.tank_max_volume = tank_max_volume
         self.tank_current_volume = tank_current_volume
-        self.tank_pressure = tank_pressure
+        self.tank_psi = tank_psi
         self.tank_status = tank_status
 
     def get_status(self):
@@ -27,13 +27,13 @@ class KeggingBriteTank:  #Brite Tank
                "Brite_Temp: {}\n" \
                "Brite_Max_Volume: {}\n" \
                "Brite_Volume: {}\n" \
-               "Brite_Pressure: {}\n" \
-               "Tank_Status: {}\n".format(self.bt_id, self.tank_temp, self.tank_max_volume, self.tank_current_volume, self.tank_pressure, self.tank_status)
+               "Brite_PSI: {}\n" \
+               "Tank_Status: {}\n".format(self.bt_id, self.tank_temp, self.tank_max_volume, self.tank_current_volume, self.tank_psi, self.tank_status)
 
     def get_carbonation(self):
         """
-
-        :return: Carbonation units
+        Returns the Carbonation level of the Brita Tank based off of Temperature and Pressure. Min Temp is 30F, Max Temp is 65F. Min PSI is 1, Max PSI is 30.
+        :return: Carbonation level if Temp and PSI are within range, else returns Error.
         """
         carbchart = [["Carbchart"],\
         [30,1.82,1.92,2.03,2.14,2.23,2.36,2.48,2.6,2.7,2.82,2.93,3.02,3.13,3.24,3.35,3.46,3.57,3.67,3.78,3.89,4,4.11,4.22,4.33,4.44,4.66,4.77,4.87,4.98,4.98],\
@@ -74,17 +74,18 @@ class KeggingBriteTank:  #Brite Tank
         [65,0.88,0.94,1,1.06,1.11,1.17,1.23,1.29,1.35,1.41,1.46,1.52,1.58,1.64,1.7,1.76,1.82,1.87,1.93,1.99,2.05,2.11,2.17,2.23,2.28,2.34,2.4,2.46,2.52,2.58]]
 
         carbcharttemp = math.floor(self.tank_temp) - 29
-        carbchartpsi = math.floor(self.tank_pressure)
+        carbchartpsi = math.floor(self.tank_psi)
         batchcarb = carbchart[carbcharttemp][carbchartpsi]
 
-        if self.tank_temp >= 30 and self.tank_pressure < 31:
+        if 30 <= self.tank_temp <= 65 and 1 <= self.tank_psi < 31:
             return batchcarb
-        elif self.tank_temp >= 66:
-            print("Error: Brite Tank Temperature Too High")
-        elif self.tank_temp < 30:
-            print("Error: Brite Tank Temperature Too Low")
+        elif self.tank_temp < 30 or self.tank_temp >= 30:
+            return "Unknown"
+            print("Temperature out of range")
+        elif self.tank_psi < 1 or self.tank_psi >= 31:
+            return "Unknown"
         else:
-            print("Unknown Error")
+            return "Error"
 
     def get_volume_dif(self):
         """
@@ -96,14 +97,51 @@ class KeggingBriteTank:  #Brite Tank
         if self.tank_current_volume < self.tank_max_volume:
             return self.tank_max_volume - self.tank_current_volume
 
-    def start_brite_tank(self,Recipe):
+    def update_tank_temp(self, cur_temp):
+        """
+        Updates the brite tank object with the temperature and returns the value
+        :param cur_temp: the current tank temperature
+        :return: Current Temperature of the Brite Tank
+        """
+        self.tank_temp = cur_temp
+        return cur_temp
+
+    def get_tank_temp(self):
+        """
+        Gets the current tank temperature in Fahrenheit and returns the value
+        :return: Tank Temperature
+        """
+        return self.tank_temp
+
+    def update_tank_psi(self, cur_psi):
+        """
+        Updates the tank pressure and returns the value
+        :param cur_psi: the current tank pressure
+        :return: Current PSI of the Brite Tank
+        """
+        self.tank_psi = cur_psi
+        return cur_psi
+
+    def get_tank_psi(self):
+        """
+        Gets the current tank pressure in PSI and returns the value
+        :return: Current Tank Pressure
+        """
+        return self.tank_psi
+
+    def print_status(self):
+        print("Tank Temperature: " + str(self.tank_temp) + " degrees Fahrenheit || Tank Pressure: " + str(self.tank_psi)+ " PSI || Carbonation: " + str(self.get_carbonation()) +" vols")
+
+    def start_brite_tank(self, recipie_carb):
         try:
-            print("Test")
+            print("Placeholder")
+
+
 
         except Exception as e:  # error handling
             print(e)
 
-testTank = KeggingBriteTank(1,35.78987,5.00,3.43,21,"Ale")
-
-print(str(testTank.get_carbonation()) + " carbonation")
-print(str(testTank.get_volume_dif()) + " volume")
+testTank = KeggingBriteTank(1,25.78987,5.00,3.43,21,"Ale")
+testTank.print_status()
+#print(str(testTank.get_carbonation()) + " carbonation")
+#print(str(testTank.get_volume_dif()) + " volume")

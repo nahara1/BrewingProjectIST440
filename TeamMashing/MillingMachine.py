@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 3/31/2020
-# Rev: 1.2
+# Last Date Changed: 4/15/2020
+# Rev: 1.3
 
 import datetime
 import time
@@ -24,13 +24,16 @@ class MillingMachine:  # MillingMachine Start
         The start of milling grains
         :return: grains weight
         """
-        log = Log(1, "Mashing.Milling", "Grains Weighted", datetime.datetime.now(), "pass")
-        print(log.generate_log())
-        print("-----------------------------------------")
+        try:
+            log = Log(1, "Mashing.Milling", "Grains Weighted", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
 
-        print("Grains weight: ", self.grains_weight, "lb")
-        print("-----------------------------------------")
-        self.mill_grains()
+            print("Grains weight: ", self.grains_weight, "lb")
+            print("-----------------------------------------")
+            self.mill_grains()
+        except Exception as e:
+            print(e)
 
     def mill_grains(self):  # Mill_grains process start
         """
@@ -69,12 +72,14 @@ class MillingMachine:  # MillingMachine Start
         :param
         :return: print statement
         """
+        try:
+            log = Log(3, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
 
-        log = Log(3, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
-        print(log.generate_log())
-        print("-----------------------------------------")
-
-        print("Grains added to Sparging Tank")
-        print("-----------------------------------------")
-        hlt = HotLiquorTank()
-        hlt.heat_water()
+            print("Grains added to Sparging Tank")
+            print("-----------------------------------------")
+            hlt = HotLiquorTank()
+            hlt.heat_water()
+        except Exception as e:
+            print(e)

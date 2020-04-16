@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 4/14/2020
-# Rev: 1.4
+# Last Date Changed: 4/15/2020
+# Rev: 1.5
 
 import datetime
 import time
@@ -42,30 +42,36 @@ class Wort:
         Displays the correct water volume / generates a log
         :return: Current date, time and correct water volume
         """
-        log = Log(2, "Mashing.Wort", "Water Volume", datetime.datetime.now(), "pass")
-        print(log.generate_log())
-        print("-----------------------------------------")
+        try:
+            log = Log(2, "Mashing.Wort", "Water Volume", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
 
-        print("Water Volume: ", self.water_volume, "gallons")
-        print("-----------------------------------------")
+            print("Water Volume: ", self.water_volume, "gallons")
+            print("-----------------------------------------")
 
-        self.check_wort_volume()
+            self.check_wort_volume()
+        except Exception as e:
+            print(e)
 
-    def check_wort_volume(self):
+    def check_wort_volume(self):    # Wort Volume? Should we use it as BatchSize
         # Displays wort volume
         """
         Displays the correct wort volume / generates a log
         :return: Current date, time and correct wort volume / and a log
         """
         # Records correct wort volume to Log and show animation
-        log = Log(3, "Mashing.Wort", "Wort Transferred", datetime.datetime.now(), "pass")
-        print(log.generate_log())
-        print("-----------------------------------------")
+        try:
+            log = Log(3, "Mashing.Wort", "Wort Transferred", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
 
-        print("Wort Volume: ", self.wort_volume, "gallons")
-        print("-----------------------------------------")
+            print("Wort Volume: ", self.wort_volume, "gallons")
+            print("-----------------------------------------")
 
-        self.separate_wort()
+            self.separate_wort()
+        except Exception as e:
+            print(e)
 
     def separate_wort(self):
         # Separates the wort from the mash
@@ -73,25 +79,28 @@ class Wort:
         Displays a count down while wort separation is in process
         :return: Current date, time and count down to separating wort.
         """
-        log = Log(4, "Mashing.Wort", "Wort Separation Started", datetime.datetime.now(), "pass")
-        print(log.generate_log())
-        print("-----------------------------------------")
+        try:
+            log = Log(4, "Mashing.Wort", "Wort Separation Started", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
 
-        # Counts the separation time in seconds
-        while self.separation_time > 0:
-            print("Wort Separating Time Left: ", self.separation_time, "sec")
-            time.sleep(1)
-            self.separation_time -= 1
+            # Counts the separation time in seconds
+            while self.separation_time > 0:
+                print("Wort Separating Time Left: ", self.separation_time, "sec")
+                time.sleep(1)
+                self.separation_time -= 1
 
-            # Verifies that the wort separation has been completed.
-            if self.separation_time == 0:
-                print("Wort Separation Completed")
-                print("-----------------------------------------")
+                # Verifies that the wort separation has been completed.
+                if self.separation_time == 0:
+                    print("Wort Separation Completed")
+                    print("-----------------------------------------")
 
-        # Generates a log and displays the process has been successfully completed.
-        log = Log(5, "Mashing.Wort", "Wort Separation Ended", datetime.datetime.now(), "pass")
-        print(log.generate_log())
-        print("-----------------------------------------")
+            # Generates a log and displays the process has been successfully completed.
+            log = Log(5, "Mashing.Wort", "Wort Separation Ended", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
 
-        print("Wort Separated from Mash")
-        print("-----------------------------------------")
+            print("Wort Separated from Mash")
+            print("-----------------------------------------")
+        except Exception as e:  # error handling
+            print(e)
