@@ -9,12 +9,13 @@
 import datetime
 from Brewing.MongoLog import Log
 from TeamMashing.SpargingTank import SpargingTank
+from TeamMashing.RecipeMashing import recipe_mashing
 
 class HotLiquorTank:
     def __init__(self):
         self.tank_ID = 2
-        self.water_amount = 20
-        self.water_temp = 140
+        self.water_amount = recipe_mashing.water_amount
+        self.water_temp = recipe_mashing.water_amount
 
     def heat_water(self): #Water heating process starts
 

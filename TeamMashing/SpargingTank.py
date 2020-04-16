@@ -9,15 +9,16 @@ import datetime
 import time
 from Brewing.MongoLog import Log
 from TeamMashing.Wort import Wort
+from TeamMashing.RecipeMashing import recipe_mashing
 
 class SpargingTank: #constructor for the SpargingTank class
     def __init__(self):
         self.machine_id = 3
-        self.stir_time = 10
-        self.heating_time = 10
-        self.water_amount = 20
-        self.water_temp = 140
-        self.sparging_time = 10
+        self.stir_time = recipe_mashing.stir_time
+        self.heating_time = recipe_mashing.heating_time
+        self.water_amount = recipe_mashing.water_amount
+        self.water_temp = recipe_mashing.water_temp
+        self.sparging_time = recipe_mashing.sparging_time
 
     def add_water(self):
         #adding heated water to tank

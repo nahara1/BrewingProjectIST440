@@ -11,13 +11,13 @@ import time
 
 from Brewing.MongoLog import Log
 from TeamMashing.HotLiquorTank import HotLiquorTank
-
+from TeamMashing.RecipeMashing import recipe_mashing
 
 class MillingMachine:  # MillingMachine Start
     def __init__(self):  # constructor initalized fields
         self.machine_id = 1
-        self.mill_time = 10
-        self.grains_weight = 10
+        self.mill_time = recipe_mashing.mill_time
+        self.grains_weight = recipe_mashing.grains_weight
 
     def check_grains_weight(self):
         """

@@ -3,7 +3,7 @@
 # Course: IST 440W - 001
 # Author: Team Boiling
 # Date Developed: 4/7/20
-# Last Date Changed: 4/13/2020
+# Last Date Changed: 4/15/2020
 # Rev 3
 
 #                            * * * Instructions * * *
@@ -34,7 +34,3 @@ class CreateLog():
     if response.status_code != 200:
         print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
         exit()
-
-    # Decode the JSON response into a dictionary and use the data
-    data = response.json()
-    print(data)
