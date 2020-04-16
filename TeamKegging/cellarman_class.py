@@ -17,6 +17,8 @@ class CellarmanClass:  #Cellarman Class
         return "Cellarman_ID: {}\n" \
                "Cellarman_Name: {}\n" \
                "Cellarman_Role: {}\n".format(self.cc_id, self.cc_name, self.cc_role)
+    input("Taste Test")
+
 
 testCellarman = CellarmanClass(13, "Jun Baek", "Quality Assurance 1")
 
