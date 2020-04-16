@@ -16,8 +16,8 @@ import Brewing.BrewMaster
 class FermentationVessel:
 
     def __init__(self, vessel_id, brew_master_id):
-        self.vessel_id = vessel_id
-        self.brew_master_id = brew_master_id
+        self.vessel_id = 1
+        self.brew_master_id = 345
 
     def get_wort(self, batch_id):
         """
@@ -25,22 +25,25 @@ class FermentationVessel:
         :param batch_id:
         :return: Return log
         """
-        log = Log(1, "Receieving wort", "Recieved wort from Team Boil", datetime.datetim.now(), "pass")
+        log = Log(1, "Receieving wort", "Recieved wort from Team Boil", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------")
 
+        self.add_to_fermentation_vessel(vessel_id=1)
 
-    def add_to_fermentationVessel(vessel_id):
+
+    def add_to_fermentation_vessel(self, vessel_id):
         """
         Function for adding the wort to fermentation vessel
         :param: vessel_id
         :return: Return log
         """
 
-        log = Log(2, "Addition to Fermentation Vessel", "Adding wort to fermenation vessel ", datetime.datetim.now(),
+        log = Log(2, "Addition to Fermentation Vessel", "Adding wort to fermenation vessel ", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
         print("-----------------------------------------")
+        self.add_yeast()
 
 
     def add_yeast(self):
@@ -51,9 +54,10 @@ class FermentationVessel:
         """
 
         log = Log(3, "Ferment.addYeast", "Activated yeast has been added to the fermentation vessel",
-                  datetime.datetim.now(), "pass")
+                  datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------")
+        self.close_lid()
 
 
         return ("Yeast added")
@@ -65,9 +69,10 @@ class FermentationVessel:
         :return: Return log
         """
 
-        log = Log(4, "Ferment.closeLid", "Closing lid", datetime.datetim.now(), "pass")
+        log = Log(4, "Ferment.closeLid", "Closing lid", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------")
+        self.begin_fermentation_process()
 
 
     def begin_fermentation_process(self):
@@ -76,10 +81,11 @@ class FermentationVessel:
         :param: wort and yeast mixture
         :return: return Log and brewed Ale
         """
-        log = Log(5, "Ferment.beginFermentationProcess", "Beginning Fermentation Process", datetime.datetim.now(),
+        log = Log(5, "Ferment.beginFermentationProcess", "Beginning Fermentation Process", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
         print("-----------------------------------------")
+        self.drain_ale()
 
 
         # for i in range(1):
@@ -92,11 +98,12 @@ class FermentationVessel:
         :param: Ale
         :return: Return log and filtered Ale
         """
-        log = Log(5, "Ferment.drainAle", "Fermentation has completed. Draining Ale", datetime.datetim.now(), "pass")
+        log = Log(6, "Ferment.drainAle", "Fermentation has completed. Draining Ale", datetime.datetime.now(), "pass")
 
         print(log.generate_log())
 
         print("-----------------------------------------")
+        self.qa(1)
 
 
     def qa(self, brew_master_id):
@@ -106,8 +113,11 @@ class FermentationVessel:
         :return: pass or fail and Log 
         """
 
-    print("QA")
-    print("-----------------------------------------")
+        print("QA")
+        print("-----------------------------------------")
+        self.send_to_kegging()
+
+
 
 
     def send_to_kegging(self):
