@@ -27,14 +27,17 @@ class Wort:
         :return: Displays current date, time and correct water temperature
         """
         # Records correct hot water temp to Log
-        log = Log(1, "Mashing.Wort", "Wort transferred", datetime.datetime.now(), "pass")
-        print(log.generate_log())
-        print("-----------------------------------------")
+        try:
+            log = Log(1, "Mashing.Wort", "Wort transferred", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
 
-        print("Hot Water Temperature: ", self.hot_water_temp, "degrees F")
-        print("-----------------------------------------")
+            print("Hot Water Temperature: ", self.hot_water_temp, "degrees F")
+            print("-----------------------------------------")
 
-        self.check_water_volume()
+            self.check_water_volume()
+        except Exception as e:
+            print(e)
 
     def check_water_volume(self):
         # Checks for water volume
