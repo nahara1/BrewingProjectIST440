@@ -11,12 +11,13 @@ class Recipe:
     """
     This class was written to be used by each team. All of the attributes are available to be obtained by getters.
     """
+    recipe_id = 0
 
-    def __init__(self, id, name, volume, yeast_storage_amt, yeast, yeast_begin_temp, grain, sparge_time, sparge_temp,
+    def __init__(self, recipe_id, name, volume, yeast_storage_amt, yeast, yeast_begin_temp, grain, sparge_time, sparge_temp,
                  wort_volume, boil_temp, boil_time, add_hop_time, hop_amt, hops, after_boil_chill_temp, ferment_time,
                  add_yeast_time, add_yeast_temp, ferment_temp, wort_cool_temp, carbonation, bitter_units,
                  wort_cool_time, ferment_cool_temp):
-        self._id = id
+        self._recipe_id = recipe_id
         self._name = name
         self._volume = volume
         self._yeast_store_amt = yeast_storage_amt
@@ -44,8 +45,8 @@ class Recipe:
 
 
     # Constructor overload
-    def __init__(self, id, name, batch_size, yeast, abv, ibu, og, fg):
-        self._id = id
+    def __init__(self, recipe_id, name, batch_size, yeast, abv, ibu, og, fg):
+        self._recipe_id = recipe_id
         self._name = name
         self._batch_size = batch_size
         self._yeast = yeast
@@ -55,7 +56,7 @@ class Recipe:
         self._fg = fg
 
     def get_id(self):
-        return self._id
+        return self._recipe_id
 
     def get_name(self):
         return self._name
