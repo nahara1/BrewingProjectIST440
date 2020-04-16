@@ -69,6 +69,8 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.add_yeast()
 
+    def get_original_gravity(self):
+        return self.original_gravity
 
 
     def add_yeast(self):
@@ -150,6 +152,8 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.drain_ale()
 
+    def get_final_gravity(self):
+        return self.final_gravity
 
     def drain_ale(self):
         """
