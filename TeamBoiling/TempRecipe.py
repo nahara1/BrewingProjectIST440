@@ -9,11 +9,6 @@
 
 class TempRecipe():
 
-    boil_time = 50
-    boil_temp = 100
+    _boil_time = 50
+    _boil_temp = 100
 
-    def get_boil_time(self):
-        return self.boil_time
-
-    def get_boil_temp(self):
-        return self.boil_temp
