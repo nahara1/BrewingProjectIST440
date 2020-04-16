@@ -10,6 +10,7 @@ import random
 random_temp = 0
 import time
 from Brewing.MongoLog import Log
+
 import Brewing.BrewMaster
 
 
@@ -18,6 +19,7 @@ class FermentationVessel:
     def __init__(self, vessel_id, brew_master_id):
         self.vessel_id = 1
         self.brew_master_id = 345
+        self.fermentation_time = 5
 
     def get_wort(self, batch_id):
         """
@@ -44,6 +46,11 @@ class FermentationVessel:
         print(log.generate_log())
         print("-----------------------------------------")
         self.add_yeast()
+
+
+
+
+
 
 
     def add_yeast(self):
@@ -84,8 +91,27 @@ class FermentationVessel:
         log = Log(5, "Ferment.beginFermentationProcess", "Beginning Fermentation Process", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
-        print("-----------------------------------------")
+       #print("-----------------------------------------")
+
+        try:
+            while self.fermentation_time > 0:
+                print("Fermentation time Left: ", self.fermentation_time, "sec")
+                time.sleep(1)
+                self.fermentation_time -= 1
+
+                if self.fermentation_time == 0:
+                    print("Fermentation has completed")
+                    print("-----------------------------------------")
+                    log = Log(6, "Ferment.beginFermentationProcess", "Fermentation has completed",
+                              datetime.datetime.now(),
+                              "pass")
+                    print(log.generate_log())
+        except Exception as ex:
+            print(ex)
+
+
         self.drain_ale()
+
 
 
         # for i in range(1):
@@ -98,7 +124,7 @@ class FermentationVessel:
         :param: Ale
         :return: Return log and filtered Ale
         """
-        log = Log(6, "Ferment.drainAle", "Fermentation has completed. Draining Ale", datetime.datetime.now(), "pass")
+        log = Log(7, "Ferment.drainAle", "Fermentation has completed. Draining Ale", datetime.datetime.now(), "pass")
 
         print(log.generate_log())
 
@@ -126,6 +152,9 @@ class FermentationVessel:
         :param: Filter Ale
         :return: Return Log
         """
+
+        log = Log(9, "Ferment.send_to_kegging", "Ale sent to kegging", datetime.datetime.now(), "pass")
+        print(log.generate_log())
 
         print("-----------------------------------------")
 

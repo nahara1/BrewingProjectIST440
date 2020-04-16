@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 4/14/2020
-# Rev: 1.2
+# Last Date Changed: 3/18/2020
+# Rev: 1.1
 
 from TeamMashing.MillingMachine import MillingMachine
 from TeamMashing.HotLiquorTank import HotLiquorTank
