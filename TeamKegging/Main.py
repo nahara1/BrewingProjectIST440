@@ -6,7 +6,8 @@
 # Last Date Changed: 4/14/2020
 # Rev: 1.0
 
-from TeamKegging import KeggingBriteTank
+from TeamKegging.KeggingBriteTank import KeggingBriteTank
 
-def start_kegging():
-    print("start")
+testtank = KeggingBriteTank(1,35.78987,5.00,3.43,21,"Ale")
+testtank.update_tank_temp(37)
+print(testtank.get_carbonation())

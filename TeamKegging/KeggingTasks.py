@@ -7,6 +7,7 @@
 # Rev: 3
 from pip._vendor.distlib.compat import raw_input
 
+import datetime
 
 class KeggingTasks:
     def __init__(self, task_id, task_category, task_prerequisite, task_status, task_confirmation):
@@ -36,12 +37,14 @@ class KeggingTasks:
 
         # adding tasks to list
         taskList = [t1, t2, t3, t4, t5, t6, t7, t8]
+        timeStampList = []
 
         # declaring counters and defining length of task list
         length = len(taskList)
         taskCounter = 0
         taskStatusCounter = 0
         taskStatus = 0
+        currentTimeStamp = 0
 
         # main loop for kegging tasks until completion
         while taskCounter < length:
@@ -50,7 +53,7 @@ class KeggingTasks:
             print("list of tasks:")
             print()
             for taskStatus in range(1, taskCounter + 1):
-                print(taskList[taskStatusCounter] + " status: completed")
+                print(taskList[taskStatusCounter] + " status: completed at " + timeStampList[taskStatusCounter])
                 taskStatusCounter += 1
 
             for taskStatus in range(taskCounter + 1, length + 1):
@@ -66,6 +69,8 @@ class KeggingTasks:
             ans = raw_input("has this been completed? Enter (y/n): ")
             if ans == 'y':
                 taskCounter += 1
+                currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+                timeStampList.append(currentTimeStamp)
             else:
                 continue
 
