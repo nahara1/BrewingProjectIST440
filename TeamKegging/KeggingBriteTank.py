@@ -77,14 +77,15 @@ class KeggingBriteTank:  #Brite Tank
         carbchartpsi = math.floor(self.tank_psi)
         batchcarb = carbchart[carbcharttemp][carbchartpsi]
 
-        if self.tank_temp >= 30 and self.tank_psi < 31:
+        if 30 <= self.tank_temp <= 65 and 1 <= self.tank_psi < 31:
             return batchcarb
-        elif self.tank_temp >= 66:
-            print("Error: Brite Tank Temperature Too High")
-        elif self.tank_temp < 30:
-            print("Error: Brite Tank Temperature Too Low")
+        elif self.tank_temp < 30 or self.tank_temp >= 30:
+            return "Unknown"
+            print("Temperature out of range")
+        elif self.tank_psi < 1 or self.tank_psi >= 31:
+            return "Unknown"
         else:
-            print("Unknown Error")
+            return "Error"
 
     def get_volume_dif(self):
         """
@@ -129,17 +130,18 @@ class KeggingBriteTank:  #Brite Tank
         return self.tank_psi
 
     def print_status(self):
-        print("Tank Temperature: " + str(self.tank_temp) + " degrees Fahrenheit|| Tank Pressure: " + str(self.tank_psi)+ " PSI || Carbonation")
+        print("Tank Temperature: " + str(self.tank_temp) + " degrees Fahrenheit || Tank Pressure: " + str(self.tank_psi)+ " PSI || Carbonation: " + str(self.get_carbonation()) +" vols")
 
     def start_brite_tank(self, recipie_carb):
         try:
+            print("Placeholder")
 
 
 
         except Exception as e:  # error handling
             print(e)
 
-#testTank = KeggingBriteTank(1,35.78987,5.00,3.43,21,"Ale")
-
+testTank = KeggingBriteTank(1,25.78987,5.00,3.43,21,"Ale")
+testTank.print_status()
 #print(str(testTank.get_carbonation()) + " carbonation")
 #print(str(testTank.get_volume_dif()) + " volume")
