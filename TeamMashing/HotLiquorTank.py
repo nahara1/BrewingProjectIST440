@@ -15,7 +15,7 @@ class HotLiquorTank:
     def __init__(self):
         self.tank_ID = 2
         self.water_amount = recipe_mashing.water_amount
-        self.water_temp = recipe_mashing.water_amount
+        self.water_temp = recipe_mashing.water_temp
 
     def heat_water(self): #Water heating process starts
 
