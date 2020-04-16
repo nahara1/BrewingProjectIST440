@@ -14,7 +14,7 @@ import threading
 
 class main:
 
-    fermentation_vessel = FermentationVessel(1,456)
+    fermentation_vessel = FermentationVessel()
 
     t1 = threading.Thread(target=fermentation_vessel.get_wort(123))
 

@@ -1,3 +1,10 @@
+# Project: IST 440 Barlog Brewery
+# Course: IST 440
+# Author: Team Ferment
+# Date Developed: 4/16/20
+# Last Date Changed: 4/16/20
+# Rev: 1
+
 import unittest
 from TeamFerment.FermentationVessel import FermentationVessel
 
