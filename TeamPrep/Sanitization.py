@@ -27,7 +27,7 @@ class Sanitization:
         '''
 
     def sanitization(self):
-        print("\n    1. Press up button when sanitization is done:")
+        print( "\033[1m" + "\n    \033[1;39;40m1. Press the up button when sanitization is done:\033[0;0m"+  "\033[0m \n")
         GPIO.wait_for_edge(self.button,GPIO.FALLING)
         time.sleep(1)
         message = ("\033[1;32;40m  Sanitization Completed. \033[0;0m")   

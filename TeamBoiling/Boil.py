@@ -3,16 +3,19 @@
 # Course: IST 440W - 001
 # Author: Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/10/2020
-# Rev 3
+# Last Date Changed: 4/15/2020
+# Rev 4
 
 import datetime
 import time
 import logging
-from TeamBoiling import DisplayHelper, QualityCheck
+
+from TeamBoiling import QualityCheck
+from TeamBoiling import DisplayHelper
+from TeamBoiling import SensorHelper
 
 
-class Boil():
+class Boil:
 
     _boil_time = time
     _boil_temp = 0.0
@@ -20,7 +23,7 @@ class Boil():
     _stage_duration = datetime
     _end_stage_date_time = datetime
     _is_boiling = bool
-    status_log = "{\"boiling_stage\":\"Started Boiling\"}"
+
 
     def __init__(self):
         """
@@ -141,6 +144,19 @@ class Boil():
         logging.info("Thread %s: Stop Boiling", self)
 
     # add conditions once boiling is finished
-    # QualityCheck.QualityCheck.get_QA_Check()
+    # e.g. if yes, continue and run next methods and log success message
+    # else if no, stop all & log failed message
 
+
+# Hard coding for current functionality
+boilTime = 10
+# Boil(10, 100, True)
+
+# Boil.start_boil()
+# Boil.update_boil_status(True)
+# Boil.finish_boil(qaCheck)
+DisplayHelper.DisplayHelper.print_start_info(stage_date_time=datetime.datetime.now(), boil_time=10, boil_temp=100, is_boiling='True')
+SensorHelper.SensorHelper.boil_timer(boilTime)
+DisplayHelper.DisplayHelper.print_end_info(end_stage_date_time=datetime.datetime.now(), stage_duration=boilTime)
+QualityCheck.QualityCheck.get_QA_Check()
 
