@@ -1,15 +1,15 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: class for implementing quality assurance
 # Course: IST 440W - 001
-# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu)
+# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu), David Karminski (dck5200@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/15/2020
-# Rev 7
+# Last Date Changed: 4/16/2020
+# Rev 10
 
 # Import Statements
 import time
 import logging
-from Brewing import UpdateLog
+from Brewing import ServiceNowLog
 from time import sleep
 
 
@@ -169,15 +169,20 @@ class QualityCheck:
         quality_checked = text
         while quality_checked != "Yes" or quality_checked != "No":
             if quality_checked == "Yes":
-                print(quality_checked)
-                status_log = "{\"boiling_stage\":\"Finished Boiling; Passed QA\"}"
-                UpdateLog.UpdateLog.log_to_service_now(self, status_log)
+                print("Logging to ServiceNow...")
+                sleep(1)
+                status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Finished Boiling; Passed QA\"}"
+                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+                sleep(1)
                 print("Successfully logged that Boil has completed and passes Quality Assurance.")
+                sleep(1)
                 # Call Team Ferment
                 break
             elif quality_checked == "No":
-                status_log = "{\"boiling_stage\":\"Finished Boiling; Failed QA\"}"
-                UpdateLog.UpdateLog.log_to_service_now(self, status_log)
+                print("Logging to ServiceNow...")
+                sleep(1)
+                status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Finished Boiling; Failed QA\"}"
+                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
                 sleep(1)
                 print("Quality Did not Pass, Please inspect and trash.")
                 sleep(1)
