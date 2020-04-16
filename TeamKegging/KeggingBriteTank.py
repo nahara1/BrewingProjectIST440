@@ -7,6 +7,7 @@
 # Rev: 1.1
 
 import math
+import time
 from Brewing.Recipe import Recipe
 
 class KeggingBriteTank:  #Brite Tank
@@ -81,7 +82,6 @@ class KeggingBriteTank:  #Brite Tank
             return batchcarb
         elif self.bt_temp < 30 or self.bt_temp >= 30:
             return "Unknown"
-            print("Temperature out of range")
         elif self.bt_psi < 1 or self.bt_psi >= 31:
             return "Unknown"
         else:
@@ -142,23 +142,23 @@ class KeggingBriteTank:  #Brite Tank
             if self.bt_temp < 30:
                 print("Tank temperature is less than 30 degrees Fahrenheit. Please raise tank temperature above 30 degrees Fahrenheit.")
                 choice = input("Would you like to Manually or Automatically Adjust Temperature? Enter (M/A)")
-                if choice in ['m', 'M', 'manual','Manual','MANUAL', 'manually','Manually','MANUALLY']
-                    self.bt_status = "WAIT_TEMPERATURE_M"
+                if choice in ['m', 'M', 'manual','Manual','MANUAL', 'manually','Manually','MANUALLY']:
                     input("When you have finished adjusting the temperature press Enter to continue:")
                     bt_temp = input("Enter the current temperature (degrees Fahrenheit): ")
                     self.update_bt_temp(bt_temp)
-                elif choice in ['a','A','auto','Auto','AUTO','automatically','Automatically','AUTOMATICALLY']
-                    self.bt_status = "WAIT_TEMPERATURE_A"
-                    self.auto_temp()
+                elif choice in ['a','A','auto','Auto','AUTO','automatically','Automatically','AUTOMATICALLY']:
+                    input("Enter target Temperature (degrees Fahrenheit): ")
+                    target_temp = input("Enter the current temperature (degrees Fahrenheit): ")
+                    self.auto_temp(target_temp,1)
             elif self.bt_temp >= 66:
                 print("Tank temperature is greater than 66 degrees Fahrenheit. Please lower tank temperature below 66 degrees Fahrenheit.")
                 choice = input("Would you like to Manually or Automatically Adjust Temperature? Enter (M/A)")
-                if choice in ['m', 'M', 'manual','Manual','MANUAL', 'manually','Manually','MANUALLY']
+                if choice in ['m', 'M', 'manual','Manual','MANUAL', 'manually','Manually','MANUALLY']:
                     self.bt_status = "WAIT_TEMPERATURE_M"
                     input("When you have finished adjusting the temperature press Enter to continue:")
                     bt_temp = input("Enter the current temperature (degrees Fahrenheit): ")
                     self.update_bt_temp(bt_temp)
-                elif choice in ['a','A','auto','Auto','AUTO','automatically','Automatically','AUTOMATICALLY']
+                elif choice in ['a','A','auto','Auto','AUTO','automatically','Automatically','AUTOMATICALLY']:
                     self.bt_status = "WAIT_TEMPERATURE_A"
                     self.auto_temp()
             elif 33 <= self.bt_temp < 66:
@@ -185,8 +185,41 @@ class KeggingBriteTank:  #Brite Tank
         except Exception as e:
             print(e)
 
-    def auto_temp(self):
-        pass
+    def auto_temp(self, target_temp, delay):
+        """
+        Automatically sets the temperature of the brite tank to a target temperature through simulating increses or decreases in temperature
+        :param target_temp: The target temperature of the brite tank in degrees Fahrenheit
+        :param delay: the delay in seconds of each temperature change
+        :return: Simulates automatic temperature adjustment of the brite tank
+        """
+        while self.bt_temp != target_temp:
+            time.sleep(delay)
+            if self.bt_temp < target_temp and abs(self.bt_temp -target_temp) >= 1:
+                self.bt_temp += 1
+                print(self.get_bt_temp())
+            elif self.bt_temp > target_temp and abs(self.bt_temp -target_temp) >= 1:
+                self.bt_temp -= 1
+                print(self.get_bt_temp())
+            elif abs(self.bt_temp - target_temp) < 1:
+                self.bt_temp = target_temp
+                print(self.get_bt_temp())
+            else:
+                print("Error")
+
+    def auto_psi(self, target_carb, delay):
+        carbonation_ready = False
+        while not carbonation_ready and 2 <= self.bt_psi < 31:
+            time.sleep(delay)
+            if self.get_carbonation() < target_carb:
+                self.bt_psi += 1
+                if self.get_carbonation() > target_carb:
+                    carbonation_ready = True
+            elif self.get_carbonation() > target_carb:
+                self.bt_psi -= 1
+            else:
+                print("Error")
+            print("CO2 vols: " + str(self.get_carbonation()) + " || PSI : " + str(self.bt_psi))
+
 
     def start_brite_tank(self, recipe_carb):
         try:
@@ -197,7 +230,10 @@ class KeggingBriteTank:  #Brite Tank
 
 
 
-testTank = KeggingBriteTank(1,35.78987,5.00,3.43,21,"STARTING")
+testTank = KeggingBriteTank(1,35.78987,5.00,3.43,11,"WAIT_TEMP_A")
 testTank.start_brite_tank(2.4)
+testTank.auto_temp(32,0)
+print(testTank.get_carbonation())
+testTank.auto_psi(1.5,0)
 #print(str(testTank.get_carbonation()) + " carbonation")
 #print(str(testTank.get_volume_dif()) + " volume")
