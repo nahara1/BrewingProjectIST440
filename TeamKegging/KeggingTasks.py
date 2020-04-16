@@ -18,6 +18,12 @@ class KeggingTasks:
 
     def Keggingtasksmain():  # kegging task start
 
+        """
+        kegging task list
+        :param: task completion (y/n)
+        :return: list of tasks (completed and not completed)
+        """
+
         # list of tasks
         t1 = 'task 1'
         t2 = 'task 2'
