@@ -4,7 +4,7 @@
 # Author: Erik Ellis (eae5206@psu.edu)
 # Date Developed: 3/18/20
 # Last Date Changed: 4/16/2020
-# Rev 1
+# Rev 2
 
 import logging, time
 from datetime import datetime
