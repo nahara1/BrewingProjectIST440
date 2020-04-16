@@ -9,15 +9,16 @@
 import datetime
 import time
 from Brewing.MongoLog import Log
+from TeamMashing.RecipeMashing import recipe_mashing
 
 # Wort class checks for water temperature, water volume and records separation time.
 class Wort:
     def __init__(self):
         self.wort_id = 4
-        self.wort_volume = 30
-        self.hot_water_temp = 140
-        self.water_volume = 20
-        self.separation_time = 10
+        self.wort_volume = recipe_mashing.wort_volume
+        self.hot_water_temp = recipe_mashing.water_temp
+        self.water_volume = recipe_mashing.water_amount
+        self.separation_time = recipe_mashing.separation_time
 
     def check_hot_water_temp(self):
         # Checks for water temperature
