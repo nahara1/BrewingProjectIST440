@@ -9,6 +9,8 @@
 # Import Statements
 import time
 import logging
+from Brewing import UpdateLog
+from time import sleep
 
 
 class QualityCheck:
@@ -168,10 +170,17 @@ class QualityCheck:
         while quality_checked != "Yes" or quality_checked != "No":
             if quality_checked == "Yes":
                 print(quality_checked)
+                status_log = "{\"boiling_stage\":\"Finished Boiling; Passed QA\"}"
+                UpdateLog.UpdateLog.log_to_service_now(self, status_log)
                 print("Successfully logged that Boil has completed and passes Quality Assurance.")
+                # Call Team Ferment
                 break
             elif quality_checked == "No":
+                status_log = "{\"boiling_stage\":\"Finished Boiling; Failed QA\"}"
+                UpdateLog.UpdateLog.log_to_service_now(self, status_log)
+                sleep(1)
                 print("Quality Did not Pass, Please inspect and trash.")
+                sleep(1)
                 break
             else:
                 text = input("Please Enter Yes or No: ")

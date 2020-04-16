@@ -11,26 +11,29 @@ import time
 
 from Brewing.MongoLog import Log
 from TeamMashing.HotLiquorTank import HotLiquorTank
-
+from TeamMashing.RecipeMashing import recipe_mashing
 
 class MillingMachine:  # MillingMachine Start
     def __init__(self):  # constructor initalized fields
         self.machine_id = 1
-        self.mill_time = 10
-        self.grains_weight = 10
+        self.mill_time = recipe_mashing.mill_time
+        self.grains_weight = recipe_mashing.grains_weight
 
     def check_grains_weight(self):
         """
         The start of milling grains
         :return: grains weight
         """
-        log = Log(1, "Mashing.Milling", "Grains Weighted", datetime.datetime.now(), "pass")
-        print(log.generate_log())
-        print("-----------------------------------------")
+        try:
+            log = Log(1, "Mashing.Milling", "Grains Weighted", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
 
-        print("Grains weight: ", self.grains_weight, "lb")
-        print("-----------------------------------------")
-        self.mill_grains()
+            print("Grains weight: ", self.grains_weight, "lb")
+            print("-----------------------------------------")
+            self.mill_grains()
+        except Exception as e:
+            print(e)
 
     def mill_grains(self):  # Mill_grains process start
         """
@@ -69,12 +72,14 @@ class MillingMachine:  # MillingMachine Start
         :param
         :return: print statement
         """
+        try:
+            log = Log(3, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
 
-        log = Log(3, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
-        print(log.generate_log())
-        print("-----------------------------------------")
-
-        print("Grains added to Sparging Tank")
-        print("-----------------------------------------")
-        hlt = HotLiquorTank()
-        hlt.heat_water()
+            print("Grains added to Sparging Tank")
+            print("-----------------------------------------")
+            hlt = HotLiquorTank()
+            hlt.heat_water()
+        except Exception as e:
+            print(e)
