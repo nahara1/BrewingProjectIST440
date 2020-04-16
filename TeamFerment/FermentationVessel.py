@@ -21,11 +21,11 @@ class FermentationVessel:
         self.base_abv = 5.25
     def get_wort(self, batch_id):
         """
-        Function for recieving the wort
+        Function for receiving the wort
         :param batch_id:
         :return: Return log
         """
-        log = Log(1, "Receieving wort", "Recieved wort from Team Boil", datetime.datetime.now(), "pass")
+        log = Log(1, "Receiving wort", "Received wort from Team Boil", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------")
         self.add_to_fermentation_vessel(vessel_id=1)
@@ -36,7 +36,7 @@ class FermentationVessel:
         :param: vessel_id
         :return: Return log
         """
-        log = Log(2, "Addition to Fermentation Vessel", "Adding wort to fermenation vessel ", datetime.datetime.now(),
+        log = Log(2, "Addition to Fermentation Vessel", "Adding wort to fermentation vessel ", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
         print("-----------------------------------------")
@@ -68,7 +68,7 @@ class FermentationVessel:
 
     def add_yeast(self):
         """
-        Function for adding activated yeast to the fermentaiton vessel with wort
+        Function for adding activated yeast to the fermentation vessel with wort
         :param: wort
         :return: Return Log
         """
