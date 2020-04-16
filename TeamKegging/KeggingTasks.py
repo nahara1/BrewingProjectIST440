@@ -35,9 +35,11 @@ class KeggingTasks:
         t7 = 'task 7'
         t8 = 'task 8'
 
-        # adding tasks to list
+        # declaring list, time stamp list, dummy RFID employee list
         taskList = [t1, t2, t3, t4, t5, t6, t7, t8]
         timeStampList = []
+        RFIDLinkToTask = []
+        employeeRFID = ['1111', '2222', '3333', '4444']
 
         # declaring counters and defining length of task list
         length = len(taskList)
@@ -53,7 +55,7 @@ class KeggingTasks:
             print("list of tasks:")
             print()
             for taskStatus in range(1, taskCounter + 1):
-                print(taskList[taskStatusCounter] + " status: completed at " + timeStampList[taskStatusCounter])
+                print(taskList[taskStatusCounter] + " status: completed at " + timeStampList[taskStatusCounter] + " by RFID#" + RFIDLinkToTask[taskStatusCounter])
                 taskStatusCounter += 1
 
             for taskStatus in range(taskCounter + 1, length + 1):
@@ -65,12 +67,19 @@ class KeggingTasks:
             print()
 
             # prints current task and asks if complete
-            print("current task: " + taskList[taskCounter])
-            ans = raw_input("has this been completed? Enter (y/n): ")
+            print("Current task: " + taskList[taskCounter])
+            ans = raw_input("Has this been completed? Enter (y/n): ")
             if ans == 'y':
-                taskCounter += 1
-                currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
-                timeStampList.append(currentTimeStamp)
+                while True:
+                    taskRFID = raw_input("Please enter your RFID number: ")
+                    if taskRFID in employeeRFID:
+                        taskCounter += 1
+                        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())  # retrieves current timestamp
+                        timeStampList.append(currentTimeStamp)  # adds current timestamp to list
+                        RFIDLinkToTask.append(taskRFID) # adds RFID to completed task
+                        break
+                    else:
+                        print("Authentication Error")
             else:
                 continue
 
