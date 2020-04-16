@@ -7,7 +7,7 @@
 # Rev: 1.1
 
 import datetime
-from Brewing.MongoLog import Log
+from Brewing.Log import Log
 from TeamMashing.SpargingTank import SpargingTank
 from TeamMashing.RecipeMashing import recipe_mashing
 

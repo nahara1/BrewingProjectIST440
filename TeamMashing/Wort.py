@@ -8,7 +8,7 @@
 
 import datetime
 import time
-from Brewing.MongoLog import Log
+from Brewing.Log import Log
 from TeamMashing.RecipeMashing import recipe_mashing
 
 # Wort class checks for water temperature, water volume and records separation time.

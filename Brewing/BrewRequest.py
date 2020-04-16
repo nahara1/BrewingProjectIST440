@@ -10,7 +10,7 @@ from Brewing import Recipe
 from Brewing import BrewBatch
 from Brewing import BrewBatchStage
 import datetime
-from Brewing.MongoLog import Log
+from Brewing.Log import Log
 import time
 
 user = 'IST440'
@@ -299,7 +299,6 @@ def get_recipe(recipe_name):
 
 
 # Testing to show what the methods do
-
 if __name__ == "__main__":
     # Get a brew request
 
