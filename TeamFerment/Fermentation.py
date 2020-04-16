@@ -8,4 +8,3 @@
 
 # class Main:
 # This is where threading goes
-print("Hello World ")

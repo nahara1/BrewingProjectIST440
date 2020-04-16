@@ -27,7 +27,7 @@ class Temperature:
     
     def read_temp(self):
         temperature = random.randrange(55, 85, 1)
-        print("    2. press down button to measure temperature of yeast: ")
+        print("\033[1m    2. Press down button to measure temperature of yeast: \033[0m")
         GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
         time.sleep(3)
         # humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
