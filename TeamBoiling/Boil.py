@@ -56,6 +56,7 @@ class Boil:
 
     logging.info("Thread %s: Start Getters and Setters")
 
+
     def get_boil_time(self):
         """
         gets the boiling time

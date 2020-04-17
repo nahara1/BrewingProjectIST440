@@ -192,9 +192,6 @@ class QualityCheck:
                 quality_checked = text
 
 
-
-
-
 QualityCheck = QualityCheck('_recipe_boil_temp', '_batch_boil_time', '_batch_boil_temp', '_recipe_boil_time',
                             '_boil_over', '_overflowing', '_correct_volume')
 # QualityCheck.get_QA_Check()
