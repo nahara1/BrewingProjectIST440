@@ -64,11 +64,8 @@ class DisplayHelper():
         :param stage_duration:  Amount of time the stage lasted for
         """
         print("-----------------------------------------")
-        print("Brew has finished boiling!")
-        sleep(1)
         print("End time:", end_stage_date_time)
         sleep(1)
-        print("Brew Boiled for", stage_duration, "minutes")
         print("-----------------------------------------")
         sleep(1)
 
