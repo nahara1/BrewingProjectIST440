@@ -303,9 +303,6 @@ def get_recipe(recipe_name):
     return recipe_obj
 
 
-def creat_log():
-    import requests
-
 
 # Testing to show what the methods do
 if __name__ == "__main__":
