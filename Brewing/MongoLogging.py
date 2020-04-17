@@ -6,21 +6,20 @@
 # Last Date Changed: 4/16/2020
 # Rev 1
 
-import pymongo
 from pymongo import MongoClient
 import datetime
 
 
-class BoilMongoLogging():
+class MongoLogging():
 
     client = MongoClient()
     client = MongoClient('localhost', 27017)
-    db = client.test_database
-    collection = db.test_collection
+    db = client.logging_database
+    collection = db.logging_collection
 
-    post = {"author": "Mike",
-            "text": "My first blog post!",
-            "tags": ["mongodb", "python", "pymongo"],
+    post = {"BrewID": "1",
+            "Brew Stage": "Prep",
+            "Log": "Began Prep",
             "date": datetime.datetime.utcnow()}
 
     posts = db.posts
