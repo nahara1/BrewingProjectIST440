@@ -11,6 +11,7 @@ from Brewing import BrewBatch
 from Brewing import BrewBatchStage
 import datetime
 from Brewing.Log import Log
+import sys
 import time
 
 user = 'IST440'
@@ -57,32 +58,35 @@ def get_brew_request_number(req_id):
 
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    try:
+        # Do the HTTP request
+        response = requests.get(url, auth=(user, pwd), headers=headers)
 
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
+        # Check for HTTP codes other than 200
+        if response.status_code != 200:
+            #print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
+            print("No new brew requests at this time")
+            exit()
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        exit()
+        # Decode the JSON response into a dictionary and use the data
 
-    # Decode the JSON response into a dictionary and use the data
+        username = extract_values(response.json(), 'sys_created_by')
 
-    username = extract_values(response.json(), 'sys_created_by')
+        username = str(username).replace("['", "").replace("']", "")
 
-    username = str(username).replace("['", "").replace("']", "")
+        request_number = extract_values(response.json(), 'number')
 
-    request_number = extract_values(response.json(), 'number')
+        request_number = str(request_number).replace("['", "").replace("']", "")
 
-    request_number = str(request_number).replace("['", "").replace("']", "")
+        print("Customer User ID: " + username)
 
-    print("Customer User ID: " + username)
+        print()
 
-    print()
+        print("Brew Request Number: " + request_number)
 
-    print("Brew Request Number: " + request_number)
-
-    data = response.json()
+        data = response.json()
+    except Exception as e:
+        print("Error")
 
     return request_number
 
@@ -104,20 +108,24 @@ def get_request_id():
 
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    try:
+        # Do the HTTP request
+        response = requests.get(url, auth=(user, pwd), headers=headers)
 
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
+        # Check for HTTP codes other than 200
+        if response.status_code != 200:
+            #print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
+            print("No brew request available at this time.")
+            exit()
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        exit()
+        # Decode the JSON response into a dictionary and use the data
 
-    # Decode the JSON response into a dictionary and use the data
+        sys_id = extract_values(response.json(), 'sys_id')
 
-    sys_id = extract_values(response.json(), 'sys_id')
+        sys_id = str(sys_id).replace("['", "").replace("']", "")
 
-    sys_id = str(sys_id).replace("['", "").replace("']", "")
+    except Exception as e:
+        print(e)
 
     return sys_id
 
@@ -287,9 +295,6 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'boiling_duration')
     boiling_duration = str(recipe_obj).replace("['", "").replace("']", "")
 
-
-
-
     # recipe object
     recipe_obj = Recipe.Recipe(recipe_id, recipe_name, batch_size, yeast, abv, ibu, og, fg)
 
@@ -298,49 +303,74 @@ def get_recipe(recipe_name):
     return recipe_obj
 
 
+def creat_log():
+    import requests
+
+
 # Testing to show what the methods do
 if __name__ == "__main__":
     # Get a brew request
+    try:
+        # 1 - Get brew request id
+        r_id = get_request_id()
 
-    # 1 - Get brew request id
-    r_id = get_request_id()
+        # 2 - Get brew request number
+        r_number = get_brew_request_number(r_id)
 
-    # 2 - Get brew request number
-    r_number = get_brew_request_number(r_id)
+        # 3 - Update brew request
+        update_brew_stage(r_id, "Approval")
 
-    # 3 - Update brew request
-    update_brew_stage(r_id, "Approval")
+        # 4 - Get requested brew id based on request number
+        item_id = get_catalog_item_id(r_number)
 
-    # 4 - Get requested brew id based on request number
-    item_id = get_catalog_item_id(r_number)
+        # 5 - Get requested item name based on its id
+        item_name = get_catalog_item_name(item_id)
 
-    # 5 - Get requested item name based on its id
-    item_name = get_catalog_item_name(item_id)
+        # 6 - Get recipe data and create a Python object based on brew request name
+        recipe = get_recipe(item_name)
 
-    # 6 - Get recipe data and create a Python object based on brew request name
-    recipe = get_recipe(item_name)
+        # 7 - Update brew request status
+        update_brew_stage(r_id, "Preparation Stage")
 
-    # 7 - Update brew request status
-    update_brew_stage(r_id, "Preparation Stage")
+        # create order obj
+
+        # create Prep BB Stage obj
+        bbs = BrewBatchStage.BrewBatchStage(0, datetime.datetime.now(), 0, 0, 'Recipe retrieved')
+        log = Log(12, "BrewRequest", "Recipe Retrieved", datetime.datetime.now(), "pass")
+        # Send log to service now
+
+        # Save log to MongoDB
+        # log_event = log.generate_log_document()
+        # log.save_log(log_event)
+
+        # Send log to mongoDB
+        print("-----------------------------------------")
+        print(log.generate_log())
+
+        print("-----------------------------------------")
+
+        # create Prep BB Stage obj
+        brew_batch = BrewBatch.BrewBatch(recipe.get_id(), datetime.datetime.now(), datetime.datetime.now(), bbs,
+                                         "in prep",
+                                         5)
+
+        # Call Prep
+
+        # Call Mashing
+
+        # Call Boiling
+
+        # Call Ferment
+
+        # Call Kegging
 
 
+        # brew_batch.set_brew_batch_id(0)
+        # brew_batch.set_recipe_id(recipe.recipe_id)
+        # brew_batch.set_bb_start_date_time(datetime.datetime.now())
+        # brew_batch.set_bb_status("Batch is in prep stage")
 
-    # create order obj
+    except Exception as e:
 
-    # create Prep BB Stage obj
-    bbs = BrewBatchStage.BrewBatchStage(0, datetime.datetime.now(), 0, 0, 'Recipe retrieved')
-    log = Log(12, "BrewRequest", "Recipe Retrieved", datetime.datetime.now(), "pass")
-    # Send log to service now
-
-    # Send log to mongoDB
-    print("-----------------------------------------")
-    print(log.generate_log())
-    print("-----------------------------------------")
-
-    # create Prep BB Stage obj
-    brew_batch = BrewBatch.BrewBatch(recipe.get_id(), datetime.datetime.now(), datetime.datetime.now(), bbs, "in prep",
-                                     5)
-    # brew_batch.set_brew_batch_id(0)
-    # brew_batch.set_recipe_id(recipe.recipe_id)
-    # brew_batch.set_bb_start_date_time(datetime.datetime.now())
-    # brew_batch.set_bb_status("Batch is in prep stage")
+        print("Error message: " + e)
+        print("No new brew requests at this time.")
