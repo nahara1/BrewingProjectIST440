@@ -8,7 +8,7 @@ import datetime
 import random
 random_temp = 0
 import time
-from Brewing.MongoLog import Log
+from Brewing.Log import Log
 import Brewing.BrewMaster
 
 class FermentationVessel:

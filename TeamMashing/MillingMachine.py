@@ -9,7 +9,7 @@
 import datetime
 import time
 
-from Brewing.MongoLog import Log
+from Brewing.Log import Log
 from TeamMashing.HotLiquorTank import HotLiquorTank
 from TeamMashing.RecipeMashing import recipe_mashing
 

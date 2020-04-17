@@ -7,9 +7,15 @@
 # Rev 1
 
 from Brewing import Recipe
+from Brewing import BrewBatch
+from Brewing import BrewBatchStage
+import datetime
+from Brewing.Log import Log
+import time
 
 user = 'IST440'
 pwd = 'IST440'
+
 
 # Function to work with nested JSON
 # Code from: https://hackersandslackers.com/extract-data-from-complex-json-python/
@@ -281,15 +287,19 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'boiling_duration')
     boiling_duration = str(recipe_obj).replace("['", "").replace("']", "")
 
-    recipe = Recipe.Recipe(recipe_id, recipe_name, batch_size, yeast, abv, ibu, og, fg)
 
-    print(recipe)
+
+
+    # recipe object
+    recipe_obj = Recipe.Recipe(recipe_id, recipe_name, batch_size, yeast, abv, ibu, og, fg)
+
+    print()
     print("Recipe data successfully retrieved")
-    return recipe
+    return recipe_obj
 
 
+# Testing to show what the methods do
 if __name__ == "__main__":
-
     # Get a brew request
 
     # 1 - Get brew request id
@@ -308,7 +318,29 @@ if __name__ == "__main__":
     item_name = get_catalog_item_name(item_id)
 
     # 6 - Get recipe data and create a Python object based on brew request name
-    get_recipe(item_name)
+    recipe = get_recipe(item_name)
 
     # 7 - Update brew request status
     update_brew_stage(r_id, "Preparation Stage")
+
+
+
+    # create order obj
+
+    # create Prep BB Stage obj
+    bbs = BrewBatchStage.BrewBatchStage(0, datetime.datetime.now(), 0, 0, 'Recipe retrieved')
+    log = Log(12, "BrewRequest", "Recipe Retrieved", datetime.datetime.now(), "pass")
+    # Send log to service now
+
+    # Send log to mongoDB
+    print("-----------------------------------------")
+    print(log.generate_log())
+    print("-----------------------------------------")
+
+    # create Prep BB Stage obj
+    brew_batch = BrewBatch.BrewBatch(recipe.get_id(), datetime.datetime.now(), datetime.datetime.now(), bbs, "in prep",
+                                     5)
+    # brew_batch.set_brew_batch_id(0)
+    # brew_batch.set_recipe_id(recipe.recipe_id)
+    # brew_batch.set_bb_start_date_time(datetime.datetime.now())
+    # brew_batch.set_bb_status("Batch is in prep stage")

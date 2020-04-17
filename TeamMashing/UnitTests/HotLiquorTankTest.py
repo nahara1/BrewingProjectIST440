@@ -2,7 +2,7 @@ import datetime
 import unittest
 
 from TeamMashing.HotLiquorTank import HotLiquorTank
-from Brewing.MongoLog import Log
+from Brewing.Log import Log
 from TeamMashing.SpargingTank import SpargingTank
 from TeamMashing.RecipeMashing import recipe_mashing
 

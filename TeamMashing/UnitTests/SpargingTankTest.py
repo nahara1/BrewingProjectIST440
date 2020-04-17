@@ -3,7 +3,7 @@ import unittest
 import time
 
 from TeamMashing.SpargingTank import SpargingTank
-from Brewing.MongoLog import Log
+from Brewing.Log import Log
 from TeamMashing.Wort import Wort
 from TeamMashing.RecipeMashing import recipe_mashing
 

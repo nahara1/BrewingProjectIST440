@@ -8,6 +8,7 @@
 
 import sys
 import time
+
 class Log:
     def __init__(self, lid, brew_stage, log, log_time, pass_or_fail): # constructor initializes fields
         self.log_id = lid
