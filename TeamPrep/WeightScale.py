@@ -54,11 +54,15 @@ class WeightScale:
                 input("       Press the right button to dispense one more packet: ")
             time.sleep(2)
         return weight_scale
-    
 
+    def log(self):
+        status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Weighing Process\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        print(status_log)
     def read_weight_hops(self):
         weight_scale = 0.0
         weight = random.randrange(1,5, 1)*0.5
+
         print("    \033[1m4. To brew the beer for this batch, \033[1;34;40m" + str(weight) + "\033[0;0m" + "\033[1m pounds of Hops needed.\033[0m\n")
         time.sleep(2)
         print("       ****Weight scale is calibrated to \033[1;34;40m0.0\033[0;0m. \n")
