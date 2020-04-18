@@ -14,21 +14,21 @@ class Keg:
         self.keg_pressure = keg_pressure
         self.max_volume = max_volume
 
-
-
     def get_status(self):
         return "Keg ID: {}\n" \
                "Keg Type: {}\n" \
                "Keg Current Volume: {}\n" \
                "Keg Pressure: {}\n" \
-               "Keg Max Volume: {}\n".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure, self.max_volume)
+               "Keg Max Volume: {}\n".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure,
+                                             self.max_volume)
 
     def get_info(self):
         return "Keg ID: {} :: " \
                "Keg Type: {} :: " \
                "Keg Current Volume: {} :: " \
                "Keg Pressure: {} :: " \
-               "Keg Max Volume: {} :: ".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure, self.max_volume)
+               "Keg Max Volume: {} :: ".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure,
+                                               self.max_volume)
 
     def set_style_sixtel(self):
         self.max_volume = 5.16

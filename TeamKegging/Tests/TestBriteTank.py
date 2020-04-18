@@ -24,9 +24,10 @@ class TestBriteTank(unittest.TestCase):
         self.assertEqual(test_psi, 12)
 
     def test_carbonation(self):
-        test_keg.auto_carb(2.8,1)
+        test_keg.auto_carb(2.8, 1)
         test_carb = test_keg.get_carbonation()
         self.assertEqual(test_carb, 2.84)
+
 
 if __name__ == '__main__':
     unittest.main()
