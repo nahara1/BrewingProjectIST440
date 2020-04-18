@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 4/14/2020
-# Rev: 1.4
+# Last Date Changed: 4/18/2020
+# Rev: 2.0
 import datetime
 import time
 from Brewing.Log import Log
@@ -37,7 +37,7 @@ class SpargingTank: #constructor for the SpargingTank class
         print("Added Heated Water to Sparging Tank") # print validates the process of water being heated
         print("-----------------------------------------") # prints line to separate the next process in sparging tank
 
-        self.stir_mash()
+        self.stir_mash(recipe)
 
     def stir_mash(self, recipe):
         #stirring the wort in progress
@@ -74,9 +74,9 @@ class SpargingTank: #constructor for the SpargingTank class
 
         print("Mash Stirred") # print that the mashing is finished stirring
         print("-----------------------------------------") # prints line to separate process within SpargingTank
-        self.sparg_the_tank()
+        self.sparg_the_tank(recipe)
 
-    def sparg_the_tank(self):
+    def sparg_the_tank(self, recipe):
         #empty the tank while spraying water over the remaing grains
         """
         Function to remove finished wort from Sparging tank.
@@ -92,4 +92,4 @@ class SpargingTank: #constructor for the SpargingTank class
         print("Tank emptying, washing grains.") # Finishing before sending it to the boiling phase
         print("-----------------------------------------")
         w = Wort()
-        w.check_hot_water_temp()
+        w.check_hot_water_temp(recipe)
