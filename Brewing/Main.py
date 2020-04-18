@@ -3,6 +3,10 @@ from Brewing import Recipe
 from Brewing import Brew
 from Brewing import BrewRequest
 from Brewing import BrewBatch
+from TeamPrep import  Sanitization
+from TeamPrep import Temperature
+from TeamPrep import WeightScale
+from TeamPrep import QualityCheck_Prep
 from Brewing import BrewBatchStage
 from TeamMashing import MillingMachine
 import datetime
@@ -55,7 +59,14 @@ def main():
                                          recipe.get_batch_size())
 
         # Call Prep
-
+        s = Sanitization
+        t = Temperature
+        w = WeightScale
+        q = QualityCheck_Prep
+        s.Sanitization
+        t.Temperature
+        w.WeightScale
+        q.QualityCheck
         # Call Mashing
         m = MillingMachine.MillingMachine()
         MillingMachine.MillingMachine.mill_grains(m, recipe)
