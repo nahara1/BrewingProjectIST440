@@ -13,9 +13,9 @@ loglist = []
 
 
 class TasteTest:
-    def __init__(self, tt_id, task_category, task_prerequisite, task_status, task_confirmation):
+    def __init__(self, kegtask_id, task_category, task_prerequisite, task_status, task_confirmation):
         self.task_status = task_status
-        self.tt_id = tt_id
+        self.kegtask_id = kegtask_id
         self.task_category = task_category
         self.task_prerequisite = task_prerequisite
         self.task_confirmation = task_confirmation
@@ -27,7 +27,7 @@ class TasteTest:
         # print(status_log)
         loglist.append(status_log)
 
-    def tt_tasksmain(self):  # kegging task start
+    def KeggingTasksmain(self):  # kegging task start
         """
         kegging task list
         :param: task completion (y/n)
@@ -123,7 +123,7 @@ class TasteTest:
 
 
 kt1 = KeggingTasks(1, 'cellarman tasks', 'none', 'placeholder', 'yes')
-kt1.tt_tasksmain()
+kt1.KeggingTasksmainsmain()
 print()
 
 # prints log that gets sent to service now (for dev)

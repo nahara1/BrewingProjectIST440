@@ -13,21 +13,31 @@ loglist = []
 
 
 class KeggingTasks:
-    def __init__(self, , task_category, task_prerequisite, task_status, task_confirmation):
+    def __init__(self, task_id, task_category, task_prerequisite, task_status, task_confirmation):
         self.task_status = task_status
-        self.tt_id = tt_id
+        self.task_id = task_id
         self.task_category = task_category
         self.task_prerequisite = task_prerequisite
         self.task_confirmation = task_confirmation
 
     def keg_log(self, batch_id, bb_stage, log_message):
+        """
+        Logging Method for the KeggingTasks Class.
+
+        :param batch_id: The batch ID of the current batch
+        :param bb_stage: The current Brewing Stage
+        :param log_message: The main log message
+        :return: Sends a log to ServiceNow with timestamp appended to the beginning of the log message
+
+        """
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
         # ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog, status_log)
         # print(status_log)
         loglist.append(status_log)
 
-    def tt_tasksmain(self):  # kegging task start
+
+    def Keggingtasksmain(self):  # kegging task start
         """
         kegging task list
         :param: task completion (y/n)
@@ -123,7 +133,7 @@ class KeggingTasks:
 
 
 kt1 = KeggingTasks(1, 'cellarman tasks', 'none', 'placeholder', 'yes')
-kt1.tt_tasksmain()
+kt1.Keggingtasksmain()
 print()
 
 # prints log that gets sent to service now (for dev)
