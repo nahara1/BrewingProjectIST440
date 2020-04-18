@@ -327,7 +327,6 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'fg')
     fg = str(recipe_obj).replace("['", "").replace("']", "")
 
-
     recipe_obj = extract_values(data, 'yeast_amount')
     yeast_amt = str(recipe_obj).replace("['", "").replace("']", "")
 
@@ -348,23 +347,26 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'water_volume')
     water_volume = str(recipe_obj).replace("['", "").replace("']", "")
 
+    recipe_obj = extract_values(data, 'mill_time')
+    mill_time = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'sparging_time')
     sparge_time = str(recipe_obj).replace("['", "").replace("']", "")
-
-    recipe_obj = extract_values(data, 'sparging_temperature')
-    sparge_temp = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'wort_stirring_time')
     stir_time = str(recipe_obj).replace("['", "").replace("']", "")
 
-    recipe_obj = extract_values(data, 'wort_heating_time')
-    wort_heat_time = str(recipe_obj).replace("['", "").replace("']", "")
+    recipe_obj = extract_values(data, 'hlt_heating_time')
+    hlt_heat_time = str(recipe_obj).replace("['", "").replace("']", "")
+
+    recipe_obj = extract_values(data, 'wort_separation_time')
+    wort_separation_time = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'boil_temperature')
     boil_temp = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'boiling_duration')
-    boil_time = str(recipe_obj).replace("['", "").replace("']", "")
+    boil_duration = str(recipe_obj).replace("['", "").replace("']", "")
 
     # Stored as name-value pairs
     recipe_obj = extract_values(data, 'hop_schedule')
@@ -388,9 +390,10 @@ def get_recipe(recipe_name):
 
     # Create recipe object
     recipe_obj = Recipe.Recipe(recipe_id, recipe_name, abv, ibu, og, fg, batch_size, yeast_amt, yeast, grain,
-                               water_volume, water_temp, sparge_time, sparge_temp,
-                               stir_time, wort_heat_time, boil_temp, boil_time, hop_schedule, hop_amt,
+                               water_volume, water_temp, mill_time, sparge_time,
+                               stir_time, hlt_heat_time, wort_separation_time, boil_temp, boil_duration, hop_schedule, hop_amt,
                                wort_chill_temp, ferment_time, ferment_temp, ferment_yeast_temp)
+
 
     print()
     print("Recipe data successfully retrieved")
