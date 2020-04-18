@@ -54,7 +54,7 @@ class SpargingTank: #constructor for the SpargingTank class
         print("-----------------------------------------") # prints line to separate statements & log 2 is created
 
         while self.stir_time > 0:
-            print("Stirring Time Left: ", self.stir_time, "sec") # prints number of seconds left until stirring is
+            print("Stirring Time Left: ", self.stir_time, "min") # prints number of seconds left until stirring is
             # finished
             time.sleep(1)
             self.stir_time -= 1

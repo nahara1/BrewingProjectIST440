@@ -36,7 +36,7 @@ class MillingMachine:  # MillingMachine Start
             print("-----------------------------------------")
 
             while self.mill_time > 0:
-                print("Milling Time Left: ", self.mill_time, "sec")
+                print("Milling Time Left: ", self.mill_time, "min")
                 time.sleep(1)
                 self.mill_time -= 1
 

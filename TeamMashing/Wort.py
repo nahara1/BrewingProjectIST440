@@ -99,7 +99,7 @@ class Wort:
 
             # Counts the separation time in seconds
             while self.separation_time > 0:
-                print("Wort Separating Time Left: ", self.separation_time, "sec")
+                print("Wort Separating Time Left: ", self.separation_time, "min")
                 time.sleep(1)
                 self.separation_time -= 1
 
