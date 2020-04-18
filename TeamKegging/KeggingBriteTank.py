@@ -8,8 +8,11 @@
 
 import math
 import time
+import datetime
 from Brewing.Recipe import Recipe
 from Brewing import ServiceNowLog
+
+sim_sleep_mod = 1 # Contains the simulated delay in seconds for automatic Temperature and Pressure Controls
 
 class KeggingBriteTank:  #Brite Tank
     def __init__(self, bt_id, bt_temp, bt_max_volume, bt_current_volume, bt_psi, bt_status):
@@ -193,23 +196,22 @@ class KeggingBriteTank:  #Brite Tank
                     target_temp = float(input("Enter the target Temperature (degrees Fahrenheit): "))
                     if 30 <= target_temp < 66:
                         temp_ready = True
-                        self.auto_temp(target_temp, 1) # contains the simulated delay value for temperature adjustments for temperature values
+                        self.auto_temp(target_temp) # contains the simulated delay value for temperature adjustments for temperature values
                     else:
                         print("")
                         print("Please enter a temperature between 30 and 65 degrees Fahrenheit.")
             elif choice in ['N','n','no','No','NO']:
                 selection = True
 
-    def auto_temp(self, target_temp, delay):
+    def auto_temp(self, target_temp):
         """
         Method that simulates automatic temperature adjustment through a delay.
 
         :param target_temp: The target temperature of the brite tank in degrees Fahrenheit
-        :param delay: time in seconds between each simulated temperature adjustment
         :return: Sets the temperature in the brite tank to the specified degree Fahrenheit
         """
         while self.bt_temp != target_temp:
-            time.sleep(delay)
+            time.sleep(sim_sleep_mod)
             if self.bt_temp < target_temp and abs(self.bt_temp -target_temp) >= 1:
                 self.bt_temp += 1
             elif self.bt_temp > target_temp and abs(self.bt_temp -target_temp) >= 1:
@@ -272,45 +274,42 @@ class KeggingBriteTank:  #Brite Tank
                     target_psi = float(input("Enter the target pressure (PSI): "))
                     if 1 <= target_psi < 31:
                         psi_ready = True
-                        self.auto_psi(target_psi, 1) # contains the simulated delay value for pressure adjustments for pressure values
+                        self.auto_psi(target_psi) # contains the simulated delay value for pressure adjustments for pressure values
                     else:
                         print("")
                         print("Please enter a pressure between 1 and 30 PSI.")
             elif choice in ['N','n','no','No','NO']:
                 selection = True
 
-    def auto_psi(self, target_psi, delay):
+    def auto_psi(self, target_psi):
         """
         Method that simulates automatic PSI adjustment through a delay.
 
         :param target_psi: the target brite tank pressure in PSI
-        :param delay: time in seconds between each simulated PSI adjustment
         :return: Sets the pressure in the brite tank to the specified PSI
         """
         while self.bt_psi != target_psi:
-            time.sleep(delay)
+            time.sleep(sim_sleep_mod)
             if self.bt_psi < target_psi and abs(self.bt_psi - target_psi) >= 1:
                 self.bt_psi += 1
             elif self.bt_psi > target_psi and abs(self.bt_psi -target_psi) >= 1:
                 self.bt_psi -= 1
-            elif abs(self.bt_psi - target_psi   ) < 1:
+            elif abs(self.bt_psi - target_psi) < 1:
                 self.bt_psi = target_psi
             else:
                 print("Error")
             self.print_carb_status()
         return self.bt_psi
 
-    def auto_carb(self, target_carb, delay):
+    def auto_carb(self, target_carb):
         """
         Method that simulates the automatic adjustment of PIS to a targeted carbonation level in CO2 vols
-
         :param target_carb: the target bright beer CO2 volume
-        :param delay: time in seconds between each PSI adjustment
         :return: Sets the pressure in the brite tank to adjust to a specified CO2 volume
         """
         carbonation_ready = False
         while not carbonation_ready and 2 <= self.bt_psi < 31:
-            time.sleep(delay)
+            time.sleep(sim_sleep_mod)
             if self.get_carbonation() < target_carb:
                 self.bt_psi += 1
                 if self.get_carbonation() > target_carb:
@@ -321,7 +320,7 @@ class KeggingBriteTank:  #Brite Tank
                 print("Error")
             self.print_carb_status()
 
-    def start_brite_tank(self):
+    def start_brite_tank(self, batch_id):
         """
         Main Brite Tank Method for reaching the correct carbonation level through simulation
 
@@ -329,24 +328,49 @@ class KeggingBriteTank:  #Brite Tank
         """
         try:
             # Print Initial Status Message
-            print("")
             self.print_carb_status()
-            # Run initial temperature and pressure controls
+            print("Welcome to the Kegging Process")
+
+            # Gather Batch ID
+            # Run initial temperature control and log
             self.bt_temp_control()
+            bt_temp_log = "Brite Tank Temperature in Range"
+            self.bt_log(batch_id,"Kegging",bt_temp_log)
+
+            #Run initial pressure control and log
             self.bt_psi_control()
+            bt_psi_log = "Brite Tank Pressure in Range"
+            self.bt_log(batch_id,"Kegging",bt_psi_log)
 
             # Currently Manual input for target carbonation, can substitute from recipe pull from ServicenNow
-            recipe_carb = input("Please enter the target carbonation volume: ")
+            recipe_carb = float(input("Please enter the target carbonation volume: "))
 
             # Simulated Automatic pressure adjustment to hit targeted PSI, aims to overshoot rather than undershoot because opening valves loses pressure
-            self.auto_carb(recipe_carb,1) # contains the simulated delay value for pressure adjustments for carbonation values
+            self.auto_carb(recipe_carb)
+            bt_carb_log = "Carbonation Ready at " + str(KeggingBriteTank.get_carbonation()) + " volumes"
+            self.bt_log(batch_id, "Kegging", bt_carb_log)
+
+            # Send Ready for QA Test Messaage
+            print("The Batch is ready for Quality Assurance Taste Tests")
+            bt_carb_end_log = "Ready for QA Test"
+            self.bt_status = "QA_READY"
+            self.bt_log(batch_id, "Kegging", bt_carb_end_log)
+
         except Exception as e:  # error handling
             print(e)
 
     def bt_log(self, batch_id, bb_stage, log_message):
-        status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
-        ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog, status_log)
+        """
+        Logging Method for the Brite Tank Class.
 
+        :param batch_id: The batch ID of the current batch
+        :param bb_stage: The current Brewing Stage
+        :param log_message: The main log message
+        :return: Sends a log to ServiceNow with timestamp appended to the beginning of the log message
 
-#testTank = KeggingBriteTank(1,35.78987,5.00,3.43,11,"START")
-#testTank.start_brite_tank()
+        """
+        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+        status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
+        #ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        print(status_log)
+
