@@ -9,6 +9,7 @@
 # import RPi.GPIO as GPIO
 import random
 import time
+from Brewing import ServiceNowLog
 
 """
 # sensor = 11
@@ -26,9 +27,14 @@ class Temperature:
     def __init__(self,button):
         self.button = button
     """
-    
+
+    def log(self):
+        status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Sanitation Process\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        print(status_log)
     def read_temp(self):
         temperature = random.randrange(55, 85, 1)
+
         input("\033[1m    2. Press Enter to measure temperature of yeast: \033[0m")
         # GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
         time.sleep(3)

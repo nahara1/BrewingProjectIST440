@@ -9,16 +9,14 @@ from pip._vendor.distlib.compat import raw_input
 
 import datetime
 
-loglist = []
+kt_loglist = []
 
 
 class KeggingTasks:
-    def __init__(self, task_id, task_category, task_prerequisite, task_status, task_confirmation):
+    def __init__(self, task_id, task_category, task_status):
         self.task_status = task_status
         self.task_id = task_id
         self.task_category = task_category
-        self.task_prerequisite = task_prerequisite
-        self.task_confirmation = task_confirmation
 
     def keg_log(self, batch_id, bb_stage, log_message):
         """
@@ -32,10 +30,16 @@ class KeggingTasks:
         """
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
-        # ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog, status_log)
+        # ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         # print(status_log)
-        loglist.append(status_log)
+        kt_loglist.append(status_log)
 
+    def get_kt_loglist(self):
+        """
+        Method that returns the Kegging Task Loglist
+        :return: returns a loglist
+        """
+        return kt_loglist
 
     def Keggingtasksmain(self):  # kegging task start
         """
@@ -46,16 +50,19 @@ class KeggingTasks:
 
         #  batch ID confirmation loop
         while True:
-            self.keg_log(1, "kegging", "Starting Cellarman tasks")  # logging to service now
+              # logging to service now
+            print("")
+            print("Starting Cellarman Tasks.")
             batch_id = raw_input("Please enter the batch ID: ")  # user input for batch ID
             confirm_batch_id = raw_input("Are you sure? Enter (y/n): ")
             if confirm_batch_id == 'y':
-                self.keg_log(1, "kegging", "Batch ID entered as: " + batch_id)  # logging to service now
+                self.keg_log(batch_id, "kegging", "Batch ID entered as: " + batch_id)  # logging to service now
                 break
             else:
                 print("Confirmation failed. Please try again.")
-                self.keg_log(1, "kegging", "Batch ID Confirmation Mismatch")  # logging to service now
+                self.keg_log(batch_id, "kegging", "Batch ID Confirmation Mismatch")  # logging to service now
                 print()
+            self.keg_log(batch_id, "kegging", "Starting Cellarman tasks")
 
         print()
         print("----------------------------------------------------")
@@ -132,10 +139,10 @@ class KeggingTasks:
         self.keg_log(batch_id, "Kegging", "All Cellarman tasks completed.")  # logging to service now
 
 
-kt1 = KeggingTasks(1, 'cellarman tasks', 'none', 'placeholder', 'yes')
-kt1.Keggingtasksmain()
-print()
+#kt1 = KeggingTasks(1, 'Cellarman tasks', 'TASK_START')
+#kt1.Keggingtasksmain()
+#print()
 
 # prints log that gets sent to service now (for dev)
-for n in loglist:
-    print(n)
+#for n in kt_loglist:
+#    print(n)
