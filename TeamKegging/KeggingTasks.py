@@ -35,6 +35,10 @@ class KeggingTasks:
         kt_loglist.append(status_log)
 
     def get_kt_loglist(self):
+        """
+        Method that returns the Kegging Task Loglist
+        :return: returns a loglist
+        """
         return kt_loglist
 
     def Keggingtasksmain(self):  # kegging task start
