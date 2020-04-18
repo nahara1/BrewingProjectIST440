@@ -2,8 +2,8 @@
 # Course: IST 440
 # Author: Team Ferment
 # Date Developed: 4/6/20
-# Last Date Changed: 4/16/20
-# Rev: 2
+# Last Date Changed: 4/17/20
+# Rev: 3
 import datetime
 import random
 random_temp = 0
@@ -99,6 +99,11 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.begin_fermentation_process()
 
+    def set_ferment_temperature(self):
+        log = Log(7, "Ferment.setFermentTemperature", "Temperature is set at %.2f" % self.sample_ferment_tempertature, datetime.datetime.now(), "pass")
+        print(log.generate_log())
+        self.begin_fermentation_process()
+
     def begin_fermentation_process(self):
         """
         Function to begin fermentation process
@@ -167,8 +172,6 @@ class FermentationVessel:
         self.qa(1)
 
 
-
-
     def qa(self, brew_master_id):
         """
         Function for quality testing
@@ -182,7 +185,7 @@ class FermentationVessel:
             measured_abv = (difference*131.25)
             abs(measured_abv) == measured_abv
             if measured_abv == self.base_abv:
-                log = Log(13,"Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "pass")
+                log = Log(13, "Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "pass")
                 print(log.generate_log())
         except Exception as e:
             print(e)
