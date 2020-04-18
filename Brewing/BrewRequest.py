@@ -362,6 +362,9 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'wort_separation_time')
     wort_separation_time = str(recipe_obj).replace("['", "").replace("']", "")
 
+    recipe_obj = extract_values(data, 'wort_volume')
+    wort_volume = str(recipe_obj).replace("['", "").replace("']", "")
+
     recipe_obj = extract_values(data, 'boil_temperature')
     boil_temp = str(recipe_obj).replace("['", "").replace("']", "")
 
@@ -392,7 +395,7 @@ def get_recipe(recipe_name):
     recipe_obj = Recipe.Recipe(recipe_id, recipe_name, abv, ibu, og, fg, batch_size, yeast_amt, yeast, grain,
                                water_volume, water_temp, mill_time, sparge_time,
                                stir_time, hlt_heat_time, wort_separation_time, boil_temp, boil_duration, hop_schedule, hop_amt,
-                               wort_chill_temp, ferment_time, ferment_temp, ferment_yeast_temp)
+                               wort_chill_temp, ferment_time, ferment_temp, ferment_yeast_temp, wort_volume)
 
 
     print()
