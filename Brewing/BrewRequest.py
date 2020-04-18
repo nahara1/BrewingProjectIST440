@@ -3,14 +3,19 @@
 # Course: IST 440W - 001
 # Author: Nahara (nkm5334)
 # Date Developed: 4/14/20
-# Last Date Changed: 4/15/20
-# Rev 1
+# Last Date Changed: 4/18/20
+# Rev 4
+"""
+This module handles the retrieval of brew request data from ServiceNow
+"""
 
 from Brewing import Recipe
 from Brewing import BrewBatch
 from Brewing import BrewBatchStage
 import datetime
-from Brewing.Log import Log
+from Brewing import Log
+import sys
+
 import time
 
 user = 'IST440'
@@ -19,6 +24,7 @@ pwd = 'IST440'
 
 # Function to work with nested JSON
 # Code from: https://hackersandslackers.com/extract-data-from-complex-json-python/
+
 def extract_values(obj, key):
     """Pull all values of specified key from nested JSON."""
     arr = []
@@ -40,54 +46,14 @@ def extract_values(obj, key):
     return results
 
 
-def get_brew_request_number(req_id):
-    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request/' + req_id
-
-    import requests
-    '''
-    number = REQ number
-    sys_created_by = logged user
-    STAGE = STATUS (NEEDS TO BE UPDATED THROUGH PROCESS)
-
-    opened_by 
-    '''
-    # Eg. User name="admin", Password="admin" for this code sample.
-    user = 'IST440'
-    pwd = 'IST440'
-
-    # Set proper headers
-    headers = {"Content-Type": "application/json", "Accept": "application/json"}
-
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
-
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        exit()
-
-    # Decode the JSON response into a dictionary and use the data
-
-    username = extract_values(response.json(), 'sys_created_by')
-
-    username = str(username).replace("['", "").replace("']", "")
-
-    request_number = extract_values(response.json(), 'number')
-
-    request_number = str(request_number).replace("['", "").replace("']", "")
-
-    print("Customer User ID: " + username)
-
-    print()
-
-    print("Brew Request Number: " + request_number)
-
-    data = response.json()
-
-    return request_number
-
+# method to get a new request id
 
 def get_request_id():
+    """
+    Retrieves the most recent brew request id from the ServiceNow requests table
+    :return: request_id
+    """
+    # table url
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request?sysparm_query=stage%3DRequested&sysparm_fields=sys_id%2Crequested_for%2Copened_by%2Csys_created_by%2Cdelivery_address%2Cprice%2Cnumber%2Crequest_state%2Cstage&sysparm_limit=1'
 
     import requests
@@ -98,156 +64,248 @@ def get_request_id():
 
     opened_by 
     '''
-    # Eg. User name="admin", Password="admin" for this code sample.
-    user = 'IST440'
-    pwd = 'IST440'
-
+    sys_id = ''
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
+    try:
+        # Do the HTTP request
+        response = requests.get(url, auth=(user, pwd), headers=headers)
+        data = response.json()
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        exit()
+        if str(data) == "{'result': []}":
+            time.sleep(5)
+            print("No brew request available at this time.")
+            print()
+            get_request_id()
 
-    # Decode the JSON response into a dictionary and use the data
+        else:
+            # Decode the JSON response into a dictionary and use the data
+            sys_id = extract_values(data, 'sys_id')
+            sys_id = str(sys_id).replace("['", "").replace("']", "")
 
-    sys_id = extract_values(response.json(), 'sys_id')
-
-    sys_id = str(sys_id).replace("['", "").replace("']", "")
+    except requests.HTTPError:
+        time.sleep(5)
+        print('Connection Error')
+        get_request_id()
 
     return sys_id
 
 
-# get_brew_request()
+# method to get a request number (which will be used a the brew batch id)
+
+def get_brew_request_number(req_id):
+    """
+    Get the order request number corresponding to the request id given
+    :param req_id: brew request unique identifier
+    :return: brew request number
+    """
+    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request/' + req_id
+
+    import requests
+    '''
+    number = REQ number
+    sys_created_by = logged user
+    STAGE = STATUS (NEEDS TO BE UPDATED THROUGH PROCESS)
+
+    opened_by 
+    '''
+
+    connection_success = False
+    # Set proper headers
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+
+    data = ''
+
+    while not connection_success:
+        try:
+            response = requests.get(url, auth=(user, pwd), headers=headers)
+            data = response.json()
+
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
+            print()
+
+        # Do the HTTP request
+        else:
+            connection_success = True
+
+    username = extract_values(data, 'sys_created_by')
+
+    username = str(username).replace("['", "").replace("']", "")
+
+    request_number = extract_values(data, 'number')
+
+    request_number = str(request_number).replace("['", "").replace("']", "")
+
+    print("Customer User ID: " + username)
+
+    print()
+    print("Brew Request Number: " + request_number)
+
+    return request_number
 
 
 def get_catalog_item_id(request_number):
+    """
+    Get the catalog item unique identifier which has been requested by a customer
+    based on the given request number
+
+    :param request_number: a brew request order number
+    :return: ServiceNow Catalog Item ID
+    """
     import requests
 
-    # Set the request parameters
-
     '''
-
-    value in request is the sys_id of request record in sc_request table
-    request:
+    Value in request is the sys_id of request record in the sc_request table
+    request id:
     value = sys_id in sc_request
 
     cat_item:
-    value = item sys_id in cat_item table
+    value = catalog item sys_id in the cat_item table
 
     '''
-    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=request.number%253D' + request_number + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item&sysparm_limit=10'
-    user = 'IST440'
-    pwd = 'IST440'
+    # Set the request parameters
+    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=request.number%253D' + request_number + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item'
+
+    connection_success = False
 
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
+    while not connection_success:
+        try:
+            response = requests.get(url, auth=(user, pwd), headers=headers)
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        exit()
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
+        else:
+            connection_success = True
 
     # Decode the JSON response into a dictionary and use the data
     data = response.json()
     cat_item_id = extract_values(data, 'value')
+    print(cat_item_id)
     cat_item_id = str(cat_item_id).replace("['", "").replace("']", "")
     # print("Catalog Item ID: " + cat_item_id)
     return cat_item_id
 
 
 def get_catalog_item_name(cat_id):
+    """
+    Get catalog item name given its id, which corresponds to a recipe name in the Recipe table.
+
+    :param cat_id: Catalog Item Unique Identifier
+    :return: a catalog item name
+    """
     import requests
 
     # Set the request parameters
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_cat_item/' + cat_id + '?sysparm_fields=sys_name'
 
-    # Eg. User name="admin", Password="admin" for this code sample.
-    user = 'IST440'
-    pwd = 'IST440'
+    # Initialize data variable
+    data = ""
+
+    # Set connection to false
+    connection_success = False
 
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
+    while not connection_success:
+        try:
+            response = requests.get(url, auth=(user, pwd), headers=headers)
+            data = response.json()
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        exit()
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
 
-    # Decode the JSON response into a dictionary and use the data
-    data = response.json()
+        # Do the HTTP request
+        else:
+            connection_success = True
+
     recipe_name = extract_values(data, 'sys_name')
     recipe_name = str(recipe_name).replace("['", "").replace("']", "")
     print("Requested Brew Name: " + recipe_name)
     return recipe_name
 
 
-# def get_recipe(item_name):
-
-
 def update_brew_stage(sys_id, stage):
+    # Stage is a string
+    """
+    Update request Stage column in the sc_request table
+    As teh brew batch passes along each brew stage, this method will be called to updated the stage
+    of the corresponding brew request
+    :param sys_id: unique identifier of a brew request
+    :param stage: Brew Batch current stage
+    """
     import requests
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request/' + sys_id
-    # Eg. User name="admin", Password="admin" for this code sample.
-    user = 'IST440'
-    pwd = 'IST440'
+
+    # Set stage value to be patched
+    update = "{\"stage\":\"" + stage + "\"}"
+
+    connection_success = False
 
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # Do the HTTP request
-    update = "{\"stage\":\"" + stage + "\"}"
+    while not connection_success:
+        try:
+            # Update requests table
+            response = requests.patch(url, auth=(user, pwd), headers=headers, data=update)
 
-    # updates requests table
-    response = requests.patch(url, auth=(user, pwd), headers=headers, data=update)
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        exit()
+        else:
+            connection_success = True
 
-    # Decode the JSON response into a dictionary and use the data
-    data = response.json()
-    print()
-    print("Brew Stage Updated")
-    print()
+    print("\nBrew Stage Updated\n")
 
 
 def get_recipe(recipe_name):
+    """
+    Get all recipe fields in the SNow table given a recipe name.
+    Each recipe value is retrieved and parsed into a string, and then a Recipe object is created out of those values.
+
+    :param recipe_name: The name of a recipe, also the name of the catalog item
+    :return: a Recipe object
+    """
     import requests
 
     # Set the request parameters
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_recipe?sysparm_query=recipe_name%3D' + recipe_name + '&sysparm_limit=1'
 
+    # Initializing data variable
+    data = ''
+
+    # Set connection success boolean to false
+    connection_success = False
+
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
+    while not connection_success:
+        try:
+            response = requests.get(url, auth=(user, pwd), headers=headers)
+            data = response.json()
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
+        else:
+            connection_success = True
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        exit()
-
-    # Decode the JSON response into a dictionary and use the data
-    data = response.json()
     print()
+
     print("json recipe data: " + str(data))
     print()
 
-    ''' create a recipe object '''
-    # TODO - Add ALL recipe variables
+    # Create a Recipe Object based on the record retrieved from the SNow Recipe table
     recipe_obj = extract_values(data, 'sys_id')
     recipe_id = str(recipe_obj).replace("['", "").replace("']", "")
 
@@ -256,9 +314,6 @@ def get_recipe(recipe_name):
 
     recipe_obj = extract_values(data, 'batch_size')
     batch_size = str(recipe_obj).replace("['", "").replace("']", "")
-
-    recipe_obj = extract_values(data, 'yeast')
-    yeast = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'abv')
     abv = str(recipe_obj).replace("['", "").replace("']", "")
@@ -272,75 +327,71 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'fg')
     fg = str(recipe_obj).replace("['", "").replace("']", "")
 
+
+    recipe_obj = extract_values(data, 'yeast_amount')
+    yeast_amt = str(recipe_obj).replace("['", "").replace("']", "")
+
+    recipe_obj = extract_values(data, 'yeast')
+    yeast = str(recipe_obj).replace("['", "").replace("']", "")
+
+    # recipe_obj = extract_values(data, 'yeast_initial_temperature')
+    # yeast_initial_temp = str(recipe_obj).replace("['", "").replace("']", "")
+
+    # Grain type and amount stored as name-value pairs
     recipe_obj = extract_values(data, 'grain_bill')
-    grain_bill = str(recipe_obj).replace("['", "").replace("']", "")
+    grain = str(recipe_obj).replace("['", "").replace("']", "")
+    print(grain)
 
     recipe_obj = extract_values(data, 'water_temperature')
-    water_temperature = str(recipe_obj).replace("['", "").replace("']", "")
+    water_temp = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'water_volume')
     water_volume = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'sparging_time')
-    sparging_time = str(recipe_obj).replace("['", "").replace("']", "")
+    sparge_time = str(recipe_obj).replace("['", "").replace("']", "")
+
+    recipe_obj = extract_values(data, 'sparging_temperature')
+    sparge_temp = str(recipe_obj).replace("['", "").replace("']", "")
+
+    recipe_obj = extract_values(data, 'wort_stirring_time')
+    stir_time = str(recipe_obj).replace("['", "").replace("']", "")
+
+    recipe_obj = extract_values(data, 'wort_heating_time')
+    wort_heat_time = str(recipe_obj).replace("['", "").replace("']", "")
+
+    recipe_obj = extract_values(data, 'boil_temperature')
+    boil_temp = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'boiling_duration')
-    boiling_duration = str(recipe_obj).replace("['", "").replace("']", "")
+    boil_time = str(recipe_obj).replace("['", "").replace("']", "")
 
+    # Stored as name-value pairs
+    recipe_obj = extract_values(data, 'hop_schedule')
+    hop_schedule = str(recipe_obj).replace("['", "").replace("']", "")
 
+    # Stored as name-value pairs
+    recipe_obj = extract_values(data, 'hop_hop_amt')
+    hop_amt = str(recipe_obj).replace("['", "").replace("']", "")
 
+    recipe_obj = extract_values(data, 'wort_chill_temperature')
+    wort_chill_temp = str(recipe_obj).replace("['", "").replace("']", "")
 
-    # recipe object
-    recipe_obj = Recipe.Recipe(recipe_id, recipe_name, batch_size, yeast, abv, ibu, og, fg)
+    recipe_obj = extract_values(data, 'ferment_duration')
+    ferment_time = str(recipe_obj).replace("['", "").replace("']", "")
+
+    recipe_obj = extract_values(data, 'ferment_temperature')
+    ferment_temp = str(recipe_obj).replace("['", "").replace("']", "")
+
+    recipe_obj = extract_values(data, 'ferment_yeast_temp')
+    ferment_yeast_temp = str(recipe_obj).replace("['", "").replace("']", "")
+
+    # Create recipe object
+    recipe_obj = Recipe.Recipe(recipe_id, recipe_name, abv, ibu, og, fg, batch_size, yeast_amt, yeast, grain,
+                               water_volume, water_temp, sparge_time, sparge_temp,
+                               stir_time, wort_heat_time, boil_temp, boil_time, hop_schedule, hop_amt,
+                               wort_chill_temp, ferment_time, ferment_temp, ferment_yeast_temp)
 
     print()
     print("Recipe data successfully retrieved")
     return recipe_obj
-
-
-# Testing to show what the methods do
-if __name__ == "__main__":
-    # Get a brew request
-
-    # 1 - Get brew request id
-    r_id = get_request_id()
-
-    # 2 - Get brew request number
-    r_number = get_brew_request_number(r_id)
-
-    # 3 - Update brew request
-    update_brew_stage(r_id, "Approval")
-
-    # 4 - Get requested brew id based on request number
-    item_id = get_catalog_item_id(r_number)
-
-    # 5 - Get requested item name based on its id
-    item_name = get_catalog_item_name(item_id)
-
-    # 6 - Get recipe data and create a Python object based on brew request name
-    recipe = get_recipe(item_name)
-
-    # 7 - Update brew request status
-    update_brew_stage(r_id, "Preparation Stage")
-
-
-
-    # create order obj
-
-    # create Prep BB Stage obj
-    bbs = BrewBatchStage.BrewBatchStage(0, datetime.datetime.now(), 0, 0, 'Recipe retrieved')
-    log = Log(12, "BrewRequest", "Recipe Retrieved", datetime.datetime.now(), "pass")
-    # Send log to service now
-
-    # Send log to mongoDB
-    print("-----------------------------------------")
-    print(log.generate_log())
-    print("-----------------------------------------")
-
-    # create Prep BB Stage obj
-    brew_batch = BrewBatch.BrewBatch(recipe.get_id(), datetime.datetime.now(), datetime.datetime.now(), bbs, "in prep",
-                                     5)
-    # brew_batch.set_brew_batch_id(0)
-    # brew_batch.set_recipe_id(recipe.recipe_id)
-    # brew_batch.set_bb_start_date_time(datetime.datetime.now())
-    # brew_batch.set_bb_status("Batch is in prep stage")

@@ -21,6 +21,8 @@
         <list>
           <option value="water_temp" />
           <option value="set" />
+          <option value="object.assertTrue" />
+          <option value="TeamPrep.test_Temperature.*" />
         </list>
       </option>
     </inspection_tool>

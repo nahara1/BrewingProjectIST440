@@ -15,6 +15,8 @@ class TestSanitization(unittest.TestCase):
     def test_button_function(self):
         self.failUnless(True)
 
+    def test_sanitization(self):
+        self.failUnless(True)
 
 if __name__ == '__main__':
     unittest.main()

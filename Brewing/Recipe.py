@@ -13,7 +13,10 @@ class Recipe:
     """
     recipe_id = 0
 
-    def __init__(self, recipe_id, name, volume, yeast_storage_amt, yeast, yeast_begin_temp, grain, sparge_time, sparge_temp,
+    ''''''
+    '''
+        def __init__(self, recipe_id, name, volume, yeast_storage_amt, yeast, yeast_begin_temp, grain, sparge_time,
+                 sparge_temp,
                  wort_volume, boil_temp, boil_time, add_hop_time, hop_amt, hops, after_boil_chill_temp, ferment_time,
                  add_yeast_time, add_yeast_temp, ferment_temp, wort_cool_temp, carbonation, bitter_units,
                  wort_cool_time, ferment_cool_temp):
@@ -43,17 +46,41 @@ class Recipe:
         self._wort_cool_time = wort_cool_time
         self._ferment_cool_temp = ferment_cool_temp
 
-
-    # Constructor overload
-    def __init__(self, recipe_id, name, batch_size, yeast, abv, ibu, og, fg):
+    '''
+    def __init__(self, recipe_id, name, abv, ibu, og, fg, batch_size, yeast_storage_amt, yeast, grain, water_volume,
+                 water_temp, sparge_time, sparge_temp,
+                 stir_time, wort_heat_time, boil_temp, boil_time, hop_schedule, hop_hop_amt, after_boil_chill_temp,
+                 ferment_time, ferment_temp, ferment_yeast_temp):
         self._recipe_id = recipe_id
         self._name = name
         self._batch_size = batch_size
-        self._yeast = yeast
+        # Kegging and Ferment
         self._abv = abv
         self._ibu = ibu
         self._og = og
         self._fg = fg
+        # Prep and Ferment
+        self._yeast = yeast
+        self._yeast_store_amt = yeast_storage_amt
+        # Mashing and Prep
+        self._grain = grain
+        self._water_volume = water_volume
+        self._water_temp = water_temp
+        self._sparge_time = sparge_time
+        self._sparge_temp = sparge_temp
+        self._wort_stir_time = stir_time
+        self._wort_heat_time = wort_heat_time
+        # Boiling
+        self._boil_temp = boil_temp
+        self._boil_time = boil_time
+        self._hop_schedule = hop_schedule
+        self._hop_hop_amt = hop_hop_amt
+        self._after_boil_chill_temp = after_boil_chill_temp
+        # Ferment
+        self._ferment_time = ferment_time
+        self._ferment_temp = ferment_temp
+        self._ferment_yeast_temp = ferment_yeast_temp
+
 
     def get_id(self):
         return self._recipe_id
@@ -63,6 +90,9 @@ class Recipe:
 
     def get_volume(self):
         return self._volume
+
+    def get_batch_size(self):
+        return self._batch_size
 
     def get_yeast_storage_amt(self):
         return self._yeast_store_amt

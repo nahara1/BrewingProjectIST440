@@ -2,8 +2,8 @@
 # Course: IST 440
 # Author: Team Ferment
 # Date Developed: 4/6/20
-# Last Date Changed: 4/16/20
-# Rev: 2
+# Last Date Changed: 4/17/20
+# Rev: 3
 import datetime
 import random
 random_temp = 0
@@ -33,7 +33,7 @@ class FermentationVessel:
     def add_to_fermentation_vessel(self, vessel_id):
         """
         Function for adding the wort to fermentation vessel
-        :param: vessel_id
+        :param: vessel_id : the ID of the vessel
         :return: Return log
         """
         log = Log(2, "Addition to Fermentation Vessel", "Adding wort to fermentation vessel ", datetime.datetime.now(),
@@ -45,7 +45,7 @@ class FermentationVessel:
     def measure_original_gravity(self):
         """
         Function for taking the original gravity (OG) reading of the mixture
-        :param: OG
+        :param: self
         :return: Return log
         """
         log = Log(3, "Ferment.Measure Original Gravity", "Measuring original gravity ", datetime.datetime.now(),
@@ -70,13 +70,18 @@ class FermentationVessel:
         self.add_yeast()
 
     def get_original_gravity(self):
+        """
+        Function for getting the OG of the mixture
+        :param: self
+        :return: Return Log
+        """
         return self.original_gravity
 
 
     def add_yeast(self):
         """
         Function for adding activated yeast to the fermentation vessel with wort
-        :param: wort
+        :param: self
         :return: Return Log
         """
         log = Log(5, "Ferment.addYeast", "Activated yeast has been added to the fermentation vessel",
@@ -91,7 +96,7 @@ class FermentationVessel:
     def close_lid(self):
         """
         Function for closing lid
-        :param: Wort and yeast mixture
+        :param: self
         :return: Return log
         """
         log = Log(6, "Ferment.closeLid", "Closing lid", datetime.datetime.now(), "pass")
@@ -99,10 +104,20 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.begin_fermentation_process()
 
+    def set_ferment_temperature(self):
+        """
+        Function for setting the temperature of the mixture to ferment
+        :param: self
+        :return: Return fermentation temperature
+        """
+        log = Log(7, "Ferment.setFermentTemperature", "Temperature is set at %.2f" % self.sample_ferment_tempertature, datetime.datetime.now(), "pass")
+        print(log.generate_log())
+        self.begin_fermentation_process()
+
     def begin_fermentation_process(self):
         """
         Function to begin fermentation process
-        :param: wort and yeast mixture
+        :param: self
         :return: return Log and brewed Ale
         """
         log = Log(7, "Ferment.beginFermentationProcess", "Beginning Fermentation Process", datetime.datetime.now(),
@@ -129,7 +144,7 @@ class FermentationVessel:
     def measure_final_gravity(self):
         """
         Function to measure the final gravity (FG) of the mixture
-        :param: FG
+        :param: self
         :return: return Log
         """
         log = Log(9, "Ferment.FinalGravity", "Measuring Final Gravity", datetime.datetime.now(), "pass")
@@ -158,7 +173,7 @@ class FermentationVessel:
     def drain_ale(self):
         """
         Function to drain Ale
-        :param: Ale
+        :param: self
         :return: Return log and filtered Ale
         """
         log = Log(11, "Ferment.drainAle", "Draining Ale. Sending to QA", datetime.datetime.now(), "pass")
@@ -167,12 +182,10 @@ class FermentationVessel:
         self.qa(1)
 
 
-
-
     def qa(self, brew_master_id):
         """
         Function for quality testing
-        :param brew_master_id:
+        :param brew_master_id: the ID of the brew master
         :return: pass or fail and Log
         """
         log = Log(12, "Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "fail")
@@ -182,7 +195,7 @@ class FermentationVessel:
             measured_abv = (difference*131.25)
             abs(measured_abv) == measured_abv
             if measured_abv == self.base_abv:
-                log = Log(13,"Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "pass")
+                log = Log(13, "Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "pass")
                 print(log.generate_log())
         except Exception as e:
             print(e)
@@ -194,7 +207,7 @@ class FermentationVessel:
     def send_to_kegging(self):
         """
         Function to send filtered Ale to Team Kegging
-        :param: Filter Ale
+        :param: self
         :return: Return Log
         """
         log = Log(13, "Ferment.send_to_kegging", "Ale sent to kegging", datetime.datetime.now(), "pass")
