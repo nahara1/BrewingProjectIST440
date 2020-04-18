@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Kegging - Daibo Zhang
 # Date Developed: 4/03/2020
-# Last Date Changed: 4/15/2020
-# Rev: 1.3
+# Last Date Changed: 4/18/2020
+# Rev: 1.4
 
 import math
 import time
@@ -341,7 +341,7 @@ class KeggingBriteTank:  #Brite Tank
 
             #Run initial pressure control and log
             self.bt_psi_control()
-            bt_psi_log = "Brite Tank Pressure in Range"
+            bt_psi_log = "Brite Tank: Brite Tank Pressure in Range"
             self.bt_log(batch_id,"Kegging",bt_psi_log)
 
             # Currently Manual input for target carbonation, can substitute from recipe pull from ServicenNow
@@ -349,12 +349,12 @@ class KeggingBriteTank:  #Brite Tank
 
             # Simulated Automatic pressure adjustment to hit targeted PSI, aims to overshoot rather than undershoot because opening valves loses pressure
             self.auto_carb(recipe_carb)
-            bt_carb_log = "Carbonation Ready at " + str(self.get_carbonation()) + " volumes"
+            bt_carb_log = "Brite Tank: Carbonation Ready at " + str(self.get_carbonation()) + " volumes"
             self.bt_log(batch_id, "Kegging", bt_carb_log)
 
             # Send Ready for QA Test Messaage
             print("The Batch is ready for Quality Assurance Taste Tests")
-            bt_carb_end_log = "Ready for QA Test"
+            bt_carb_end_log = "Brite Tanks: Ready for QA Test"
             self.bt_status = "QA_READY"
             self.bt_log(batch_id, "Kegging", bt_carb_end_log)
 
@@ -374,7 +374,7 @@ class KeggingBriteTank:  #Brite Tank
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
 
-        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        #ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         bt_loglist.append(status_log)
 
     def get_bt_loglist(self):
