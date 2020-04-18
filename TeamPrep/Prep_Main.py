@@ -7,6 +7,9 @@
 # Rev
 
 # import RPi.GPIO as GPIO
+import self as self
+from Brewing import BrewRequest
+from Brewing import ServiceNowLog
 from Sanitization import Sanitization
 from Temperature import Temperature
 from WeightScale import WeightScale
@@ -30,6 +33,7 @@ GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(w_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 """
+b = BrewRequest()
 s = Sanitization()
 t = Temperature()
 w = WeightScale()
@@ -41,11 +45,13 @@ This thread function will be called each time this file runs to check them tempe
 
 
 def thread_function(thread_id):
+try:
+    s.sanitization()
     try:
         s.sanitization()
         try:
             t.yeast_temp()
-            try: 
+            try:
                 w.read_weight_grains()
                 try:
                     w.read_weight_hops()
@@ -59,9 +65,8 @@ def thread_function(thread_id):
                 GPIO.cleanup()
         except:
             GPIO.cleanup()
-    except:
-        GPIO.cleanup()
-
+except:
+    GPIO.cleanup()
         
 
         
@@ -71,11 +76,13 @@ def main():
     thread_list = []
     # to create upto 5 Threads
     for x in range(5):
-        message = ('\n Batch: '+ str(x+1) + ' ---------------------------------------')
+        status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Preparation Process\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        message = ('\nBrewRequest:' + b + '\nLog:' + status_log + '\nBatch: '+ str(x+1) + ' ---------------------------------------')
         thread = threading.Thread(target=thread_function, args=(x,))
         thread_list.append(thread)
         # message = ('Batch: '+ str(x))
-        print( message)
+        print(message)
         '''
        This main method
         '''
