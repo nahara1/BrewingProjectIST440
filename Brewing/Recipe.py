@@ -5,7 +5,7 @@
 # Date Developed: 3/16/2020
 # Last Date Changed: 4/18/2020
 # Rev: 6
-
+import json
 # default constructor added
 class Recipe:
     """
@@ -159,7 +159,11 @@ class Recipe:
 
     def get_grain_weight(self, grain):
         weight = 0
-        for value in grain:
+        float(weight)
+
+        for value in grain.values():
+            str(value).replace("<", "")
+            value = float(value)
             weight = weight + value
         return weight
 
@@ -199,4 +203,6 @@ class Recipe:
     def get_wort_volume(self):
         return self._wort_volume
 
+    def get_mill_time(self):
+        return self._mill_time
 

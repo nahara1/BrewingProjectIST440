@@ -1,10 +1,10 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: class for creating command line displays
 # Course: IST 440W - 001
-# Author: Erik Ellis (eae5206@psu.edu), Teresa Barker (tlb5767@psu.edu)
+# Author: Team Boiling
 # Date Developed: 3/18/20
-# Last Date Changed: 4/16/2020
-# Rev 3
+# Last Date Changed: 4/18/2020
+# Rev 4
 
 import logging
 from datetime import datetime
@@ -27,7 +27,7 @@ class DisplayHelper():
 
     logging.info("Thread %s: starting Getters and Setters")  # Threading
 
-    def print_start_info(self, stage_date_time, boil_time, boil_temp, is_boiling):
+    def print_start_info(self, request_number, stage_date_time, boil_time, boil_temp, is_boiling):
         """
         Prints start stage information to the screen
         :param stage_date_time: Start time of the stage
@@ -39,7 +39,7 @@ class DisplayHelper():
         sleep(1)
         print("Logging to ServiceNow...")
         sleep(1)
-        status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Starting Boil Process\"}"
+        status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Starting Boil Process\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         print("Successfully logged that Boil Stage has started")
         print("-----------------------------------------")

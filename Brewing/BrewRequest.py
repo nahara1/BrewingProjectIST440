@@ -17,7 +17,7 @@ from Brewing import Log
 import sys
 
 import time
-
+import ast
 user = 'IST440'
 pwd = 'IST440'
 
@@ -339,7 +339,9 @@ def get_recipe(recipe_name):
     # Grain type and amount stored as name-value pairs
     recipe_obj = extract_values(data, 'grain_bill')
     grain = str(recipe_obj).replace("['", "").replace("']", "")
+    grain = ast.literal_eval(grain)
     print(grain)
+
 
     recipe_obj = extract_values(data, 'water_temperature')
     water_temp = str(recipe_obj).replace("['", "").replace("']", "")
@@ -349,6 +351,7 @@ def get_recipe(recipe_name):
 
     recipe_obj = extract_values(data, 'mill_time')
     mill_time = str(recipe_obj).replace("['", "").replace("']", "")
+    mill_time = int(mill_time)
 
     recipe_obj = extract_values(data, 'sparging_time')
     sparge_time = str(recipe_obj).replace("['", "").replace("']", "")
@@ -390,6 +393,7 @@ def get_recipe(recipe_name):
 
     recipe_obj = extract_values(data, 'ferment_yeast_temp')
     ferment_yeast_temp = str(recipe_obj).replace("['", "").replace("']", "")
+
 
     # Create recipe object
     recipe_obj = Recipe.Recipe(recipe_id, recipe_name, abv, ibu, og, fg, batch_size, yeast_amt, yeast, grain,
