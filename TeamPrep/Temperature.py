@@ -30,7 +30,7 @@ class Temperature:
 '''
 logging for temperature
 '''
-    def log(self):
+def log(self):
         status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Sanitation Process\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         print(status_log)

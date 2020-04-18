@@ -10,13 +10,17 @@ class BrewBatch:
     current_ingredients = ['yeast', 'grain', 'sugar', 'hops']
     recipe_file = "Ingredient.py"
 
-
+'''
+pulls recipe
+'''
     with open(recipe_file, 'r') as f:
         for line in f:
             words = line.split()
             if words:
                 recipe[words[0]] = words[1:]
-
+'''
+displays the possible recipe with given ingredients
+'''
     for recipe, ingredients in recipe.items():
         for ingredient in ingredients:
             if ingredient not in current_ingredients:

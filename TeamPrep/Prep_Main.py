@@ -76,7 +76,6 @@ def thread_function(thread_id):
             break
         break
 
-
 def main():
     time.sleep(2)
     thread_list = []
