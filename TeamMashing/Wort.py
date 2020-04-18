@@ -10,7 +10,6 @@ import datetime
 import time
 from Brewing.Log import Log
 from Brewing import ServiceNowLog
-from TeamBoiling import Boil
 
 # Wort class checks for water temperature, water volume and records separation time.
 class Wort:
@@ -128,8 +127,6 @@ class Wort:
 
             print("Wort Separated from Mash")
             print("-----------------------------------------")
-
-            Boil.run_boil()
 
         except Exception as e:  # error handling
             print(e)
