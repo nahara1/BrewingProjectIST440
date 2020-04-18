@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 4/14/2020
-# Rev: 1.4
+# Last Date Changed: 4/18/2020
+# Rev: 2.0
 
 import datetime
 import time
@@ -41,7 +41,7 @@ class Wort:
             print("Hot Water Temperature: ", self.hot_water_temp, "degrees F")
             print("-----------------------------------------")
 
-            self.check_water_volume()
+            self.check_water_volume(recipe)
         except Exception as e:
             print(e)
 
@@ -64,7 +64,7 @@ class Wort:
             print("Water Volume: ", self.water_volume, "gallons")
             print("-----------------------------------------")
 
-            self.check_wort_volume()
+            self.check_wort_volume(recipe)
         except Exception as e:
             print(e)
 
@@ -88,16 +88,19 @@ class Wort:
             print("Wort Volume: ", self.wort_volume, "gallons")
             print("-----------------------------------------")
 
-            self.separate_wort()
+            self.separate_wort(recipe)
         except Exception as e:
             print(e)
 
-    def separate_wort(self):
+    def separate_wort(self, recipe):
         # Separates the wort from the mash
         """
         Displays a count down while wort separation is in process
         :return: Current date, time and count down to separating wort.
         """
+
+        self.separation_time = recipe.get_wort_separation_time()
+
         try:
             status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Separating Wort\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
@@ -126,7 +129,7 @@ class Wort:
             print("Wort Separated from Mash")
             print("-----------------------------------------")
 
-            Boil.Boil.start_boil()
+            Boil.run_boil()
 
         except Exception as e:  # error handling
             print(e)

@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 3/31/2020
-# Rev: 1.2
+# Last Date Changed: 4/18/2020
+# Rev: 2.0
 
 import datetime
 import time
@@ -28,7 +28,7 @@ class MillingMachine():  # MillingMachine Start
         :return: Return Log and animation of milling grains
         """
         self.mill_time = recipe.get_mill_time()
-        self.grains_weight = recipe.get_grains_weight()
+        self.grains_weight = recipe.get_grain_weight(recipe.get_grain())
 
         try:
             # log to begin process
@@ -53,11 +53,11 @@ class MillingMachine():  # MillingMachine Start
             log = Log(2, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
-            self.send_grains_to_sparging_tank(self)
+            self.send_grains_to_sparging_tank(recipe)
         except Exception as e:  # error handling
             print(e)
 
-    def send_grains_to_sparging_tank(self, s):
+    def send_grains_to_sparging_tank(self, recipe):
         # sends grains to Sparging Tank
         """
         grains are added to the Sparging Tank
@@ -74,6 +74,6 @@ class MillingMachine():  # MillingMachine Start
             print("Grains added to Sparging Tank")
             print("-----------------------------------------")
             hlt = HotLiquorTank()
-            hlt.heat_water()
+            hlt.heat_water(recipe)
         except Exception as e:
             print(e)
