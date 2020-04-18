@@ -160,13 +160,11 @@ class Recipe:
     def get_grain_weight(self, grain):
         weight = 0
         float(weight)
-        print(grain)
 
         for value in grain.values():
             str(value).replace("<", "")
             value = float(value)
             weight = weight + value
-            print(weight)
         return weight
 
     def get_yeast_begin_temp(self):
