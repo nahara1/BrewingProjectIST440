@@ -153,7 +153,6 @@ class Boil:
 def run_boil():
     # Hard coding for current functionality
     boilTime = 10
-    # Boil(10, 100, True)
 
     DisplayHelper.DisplayHelper.print_start_info(stage_date_time=datetime.datetime.now(), boil_time=10, boil_temp=100, is_boiling='True')
     SensorHelper.SensorHelper.boil_timer(boilTime)
