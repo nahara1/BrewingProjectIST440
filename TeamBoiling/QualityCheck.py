@@ -1,7 +1,7 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: class for implementing quality assurance
 # Course: IST 440W - 001
-# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu), David Karminski (dck5200@psu.edu)
+# Author: Team Boiling
 # Date Developed: 3/18/20
 # Last Date Changed: 4/18/2020
 # Rev 11

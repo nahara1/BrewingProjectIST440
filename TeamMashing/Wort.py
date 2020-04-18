@@ -4,7 +4,7 @@
 # Author: Team Mashing
 # Date Developed: 3/17/2020
 # Last Date Changed: 4/18/2020
-# Rev: 2.0
+# Rev: 2.1
 
 import datetime
 import time
@@ -12,6 +12,8 @@ from Brewing.Log import Log
 from Brewing import ServiceNowLog
 
 # Wort class checks for water temperature, water volume and records separation time.
+
+
 class Wort:
     def __init__(self):
         self.wort_id = 4
