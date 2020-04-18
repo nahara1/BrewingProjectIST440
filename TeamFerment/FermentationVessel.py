@@ -70,6 +70,11 @@ class FermentationVessel:
         self.add_yeast()
 
     def get_original_gravity(self):
+        """
+        Function for getting the OG of the mixture
+        :param: OG
+        :return: Return Log
+        """
         return self.original_gravity
 
 
