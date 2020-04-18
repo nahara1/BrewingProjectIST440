@@ -327,8 +327,6 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'fg')
     fg = str(recipe_obj).replace("['", "").replace("']", "")
 
-    recipe_obj = extract_values(data, 'grain_bill')
-    grain = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'yeast_amount')
     yeast_amt = str(recipe_obj).replace("['", "").replace("']", "")
@@ -342,6 +340,7 @@ def get_recipe(recipe_name):
     # Grain type and amount stored as name-value pairs
     recipe_obj = extract_values(data, 'grain_bill')
     grain = str(recipe_obj).replace("['", "").replace("']", "")
+    print(grain)
 
     recipe_obj = extract_values(data, 'water_temperature')
     water_temp = str(recipe_obj).replace("['", "").replace("']", "")

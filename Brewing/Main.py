@@ -49,11 +49,12 @@ def main():
         # Hard-coded bb size value
         brew_batch = BrewBatch.BrewBatch(request_number, recipe, datetime.datetime.now(), bb_stage,
                                          "in prep",
-                                         5)
+                                         recipe.get_batch_size())
 
         # Call Prep
 
         # Call Mashing
+        # start_mashing(brew_batch)
 
         # Call Boiling
 
