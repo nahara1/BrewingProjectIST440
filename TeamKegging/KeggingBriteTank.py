@@ -349,7 +349,7 @@ class KeggingBriteTank:  #Brite Tank
 
             # Simulated Automatic pressure adjustment to hit targeted PSI, aims to overshoot rather than undershoot because opening valves loses pressure
             self.auto_carb(recipe_carb)
-            bt_carb_log = "Carbonation Ready at " + str(KeggingBriteTank.get_carbonation()) + " volumes"
+            bt_carb_log = "Carbonation Ready at " + str(self.get_carbonation()) + " volumes"
             self.bt_log(batch_id, "Kegging", bt_carb_log)
 
             # Send Ready for QA Test Messaage
@@ -378,3 +378,4 @@ class KeggingBriteTank:  #Brite Tank
 
     def get_bt_loglist(self):
         return bt_loglist
+
