@@ -53,7 +53,7 @@ class Temperature:
             tmp = self.read_temp()
 
             # GPIO.wait_for_edge(t_button_pin, GPIO.FALLING)
-        print("\033[1;32;40m       temperature of yeast is in range and ready to use.\033[0;0m\n")   
+        print("\033[1;32;40m       Temperature of yeast is in range and ready to use.\033[0;0m\n")
         time.sleep(2)
         
          

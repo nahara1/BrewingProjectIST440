@@ -41,37 +41,41 @@ This thread function will be called each time this file runs to check them tempe
 
 
 def thread_function(thread_id):
-    try:
-        s.sanitization()
+    while True:
         try:
-            t.yeast_temp()
-            try: 
-                w.read_weight_grains()
+            s.sanitization()
+            try:
+                t.yeast_temp()
                 try:
-                    w.read_weight_hops()
+                    w.read_weight_grains()
                     try:
-                        w.read_weight_sugar()
+                        w.read_weight_hops()
+                        try:
+                            w.read_weight_sugar()
+                        except:
+                            # GPIO.cleanup()
+                            break
                     except:
-                        GPIO.cleanup()
+                        # GPIO.cleanup()
+                        break
                 except:
-                    GPIO.cleanup()
+                    # GPIO.cleanup()
+                    break
             except:
-                GPIO.cleanup()
+                # GPIO.cleanup()
+                break
         except:
-            GPIO.cleanup()
-    except:
-        GPIO.cleanup()
+            # GPIO.cleanup()
+            break
+        break
 
-        
 
-        
-        
 def main():
     time.sleep(2)
     thread_list = []
     # to create upto 5 Threads
     for x in range(5):
-        message = ('\n Batch: '+ str(x+1) + ' ---------------------------------------')
+        message = ('\n Batch: ' + str(x + 1) + ' ---------------------------------------')
         thread = threading.Thread(target=thread_function, args=(x,))
         thread_list.append(thread)
         # message = ('Batch: '+ str(x))

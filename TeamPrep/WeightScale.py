@@ -65,7 +65,7 @@ class WeightScale:
         time.sleep(2)
         print("       To dispense \033[1;33;40m1\033[0;0m packet of \033[1;33;40m0.5\033[0;0m pound Hops : \n")
         time.sleep(2)
-        input("       Press Enter button to dispense one packet of Hops:")
+        input("       Press Enter button to dispense one packet of Hops:\n")
         
         for weight_scale in numpy.arange (0.0, weight+0.01, 0.5):
             if weight_scale > 0:
@@ -81,7 +81,7 @@ class WeightScale:
                 else:
                     #print("       \033[1;31;40m" + str(weight_scale) + "\033[0;0m pound(s) Hops recieved. \033[1;33;40m" + str(weight-weight_scale) + "\033[0;0m pound(s) left to be dispensed. \n")
                     time.sleep(2)
-                    input("       Press the right button to dispense one more packet: ")
+                    input("       Press the right button to dispense one more packet: \n")
                 time.sleep(2)
         return weight_scale
      
@@ -98,7 +98,7 @@ class WeightScale:
             time.sleep(1)
             print("       To dispense \033[1;33;40m1\033[0;0m packet of \033[1;33;40m0.05\033[0;0m pound Sugar : \n")
             time.sleep(1)
-            input("       Press Enter to dispense one packet of sugar:")
+            input("       Press Enter to dispense one packet of sugar:\n")
             for weight_scale in numpy.arange (0.00, weight+0.01, 0.05):
                 if weight_scale > 0:
                     # GPIO.wait_for_edge(w_button_pin, GPIO.FALLING)
