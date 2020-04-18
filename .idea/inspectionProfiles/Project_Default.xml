@@ -26,6 +26,7 @@
           <option value="TeamPrep.Prep_Main.Sanitization" />
           <option value="TeamPrep.Prep_Main.Temperature" />
           <option value="TeamPrep.Prep_Main.WeightScale" />
+          <option value="Sanitization" />
         </list>
       </option>
     </inspection_tool>
