@@ -56,13 +56,13 @@ class KeggingTasks:
             batch_id = raw_input("Please confirm the batch ID: ")  # user input for batch ID
             confirm_batch_id = raw_input("Are you sure? Enter (y/n): ")
             if confirm_batch_id == 'y':
-                self.keg_log(batch_id, "kegging", "Batch ID entered as: " + batch_id)  # logging to service now
+                self.keg_log(batch_id, "Kegging", "Kegging Tasks: Batch ID entered as: " + batch_id)  # logging to service now
                 break
             else:
                 print("Confirmation failed. Please try again.")
-                self.keg_log(batch_id, "kegging", "Batch ID Confirmation Mismatch")  # logging to service now
+                self.keg_log(batch_id, "Kegging", "Kegging Tasks: Batch ID Confirmation Mismatch")  # logging to service now
                 print()
-            self.keg_log(batch_id, "kegging", "Starting Cellarman tasks")
+            self.keg_log(batch_id, "Kegging", "Kegging Tasks: Starting Cellarman tasks")
 
         print()
         print("----------------------------------------------------")
@@ -129,7 +129,7 @@ class KeggingTasks:
                         break
                     else:
                         print("Authentication Error")
-                        self.keg_log(1, "kegging", "RFID Mismatch")  # logging to service now
+                        self.keg_log(1, "Kegging", "RFID Mismatch")  # logging to service now
             else:
                 continue
             print()
@@ -139,7 +139,7 @@ class KeggingTasks:
         # exit of while loop / all tasks completed
         print()
         print("All kegging tasks completed.")
-        self.keg_log(batch_id, "Kegging", "All Cellarman tasks completed.")  # logging to service now
+        self.keg_log(batch_id, "Kegging", "Kegging Tasks: All Cellarman tasks completed.")  # logging to service now
 
 
 kt1 = KeggingTasks(1234, 'Cellarman tasks', 'TASK_START')

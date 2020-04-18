@@ -8,7 +8,6 @@
 
 import time
 import datetime
-import datetime
 
 tt_loglist = []
 
@@ -46,7 +45,7 @@ class TasteTest:
             if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
                 report_correct = True
                 self.tt_status = "QA_TASTING"
-                beer_report = "Beer Quality Report: " + tt_quality
+                beer_report = "Quality Assurance Beer Quality Report: " + tt_quality
                 self.tt_log(batch_id, "Kegging", beer_report)
             elif choice in ['N', 'n', 'no', 'No', 'NO']:
                 pass
@@ -66,7 +65,7 @@ class TasteTest:
                 self.tt_ibu = ibu
                 ibu_correct = True
                 self.tt_status = "QA_IBU_TASTING"
-                ibu_report = "IBU Report: " + str(ibu)
+                ibu_report = "Quality Assurance IBU Report: " + str(ibu)
                 self.tt_log(batch_id, "Kegging", ibu_report)
             elif choice in ['N', 'n', 'no', 'No', 'NO']:
                 pass
@@ -78,7 +77,7 @@ class TasteTest:
             result = input("Does beer batch (Batch_ID: " + str(batch_id) + ") pass Quality Assurance Inspection (Y/N): ")
             if result in ['Y', 'y', 'yes', 'Yes', 'YES']:
                 quality_pass = True
-                qa_report = "Beer Quality Test Passed."
+                qa_report = "Quality Assurance: Beer Quality Test Passed."
                 self.tt_log(batch_id, "Kegging", qa_report)
             elif result in ['N', 'n', 'no', 'No', 'NO']:
                 pass
