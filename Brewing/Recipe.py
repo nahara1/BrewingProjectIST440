@@ -156,6 +156,11 @@ class Recipe:
     def get_ferment_yeast_temp(self):
         return self._ferment_yeast_temp
 
+    def get_grain_weight(self, grain):
+        weight = 0
+        for value in grain:
+            weight = weight + value
+        return weight
 
 '''
 
