@@ -12,8 +12,8 @@ import datetime
 loglist = []
 
 
-class KeggingTasks:
-    def __init__(self, , task_category, task_prerequisite, task_status, task_confirmation):
+class TasteTest:
+    def __init__(self, tt_id, task_category, task_prerequisite, task_status, task_confirmation):
         self.task_status = task_status
         self.tt_id = tt_id
         self.task_category = task_category
@@ -52,9 +52,9 @@ class KeggingTasks:
         print()
 
         # list of tasks
-        t1 = '1. Cleanse and sanitization of equipment'
-        t2 = '2. Leak test for gas side of keg system'
-        t3 = '3. Transfer beer to keg and seal keg'
+        t1 = '1. Record Beer Quality'
+        t2 = '2. Record IBU (International Bitterness Units)'
+        t3 = '3. P / F'
 
         # declaring list, time stamp list, dummy RFID employee list
         taskList = [t1, t2, t3]
