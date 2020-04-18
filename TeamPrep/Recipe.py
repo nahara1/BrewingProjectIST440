@@ -2,9 +2,10 @@
 # Purpose Details:
 # Course: IST 440W - 001
 # Author: Antonio Rivera :)
-# Date Developed: 4/9/20
+# Date Developed: 4/14/20
 
-class recipe
+class recipe:
+
 
 
 

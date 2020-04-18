@@ -13,9 +13,9 @@ kt_loglist = []
 
 
 class KeggingTasks:
-    def __init__(self, task_id, task_category, task_status):
+    def __init__(self, batch_id, task_category, task_status):
         self.task_status = task_status
-        self.task_id = task_id
+        self.batch_id = batch_id
         self.task_category = task_category
 
     def keg_log(self, batch_id, bb_stage, log_message):
@@ -52,8 +52,8 @@ class KeggingTasks:
         while True:
               # logging to service now
             print("")
-            print("Starting Cellarman Tasks.")
-            batch_id = raw_input("Please enter the batch ID: ")  # user input for batch ID
+            print("Starting Cellarman Tasks. The current batch is (Batch ID: " + str(self.batch_id)+  ").")
+            batch_id = raw_input("Please confirm the batch ID: ")  # user input for batch ID
             confirm_batch_id = raw_input("Are you sure? Enter (y/n): ")
             if confirm_batch_id == 'y':
                 self.keg_log(batch_id, "kegging", "Batch ID entered as: " + batch_id)  # logging to service now
@@ -91,6 +91,8 @@ class KeggingTasks:
         while taskCounter < length:
 
             # prints completed / not completed based off counter (tasks must go in order)
+            print("Current kegging tasks status: " + str(self.task_status))
+            print()
             print("list of tasks:")
             print()
             for taskStatus in range(1, taskCounter + 1):
@@ -116,7 +118,7 @@ class KeggingTasks:
                     taskRFID = raw_input("Please enter your RFID number: ")
                     if taskRFID in employeeRFID:  # checks to see if RFID is in list
                         print()
-                        print("Current kegging tasks status: " + str(self.task_status))
+
                         self.keg_log(batch_id, "kegging", "Current task: " + taskList[taskCounter] + " COMPLETED.")  # logging to service now
                         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())  # retrieves current timestamp
                         timeStampList.append(currentTimeStamp)  # adds current timestamp to list
@@ -131,6 +133,7 @@ class KeggingTasks:
             else:
                 continue
             print()
+            print("Current kegging tasks status: " + str(self.task_status))
             print("----------------------------------------------------")
             print()
         # exit of while loop / all tasks completed
@@ -139,10 +142,10 @@ class KeggingTasks:
         self.keg_log(batch_id, "Kegging", "All Cellarman tasks completed.")  # logging to service now
 
 
-#kt1 = KeggingTasks(1, 'Cellarman tasks', 'TASK_START')
-#kt1.Keggingtasksmain()
+kt1 = KeggingTasks(1234, 'Cellarman tasks', 'TASK_START')
+kt1.Keggingtasksmain()
 #print()
 
 # prints log that gets sent to service now (for dev)
-#for n in kt_loglist:
-#    print(n)
+for n in kt_loglist:
+    print(n)
