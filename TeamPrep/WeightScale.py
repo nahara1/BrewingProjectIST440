@@ -41,7 +41,7 @@ class WeightScale:
         time.sleep(1)
         print("       To dispense \033[1;33;40m1\033[0;0m packet of \033[1;33;40m1.0\033[0;0m pound All Grain : \n")
         time.sleep(1)
-        input("       Press the right button to dispense one All Grain packet:")
+        input("       Press the right button to dispense one All Grain packet:\n")
         for weight_scale in numpy.arange(0, weight):
             weight_scale = weight_scale + 1.0
             # GPIO.wait_for_edge(w_button_pin, GPIO.FALLING)
