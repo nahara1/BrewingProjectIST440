@@ -62,14 +62,10 @@ class WeightScale:
 '''
 logging of weight measurments
 '''
-    def log(self):
-        status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Weighing Process\"}"
-        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        print(status_log)
 '''
 interface for weighing hops
 '''
-    def read_weight_hops(self):
+def read_weight_hops(self):
         weight_scale = 0.0
         weight = random.randrange(1,5, 1)*0.5
 
@@ -101,7 +97,7 @@ interface for weighing hops
 '''
 interface for weighing sugar
 '''
-    def read_weight_sugar(self):
+def read_weight_sugar(self):
         weight_scale = 0.00
         weight = random.randrange(0,4, 1)*0.05
         time.sleep(2)
