@@ -19,8 +19,10 @@ import time
 user = 'IST440'
 pwd = 'IST440'
 
+
 # Function to work with nested JSON
 # Code from: https://hackersandslackers.com/extract-data-from-complex-json-python/
+
 def extract_values(obj, key):
     """Pull all values of specified key from nested JSON."""
     arr = []
@@ -135,6 +137,7 @@ def get_brew_request_number(req_id):
 
 
 def get_catalog_item_id(request_number):
+    import requests
 
     # Set the request parameters
 
