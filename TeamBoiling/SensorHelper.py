@@ -1,12 +1,14 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: class for controlling sensors
 # Course: IST 440W - 001
-# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu)
+# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu), David Karminski (dck5200@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/14/2020
-# Rev 4
+# Last Date Changed: 4/16/2020
+# Rev 6
 
 import logging
+import random
+from Brewing import ServiceNowLog
 from time import sleep
 
 
@@ -94,10 +96,27 @@ class SensorHelper:
         logging.info("Thread %s: finishing Send_Values", self)
 
     def boil_timer(self, timer):
+        boilOverTemp = 0
         for x in reversed(range(timer)):
-            print(x)
+            print(x+1)
             sleep(1)
-        print("Buzzzzz, Timer is done.")
+            # Test if Brew has over boiled
+            boilOverTemp = random.randrange(1, 50)
+            if boilOverTemp == 1:
+                print("BEEP! Brew has boiled over! Trash brew.")
+                sleep(1)
+                print("Brew has stopped boiling")
+                sleep(1)
+                print("Logging to Service Now...")
+                sleep(1)
+                status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Brew has Boiled Over\"}"
+                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+                break
+
+        if boilOverTemp != 1:
+            print("Buzzzz, Brew finished boiling")
+
+
 
 
 SensorHelper = SensorHelper('_touch_sensor', '_buzzer_status', '_sensor_values')

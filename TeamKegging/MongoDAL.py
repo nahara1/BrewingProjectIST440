@@ -10,7 +10,7 @@ class dal:
     def __init__(self, host, port):
         self.host = host
         self.port = port
-    def getHost(self):
+    def get_host(self):
         return self.host
-    def getPort(self):
+    def get_port(self):
         return self.port

@@ -1,4 +1,4 @@
-# Project: IST 440 Barlog Brewery
+# Project: IST 440 Balrog Brewery
 # Purpose Details: Creating communication between ServiceNOW to MongoDB, sending the Lager's recipe contents to MongoDB
 # Course: IST 440
 # Author: Team Ferment

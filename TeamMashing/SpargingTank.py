@@ -7,7 +7,7 @@
 # Rev: 1.4
 import datetime
 import time
-from Brewing.MongoLog import Log
+from Brewing.Log import Log
 from TeamMashing.Wort import Wort
 from TeamMashing.RecipeMashing import recipe_mashing
 
