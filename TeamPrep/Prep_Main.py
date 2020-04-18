@@ -11,9 +11,9 @@ from TeamPrep import QualityCheck_Prep
 # from Brewing import BrewRequest
 # from Brewing import ServiceNowLog
 # from Brewing import  ServiceNowToMongo
-from TeamPrep import Sanitization
-from TeamPrep import Temperature
-from TeamPrep import WeightScale
+from Sanitization import Sanitization
+from Temperature import Temperature
+from WeightScale import WeightScale
 import threading
 import time
 
