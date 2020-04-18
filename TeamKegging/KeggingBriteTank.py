@@ -377,5 +377,9 @@ class KeggingBriteTank:  #Brite Tank
         bt_loglist.append(status_log)
 
     def get_bt_loglist(self):
+        """
+        Method that returns a list of the brite tank log
+        :return: returns the brite tank log as a list
+        """
         return bt_loglist
 

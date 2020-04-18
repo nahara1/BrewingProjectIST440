@@ -9,16 +9,14 @@ from pip._vendor.distlib.compat import raw_input
 
 import datetime
 
-loglist = []
+kt_loglist = []
 
 
 class KeggingTasks:
-    def __init__(self, task_id, task_category, task_prerequisite, task_status, task_confirmation):
+    def __init__(self, task_id, task_category, task_status):
         self.task_status = task_status
         self.task_id = task_id
         self.task_category = task_category
-        self.task_prerequisite = task_prerequisite
-        self.task_confirmation = task_confirmation
 
     def keg_log(self, batch_id, bb_stage, log_message):
         """
@@ -32,11 +30,12 @@ class KeggingTasks:
         """
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
-        # ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog, status_log)
+        # ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         # print(status_log)
-        loglist.append(status_log)
+        kt_loglist.append(status_log)
 
-
+    def get_kt_loglist(self):
+        return kt_loglist
     def Keggingtasksmain(self):  # kegging task start
         """
         kegging task list
@@ -132,10 +131,10 @@ class KeggingTasks:
         self.keg_log(batch_id, "Kegging", "All Cellarman tasks completed.")  # logging to service now
 
 
-kt1 = KeggingTasks(1, 'cellarman tasks', 'none', 'placeholder', 'yes')
+kt1 = KeggingTasks(1, 'Cellarman tasks', 'TASK_START')
 kt1.Keggingtasksmain()
 print()
 
 # prints log that gets sent to service now (for dev)
-for n in loglist:
+for n in kt_loglist:
     print(n)
