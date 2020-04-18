@@ -3,20 +3,21 @@
 # Course: IST 440W - 001
 # Author: Nahara (nkm5334)
 # Date Developed: 4/14/20
-# Last Date Changed: 4/15/20
-# Rev 1
+# Last Date Changed: 4/17/20
+# Rev 4
 
 from Brewing import Recipe
 from Brewing import BrewBatch
 from Brewing import BrewBatchStage
 import datetime
-from Brewing.Log import Log
+from Brewing import Log
 import sys
+
+
 import time
 
 user = 'IST440'
 pwd = 'IST440'
-
 
 # Function to work with nested JSON
 # Code from: https://hackersandslackers.com/extract-data-from-complex-json-python/
@@ -44,6 +45,7 @@ def extract_values(obj, key):
 # method to get a new request id
 
 def get_request_id():
+    # table url
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request?sysparm_query=stage%3DRequested&sysparm_fields=sys_id%2Crequested_for%2Copened_by%2Csys_created_by%2Cdelivery_address%2Cprice%2Cnumber%2Crequest_state%2Cstage&sysparm_limit=1'
 
     import requests
@@ -54,31 +56,33 @@ def get_request_id():
 
     opened_by 
     '''
-    # Eg. User name="admin", Password="admin" for this code sample.
-    user = 'IST440'
-    pwd = 'IST440'
-
+    sys_id = ''
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
+
     try:
         # Do the HTTP request
         response = requests.get(url, auth=(user, pwd), headers=headers)
+        data = response.json()
 
-        # Check for HTTP codes other than 200
-        if response.status_code != 200:
-            # print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
+        if str(data) == "{'result': []}":
+            time.sleep(5)
             print("No brew request available at this time.")
-            main()
+            print()
+            get_request_id()
 
-        # Decode the JSON response into a dictionary and use the data
+        else:
+            # Decode the JSON response into a dictionary and use the data
+            sys_id = extract_values(data, 'sys_id')
+            print(sys_id)
+            sys_id = str(sys_id).replace("['", "").replace("']", "")
 
-        sys_id = extract_values(response.json(), 'sys_id')
+    except requests.HTTPError:
+        time.sleep(5)
+        print('Connection Error')
+        get_request_id()
 
-        sys_id = str(sys_id).replace("['", "").replace("']", "")
-        return sys_id
-
-    except Exception as e:
-        print(e)
+    return sys_id
 
 
 # method to get a request number (which will be used a the brew batch id)
@@ -94,48 +98,41 @@ def get_brew_request_number(req_id):
 
     opened_by 
     '''
-    # Eg. User name="admin", Password="admin" for this code sample.
-    user = 'IST440'
-    pwd = 'IST440'
 
+    connection_success = False
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
-    try:
-        # Do the HTTP request
-        response = requests.get(url, auth=(user, pwd), headers=headers)
 
-        # Check for HTTP codes other than 200
-        if response.status_code != 200:
-            # print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-            print("No new brew requests at this time")
-            # Wait 10 seconds to check for a new request
-            time.sleep(10)
-            main()
+    data = ''
 
-        # Decode the JSON response into a dictionary and use the data
-        else:
-            username = extract_values(response.json(), 'sys_created_by')
+    while not connection_success:
+        try:
+            response = requests.get(url, auth=(user, pwd), headers=headers)
+            data = response.json()
 
-            username = str(username).replace("['", "").replace("']", "")
-
-            request_number = extract_values(response.json(), 'number')
-
-            request_number = str(request_number).replace("['", "").replace("']", "")
-
-            print("Customer User ID: " + username)
-
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
             print()
 
-            print("Brew Request Number: " + request_number)
+        # Do the HTTP request
+        else:
+            connection_success = True
 
-            data = response.json()
-            return request_number
+    username = extract_values(data, 'sys_created_by')
 
-    except Exception as e:
-        print("Error")
+    username = str(username).replace("['", "").replace("']", "")
 
+    request_number = extract_values(data, 'number')
 
-# get_brew_request()
+    request_number = str(request_number).replace("['", "").replace("']", "")
+
+    print("Customer User ID: " + username)
+
+    print()
+    print("Brew Request Number: " + request_number)
+
+    return request_number
 
 
 def get_catalog_item_id(request_number):
@@ -144,7 +141,6 @@ def get_catalog_item_id(request_number):
     # Set the request parameters
 
     '''
-
     value in request is the sys_id of request record in sc_request table
     request:
     value = sys_id in sc_request
@@ -153,21 +149,24 @@ def get_catalog_item_id(request_number):
     value = item sys_id in cat_item table
 
     '''
+
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=request.number%253D' + request_number + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item&sysparm_limit=10'
-    user = 'IST440'
-    pwd = 'IST440'
+
+    connection_success = False
 
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
+    while not connection_success:
+        try:
+            response = requests.get(url, auth=(user, pwd), headers=headers)
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        # print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        # exit()
-        main()
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
+        else:
+            connection_success = True
+
     # Decode the JSON response into a dictionary and use the data
     data = response.json()
     cat_item_id = extract_values(data, 'value')
@@ -189,14 +188,22 @@ def get_catalog_item_name(cat_id):
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
+    connection_success = False
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        # print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        # exit()
-        main()
+    # Set proper headers
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+
+    while not connection_success:
+        try:
+            response = requests.get(url, auth=(user, pwd), headers=headers)
+
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
+
+        # Do the HTTP request
+        else:
+            connection_success = True
 
     # Decode the JSON response into a dictionary and use the data
     data = response.json()
@@ -204,9 +211,6 @@ def get_catalog_item_name(cat_id):
     recipe_name = str(recipe_name).replace("['", "").replace("']", "")
     print("Requested Brew Name: " + recipe_name)
     return recipe_name
-
-
-# def get_recipe(item_name):
 
 
 def update_brew_stage(sys_id, stage):
@@ -222,17 +226,23 @@ def update_brew_stage(sys_id, stage):
     # Do the HTTP request
     update = "{\"stage\":\"" + stage + "\"}"
 
-    # updates requests table
-    response = requests.patch(url, auth=(user, pwd), headers=headers, data=update)
+    connection_success = False
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        # print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        # exit()
-        main()
+    # Set proper headers
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # Decode the JSON response into a dictionary and use the data
-    data = response.json()
+    while not connection_success:
+        try:
+            # update requests table
+            response = requests.patch(url, auth=(user, pwd), headers=headers, data=update)
+
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
+
+        else:
+            connection_success = True
+
     print()
     print("Brew Stage Updated")
     print()
@@ -247,18 +257,28 @@ def get_recipe(recipe_name):
     # Set proper headers
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # Do the HTTP request
-    response = requests.get(url, auth=(user, pwd), headers=headers)
 
-    # Check for HTTP codes other than 200
-    if response.status_code != 200:
-        # print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-        # exit()
-        main()
+    # Initializing data variable
+    data = ''
 
-    # Decode the JSON response into a dictionary and use the data
-    data = response.json()
+    # Set connection success boolean to false
+    connection_success = False
+
+    # Set proper headers
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+
+    while not connection_success:
+        try:
+            response = requests.get(url, auth=(user, pwd), headers=headers)
+            data = response.json()
+        except requests.HTTPError:
+            time.sleep(5)
+            print('Connection Error')
+        else:
+            connection_success = True
+
     print()
+
     print("json recipe data: " + str(data))
     print()
 
@@ -312,12 +332,17 @@ def get_recipe(recipe_name):
 
 
 def main():
+    # Get a brew request
+
     try:
         # 1 - Get brew request id
         request_id = get_request_id()
-        # 2 - Get brew request number
-        request_number = get_brew_request_number(request_id)
 
+        # 2 - Get brew request number
+        if request_id != '':
+            request_number = get_brew_request_number(request_id)
+        else:
+            main()
         # 3 - Update brew request
         update_brew_stage(request_id, "Approval")
 
@@ -338,9 +363,10 @@ def main():
         # create Prep BB Stage obj
         bbs = BrewBatchStage.BrewBatchStage(0, datetime.datetime.now(), 0, 0, 'Recipe retrieved')
         log = Log(12, "BrewRequest", "Recipe Retrieved", datetime.datetime.now(), "pass")
+
         # Send log to service now
 
-        # Save log to MongoDB
+        # Save log to mongoDB
 
         print("-----------------------------------------")
         print(log.generate_log())
@@ -370,76 +396,10 @@ def main():
     except Exception as e:
 
         print("Error message: " + e)
-        print("No new brew requests at this time.")
-        main()
+    main()
+
 
 # Testing to show what the methods do
 if __name__ == "__main__":
     main()
 
-    # Get a brew request
-    '''
-        try:
-        # 1 - Get brew request id
-        r_id = get_request_id()
-
-        # 2 - Get brew request number
-        r_number = get_brew_request_number(r_id)
-
-        # 3 - Update brew request
-        update_brew_stage(r_id, "Approval")
-
-        # 4 - Get requested brew id based on request number
-        item_id = get_catalog_item_id(r_number)
-
-        # 5 - Get requested item name based on its id
-        item_name = get_catalog_item_name(item_id)
-
-        # 6 - Get recipe data and create a Python object based on brew request name
-        recipe = get_recipe(item_name)
-
-        # 7 - Update brew request status
-        update_brew_stage(r_id, "Preparation Stage")
-
-        # create order obj
-
-        # create Prep BB Stage obj
-        bbs = BrewBatchStage.BrewBatchStage(0, datetime.datetime.now(), 0, 0, 'Recipe retrieved')
-        log = Log(12, "BrewRequest", "Recipe Retrieved", datetime.datetime.now(), "pass")
-        # Send log to service now
-
-        # Save log to MongoDB
-        # log_event = log.generate_log_document()
-        # log.save_log(log_event)
-
-        # Send log to mongoDB
-        print("-----------------------------------------")
-        print(log.generate_log())
-
-        print("-----------------------------------------")
-
-        # create Prep BB Stage obj
-        brew_batch = BrewBatch.BrewBatch(recipe.get_id(), datetime.datetime.now(), datetime.datetime.now(), bbs,
-                                         "in prep",
-                                         5)
-
-        # Call Prep
-
-        # Call Mashing
-
-        # Call Boiling
-
-        # Call Ferment
-
-        # Call Kegging
-
-        # brew_batch.set_brew_batch_id(0)
-        # brew_batch.set_recipe_id(recipe.recipe_id)
-        # brew_batch.set_bb_start_date_time(datetime.datetime.now())
-        # brew_batch.set_bb_status("Batch is in prep stage")
-
-    except Exception as e:
-
-        print("Error message: " + e)
-        print("No new brew requests at this time.")
-    '''

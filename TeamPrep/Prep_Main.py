@@ -3,7 +3,7 @@
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/15
+# Last Date Changed:4/18
 # Rev
 
 # import RPi.GPIO as GPIO
@@ -53,24 +53,39 @@ try:
             t.yeast_temp()
             try:
                 w.read_weight_grains()
+
+    while True:
+        try:
+            s.sanitization()
+            try:
+                t.yeast_temp()
+
                 try:
-                    w.read_weight_hops()
+                    w.read_weight_grains()
                     try:
-                        w.read_weight_sugar()
+                        w.read_weight_hops()
+                        try:
+                            w.read_weight_sugar()
+                        except:
+                            # GPIO.cleanup()
+                            break
                     except:
-                        GPIO.cleanup()
+                        # GPIO.cleanup()
+                        break
                 except:
-                    GPIO.cleanup()
+                    # GPIO.cleanup()
+                    break
             except:
-                GPIO.cleanup()
+                # GPIO.cleanup()
+                break
         except:
             GPIO.cleanup()
 except:
     GPIO.cleanup()
-        
+            # GPIO.cleanup()
+            break
+        break
 
-        
-        
 def main():
     time.sleep(2)
     thread_list = []
