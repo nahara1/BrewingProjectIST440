@@ -31,7 +31,9 @@ class QualityCheck:
         self.read_weight_sugar = _read_weight_sugar
         logging.info("Thread %s: finishing QACheck for Prep", self)  # Threading
 
-    # Getters and Setters
+    '''
+    defines all the getters and setters 
+    '''
     logging.info("Thread %s: starting Getters and Setters")  # Threading
 
     def get_sanitization(self):
