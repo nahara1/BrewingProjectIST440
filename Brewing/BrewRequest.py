@@ -4,7 +4,7 @@
 # Author: Nahara (nkm5334)
 # Date Developed: 4/14/20
 # Last Date Changed: 4/18/20
-# Rev 4
+# Rev 5
 """
 This module handles the retrieval of brew request data from ServiceNow
 """
