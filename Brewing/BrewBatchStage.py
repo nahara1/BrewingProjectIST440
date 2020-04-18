@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: Alex Hirsh (ajh6196@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/6/2020
-# Rev 2
+# Last Date Changed: 4/18/2020
+# Rev 3
 
 import datetime
 import time
@@ -46,6 +46,26 @@ class BrewBatchStage():
         self._bb_stage_start_date_time = datetime
         self._bb_stage_end_date_time = datetime
         self._bb_stage_duration = time
+        self._bb_stage_status = _bb_stage_status
+        logging.info("Thread %s: Brew Batch Ending", self)
+
+
+    # Overloaded Constructor
+
+    def __init__(self, _bb_stage_id, _bb_stage_start_date_time,
+                 _bb_stage_status):
+        """
+        Overloads constructor with parameters
+        :param _bb_stage_id: ID for BrewBatchStage
+        :param _bb_stage_start_date_time: Start Date and time for the stage of brew batch
+        :param _bb_stage_duration: duration of the brew batch stage
+        :param _bb_stage_status: status of the brew batch stage
+        """
+
+        logging.info("Thread %s: Brew Batch Starting", self)
+        ++self._bb_stage_id
+        self._bb_stage_id = _bb_stage_id
+        self._bb_stage_start_date_time = datetime
         self._bb_stage_status = _bb_stage_status
         logging.info("Thread %s: Brew Batch Ending", self)
 

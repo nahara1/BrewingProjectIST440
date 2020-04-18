@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: Erik Ellis (eae5206@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/6/20
-# Rev 3
+# Last Date Changed: 4/18/20
+# Rev 4
 
 import datetime
 import time
@@ -52,6 +52,23 @@ class BrewBatch():
         self._bb_start_date_time = bb_start_date_time
         self._bb_end_date_time = bb_end_date_time
         self._bb_duration = bb_end_date_time - bb_start_date_time
+        self._bb_status = bb_status
+        self._bb_size = bb_size
+        logging.info("Thread %s: finishing BrewBatch", self)  # Threading
+
+    def __init__(self, _bb_id, recipe, bb_start_date_time, bb_stage, bb_status, bb_size):
+        """
+        Overloaded Constructor Method allows parameters to be accessed with methods and attributes
+        :param recipe: Recipe object
+        :param bb_start_date_time:  start date and time of the brew batch
+        :param bb_stage: stage of the brew batch
+        :param bb_status: the brew batch's status
+        :param bb_size: size of the brew batch
+        """
+        logging.info("Thread %s: starting BrewBatch", self)  # Threading
+        self._bb_id = _bb_id
+        self._recipe = recipe
+        self._bb_start_date_time = bb_start_date_time
         self._bb_status = bb_status
         self._bb_size = bb_size
         logging.info("Thread %s: finishing BrewBatch", self)  # Threading
