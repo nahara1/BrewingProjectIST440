@@ -10,6 +10,8 @@ import datetime
 import time
 from Brewing.Log import Log
 from TeamMashing.RecipeMashing import recipe_mashing
+from Brewing import ServiceNowLog
+from TeamBoiling import Boil
 
 # Wort class checks for water temperature, water volume and records separation time.
 class Wort:
@@ -28,7 +30,9 @@ class Wort:
         """
         # Records correct hot water temp to Log
         try:
-            log = Log(1, "Mashing.Wort", "Wort transferred", datetime.datetime.now(), "pass")
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Checking Water Temp\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            log = Log(1, "Mashing.Wort", "Checking Water Temp", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
 
@@ -46,7 +50,9 @@ class Wort:
         :return: Current date, time and correct water volume
         """
         try:
-            log = Log(2, "Mashing.Wort", "Water Volume", datetime.datetime.now(), "pass")
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Checking Water Volume\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            log = Log(2, "Mashing.Wort", "Checking Water Volume", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
 
@@ -65,7 +71,9 @@ class Wort:
         """
         # Records correct wort volume to Log and show animation
         try:
-            log = Log(3, "Mashing.Wort", "Wort Transferred", datetime.datetime.now(), "pass")
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Check Wort Volume\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            log = Log(3, "Mashing.Wort", "Check Wort Volume", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
 
@@ -83,13 +91,15 @@ class Wort:
         :return: Current date, time and count down to separating wort.
         """
         try:
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Separating Wort\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(4, "Mashing.Wort", "Wort Separation Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
 
             # Counts the separation time in seconds
             while self.separation_time > 0:
-                print("Wort Separating Time Left: ", self.separation_time, "sec")
+                print("Wort Separating Time Left: ", self.separation_time, "min")
                 time.sleep(1)
                 self.separation_time -= 1
 
@@ -99,11 +109,16 @@ class Wort:
                     print("-----------------------------------------")
 
             # Generates a log and displays the process has been successfully completed.
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Wort Separated\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(5, "Mashing.Wort", "Wort Separation Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
 
             print("Wort Separated from Mash")
             print("-----------------------------------------")
+
+            Boil.Boil.start_boil()
+
         except Exception as e:  # error handling
             print(e)

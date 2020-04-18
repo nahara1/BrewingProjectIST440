@@ -10,6 +10,7 @@ import time
 from Brewing.Log import Log
 from TeamMashing.Wort import Wort
 from TeamMashing.RecipeMashing import recipe_mashing
+from Brewing import ServiceNowLog
 
 class SpargingTank: #constructor for the SpargingTank class
     def __init__(self):
@@ -27,6 +28,8 @@ class SpargingTank: #constructor for the SpargingTank class
         :param :Hot water from HLT
         :return: Return log 1
         """
+        status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Adding Hot Water to Tank\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(1, "Mashing.Sparging", "Heated water added to tank", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------") # prints line to separate statements & log 1 is created
@@ -44,12 +47,14 @@ class SpargingTank: #constructor for the SpargingTank class
         :param : time.sleep is pausing the process for 1 second
         :return: Return log 2
         """
+        status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Stirring Mash\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(2, "Mashing.Sparging", "Sparging Process Started", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------") # prints line to separate statements & log 2 is created
 
         while self.stir_time > 0:
-            print("Stirring Time Left: ", self.stir_time, "sec") # prints number of seconds left until stirring is
+            print("Stirring Time Left: ", self.stir_time, "min") # prints number of seconds left until stirring is
             # finished
             time.sleep(1)
             self.stir_time -= 1
@@ -58,6 +63,8 @@ class SpargingTank: #constructor for the SpargingTank class
                 print ("SpargingTank stirred") # print validates that SpargingTank is finished stirring
                 print("-----------------------------------------")
 
+        status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Mash Stirred\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(3, "Mashing.Sparging", "Sparging Process Ended", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------") # prints line to separate statements & log 3 is created
@@ -73,7 +80,9 @@ class SpargingTank: #constructor for the SpargingTank class
         :param : Wort in HLT
         :return: Return log 4
         """
-        log = Log(4, "Mashing.Sparging", "Mash Sparged to Boiling", datetime.datetime.now(), "pass")
+        status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Sparging the Tank\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        log = Log(4, "Mashing.Sparging", "Sparging the Tank", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------") # prints line to separate statements & log 4 is created
 
