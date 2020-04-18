@@ -80,7 +80,7 @@ class QualityCheck:
 '''
 interface of the QA including variations (yes/no)
 '''
-    def get_QA_Check(self):
+def get_QA_Check(self):
         print("Please Inspect the Prep Quality Before Start Brewing to Check if it Meets CGMP Standards: \n")
         # save text as variable
         quality_checked = ""
