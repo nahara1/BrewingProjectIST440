@@ -91,6 +91,9 @@ class Recipe:
     def get_volume(self):
         return self._volume
 
+    def get_batch_size(self):
+        return self._batch_size
+
     def get_yeast_storage_amt(self):
         return self._yeast_store_amt
 
