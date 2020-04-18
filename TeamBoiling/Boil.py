@@ -10,11 +10,12 @@ import datetime
 import time
 import logging
 
+from Brewing.Recipe import Recipe
 from TeamBoiling import QualityCheck
 from TeamBoiling import DisplayHelper
 from TeamBoiling import SensorHelper
 from TeamBoiling.UnitTests import TempBoilRecipe
-
+from Brewing import BrewRequest
 
 class Boil:
 
@@ -24,7 +25,6 @@ class Boil:
     _stage_duration = datetime
     _end_stage_date_time = datetime
     _is_boiling = bool
-
 
     def __init__(self):
         """
@@ -150,12 +150,9 @@ class Boil:
     # else if no, stop all & log failed message
 
 
-def run_boil():
-    # Hard coding for current functionality
-    boilTime = 10
-
-    DisplayHelper.DisplayHelper.print_start_info(stage_date_time=datetime.datetime.now(), boil_time=10, boil_temp=100, is_boiling='True')
-    SensorHelper.SensorHelper.boil_timer(boilTime)
-    DisplayHelper.DisplayHelper.print_end_info(end_stage_date_time=datetime.datetime.now(), stage_duration=boilTime)
-    QualityCheck.QualityCheck.get_QA_Check()
+def run_boil(request_number, boil_temp, boil_time):
+    DisplayHelper.DisplayHelper.print_start_info(request_number, boil_temp, boil_time, stage_date_time=datetime.datetime.now(), is_boiling='True')
+    SensorHelper.SensorHelper.boil_timer(request_number, boil_time)
+    DisplayHelper.DisplayHelper.print_end_info(end_stage_date_time=datetime.datetime.now(), stage_duration=boil_time)
+    QualityCheck.QualityCheck.get_QA_Check(request_number)
 

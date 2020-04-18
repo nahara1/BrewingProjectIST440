@@ -1,10 +1,10 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: class for controlling sensors
 # Course: IST 440W - 001
-# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu), David Karminski (dck5200@psu.edu)
+# Author: Team Boiling
 # Date Developed: 3/18/20
-# Last Date Changed: 4/16/2020
-# Rev 6
+# Last Date Changed: 4/18/2020
+# Rev 7
 
 import logging
 import random
@@ -95,13 +95,14 @@ class SensorHelper:
         return self.send_values()
         logging.info("Thread %s: finishing Send_Values", self)
 
-    def boil_timer(self, timer):
+    def boil_timer(self, request_number, boil_time):
         boilOverTemp = 0
-        for x in reversed(range(timer)):
+        boil_time = int(boil_time)
+        for x in reversed(range(boil_time)):
             print(x+1)
             sleep(1)
             # Test if Brew has over boiled
-            boilOverTemp = random.randrange(1, 50)
+            boilOverTemp = random.randrange(1, 200)
             if boilOverTemp == 1:
                 print("BEEP! Brew has boiled over! Trash brew.")
                 sleep(1)
@@ -109,7 +110,7 @@ class SensorHelper:
                 sleep(1)
                 print("Logging to Service Now...")
                 sleep(1)
-                status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Brew has Boiled Over\"}"
+                status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Brew has Boiled Over\"}"
                 ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
                 break
 
@@ -117,10 +118,5 @@ class SensorHelper:
             print("Buzzzz, Brew finished boiling")
 
 
-
-
 SensorHelper = SensorHelper('_touch_sensor', '_buzzer_status', '_sensor_values')
-
-# SensorHelper.boil_timer()
-
 
