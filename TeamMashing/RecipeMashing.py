@@ -1,4 +1,5 @@
 class recipe_mashing:
+    """These will be set to the ServiceNow Recipe."""
     mill_time = 10
     grains_weight = 10
     water_amount = 20
