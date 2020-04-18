@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 3/24/2020
-# Rev: 1.1
+# Last Date Changed: 4/18/2020
+# Rev: 2.0
 
 import datetime
 from Brewing.Log import Log
@@ -21,6 +21,7 @@ class HotLiquorTank:
 
         """
         The start of water heating
+        :param recipe:
         :param water_temp: temperature of the water
         :return: return log and animation of burner light.
         """
@@ -39,12 +40,12 @@ class HotLiquorTank:
             print("Water Temperature Heated To: ", self.water_temp, " degrees F")
             print("-----------------------------------------")
 
-            self.check_water_temp()
+            self.check_water_temp(recipe)
 
         except Exception as e:
             print(e)
 
-    def check_water_temp(self):
+    def check_water_temp(self, recipe):
         """
         Checks the current temperature of the water.
         :return: current water temperature
@@ -59,12 +60,12 @@ class HotLiquorTank:
             print("Water Temperature: ", self.water_temp, "degrees F")
             print("-----------------------------------------")
 
-            self.check_water_volume()
+            self.check_water_volume(recipe)
 
         except Exception as e:
             print(e)
 
-    def check_water_volume(self):
+    def check_water_volume(self, recipe):
         """
         Getter for water volume
         :return: water volume.
@@ -79,12 +80,12 @@ class HotLiquorTank:
             print("Water Volume: ", self.water_amount, "gallons")
             print("-----------------------------------------")
 
-            self.send_hot_water_to_sparging_tank()
+            self.send_hot_water_to_sparging_tank(recipe)
 
         except Exception as e:
             print(e)
 
-    def send_hot_water_to_sparging_tank(self):
+    def send_hot_water_to_sparging_tank(self, recipe):
         """
         
         :return: print statement
@@ -100,6 +101,6 @@ class HotLiquorTank:
             print("-----------------------------------------")
 
             st = SpargingTank()
-            st.add_water()
+            st.add_water(recipe)
         except Exception as e:
             print(e)

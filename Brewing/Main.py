@@ -56,7 +56,8 @@ def main():
         # Call Prep
 
         # Call Mashing
-        MillingMachine.MillingMachine.mill_grains(recipe)
+        m = MillingMachine.MillingMachine()
+        MillingMachine.MillingMachine.mill_grains(m, recipe)
         # Call Boiling
 
         # Call Ferment
