@@ -12,7 +12,8 @@ import datetime
 from Brewing.Recipe import Recipe
 from Brewing import ServiceNowLog
 
-sim_sleep_mod = 1 # Contains the simulated delay in seconds for automatic Temperature and Pressure Controls
+sim_sleep_mod = .05 # Contains the simulated delay in seconds for automatic Temperature and Pressure Controls
+bt_loglist = []
 
 class KeggingBriteTank:  #Brite Tank
     def __init__(self, bt_id, bt_temp, bt_max_volume, bt_current_volume, bt_psi, bt_status):
@@ -216,7 +217,7 @@ class KeggingBriteTank:  #Brite Tank
                 self.bt_temp += 1
             elif self.bt_temp > target_temp and abs(self.bt_temp -target_temp) >= 1:
                 self.bt_temp -= 1
-            elif abs(self.bt_temp - target_temp) < 1:
+            elif abs(self.bt_temp - target_temp) < 1 or self.bt_temp == target_temp:
                 self.bt_temp = target_temp
             else:
                 print("Error")
@@ -294,7 +295,7 @@ class KeggingBriteTank:  #Brite Tank
                 self.bt_psi += 1
             elif self.bt_psi > target_psi and abs(self.bt_psi -target_psi) >= 1:
                 self.bt_psi -= 1
-            elif abs(self.bt_psi - target_psi) < 1:
+            elif abs(self.bt_psi - target_psi) < 1 or self.bt_psi == target_psi:
                 self.bt_psi = target_psi
             else:
                 print("Error")
@@ -316,6 +317,8 @@ class KeggingBriteTank:  #Brite Tank
                     carbonation_ready = True
             elif self.get_carbonation() > target_carb:
                 self.bt_psi -= 1
+            elif self.get_carbonation() == target_carb:
+                carbonation_ready = True
             else:
                 print("Error")
             self.print_carb_status()
@@ -331,7 +334,6 @@ class KeggingBriteTank:  #Brite Tank
             self.print_carb_status()
             print("Welcome to the Kegging Process")
 
-            # Gather Batch ID
             # Run initial temperature control and log
             self.bt_temp_control()
             bt_temp_log = "Brite Tank Temperature in Range"
@@ -372,5 +374,7 @@ class KeggingBriteTank:  #Brite Tank
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
         #ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        print(status_log)
+        bt_loglist.append(status_log)
 
+    def get_bt_loglist(self):
+        return bt_loglist

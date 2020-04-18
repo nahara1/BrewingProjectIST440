@@ -1,131 +1,112 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: Kegging - KeggingTask Class
 # Course: IST 440W - 001
-# Author: Aaleem Siddiqui
+# Author: Aaleem Siddiqui, Daibo Zhang, Jun Baek
 # Date Developed: 4/4/2020
 # Last Date Changed: 4/18/2020
 # Rev: 9
-from pip._vendor.distlib.compat import raw_input
 
+import time
+import datetime
 import datetime
 
-loglist = []
-
+tt_loglist = []
 
 class TasteTest:
-    def __init__(self, kegtask_id, task_category, task_prerequisite, task_status, task_confirmation):
-        self.task_status = task_status
-        self.kegtask_id = kegtask_id
-        self.task_category = task_category
-        self.task_prerequisite = task_prerequisite
-        self.task_confirmation = task_confirmation
+    def __init__(self, tt_id, taster_name, taster_id, tt_status, tt_ibu):
+        self.tt_id = tt_id
+        self.taster_name = taster_name
+        self.taster_id = taster_id
+        self.tt_status = tt_status
+        self.tt_ibu = tt_ibu
 
-    def keg_log(self, batch_id, bb_stage, log_message):
+    def get_status(self):
+        return "Taste Test ID: {}\n" \
+               "Taster Name: {}\n" \
+               "Taster ID: {}\n" \
+               "Taste Test Status: {}\n".format(self.tt_id, self.taster_name, self.taster_id, self.tt_status)
+
+    def tt_log(self, batch_id, bb_stage, log_message):
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
         # ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog, status_log)
         # print(status_log)
-        loglist.append(status_log)
+        tt_loglist.append(status_log)
 
-    def KeggingTasksmain(self):  # kegging task start
-        """
-        kegging task list
-        :param: task completion (y/n)
-        :return: list of tasks (completed and not completed)
-        """
+    def record_quality(self,batch_id):
+        report_correct = False
+        while not report_correct:
+            tt_quality = input("Please enter the beer quality report for beer batch (Batch_ID: " + str(batch_id) + "): ")
+            print("")
+            print("The report you have entered is as follows:")
+            print("")
+            print(tt_quality)
+            print("")
+            choice = input("Is this correct (Y/N): ")
+            if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
+                report_correct = True
+                self.tt_status = "QA_TASTING"
+                beer_report = "Beer Quality Report: " + tt_quality
+                self.tt_log(batch_id, "Kegging", beer_report)
+            elif choice in ['N', 'n', 'no', 'No', 'NO']:
+                pass
 
-        #  batch ID confirmation loop
-        while True:
-            self.keg_log(1, "kegging", "Starting Cellarman tasks")  # logging to service now
-            batch_id = raw_input("Please enter the batch ID: ")  # user input for batch ID
-            confirm_batch_id = raw_input("Are you sure? Enter (y/n): ")
-            if confirm_batch_id == 'y':
-                self.keg_log(1, "kegging", "Batch ID entered as: " + batch_id)  # logging to service now
-                break
-            else:
-                print("Confirmation failed. Please try again.")
-                self.keg_log(1, "kegging", "Batch ID Confirmation Mismatch")  # logging to service now
-                print()
+    def record_ibu(self, batch_id, recipe_ibu):
+        ibu_correct = False
+        while not ibu_correct:
+            print("The target IBU (International Bitterness Unit) Score is (" + str(recipe_ibu) + ").")
+            ibu = float(input("Please enter the IBUs (International Bitterness Units) for beer batch (Batch_ID: " + str(batch_id) + "): "))
+            print("")
+            print("The IBUs you have entered is as follows:")
+            print("")
+            print(str(ibu))
+            print("")
+            choice = input("Is this correct (Y/N): ")
+            if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
+                self.tt_ibu = ibu
+                ibu_correct = True
+                self.tt_status = "QA_IBU_TASTING"
+                ibu_report = "IBU Report: " + str(ibu)
+                self.tt_log(batch_id, "Kegging", ibu_report)
+            elif choice in ['N', 'n', 'no', 'No', 'NO']:
+                pass
 
-        print()
-        print("----------------------------------------------------")
-        print()
+    def quality_pass_fail(self,batch_id):
+        quality_pass = False
+        while not quality_pass:
+            self.record_quality(batch_id)
+            result = input("Does beer batch (Batch_ID: " + str(batch_id) + ") pass Quality Assurance Inspection (Y/N): ")
+            if result in ['Y', 'y', 'yes', 'Yes', 'YES']:
+                quality_pass = True
+                qa_report = "Beer Quality Test Passed."
+                self.tt_log(batch_id, "Kegging", qa_report)
+            elif result in ['N', 'n', 'no', 'No', 'NO']:
+                pass
+
+    def tt_main(self, batch_id, recipe_ibu):  # kegging task start
 
         # list of tasks
         t1 = '1. Record Beer Quality'
         t2 = '2. Record IBU (International Bitterness Units)'
         t3 = '3. P / F'
 
-        # declaring list, time stamp list, dummy RFID employee list
+        # declaring lists
         taskList = [t1, t2, t3]
-        timeStampList = []
-        RFIDLinkToTask = []
-        employeeRFID = ['1111', '2222', '3333', '4444']
 
-        # declaring counters and defining length of task list
+        self.tt_status = "QA_START"
+        self.tt_log(batch_id,"Kegging", "Taste Test In Progress")
 
-        length = len(taskList)
-        taskCounter = 0
-        taskStatusCounter = 0
-        taskStatus = 0
-        currentTimeStamp = 0
+        self.record_ibu(batch_id, recipe_ibu)
+        self.quality_pass_fail(batch_id)
 
-        # main loop for kegging tasks until completion
-        while taskCounter < length:
+        self.tt_log(batch_id,"Kegging","Ready for Kegging Tasks")
 
-            # prints completed / not completed based off counter (tasks must go in order)
-            print("list of tasks:")
-            print()
-            for taskStatus in range(1, taskCounter + 1):
-                print(taskList[taskStatusCounter] + " status: completed at " + timeStampList[
-                    taskStatusCounter] + " by RFID#" + RFIDLinkToTask[taskStatusCounter])
-                taskStatusCounter += 1
-
-            for taskStatus in range(taskCounter + 1, length + 1):
-                print(taskList[taskStatusCounter] + " status: not completed")
-                taskStatusCounter += 1
-
-            # resets task status counter
-            taskStatusCounter = 0
-            print()
-
-            # prints current task and asks if complete
-            print("Current task: " + taskList[taskCounter])
-            self.keg_log(1, "kegging", "Current task: " + taskList[taskCounter] + " INITIATED.")  # logging to service now
-            print()
-            ans = raw_input("Has this task been completed? Enter (y/n): ")
-            if ans == 'y':
-                while True:  # validation of RFID loop
-                    taskRFID = raw_input("Please enter your RFID number: ")
-                    if taskRFID in employeeRFID:  # checks to see if RFID is in list
-                        print()
-                        print("Current kegging tasks status: " + str(self.task_status))
-                        self.keg_log(batch_id, "kegging", "Current task: " + taskList[taskCounter] + " COMPLETED.")  # logging to service now
-                        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())  # retrieves current timestamp
-                        timeStampList.append(currentTimeStamp)  # adds current timestamp to list
-                        RFIDLinkToTask.append(taskRFID)  # adds RFID to completed task
-                        taskCounter += 1
-                        self.task_status = "{0:.1%}".format(taskCounter / length)  # percentage of task completion
-                        self.keg_log(batch_id, "Kegging", "Current kegging tasks status: " + str(self.task_status))  # logging to service now
-                        break
-                    else:
-                        print("Authentication Error")
-                        self.keg_log(1, "kegging", "RFID Mismatch")  # logging to service now
-            else:
-                continue
-            print()
-            print("----------------------------------------------------")
-            print()
-        # exit of while loop / all tasks completed
-        print()
-        print("All kegging tasks completed.")
-        self.keg_log(batch_id, "Kegging", "All Cellarman tasks completed.")  # logging to service now
+    def get_tt_loglist(self):
+        return tt_loglist
 
 
-kt1 = KeggingTasks(1, 'cellarman tasks', 'none', 'placeholder', 'yes')
-kt1.KeggingTasksmainsmain()
-print()
 
-# prints log that gets sent to service now (for dev)
-for n in loglist:
-    print(n)
+
+
+#tt1 = TasteTest(1,"Daibo",1111,"QA_START",0)
+#tt1.tt_main(1,38.5)
