@@ -29,7 +29,8 @@ class KeggingTasks:
 
         """
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
-        status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
+        status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
+            bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
         # ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         # print(status_log)
         kt_loglist.append(status_log)
@@ -50,9 +51,9 @@ class KeggingTasks:
 
         #  batch ID confirmation loop
         while True:
-              # logging to service now
+            # logging to service now
             print("")
-            print("Starting Cellarman Tasks. The current batch is (Batch ID: " + str(self.batch_id)+  ").")
+            print("Starting Cellarman Tasks. The current batch is (Batch ID: " + str(self.batch_id) + ").")
             batch_id = raw_input("Please confirm the batch ID: ")  # user input for batch ID
             confirm_batch_id = raw_input("Are you sure? Enter (y/n): ")
             if confirm_batch_id == 'y':
@@ -110,7 +111,8 @@ class KeggingTasks:
 
             # prints current task and asks if complete
             print("Current task: " + taskList[taskCounter])
-            self.keg_log(1, "kegging", "Current task: " + taskList[taskCounter] + " INITIATED.")  # logging to service now
+            self.keg_log(1, "kegging",
+                         "Current task: " + taskList[taskCounter] + " INITIATED.")  # logging to service now
             print()
             ans = raw_input("Has this task been completed? Enter (y/n): ")
             if ans == 'y':
@@ -119,13 +121,16 @@ class KeggingTasks:
                     if taskRFID in employeeRFID:  # checks to see if RFID is in list
                         print()
 
-                        self.keg_log(batch_id, "kegging", "Current task: " + taskList[taskCounter] + " COMPLETED.")  # logging to service now
-                        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())  # retrieves current timestamp
+                        self.keg_log(batch_id, "kegging",
+                                     "Current task: " + taskList[taskCounter] + " COMPLETED.")  # logging to service now
+                        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(
+                            datetime.datetime.now())  # retrieves current timestamp
                         timeStampList.append(currentTimeStamp)  # adds current timestamp to list
                         RFIDLinkToTask.append(taskRFID)  # adds RFID to completed task
                         taskCounter += 1
                         self.task_status = "{0:.1%}".format(taskCounter / length)  # percentage of task completion
-                        self.keg_log(batch_id, "Kegging", "Current kegging tasks status: " + str(self.task_status))  # logging to service now
+                        self.keg_log(batch_id, "Kegging",
+                                     "Current kegging tasks status: " + str(self.task_status))  # logging to service now
                         break
                     else:
                         print("Authentication Error")
@@ -144,7 +149,7 @@ class KeggingTasks:
 
 kt1 = KeggingTasks(1234, 'Cellarman tasks', 'TASK_START')
 kt1.Keggingtasksmain()
-#print()
+# print()
 
 # prints log that gets sent to service now (for dev)
 for n in kt_loglist:

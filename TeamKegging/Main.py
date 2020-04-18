@@ -88,12 +88,13 @@ class KeggingMain:
         """
         print("Welcome to the Kegging Process")
         batch_id = self.batch_id
-        #batch_id = input("Please enter the batch id of the brite beer: ")
+        # batch_id = input("Please enter the batch id of the brite beer: ")
         self.brite_start()
         self.qa_start()
         self.kt_start()
         self.kc_start()
 
 
-keg1 = KeggingMain(1234,"KEGGING_START")
+
+keg1 = KeggingMain(1234, "KEGGING_START")
 keg1.start()
