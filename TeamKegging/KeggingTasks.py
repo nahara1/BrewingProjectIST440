@@ -138,14 +138,14 @@ class KeggingTasks:
             print()
         # exit of while loop / all tasks completed
         print()
-        print("All kegging tasks completed.")
+        print("All Cellarman tasks completed.")
         self.keg_log(batch_id, "Kegging", "Kegging Tasks: All Cellarman tasks completed.")  # logging to service now
 
 
-kt1 = KeggingTasks(1234, 'Cellarman tasks', 'TASK_START')
-kt1.Keggingtasksmain()
+#kt1 = KeggingTasks(1234, 'Cellarman tasks', 'TASK_START')
+#kt1.Keggingtasksmain()
 #print()
 
 # prints log that gets sent to service now (for dev)
-for n in kt_loglist:
-    print(n)
+#for n in kt_loglist:
+#    print(n)
