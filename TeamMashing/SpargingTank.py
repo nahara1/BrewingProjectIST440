@@ -9,24 +9,26 @@ import datetime
 import time
 from Brewing.Log import Log
 from TeamMashing.Wort import Wort
-from TeamMashing.RecipeMashing import recipe_mashing
+from Brewing import ServiceNowLog
 
 class SpargingTank: #constructor for the SpargingTank class
     def __init__(self):
         self.machine_id = 3
-        self.stir_time = recipe_mashing.stir_time
-        self.heating_time = recipe_mashing.heating_time
-        self.water_amount = recipe_mashing.water_amount
-        self.water_temp = recipe_mashing.water_temp
-        self.sparging_time = recipe_mashing.sparging_time
+        self.stir_time = 0
+        self.water_temp = 0
 
-    def add_water(self):
+    def add_water(self, recipe):
         #adding heated water to tank
         """
         Water added to tank from hot liquor tank (HLT)
         :param :Hot water from HLT
         :return: Return log 1
         """
+
+        self.water_temp = recipe.get_water_temp()
+
+        status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Adding Hot Water to Tank\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(1, "Mashing.Sparging", "Heated water added to tank", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------") # prints line to separate statements & log 1 is created
@@ -36,7 +38,8 @@ class SpargingTank: #constructor for the SpargingTank class
         print("-----------------------------------------") # prints line to separate the next process in sparging tank
 
         self.stir_mash()
-    def stir_mash(self):
+
+    def stir_mash(self, recipe):
         #stirring the wort in progress
         """
         Function to stirr the Wort-in progress sparging tank
@@ -44,12 +47,17 @@ class SpargingTank: #constructor for the SpargingTank class
         :param : time.sleep is pausing the process for 1 second
         :return: Return log 2
         """
+
+        self.stir_time = recipe.get_stir_time()
+
+        status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Stirring Mash\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(2, "Mashing.Sparging", "Sparging Process Started", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------") # prints line to separate statements & log 2 is created
 
         while self.stir_time > 0:
-            print("Stirring Time Left: ", self.stir_time, "sec") # prints number of seconds left until stirring is
+            print("Stirring Time Left: ", self.stir_time, "min") # prints number of seconds left until stirring is
             # finished
             time.sleep(1)
             self.stir_time -= 1
@@ -58,6 +66,8 @@ class SpargingTank: #constructor for the SpargingTank class
                 print ("SpargingTank stirred") # print validates that SpargingTank is finished stirring
                 print("-----------------------------------------")
 
+        status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Mash Stirred\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(3, "Mashing.Sparging", "Sparging Process Ended", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------") # prints line to separate statements & log 3 is created
@@ -73,7 +83,9 @@ class SpargingTank: #constructor for the SpargingTank class
         :param : Wort in HLT
         :return: Return log 4
         """
-        log = Log(4, "Mashing.Sparging", "Mash Sparged to Boiling", datetime.datetime.now(), "pass")
+        status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Sparging the Tank\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        log = Log(4, "Mashing.Sparging", "Sparging the Tank", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------") # prints line to separate statements & log 4 is created
 

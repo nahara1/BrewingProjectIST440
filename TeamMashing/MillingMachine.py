@@ -11,45 +11,35 @@ import time
 
 from Brewing.Log import Log
 from TeamMashing.HotLiquorTank import HotLiquorTank
-from TeamMashing.RecipeMashing import recipe_mashing
+from Brewing import ServiceNowLog
 
-class MillingMachine:  # MillingMachine Start
+class MillingMachine():  # MillingMachine Start
     def __init__(self):  # constructor initalized fields
         self.machine_id = 1
-        self.mill_time = recipe_mashing.mill_time
-        self.grains_weight = recipe_mashing.grains_weight
+        self.mill_time = 0
+        self.grains_weight = 0
 
-    def check_grains_weight(self):
+    def mill_grains(self, recipe):  # Mill_grains process start
         """
         The start of milling grains
-        :return: grains weight
-        """
-        try:
-            log = Log(1, "Mashing.Milling", "Grains Weighted", datetime.datetime.now(), "pass")
-            print(log.generate_log())
-            print("-----------------------------------------")
-
-            print("Grains weight: ", self.grains_weight, "lb")
-            print("-----------------------------------------")
-            self.mill_grains()
-        except Exception as e:
-            print(e)
-
-    def mill_grains(self):  # Mill_grains process start
-        """
-        The start of milling grains
+        :param recipe: recipe instance
         :param mid: machine id
         :param mt: milling time
         :return: Return Log and animation of milling grains
         """
+        self.mill_time = recipe.get_mill_time()
+        self.grains_weight = recipe.get_grains_weight()
+
         try:
             # log to begin process
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Starting Mashing Process\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(2, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
 
             while self.mill_time > 0:
-                print("Milling Time Left: ", self.mill_time, "sec")
+                print("Milling Time Left: ", self.mill_time, "min")
                 time.sleep(1)
                 self.mill_time -= 1
 
@@ -58,6 +48,8 @@ class MillingMachine:  # MillingMachine Start
                     print("-----------------------------------------")
 
             # log to end process
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Milling Ended\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(2, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -73,7 +65,9 @@ class MillingMachine:  # MillingMachine Start
         :return: print statement
         """
         try:
-            log = Log(3, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Sending Grains to Sparging Tank\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            log = Log(3, "Mashing.Milling", "Send Grains to Sparging Tank", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
 

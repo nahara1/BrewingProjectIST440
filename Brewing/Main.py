@@ -4,10 +4,12 @@ from Brewing import Brew
 from Brewing import BrewRequest
 from Brewing import BrewBatch
 from Brewing import BrewBatchStage
+from TeamMashing import MillingMachine
 import datetime
 from Brewing import Log
 import sys
 import time
+import threading
 
 
 def main():
@@ -54,8 +56,7 @@ def main():
         # Call Prep
 
         # Call Mashing
-        # start_mashing(brew_batch)
-
+        MillingMachine.MillingMachine.mill_grains(recipe)
         # Call Boiling
 
         # Call Ferment

@@ -9,15 +9,15 @@
 import datetime
 from Brewing.Log import Log
 from TeamMashing.SpargingTank import SpargingTank
-from TeamMashing.RecipeMashing import recipe_mashing
+from Brewing import ServiceNowLog
 
 class HotLiquorTank:
     def __init__(self):
         self.tank_ID = 2
-        self.water_amount = recipe_mashing.water_amount
-        self.water_temp = recipe_mashing.water_temp
+        self.water_amount = 0
+        self.water_temp = 0
 
-    def heat_water(self): #Water heating process starts
+    def heat_water(self, recipe): #Water heating process starts
 
         """
         The start of water heating
@@ -25,8 +25,13 @@ class HotLiquorTank:
         :return: return log and animation of burner light.
         """
 
+        self.water_amount = recipe.get_water_volume()
+        self.water_temp = recipe.get_water_temp()
+
         try:
             # log to begin process
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Water heating\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(1, "Mashing.HotLiquorTank", "Water heating started.", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -45,6 +50,8 @@ class HotLiquorTank:
         :return: current water temperature
         """
         try:
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Checking Water Temp\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(2, "Mashing.HotLiquorTank", "Checking Water Temperature", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -63,6 +70,8 @@ class HotLiquorTank:
         :return: water volume.
         """
         try:
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Checking Water Volume\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(3, "Mashing.HotLiquorTank", "Checking Water Volume", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -81,6 +90,8 @@ class HotLiquorTank:
         :return: print statement
         """
         try:
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Sending Hot Water to Sparging Tank\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(3, "Mashing.HotLiquorTank", "Sending Hot Water to Sparging Tank", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")

@@ -8,15 +8,16 @@
 
 # import RPi.GPIO as GPIO
 from TeamPrep import QualityCheck_Prep
-from Brewing import BrewRequest
-from Brewing import ServiceNowLog
-from Brewing import  ServiceNowToMongo
+# from Brewing import BrewRequest
+# from Brewing import ServiceNowLog
+# from Brewing import  ServiceNowToMongo
 from Sanitization import Sanitization
 from Temperature import Temperature
 from WeightScale import WeightScale
 import threading
 import time
-#from queue import Queue
+
+# from queue import Queue
 """
 # sensor = 11
 pin = 4
@@ -37,8 +38,8 @@ GPIO.setup(w_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 s = Sanitization()
 t = Temperature()
 w = WeightScale()
-b = BrewRequest()
-q = QualityCheck_Prep()
+# b = BrewRequest()
+# q = QualityCheck_Prep()
 
 
 # this function will called on staring of every thread
@@ -59,6 +60,10 @@ def thread_function(thread_id):
                         w.read_weight_hops()
                         try:
                             w.read_weight_sugar()
+                            try:
+                                QualityCheck_Prep.QualityCheck.get_QA_Check()
+                            except:
+                                break
                         except:
                             # GPIO.cleanup()
                             break
@@ -76,15 +81,14 @@ def thread_function(thread_id):
             break
         break
 
-
 def main():
     time.sleep(2)
     thread_list = []
     # to create upto 5 Threads
     for x in range(5):
-        status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Preparation Process\"}"
-        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        message = ('\n BrewRequest: ' + b +'\n QA: ' + q +'\n Log: ' + status_log +'\n Batch: ' + str(x + 1) + ' ---------------------------------------')
+        # status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Preparation Process\"}"
+        # ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        message = ('\n\n Batch: ' + str(x + 1) + ' ---------------------------------------')
         thread = threading.Thread(target=thread_function, args=(x,))
         thread_list.append(thread)
         # message = ('Batch: '+ str(x))
@@ -93,12 +97,13 @@ def main():
        This is the main method
         '''
 
-    # for thread in thread_list:
+        # for thread in thread_list:
         thread.start()
 
-    # for thread in thread_list:
+        # for thread in thread_list:
         thread.join()
-        #GPIO.cleanup()
+        # GPIO.cleanup()
+
 
 if __name__ == '__main__':
-	main()
+    main()

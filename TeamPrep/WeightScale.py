@@ -28,6 +28,10 @@ class WeightScale:
     def __init__(self,button):
         self.button = button
     """
+
+    '''
+    interface for weighing grains
+    '''
     def read_weight_grains(self):
         weight_scale = 0.0
         weight = random.randrange(2,5, 1)*1.0
@@ -37,7 +41,7 @@ class WeightScale:
         time.sleep(1)
         print("       To dispense \033[1;33;40m1\033[0;0m packet of \033[1;33;40m1.0\033[0;0m pound All Grain : \n")
         time.sleep(1)
-        input("       Press the right button to dispense one All Grain packet:")
+        input("       Press the right button to dispense one All Grain packet:\n")
         for weight_scale in numpy.arange(0, weight):
             weight_scale = weight_scale + 1.0
             # GPIO.wait_for_edge(w_button_pin, GPIO.FALLING)
@@ -55,11 +59,16 @@ class WeightScale:
                 input("       Press the right button to dispense one more packet: ")
             time.sleep(2)
         return weight_scale
-
+'''
+logging of weight measurments
+'''
     def log(self):
         status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Weighing Process\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         print(status_log)
+'''
+interface for weighing hops
+'''
     def read_weight_hops(self):
         weight_scale = 0.0
         weight = random.randrange(1,5, 1)*0.5
@@ -89,7 +98,9 @@ class WeightScale:
                     input("       Press the right button to dispense one more packet: \n")
                 time.sleep(2)
         return weight_scale
-     
+'''
+interface for weighing sugar
+'''
     def read_weight_sugar(self):
         weight_scale = 0.00
         weight = random.randrange(0,4, 1)*0.05
