@@ -27,9 +27,10 @@ class DisplayHelper():
 
     logging.info("Thread %s: starting Getters and Setters")  # Threading
 
-    def print_start_info(self, request_number, stage_date_time, boil_time, boil_temp, is_boiling):
+    def print_start_info(self, request_number, boil_temp, boil_time, stage_date_time, is_boiling):
         """
         Prints start stage information to the screen
+        :param request_number:
         :param stage_date_time: Start time of the stage
         :param boil_time: Time boil lasts
         :param boil_temp: Temperature
