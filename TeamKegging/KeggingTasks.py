@@ -30,7 +30,6 @@ class KeggingTasks:
         t2 = '2. Leak test for gas side of keg system'
         t3 = '3. Transfer beer to keg and seal keg'
 
-
         # declaring list, time stamp list, dummy RFID employee list
         taskList = [t1, t2, t3]
         timeStampList = []
