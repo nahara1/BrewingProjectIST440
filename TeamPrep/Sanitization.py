@@ -32,16 +32,16 @@ class Sanitization:
     '''
     logging for sanitation
     '''
-    #def log(self):
-       # status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Sanitation Process\"}"
-      #  ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+    def log(self):
+        status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Sanitation Process\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
     def sanitization(self):
         time.sleep(1)
         input("\033[1m" + "\n   \033[0;39;40m 1. Press Enter when sanitization is done:\033[0;0m" + "\033[0m \n")
         # GPIO.wait_for_edge(self.button,GPIO.FALLING)
         time.sleep(1)
         message = ("   \033[0;32;40mSanitization Completed.\033[0;0m ")
-        print("\t\t" + message + "\n")
+        print("\t\t" + status_log + message + "\n")
         time.sleep(2)
 
 
