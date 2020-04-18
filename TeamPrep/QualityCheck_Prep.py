@@ -31,9 +31,7 @@ class QualityCheck:
         self.read_weight_sugar = _read_weight_sugar
         logging.info("Thread %s: finishing QACheck for Prep", self)  # Threading
 
-    '''
-    defines all the getters and setters 
-    '''
+    # Getters and Setters
     logging.info("Thread %s: starting Getters and Setters")  # Threading
 
     def get_sanitization(self):
@@ -77,10 +75,8 @@ class QualityCheck:
         self._read_weight_sugar = _read_weight_sugar
 
     logging.info("Thread %s: finishing Getters and Setters for Prep")  # Threading
-'''
-interface of the QA including variations (yes/no)
-'''
-def get_QA_Check(self):
+
+    def get_QA_Check(self):
         print("Please Inspect the Prep Quality Before Start Brewing to Check if it Meets CGMP Standards: \n")
         # save text as variable
         quality_checked = ""
