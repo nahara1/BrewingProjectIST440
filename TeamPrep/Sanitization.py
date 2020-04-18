@@ -1,9 +1,9 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: Sanitization class
+# Purpose Details: Sanitization class - To ask user if sanitization is completed
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/7
+# Last Date Changed:4/18
 # Rev
 
 # import RPi.GPIO as GPIO

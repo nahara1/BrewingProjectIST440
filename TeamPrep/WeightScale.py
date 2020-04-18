@@ -1,9 +1,9 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: WeightScale Class
+# Purpose Details: WeightScale Class - To weigh grains, hops and sugar
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/15
+# Last Date Changed:4/18
 # Rev
 
 # import RPi.GPIO as GPIO

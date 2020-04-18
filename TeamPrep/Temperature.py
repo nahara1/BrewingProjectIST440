@@ -1,9 +1,9 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: Temperature Class
+# Purpose Details: Temperature Class - To get the temperature of Yeast
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/7
+# Last Date Changed:4/18
 # Rev
 
 # import RPi.GPIO as GPIO
