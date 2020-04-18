@@ -35,7 +35,7 @@ GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(w_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 """
-s = Sanitization
+s = Sanitization()
 t = Temperature()
 w = WeightScale()
 # b = BrewRequest()
