@@ -3,8 +3,11 @@
 # Course: IST 440W - 001
 # Author: Nahara (nkm5334)
 # Date Developed: 4/14/20
-# Last Date Changed: 4/17/20
+# Last Date Changed: 4/18/20
 # Rev 4
+"""
+This module handles the retrieval of brew request data from ServiceNow
+"""
 
 from Brewing import Recipe
 from Brewing import BrewBatch
@@ -325,7 +328,7 @@ def get_recipe(recipe_name):
     fg = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'grain_bill')
-    grain_bill = str(recipe_obj).replace("['", "").replace("']", "")
+    grain = str(recipe_obj).replace("['", "").replace("']", "")
 
     recipe_obj = extract_values(data, 'yeast_amount')
     yeast_amt = str(recipe_obj).replace("['", "").replace("']", "")
@@ -333,8 +336,8 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'yeast')
     yeast = str(recipe_obj).replace("['", "").replace("']", "")
 
-    recipe_obj = extract_values(data, 'yeast_initial_temperature')
-    yeast_initial_temp = str(recipe_obj).replace("['", "").replace("']", "")
+    # recipe_obj = extract_values(data, 'yeast_initial_temperature')
+    # yeast_initial_temp = str(recipe_obj).replace("['", "").replace("']", "")
 
     # Grain type and amount stored as name-value pairs
     recipe_obj = extract_values(data, 'grain_bill')
@@ -384,6 +387,7 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'ferment_yeast_temp')
     ferment_yeast_temp = str(recipe_obj).replace("['", "").replace("']", "")
 
+    # Create recipe object
     recipe_obj = Recipe.Recipe(recipe_id, recipe_name, abv, ibu, og, fg, batch_size, yeast_amt, yeast, grain,
                                water_volume, water_temp, sparge_time, sparge_temp,
                                stir_time, wort_heat_time, boil_temp, boil_time, hop_schedule, hop_amt,
