@@ -29,6 +29,9 @@ class Sanitization:
         Adds method to the attribute for sanitization 
         '''
     """
+    '''
+    logging for sanitation
+    '''
     def log(self):
         status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Sanitation Process\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)

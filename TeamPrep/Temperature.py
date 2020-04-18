@@ -27,7 +27,9 @@ class Temperature:
     def __init__(self,button):
         self.button = button
     """
-
+'''
+logging for temperature
+'''
     def log(self):
         status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Sanitation Process\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
@@ -47,7 +49,9 @@ class Temperature:
         time.sleep(2)
 
         return temperature
-        
+    '''
+    defines yeast temperature; displaying of the temp.
+    '''
     def yeast_temp(self):
         tmp = self.read_temp()
         while( tmp > 80 or tmp < 60):
