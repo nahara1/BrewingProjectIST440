@@ -373,7 +373,8 @@ class KeggingBriteTank:  #Brite Tank
         """
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
-        #ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         bt_loglist.append(status_log)
 
     def get_bt_loglist(self):
