@@ -1,22 +1,25 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: Sanitization class
+# Purpose Details: Sanitization class - To ask user if sanitization is completed
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/7
+# Last Date Changed:4/18
 # Rev
 
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import time
+from Brewing import ServiceNowLog
 
+"""
 # button for sanitization
 s_button_pin = 26 # UP key
 
 # Pin setup
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-
+"""
 class Sanitization:
+    """
     def __init__(self,button):
         '''
         Defines attributes of sanitization
@@ -25,14 +28,19 @@ class Sanitization:
         '''
         Adds method to the attribute for sanitization 
         '''
-
+    """
+    def log(self):
+        status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Sanitation Process\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
     def sanitization(self):
-        print("\n    1. Press up button when sanitization is done:")
-        GPIO.wait_for_edge(self.button,GPIO.FALLING)
         time.sleep(1)
-        message = ("\033[1;32;40m  Sanitization Completed. \033[0;0m")   
-        print("\t\t" + message + "\n")
+        input("\033[1m" + "\n   \033[0;39;40m 1. Press Enter when sanitization is done:\033[0;0m" + "\033[0m \n")
+        # GPIO.wait_for_edge(self.button,GPIO.FALLING)
+        time.sleep(1)
+        message = ("   \033[0;32;40mSanitization Completed.\033[0;0m ")
+        print("\t\t" + status_log + message + "\n")
         time.sleep(2)
+
 
 # # USAGE
 # s = sanitization(s_button_pin)

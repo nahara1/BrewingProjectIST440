@@ -1,15 +1,17 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: Temperature Class
+# Purpose Details: Temperature Class - To get the temperature of Yeast
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/7
+# Last Date Changed:4/18
 # Rev
 
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import random
 import time
+from Brewing import ServiceNowLog
 
+"""
 # sensor = 11
 pin = 4
 
@@ -19,25 +21,31 @@ t_button_pin = 13 # DOWN key
 # Pin setup
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-
+"""
 class Temperature:
+    """
     def __init__(self,button):
         self.button = button
-        
-    
+    """
+
+    def log(self):
+        status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Sanitation Process\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        print(status_log)
     def read_temp(self):
         temperature = random.randrange(55, 85, 1)
-        print("    2. press down button to measure temperature of yeast: ")
-        GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
+
+        input("\033[1m    2. Press Enter to measure temperature of yeast: \033[0m")
+        # GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
         time.sleep(3)
         # humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
         # temperature = 9.0/5.0 * temperature + 32
-        if temperature<60 or temperature>80:
+        if temperature < 60 or temperature > 80:
             print('\t\t\tTemp = \033[1;31;40m{0:0.0f}*\033[0;0m F'.format(temperature))
         else:
             print('\t\t\tTemp = \033[1;32;40m{0:0.0f}*\033[0;0m F'.format(temperature))
         time.sleep(2)
-       
+
         return temperature
         
     def yeast_temp(self):
@@ -51,7 +59,7 @@ class Temperature:
             tmp = self.read_temp()
 
             # GPIO.wait_for_edge(t_button_pin, GPIO.FALLING)
-        print("\033[1;32;40m       temperature of yeast is in range and ready to use.\033[0;0m\n")   
+        print("\033[1;32;40m       Temperature of yeast is in range and ready to use.\033[0;0m\n")
         time.sleep(2)
         
          

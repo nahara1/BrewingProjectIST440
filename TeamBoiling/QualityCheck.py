@@ -1,14 +1,16 @@
 # Project: Brewing Automation System - Capstone Project
 # Purpose Details: class for implementing quality assurance
 # Course: IST 440W - 001
-# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu)
+# Author: Teresa Barker (tlb5767@psu.edu), Alex Hirsh (ajh6196@psu.edu), David Karminski (dck5200@psu.edu)
 # Date Developed: 3/18/20
-# Last Date Changed: 4/13/2020
-# Rev 6
+# Last Date Changed: 4/16/2020
+# Rev 10
 
 # Import Statements
 import time
 import logging
+from Brewing import ServiceNowLog
+from time import sleep
 
 
 class QualityCheck:
@@ -160,12 +162,36 @@ class QualityCheck:
 
     logging.info("Thread %s: finishing Getters and Setters")  # Threading
 
+
     def get_QA_Check(self):
-        text = input("Please Inspect the Brew Quality. Does it Meet Our Standards? ")
-        print(text)
-        return text
+        text = input("Please Inspect the Brew Quality. Does it Meet Our Standards (Yes/No)?: ")
+        # save text as variable
+        quality_checked = text
+        while quality_checked != "Yes" or quality_checked != "No":
+            if quality_checked == "Yes":
+                print("Logging to ServiceNow...")
+                sleep(1)
+                status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Finished Boiling; Passed QA\"}"
+                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+                sleep(1)
+                print("Successfully logged that Boil has completed and passes Quality Assurance.")
+                sleep(1)
+                # Call Team Ferment
+                break
+            elif quality_checked == "No":
+                print("Logging to ServiceNow...")
+                sleep(1)
+                status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Finished Boiling; Failed QA\"}"
+                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+                sleep(1)
+                print("Quality Did not Pass, Please inspect and trash.")
+                sleep(1)
+                break
+            else:
+                text = input("Please Enter Yes or No: ")
+                quality_checked = text
 
 
 QualityCheck = QualityCheck('_recipe_boil_temp', '_batch_boil_time', '_batch_boil_temp', '_recipe_boil_time',
-                            '_boil_over','_overflowing', '_correct_volume')
-QualityCheck.get_QA_Check()
+                            '_boil_over', '_overflowing', '_correct_volume')
+# QualityCheck.get_QA_Check()
