@@ -23,6 +23,9 @@
           <option value="set" />
           <option value="object.assertTrue" />
           <option value="TeamPrep.test_Temperature.*" />
+          <option value="TeamPrep.Prep_Main.Sanitization" />
+          <option value="TeamPrep.Prep_Main.Temperature" />
+          <option value="TeamPrep.Prep_Main.WeightScale" />
         </list>
       </option>
     </inspection_tool>
