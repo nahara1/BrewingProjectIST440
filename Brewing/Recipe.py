@@ -63,13 +63,14 @@ class Recipe:
         self._yeast = yeast
         self._yeast_store_amt = yeast_storage_amt
         # Mashing and Prep
-        self._grain = grain
+        self._mill_time = mill_time
+        self._grain_weight = grains_weight
         self._water_volume = water_volume
         self._water_temp = water_temp
         self._sparge_time = sparge_time
-        self._sparge_temp = sparge_temp
         self._wort_stir_time = stir_time
-        self._wort_heat_time = wort_heat_time
+        self._hlt_heat_time = hlt_heat_time
+        self._wort_separation_time = wort_separation_time
         # Boiling
         self._boil_temp = boil_temp
         self._boil_time = boil_time
