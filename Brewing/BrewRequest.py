@@ -339,10 +339,8 @@ def get_recipe(recipe_name):
     # Grain type and amount stored as name-value pairs
     recipe_obj = extract_values(data, 'grain_bill')
     grain = str(recipe_obj).replace("['", "").replace("']", "")
-    for i in grain:
-        grain = ast.literal_eval(grain)
-        print(grain)
-
+    grain = ast.literal_eval(grain)
+    print(grain)
 
 
     recipe_obj = extract_values(data, 'water_temperature')
