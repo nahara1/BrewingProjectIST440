@@ -74,7 +74,6 @@ def get_request_id():
         else:
             # Decode the JSON response into a dictionary and use the data
             sys_id = extract_values(data, 'sys_id')
-            print(sys_id)
             sys_id = str(sys_id).replace("['", "").replace("']", "")
 
     except requests.HTTPError:
@@ -136,7 +135,6 @@ def get_brew_request_number(req_id):
 
 
 def get_catalog_item_id(request_number):
-    import requests
 
     # Set the request parameters
 
@@ -150,7 +148,7 @@ def get_catalog_item_id(request_number):
 
     '''
 
-    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=request.number%253D' + request_number + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item&sysparm_limit=10'
+    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=request.number%253D' + request_number + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item'
 
     connection_success = False
 
@@ -170,6 +168,7 @@ def get_catalog_item_id(request_number):
     # Decode the JSON response into a dictionary and use the data
     data = response.json()
     cat_item_id = extract_values(data, 'value')
+    print(cat_item_id)
     cat_item_id = str(cat_item_id).replace("['", "").replace("']", "")
     # print("Catalog Item ID: " + cat_item_id)
     return cat_item_id
@@ -329,77 +328,3 @@ def get_recipe(recipe_name):
     print()
     print("Recipe data successfully retrieved")
     return recipe_obj
-
-
-def main():
-    # Get a brew request
-
-    try:
-        # 1 - Get brew request id
-        request_id = get_request_id()
-
-        # 2 - Get brew request number
-        if request_id != '':
-            request_number = get_brew_request_number(request_id)
-        else:
-            main()
-        # 3 - Update brew request
-        update_brew_stage(request_id, "Approval")
-
-        # 4 - Get requested brew id based on request number
-        item_id = get_catalog_item_id(request_number)
-
-        # 5 - Get requested item name based on its id
-        item_name = get_catalog_item_name(item_id)
-
-        # 6 - Get recipe data and create a Python object based on brew request name
-        recipe = get_recipe(item_name)
-
-        # 7 - Update brew request status
-        update_brew_stage(request_id, "Preparation Stage")
-
-        # create order obj
-
-        # create Prep BB Stage obj
-        bbs = BrewBatchStage.BrewBatchStage(0, datetime.datetime.now(), 0, 0, 'Recipe retrieved')
-        log = Log(12, "BrewRequest", "Recipe Retrieved", datetime.datetime.now(), "pass")
-
-        # Send log to service now
-
-        # Save log to mongoDB
-
-        print("-----------------------------------------")
-        print(log.generate_log())
-
-        print("-----------------------------------------")
-
-        # create Prep BB Stage obj
-        brew_batch = BrewBatch.BrewBatch(recipe.get_id(), datetime.datetime.now(), datetime.datetime.now(), bbs,
-                                         "in prep",
-                                         5)
-
-        # Call Prep
-
-        # Call Mashing
-
-        # Call Boiling
-
-        # Call Ferment
-
-        # Call Kegging
-
-        # brew_batch.set_brew_batch_id(0)
-        # brew_batch.set_recipe_id(recipe.recipe_id)
-        # brew_batch.set_bb_start_date_time(datetime.datetime.now())
-        # brew_batch.set_bb_status("Batch is in prep stage")
-
-    except Exception as e:
-
-        print("Error message: " + e)
-    main()
-
-
-# Testing to show what the methods do
-if __name__ == "__main__":
-    main()
-
