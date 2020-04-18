@@ -9,6 +9,7 @@
 import math
 import time
 from Brewing.Recipe import Recipe
+from Brewing import ServiceNowLog
 
 class KeggingBriteTank:  #Brite Tank
     def __init__(self, bt_id, bt_temp, bt_max_volume, bt_current_volume, bt_psi, bt_status):
@@ -170,7 +171,7 @@ class KeggingBriteTank:  #Brite Tank
         """
         selection = False
         while not selection:
-            choice = input("Would you like to Manually or Automatically Adjust Temperature? Enter (M/A) or (N) to exit:")
+            choice = input("Would you like to Manually or Automatically Adjust Temperature? Enter (M/A) or (N) to exit: ")
             if choice in ['m', 'M', 'manual', 'Manual', 'MANUAL', 'manually', 'Manually', 'MANUALLY']:
                 selection = True
                 temp_ready = False
@@ -248,7 +249,7 @@ class KeggingBriteTank:  #Brite Tank
         """
         selection = False
         while not selection:
-            choice = input("Would you like to Manually or Automatically Adjust PSI? Enter (M/A) or (N) to exit:")
+            choice = input("Would you like to Manually or Automatically Adjust PSI? Enter (M/A) or (N) to exit: ")
             if choice in ['m', 'M', 'manual', 'Manual', 'MANUAL', 'manually', 'Manually', 'MANUALLY']:
                 selection = True
                 psi_ready = False
@@ -320,8 +321,6 @@ class KeggingBriteTank:  #Brite Tank
                 print("Error")
             self.print_carb_status()
 
-
-
     def start_brite_tank(self):
         """
         Main Brite Tank Method for reaching the correct carbonation level through simulation
@@ -337,14 +336,16 @@ class KeggingBriteTank:  #Brite Tank
             self.bt_psi_control()
 
             # Currently Manual input for target carbonation, can substitute from recipe pull from ServicenNow
-            recipe_carb = input("Please enter the target carbonation volume")
+            recipe_carb = input("Please enter the target carbonation volume: ")
 
             # Simulated Automatic pressure adjustment to hit targeted PSI, aims to overshoot rather than undershoot because opening valves loses pressure
             self.auto_carb(recipe_carb,1) # contains the simulated delay value for pressure adjustments for carbonation values
         except Exception as e:  # error handling
             print(e)
 
-
+    def bt_log(self, batch_id, bb_stage, log_message):
+        status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog, status_log)
 
 
 #testTank = KeggingBriteTank(1,35.78987,5.00,3.43,11,"START")
