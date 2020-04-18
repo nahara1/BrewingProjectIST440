@@ -19,7 +19,7 @@ def start_mashing_process(): # Mashing process start
 
     m = MillingMachine() # setting an object to milling machine, machine id and time
 
-    t1 = threading.Thread(target=m.check_grains_weight())
+    t1 = threading.Thread(target=m.mill_grains())
 
     t1.start()
 

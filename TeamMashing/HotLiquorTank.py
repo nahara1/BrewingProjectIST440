@@ -10,6 +10,7 @@ import datetime
 from Brewing.Log import Log
 from TeamMashing.SpargingTank import SpargingTank
 from TeamMashing.RecipeMashing import recipe_mashing
+from Brewing import ServiceNowLog
 
 class HotLiquorTank:
     def __init__(self):
@@ -27,6 +28,8 @@ class HotLiquorTank:
 
         try:
             # log to begin process
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Water heating\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(1, "Mashing.HotLiquorTank", "Water heating started.", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -45,6 +48,8 @@ class HotLiquorTank:
         :return: current water temperature
         """
         try:
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Checking Water Temp\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(2, "Mashing.HotLiquorTank", "Checking Water Temperature", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -63,6 +68,8 @@ class HotLiquorTank:
         :return: water volume.
         """
         try:
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Checking Water Volume\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(3, "Mashing.HotLiquorTank", "Checking Water Volume", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -81,6 +88,8 @@ class HotLiquorTank:
         :return: print statement
         """
         try:
+            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Sending Hot Water to Sparging Tank\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(3, "Mashing.HotLiquorTank", "Sending Hot Water to Sparging Tank", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
