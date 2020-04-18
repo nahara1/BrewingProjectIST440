@@ -43,12 +43,12 @@ class KeggingMain:
         bt1.start_brite_tank(self.batch_id)
         km_full_loglist.extend(bt1.get_bt_loglist())
 
-    def qa_start(self):
+    def qa_start(self, taster_name, taster_id, recipe_ibu):
         """
         Method that starts the taste test
         :return: Starts taste test and creates log to tt_loglist and appends to km_full_loglist
         """
-        tt1 = TasteTest(self.batch_id, "Daibo", 1111, "QA_START", 0)
+        tt1 = TasteTest(self.batch_id, taster_name, taster_id, "QA_START", recipe_ibu)
         tt1.tt_main(self.batch_id, 38.5)
         km_full_loglist.extend(tt1.get_tt_loglist())
 
@@ -81,7 +81,7 @@ class KeggingMain:
         for n in self.km_get_full_loglist():
             print(n)
 
-    def start(self):
+    def start(self,recipe_ibu):
         """
         Main Kegging Process start method
         :return: starts the Kegging Process
@@ -90,11 +90,11 @@ class KeggingMain:
         batch_id = self.batch_id
         # batch_id = input("Please enter the batch id of the brite beer: ")
         self.brite_start()
-        self.qa_start()
+        self.qa_start("Daibo,",1122,recipe_ibu)
         self.kt_start()
         self.kc_start()
+        self.print_km_full_loglist()
 
 
 keg1 = KeggingMain(1234, "KEGGING_START")
-keg1.start()
-keg1.print_km_full_loglist()
+keg1.start(38.5)

@@ -15,6 +15,10 @@ class Keg:
         self.max_volume = max_volume
 
     def get_status(self):
+        """
+        Status
+        :return:
+        """
         return "Keg ID: {}\n" \
                "Keg Type: {}\n" \
                "Keg Current Volume: {}\n" \
