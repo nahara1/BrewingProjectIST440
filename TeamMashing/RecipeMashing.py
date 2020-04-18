@@ -1,6 +1,7 @@
 from Brewing import BrewRequest
 
 class recipe_mashing:
+    """These will be set to the ServiceNow Recipe."""
     mill_time = 10
     grains_weight = BrewRequest.get_recipe().get_grain()
     water_amount = BrewRequest.get_recipe().get_volume()
