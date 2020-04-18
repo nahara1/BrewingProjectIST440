@@ -26,17 +26,13 @@ class KeggingTasks:
         """
 
         # list of tasks
-        t1 = 'task 1'
-        t2 = 'task 2'
-        t3 = 'task 3'
-        t4 = 'task 4'
-        t5 = 'task 5'
-        t6 = 'task 6'
-        t7 = 'task 7'
-        t8 = 'task 8'
+        t1 = '1. Cleanse and sanitization of equipment'
+        t2 = '2. Leak test for gas side of keg system'
+        t3 = '3. Transfer beer to keg and seal keg'
+
 
         # declaring list, time stamp list, dummy RFID employee list
-        taskList = [t1, t2, t3, t4, t5, t6, t7, t8]
+        taskList = [t1, t2, t3]
         timeStampList = []
         RFIDLinkToTask = []
         employeeRFID = ['1111', '2222', '3333', '4444']
@@ -68,14 +64,16 @@ class KeggingTasks:
 
             # prints current task and asks if complete
             print("Current task: " + taskList[taskCounter])
+            print()
             ans = raw_input("Has this been completed? Enter (y/n): ")
             if ans == 'y':
                 while True:  # validation of RFID loop
                     taskRFID = raw_input("Please enter your RFID number: ")
                     if taskRFID in employeeRFID:  # checks to see if RFID is in list
                         taskCounter += 1
-                        self.task_status = "{0:.1%}".format(taskCounter/8)  # percentage of task completion
-                        print("Current Tasks status: " + str(self.task_status))
+                        self.task_status = "{0:.1%}".format(taskCounter/length)  # percentage of task completion
+                        print()
+                        print("Current kegging tasks status: " + str(self.task_status))
                         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())  # retrieves current timestamp
                         timeStampList.append(currentTimeStamp)  # adds current timestamp to list
                         RFIDLinkToTask.append(taskRFID)  # adds RFID to completed task
@@ -84,7 +82,9 @@ class KeggingTasks:
                         print("Authentication Error")
             else:
                 continue
-
+            print()
+            print("----------------------------------------------------")
+            print()
         # exit of while loop / all tasks completed
         print()
         print("all kegging tasks completed.")
