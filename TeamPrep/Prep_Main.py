@@ -90,7 +90,7 @@ def main():
         # message = ('Batch: '+ str(x))
         print(message)
         '''
-       This main method
+       This is the main method
         '''
 
     # for thread in thread_list:
