@@ -9,25 +9,24 @@ import datetime
 import time
 from Brewing.Log import Log
 from TeamMashing.Wort import Wort
-from TeamMashing.RecipeMashing import recipe_mashing
 from Brewing import ServiceNowLog
 
 class SpargingTank: #constructor for the SpargingTank class
     def __init__(self):
         self.machine_id = 3
-        self.stir_time = recipe_mashing.stir_time
-        self.heating_time = recipe_mashing.heating_time
-        self.water_amount = recipe_mashing.water_amount
-        self.water_temp = recipe_mashing.water_temp
-        self.sparging_time = recipe_mashing.sparging_time
+        self.stir_time = 0
+        self.water_temp = 0
 
-    def add_water(self):
+    def add_water(self, recipe):
         #adding heated water to tank
         """
         Water added to tank from hot liquor tank (HLT)
         :param :Hot water from HLT
         :return: Return log 1
         """
+
+        self.water_temp = recipe.get_water_temp()
+
         status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Adding Hot Water to Tank\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(1, "Mashing.Sparging", "Heated water added to tank", datetime.datetime.now(), "pass")
@@ -39,7 +38,8 @@ class SpargingTank: #constructor for the SpargingTank class
         print("-----------------------------------------") # prints line to separate the next process in sparging tank
 
         self.stir_mash()
-    def stir_mash(self):
+
+    def stir_mash(self, recipe):
         #stirring the wort in progress
         """
         Function to stirr the Wort-in progress sparging tank
@@ -47,6 +47,9 @@ class SpargingTank: #constructor for the SpargingTank class
         :param : time.sleep is pausing the process for 1 second
         :return: Return log 2
         """
+
+        self.stir_time = recipe.get_stir_time()
+
         status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Stirring Mash\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(2, "Mashing.Sparging", "Sparging Process Started", datetime.datetime.now(), "pass")

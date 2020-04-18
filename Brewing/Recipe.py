@@ -52,7 +52,7 @@ class Recipe:
                  water_temp, mill_time, sparge_time,
                  stir_time, hlt_heat_time, wort_separation_time, boil_temp, boil_duration, hop_schedule, hop_hop_amt,
                  after_boil_chill_temp,
-                 ferment_time, ferment_temp, ferment_yeast_temp):
+                 ferment_time, ferment_temp, ferment_yeast_temp, wort_volume):
         self._recipe_id = recipe_id
         self._name = name
         self._batch_size = batch_size
@@ -73,6 +73,7 @@ class Recipe:
         self._stir_time = stir_time
         self._hlt_heat_time = hlt_heat_time
         self._wort_separation_time = wort_separation_time
+        self._wort_volume = wort_volume
         # Boiling
         self._boil_temp = boil_temp
         self._boil_time = boil_duration
@@ -162,8 +163,6 @@ class Recipe:
             weight = weight + value
         return weight
 
-'''
-
     def get_yeast_begin_temp(self):
         return self._yeast_begin_temp
         
@@ -197,4 +196,7 @@ class Recipe:
     def get_ferment_cool_temp(self):
         return self._ferment_cool_temp
 
-'''
+    def get_wort_volume(self):
+        return self._wort_volume
+
+

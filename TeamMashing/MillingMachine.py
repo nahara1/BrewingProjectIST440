@@ -11,22 +11,25 @@ import time
 
 from Brewing.Log import Log
 from TeamMashing.HotLiquorTank import HotLiquorTank
-from TeamMashing.RecipeMashing import recipe_mashing
 from Brewing import ServiceNowLog
 
-class MillingMachine:  # MillingMachine Start
+class MillingMachine():  # MillingMachine Start
     def __init__(self):  # constructor initalized fields
         self.machine_id = 1
-        self.mill_time = recipe_mashing.mill_time
-        self.grains_weight = recipe_mashing.grains_weight
+        self.mill_time = 0
+        self.grains_weight = 0
 
-    def mill_grains(self):  # Mill_grains process start
+    def mill_grains(self, recipe):  # Mill_grains process start
         """
         The start of milling grains
+        :param recipe: recipe instance
         :param mid: machine id
         :param mt: milling time
         :return: Return Log and animation of milling grains
         """
+        self.mill_time = recipe.get_mill_time()
+        self.grains_weight = recipe.get_grains_weight()
+
         try:
             # log to begin process
             status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Starting Mashing Process\"}"

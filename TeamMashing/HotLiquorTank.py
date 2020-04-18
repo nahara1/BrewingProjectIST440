@@ -9,22 +9,24 @@
 import datetime
 from Brewing.Log import Log
 from TeamMashing.SpargingTank import SpargingTank
-from TeamMashing.RecipeMashing import recipe_mashing
 from Brewing import ServiceNowLog
 
 class HotLiquorTank:
     def __init__(self):
         self.tank_ID = 2
-        self.water_amount = recipe_mashing.water_amount
-        self.water_temp = recipe_mashing.water_temp
+        self.water_amount = 0
+        self.water_temp = 0
 
-    def heat_water(self): #Water heating process starts
+    def heat_water(self, recipe): #Water heating process starts
 
         """
         The start of water heating
         :param water_temp: temperature of the water
         :return: return log and animation of burner light.
         """
+
+        self.water_amount = recipe.get_water_volume()
+        self.water_temp = recipe.get_water_temp()
 
         try:
             # log to begin process
