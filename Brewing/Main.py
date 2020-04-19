@@ -12,6 +12,7 @@ from Brewing import BrewBatchStage
 from TeamMashing import MillingMachine
 import datetime
 from TeamBoiling import Boil
+from TeamKegging.KeggingMain import KeggingMain
 from Brewing import Log
 import sys
 import time
@@ -82,7 +83,9 @@ def main():
 
 
         # Call Kegging
-
+        recipe_ibu = recipe.get_ibu()
+        kegging_process = KeggingMain.KeggingMain(request_id, "BRITE_START,", recipe_ibu)
+        kegging_process.start()
     except Exception as e:
 
         print("Error message: ", e)
