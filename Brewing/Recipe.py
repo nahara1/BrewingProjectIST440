@@ -5,54 +5,21 @@
 # Date Developed: 3/16/2020
 # Last Date Changed: 4/18/2020
 # Rev: 6
-import json
+
 # default constructor added
+
+
 class Recipe:
     """
     This class was written to be used by each team. All of the attributes are available to be obtained by getters.
     """
     recipe_id = 0
 
-    ''''''
-    '''
-        def __init__(self, recipe_id, name, volume, yeast_storage_amt, yeast, yeast_begin_temp, grain, sparge_time,
-                 sparge_temp,
-                 wort_volume, boil_temp, boil_time, add_hop_time, hop_amt, hops, after_boil_chill_temp, ferment_time,
-                 add_yeast_time, add_yeast_temp, ferment_temp, wort_cool_temp, carbonation, bitter_units,
-                 wort_cool_time, ferment_cool_temp):
-        self._recipe_id = recipe_id
-        self._name = name
-        self._volume = volume
-        self._yeast_store_amt = yeast_storage_amt
-        self._yeast = yeast
-        self._yeast_begin_temp = yeast_begin_temp
-        self._grain = grain
-        self._sparge_time = sparge_time
-        self._sparge_temp = sparge_temp
-        self._wort_volume = wort_volume
-        self._boil_temp = boil_temp
-        self._boil_time = boil_time
-        self._add_hop_time = add_hop_time
-        self._hop_amt = hop_amt
-        self._hops = hops
-        self._after_boil_chill_temp = after_boil_chill_temp
-        self._ferment_time = ferment_time
-        self._add_yeast_time = add_yeast_time
-        self._add_yeast_temp = add_yeast_temp
-        self._ferment_temp = ferment_temp
-        self._wort_cool_temp = wort_cool_temp
-        self._carbonation = carbonation
-        self._bitter_units = bitter_units
-        self._wort_cool_time = wort_cool_time
-        self._ferment_cool_temp = ferment_cool_temp
-
-    '''
-
     def __init__(self, recipe_id, name, abv, ibu, og, fg, batch_size, yeast_storage_amt, yeast, grain, water_volume,
                  water_temp, mill_time, sparge_time,
                  stir_time, hlt_heat_time, wort_separation_time, boil_temp, boil_duration, hop_schedule, hop_hop_amt,
                  after_boil_chill_temp,
-                 ferment_time, ferment_temp, ferment_yeast_temp, wort_volume):
+                 ferment_time, ferment_temp, wort_volume):
         self.recipe_id = recipe_id
         self.name = name
         self.batch_size = batch_size
