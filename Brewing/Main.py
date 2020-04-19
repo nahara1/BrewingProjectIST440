@@ -1,3 +1,10 @@
+# Project: Brewing Automation System - Capstone Project
+# Purpose Details: Class to start brewing process
+# Course: IST 440W - 001
+# Author: IST 440W - 001
+# Date Developed: 4/18/20
+# Last Date Changed: 4/18/20
+# Rev 3
 
 from Brewing import Recipe
 from Brewing import Brew
@@ -107,4 +114,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
