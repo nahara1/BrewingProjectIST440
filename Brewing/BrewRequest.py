@@ -81,15 +81,15 @@ def get_request_id():
 
         else:
             # Decode the JSON response into a dictionary and use the data
-            req_id = extract_values(data, 'sys_id')
-            req_id = str(sys_id).replace("['", "").replace("']", "")
+            sys_id = extract_values(data, 'sys_id')
+            sys_id = str(sys_id).replace("['", "").replace("']", "")
 
     except requests.HTTPError:
         time.sleep(5)
         print('Connection Error')
         get_request_id()
 
-    return req_id
+    return sys_id
 
 
 # method to get a request number (which will be used a the brew batch id)
@@ -98,7 +98,7 @@ def get_brew_request_number(req_id):
     """
     Get the order request number corresponding to the request id given
     :param req_id: brew request unique identifier
-    :return: brew batch id request number
+    :return: brew request number
     """
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request/' + req_id
 
@@ -135,19 +135,19 @@ def get_brew_request_number(req_id):
 
     username = str(username).replace("['", "").replace("']", "")
 
-    brew_batch_id = extract_values(data, 'number')
+    request_number = extract_values(data, 'number')
 
-    brew_batch_id = str(brew_batch_id).replace("['", "").replace("']", "")
+    request_number = str(request_number).replace("['", "").replace("']", "")
 
     print("Customer User ID: " + username)
 
     print()
-    print("Brew Request Number: " + brew_batch_id)
+    print("Brew Request Number: " + request_number)
 
-    return brew_batch_id
+    return request_number
 
 
-def get_catalog_item_id(brew_batch_id):
+def get_catalog_item_id(request_number):
     """
     Get the catalog item unique identifier which has been requested by a customer
     based on the given request number
@@ -167,7 +167,7 @@ def get_catalog_item_id(brew_batch_id):
 
     '''
     # Set the request parameters
-    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=request.number%253D' + brew_batch_id + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item'
+    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=request.number%253D' + request_number + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item'
 
     connection_success = False
 
@@ -186,11 +186,11 @@ def get_catalog_item_id(brew_batch_id):
 
     # Decode the JSON response into a dictionary and use the data
     data = response.json()
-    cat_id = extract_values(data, 'value')
-    print(cat_id)
-    cat_id = str(cat_id).replace("['", "").replace("']", "")
+    cat_item_id = extract_values(data, 'value')
+    print(cat_item_id)
+    cat_item_id = str(cat_item_id).replace("['", "").replace("']", "")
     # print("Catalog Item ID: " + cat_item_id)
-    return cat_id
+    return cat_item_id
 
 
 def get_catalog_item_name(cat_id):
@@ -233,7 +233,7 @@ def get_catalog_item_name(cat_id):
     return recipe_name
 
 
-def update_brew_stage(request_id, stage):
+def update_brew_stage(sys_id, stage):
     # Stage is a string
     """
     Update request Stage column in the sc_request table
@@ -243,7 +243,7 @@ def update_brew_stage(request_id, stage):
     :param stage: Brew Batch current stage
     """
     import requests
-    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request/' + request_id
+    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request/' + sys_id
 
     # Set stage value to be patched
     update = "{\"stage\":\"" + stage + "\"}"
@@ -397,7 +397,7 @@ def get_recipe(recipe_name):
 
     recipe_obj = extract_values(data, 'wort_chill_temperature')
     wort_chill_temp = str(recipe_obj).replace("['", "").replace("']", "")
-    #wort_chill_temp = float(wort_chill_temp)
+    wort_chill_temp = float(wort_chill_temp)
 
     recipe_obj = extract_values(data, 'ferment_duration')
     ferment_time = str(recipe_obj).replace("['", "").replace("']", "")
