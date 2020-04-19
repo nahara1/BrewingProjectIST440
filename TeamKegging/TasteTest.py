@@ -6,8 +6,10 @@
 # Last Date Changed: 4/18/2020
 # Rev: 9
 
-import time
+
 import datetime
+from Brewing import ServiceNowLog
+
 
 tt_loglist = []
 
@@ -30,25 +32,30 @@ class TasteTest:
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
             bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
-        # ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog, status_log)
-        # print(status_log)
+        ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog, status_log)
         tt_loglist.append(status_log)
 
     def record_quality(self, batch_id):
         report_correct = False
         while not report_correct:
+            print()
+            print("This is the Quality Report")
+            tt_taster = input("Enter your name: ")
+            tt_taster_id = input("Enter you RFID number: ")
             tt_quality = input(
                 "Please enter the beer quality report for beer batch (Batch_ID: " + str(batch_id) + "): ")
             print("")
             print("The report you have entered is as follows:")
             print("")
+            print("Name: "+ tt_taster + " RFID: " + tt_taster_id)
+            print()
             print(tt_quality)
             print("")
             choice = input("Is this correct (Y/N): ")
             if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
                 report_correct = True
                 self.tt_status = "QA_TASTING"
-                beer_report = "Quality Assurance Beer Quality Report: " + tt_quality
+                beer_report = "Quality Assurance Beer Quality Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id + tt_quality
                 self.tt_log(batch_id, "Kegging", beer_report)
             elif choice in ['N', 'n', 'no', 'No', 'NO']:
                 pass
@@ -56,20 +63,27 @@ class TasteTest:
     def record_ibu(self, batch_id, recipe_ibu):
         ibu_correct = False
         while not ibu_correct:
+            print()
+            print("This is the IBU Report")
             print("The target IBU (International Bitterness Unit) Score is (" + str(recipe_ibu) + ").")
+            print()
+            tt_taster = input("Enter your name: ")
+            tt_taster_id = input("Enter you RFID number: ")
             ibu = float(input("Please enter the IBUs (International Bitterness Units) for beer batch (Batch_ID: " + str(
                 batch_id) + "): "))
-            print("")
+            print()
             print("The IBUs you have entered is as follows:")
-            print("")
+            print()
+            print("Name: " + tt_taster + " RFID: " + tt_taster_id)
+            print()
             print(str(ibu))
-            print("")
+            print()
             choice = input("Is this correct (Y/N): ")
             if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
                 self.tt_ibu = ibu
                 ibu_correct = True
                 self.tt_status = "QA_IBU_TASTING"
-                ibu_report = "Quality Assurance IBU Report: " + str(ibu)
+                ibu_report = "Quality Assurance IBU Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id  + str(ibu)
                 self.tt_log(batch_id, "Kegging", ibu_report)
             elif choice in ['N', 'n', 'no', 'No', 'NO']:
                 pass
@@ -78,8 +92,7 @@ class TasteTest:
         quality_pass = False
         while not quality_pass:
             self.record_quality(batch_id)
-            result = input(
-                "Does beer batch (Batch_ID: " + str(batch_id) + ") pass Quality Assurance Inspection (Y/N): ")
+            result = input( "This is the Final QA Pass Fail Result" + "\n" + "Does beer batch (Batch_ID: " + str(batch_id) + ") pass Quality Assurance Inspection (Y/N): ")
             if result in ['Y', 'y', 'yes', 'Yes', 'YES']:
                 quality_pass = True
                 qa_report = "Quality Assurance: Beer Quality Test Passed."
@@ -108,5 +121,7 @@ class TasteTest:
     def get_tt_loglist(self):
         return tt_loglist
 
-# tt1 = TasteTest(1,"Daibo",1111,"QA_START",0)
-# tt1.tt_main(1,38.5)
+#tt1 = TasteTest(1,"Daibo",1111,"QA_START",0)
+#tt1.tt_main(1,38.5)
+#for n in tt1.get_tt_loglist():
+#    print(n)
