@@ -88,7 +88,7 @@ def main():
         original_gravity = recipe.get_og()
         final_gravity = recipe.get_fg()
         recipe_abv = recipe.get_abv()
-        Fermentation.start_fermentation_process(request_number)
+        Fermentation.start_fermentation_process(brew_batch_id)
 
 
         # Call Kegging
