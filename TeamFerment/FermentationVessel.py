@@ -25,7 +25,7 @@ class FermentationVessel:
         self.final_gravity = recipe.get_fg()
         self.base_abv = recipe.get_abv()
 
-    def get_wort(self, request_number):
+    def get_wort(self, request_number, recipe):
         """
         Function for receiving the wort
         :param request_number: the ID of the current batch
@@ -209,7 +209,7 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.send_to_kegging()
 
-    def send_to_kegging(self, request_number):
+    def send_to_kegging(self):
         """
         Function to send filtered Ale to Team Kegging
         :param: self
@@ -217,6 +217,6 @@ class FermentationVessel:
         """
         log = Log(13, "Ferment.send_to_kegging", "Ale sent to kegging", datetime.datetime.now(), "pass")
         print(log.generate_log())
-        status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Fermentation Process has ended\"}"
-        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        #status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Fermentation Process has ended\"}"
+        #ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         print("-----------------------------------------")

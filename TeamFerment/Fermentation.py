@@ -11,13 +11,13 @@ from TeamFerment.FermentationVessel import FermentationVessel
 import threading
 
 
-def start_fermentation_process():
-    fermentation_vessel = FermentationVessel()
+def start_fermentation_process(request_number, recipe):
+    fermentation_vessel = FermentationVessel(recipe)
 
-    t1 = threading.Thread(target=fermentation_vessel.get_wort(123))
+    t1 = threading.Thread(target=fermentation_vessel.get_wort(request_number, recipe))
 
     t1.start()
 
 
-if __name__ == "__main__":
-    start_fermentation_process()
+#if __name__ == "__main__":
+    #start_fermentation_process()

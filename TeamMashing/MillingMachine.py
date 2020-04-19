@@ -11,7 +11,7 @@ import time
 
 from Brewing.Log import Log
 from TeamMashing.HotLiquorTank import HotLiquorTank
-from Brewing import ServiceNowLog
+from Brewing.ServiceNowLog import ServiceNowLog
 
 class MillingMachine():  # MillingMachine Start
     def __init__(self):  # constructor initalized fields
@@ -19,9 +19,10 @@ class MillingMachine():  # MillingMachine Start
         self.mill_time = 0
         self.grains_weight = 0
 
-    def mill_grains(self, recipe):  # Mill_grains process start
+    def mill_grains(self, recipe, request_number):  # Mill_grains process start
         """
         The start of milling grains
+        :param request_number:
         :param recipe: recipe instance
         :param mid: machine id
         :param mt: milling time
@@ -32,8 +33,9 @@ class MillingMachine():  # MillingMachine Start
 
         try:
             # log to begin process
-            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Starting Mashing Process\"}"
-            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Starting Mashing Process\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(2, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -48,16 +50,17 @@ class MillingMachine():  # MillingMachine Start
                     print("-----------------------------------------")
 
             # log to end process
-            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Milling Ended\"}"
-            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Milling Ended\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(2, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
-            self.send_grains_to_sparging_tank(recipe)
+            self.send_grains_to_sparging_tank(recipe, request_number)
         except Exception as e:  # error handling
             print(e)
 
-    def send_grains_to_sparging_tank(self, recipe):
+    def send_grains_to_sparging_tank(self, recipe, request_number):
         # sends grains to Sparging Tank
         """
         grains are added to the Sparging Tank
@@ -65,8 +68,9 @@ class MillingMachine():  # MillingMachine Start
         :return: print statement
         """
         try:
-            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Sending Grains to Sparging Tank\"}"
-            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Sending Grains to Sparging Tank\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(3, "Mashing.Milling", "Send Grains to Sparging Tank", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -74,6 +78,6 @@ class MillingMachine():  # MillingMachine Start
             print("Grains added to Sparging Tank")
             print("-----------------------------------------")
             hlt = HotLiquorTank()
-            hlt.heat_water(recipe)
+            hlt.heat_water(recipe, request_number)
         except Exception as e:
             print(e)

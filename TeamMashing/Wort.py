@@ -9,7 +9,7 @@
 import datetime
 import time
 from Brewing.Log import Log
-from Brewing import ServiceNowLog
+from Brewing.ServiceNowLog import ServiceNowLog
 
 # Wort class checks for water temperature, water volume and records separation time.
 
@@ -22,7 +22,7 @@ class Wort:
         self.water_volume = 0
         self.separation_time = 0
 
-    def check_hot_water_temp(self, recipe):
+    def check_hot_water_temp(self, recipe, request_number):
         # Checks for water temperature
         """
         Displays correct water temp in the wort phase / generates a log
@@ -33,8 +33,9 @@ class Wort:
 
         # Records correct hot water temp to Log
         try:
-            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Checking Water Temp\"}"
-            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Checking Water Temp\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(1, "Mashing.Wort", "Checking Water Temp", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -42,11 +43,11 @@ class Wort:
             print("Hot Water Temperature: ", self.hot_water_temp, "degrees F")
             print("-----------------------------------------")
 
-            self.check_water_volume(recipe)
+            self.check_water_volume(recipe, request_number)
         except Exception as e:
             print(e)
 
-    def check_water_volume(self, recipe):
+    def check_water_volume(self, recipe, request_number):
         # Checks for water volume
         """
         Displays the correct water volume / generates a log
@@ -56,8 +57,9 @@ class Wort:
         self.water_volume = recipe.get_water_volume()
 
         try:
-            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Checking Water Volume\"}"
-            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Checking Water Volume\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(2, "Mashing.Wort", "Checking Water Volume", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -65,11 +67,11 @@ class Wort:
             print("Water Volume: ", self.water_volume, "gallons")
             print("-----------------------------------------")
 
-            self.check_wort_volume(recipe)
+            self.check_wort_volume(recipe, request_number)
         except Exception as e:
             print(e)
 
-    def check_wort_volume(self, recipe):    # Wort Volume? Should we use it as BatchSize
+    def check_wort_volume(self, recipe, request_number):    # Wort Volume? Should we use it as BatchSize
         # Displays wort volume
         """
         Displays the correct wort volume / generates a log
@@ -78,10 +80,11 @@ class Wort:
 
         self.wort_volume = recipe.get_wort_volume()
 
-        # Records correct wort volume to Log and show animation
+        # Records correct wort volume to Log
         try:
-            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Check Wort Volume\"}"
-            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Check Wort Volume\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(3, "Mashing.Wort", "Check Wort Volume", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -89,11 +92,11 @@ class Wort:
             print("Wort Volume: ", self.wort_volume, "gallons")
             print("-----------------------------------------")
 
-            self.separate_wort(recipe)
+            self.separate_wort(recipe, request_number)
         except Exception as e:
             print(e)
 
-    def separate_wort(self, recipe):
+    def separate_wort(self, recipe, request_number):
         # Separates the wort from the mash
         """
         Displays a count down while wort separation is in process
@@ -103,8 +106,9 @@ class Wort:
         self.separation_time = recipe.get_wort_separation_time()
 
         try:
-            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Separating Wort\"}"
-            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Separating Wort\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(4, "Mashing.Wort", "Wort Separation Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -121,8 +125,9 @@ class Wort:
                     print("-----------------------------------------")
 
             # Generates a log and displays the process has been successfully completed.
-            status_log = "{\"batch_id\":\"1\",\"brew_batch_stage\":\"Mashing\",\"log\":\"Wort Separated\"}"
-            ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Wort Separated\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(5, "Mashing.Wort", "Wort Separation Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
