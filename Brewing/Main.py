@@ -3,7 +3,7 @@ from Brewing import Recipe
 from Brewing import Brew
 from Brewing import BrewRequest
 from Brewing import BrewBatch
-from TeamPrep import  Sanitization
+from TeamPrep import Sanitization
 from TeamPrep import Temperature
 from TeamPrep import WeightScale
 from TeamPrep import QualityCheck_Prep
@@ -12,6 +12,7 @@ from Brewing import BrewBatchStage
 from TeamMashing import MillingMachine
 import datetime
 from TeamBoiling import Boil
+from TeamKegging.KeggingMain import KeggingMain
 from Brewing import Log
 import sys
 import time
@@ -68,7 +69,7 @@ def main():
         t.Temperature
         w.WeightScale
         q.QualityCheck
-        Prep.Prep_Main(s,t, w,q)
+        Prep_Main.prep_main()
         # Call Mashing
         m = MillingMachine.MillingMachine()
         MillingMachine.MillingMachine.mill_grains(m, recipe)
@@ -79,9 +80,17 @@ def main():
         Boil.run_boil(request_number, boil_temp, boil_time)
 
         # Call Ferment
+        ferment_time = recipe.get_ferment_time()
+        ferment_temp = recipe.get_ferment_temp()
+        original_gravity = recipe.get_og()
+        final_gravity = recipe.get_fg()
+        recipe_abv = recipe.get_abv()
+
 
         # Call Kegging
-
+        recipe_ibu = recipe.get_ibu()
+        kegging_process = KeggingMain.KeggingMain(request_id, "BRITE_START,", recipe_ibu)
+        kegging_process.start()
     except Exception as e:
 
         print("Error message: ", e)

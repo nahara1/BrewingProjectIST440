@@ -96,5 +96,5 @@ class KeggingMain:
         self.print_km_full_loglist()
 
 
-keg1 = KeggingMain(1234, "KEGGING_START")
-keg1.start(38.5)
+#keg1 = KeggingMain(1234, "KEGGING_START")
+#keg1.start(38.5)
