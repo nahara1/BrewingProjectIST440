@@ -3,6 +3,7 @@ from Brewing import Recipe
 from Brewing import Brew
 from Brewing import BrewRequest
 from Brewing import BrewBatch
+from TeamFerment import Fermentation
 from TeamPrep import Sanitization
 from TeamPrep import Temperature
 from TeamPrep import WeightScale
@@ -13,6 +14,7 @@ from TeamMashing import MillingMachine
 import datetime
 from TeamBoiling import Boil
 from TeamKegging.KeggingMain import KeggingMain
+from TeamFerment.Fermentation import start_fermentation_process
 from Brewing import Log
 import sys
 import time
@@ -86,6 +88,7 @@ def main():
         original_gravity = recipe.get_og()
         final_gravity = recipe.get_fg()
         recipe_abv = recipe.get_abv()
+        Fermentation.start_fermentation_process(request_number)
 
 
         # Call Kegging

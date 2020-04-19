@@ -16,4 +16,7 @@ class BrewMaster:
         self.brew_master_id = brew_master_id
         self.name = name
         self.vessel_id = vessel_id
+
 # add getters
+
+

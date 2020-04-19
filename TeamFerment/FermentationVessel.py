@@ -9,18 +9,21 @@ import random
 
 import time
 from Brewing.Log import Log
+from Brewing import Recipe
 from Brewing import ServiceNowLog
+from Brewing import BrewMaster
 import Brewing.BrewMaster
 
 
 class FermentationVessel:
-    def __init__(self):
-        self.vessel_id = 1
-        self.brew_master_id = 345
-        self.fermentation_time = time
-        self.original_gravity = 1.05
-        self.final_gravity = 1.01
-        self.base_abv = 5.25
+    def __init__(self, recipe, brew_master):
+        self.vessel_id = brew_master.get_vessel_id()
+        self.brew_master_id = brew_master.get_brew_master_id()
+        self.ferment_time = time
+        self.ferment_temp = recipe.get_ferment_temp()
+        self.original_gravity = recipe.get_og()
+        self.final_gravity = recipe.get_fg()
+        self.base_abv = recipe.get_abv()
 
     def get_wort(self, request_number):
         """
@@ -29,6 +32,7 @@ class FermentationVessel:
         :return: Return log
         """
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Starting Fermentation Process\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(1, "Receiving wort", "Received wort from Team Boil", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------")
@@ -214,4 +218,5 @@ class FermentationVessel:
         log = Log(13, "Ferment.send_to_kegging", "Ale sent to kegging", datetime.datetime.now(), "pass")
         print(log.generate_log())
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Fermentation Process has ended\"}"
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         print("-----------------------------------------")
