@@ -11,14 +11,14 @@ import time
 from Brewing.Log import Log
 from Brewing import Recipe
 from Brewing import ServiceNowLog
-from Brewing import BrewMaster
+# from Brewing import BrewMaster
 import Brewing.BrewMaster
 
 
 class FermentationVessel:
-    def __init__(self, recipe, brew_master):
-        self.vessel_id = brew_master.get_vessel_id()
-        self.brew_master_id = brew_master.get_brew_master_id()
+    def __init__(self, recipe):
+        self.vessel_id = 1
+        self.brew_master_id = 2
         self.ferment_time = time
         self.ferment_temp = recipe.get_ferment_temp()
         self.original_gravity = recipe.get_og()

@@ -122,17 +122,17 @@ class KeggingTasks:
                     if taskRFID in employeeRFID:  # checks to see if RFID is in list
                         print()
 
-                        self.keg_log(batch_id, "kegging", "Current task: " + taskList[taskCounter] + " COMPLETED.")  # logging to service now
+                        self.keg_log(self.batch_id, "kegging", "Current task: " + taskList[taskCounter] + " COMPLETED.")  # logging to service now
                         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())  # retrieves current timestamp
                         timeStampList.append(currentTimeStamp)  # adds current timestamp to list
                         RFIDLinkToTask.append(taskRFID)  # adds RFID to completed task
                         taskCounter += 1
                         self.task_status = "{0:.1%}".format(taskCounter / length)  # percentage of task completion
-                        self.keg_log(batch_id, "Kegging", "Current kegging tasks status: " + str(self.task_status))  # logging to service now
+                        self.keg_log(self.batch_id, "Kegging", "Current kegging tasks status: " + str(self.task_status))  # logging to service now
                         break
                     else:
                         print("Authentication Error")
-                        self.keg_log(1, "Kegging", "RFID Mismatch")  # logging to service now
+                        self.keg_log(self.batch_id, "Kegging", "RFID Mismatch")  # logging to service now
             else:
                 continue
             print()

@@ -53,109 +53,109 @@ class Recipe:
                  stir_time, hlt_heat_time, wort_separation_time, boil_temp, boil_duration, hop_schedule, hop_hop_amt,
                  after_boil_chill_temp,
                  ferment_time, ferment_temp, ferment_yeast_temp, wort_volume):
-        self._recipe_id = recipe_id
-        self._name = name
-        self._batch_size = batch_size
+        self.recipe_id = recipe_id
+        self.name = name
+        self.batch_size = batch_size
         # Kegging and Ferment
-        self._abv = abv
-        self._ibu = ibu
-        self._og = og
-        self._fg = fg
+        self.abv = abv
+        self.ibu = ibu
+        self.og = og
+        self.fg = fg
         # Prep and Ferment
-        self._yeast = yeast
-        self._yeast_store_amt = yeast_storage_amt
+        self.yeast = yeast
+        self.yeast_store_amt = yeast_storage_amt
         # Mashing and Prep
-        self._mill_time = mill_time
-        self._grain = grain
-        self._water_volume = water_volume
-        self._water_temp = water_temp
-        self._sparge_time = sparge_time
-        self._stir_time = stir_time
-        self._hlt_heat_time = hlt_heat_time
-        self._wort_separation_time = wort_separation_time
-        self._wort_volume = wort_volume
+        self.mill_time = mill_time
+        self.grain = grain
+        self.water_volume = water_volume
+        self.water_temp = water_temp
+        self.sparge_time = sparge_time
+        self.stir_time = stir_time
+        self.hlt_heat_time = hlt_heat_time
+        self.wort_separation_time = wort_separation_time
+        self.wort_volume = wort_volume
         # Boiling
-        self._boil_temp = boil_temp
-        self._boil_time = boil_duration
-        self._hop_schedule = hop_schedule
-        self._hop_hop_amt = hop_hop_amt
-        self._after_boil_chill_temp = after_boil_chill_temp
+        self.boil_temp = boil_temp
+        self.boil_time = boil_duration
+        self.hop_schedule = hop_schedule
+        self.hop_hop_amt = hop_hop_amt
+        self.after_boil_chill_temp = after_boil_chill_temp
         # Ferment
-        self._ferment_time = ferment_time
-        self._ferment_temp = ferment_temp
+        self.ferment_time = ferment_time
+        self.ferment_temp = ferment_temp
 
 
     def get_id(self):
-        return self._recipe_id
+        return self.recipe_id
 
     def get_name(self):
-        return self._name
+        return self.name
 
     def get_batch_size(self):
-        return self._batch_size
+        return self.batch_size
 
     def get_abv(self):
-        return self._abv
+        return self.abv
 
     def get_ibu(self):
-        return self._abv
+        return self.ibu
 
     def get_og(self):
-        return self._og
+        return self.og
 
     def get_fg(self):
-        return self._fg
+        return self.fg
 
     def get_yeast_storage_amt(self):
-        return self._yeast_store_amt
+        return self.yeast_store_amt
 
     def get_yeast(self):
-        return self._yeast
+        return self.yeast
 
     def get_grain(self):
-        return self._grain
+        return self.grain
 
     def get_water_temp(self):
-        return self._water_temp
+        return self.water_temp
 
     def get_water_volume(self):
-        return self._water_volume
+        return self.water_volume
 
     def get_sparge_time(self):
-        return self._sparge_time
+        return self.sparge_time
 
     def get_hlt_heat_time(self):
-        return self._hlt_heat_time
+        return self.hlt_heat_time
 
     def get_wort_separation_time(self):
-        return self._wort_separation_time
+        return self.wort_separation_time
 
     def get_stir_time(self):
-        return self._stir_time
+        return self.stir_time
 
     # Boiling
 
     def get_boil_temp(self):
-        return self._boil_temp
+        return self.boil_temp
 
     def get_boil_time(self):
-        return self._boil_time
+        return self.boil_time
 
     def get_hop_schedule(self):
-        return self._hop_schedule
+        return self.hop_schedule
 
     def get_after_boil_chill_temp(self):
-        return self._after_boil_chill_temp
+        return self.after_boil_chill_temp
 
     # Ferment
     def get_ferment_time(self):
-        return self._ferment_time
+        return self.ferment_time
 
     def get_ferment_temp(self):
-        return self._ferment_temp
+        return self.ferment_temp
 
     def get_ferment_yeast_temp(self):
-        return self._ferment_yeast_temp
+        return self.ferment_yeast_temp
 
     def get_grain_weight(self, grain):
         weight = 0
@@ -168,41 +168,41 @@ class Recipe:
         return weight
 
     def get_yeast_begin_temp(self):
-        return self._yeast_begin_temp
+        return self.yeast_begin_temp
         
     def get_hop_amt(self):
-        return self._hop_hop_amt
+        return self.hop_hop_amt
 
     def get_add_hop_time(self):
-        return self._add_hop_time
+        return self.add_hop_time
         
     def get_add_yeast_time(self):
-        return self._add_yeast_time
+        return self.add_yeast_time
 
     def get_add_yeast_temp(self):
-        return self._add_yeast_temp
+        return self.add_yeast_temp
 
     def get_ferment_temp(self):
-        return self._ferment_temp
+        return self.ferment_temp
 
     def get_wort_cool_temp(self):
-        return self._wort_cool_temp
+        return self.wort_cool_temp
 
     def get_carbonation(self):
-        return self._carbonation
+        return self.carbonation
 
     def get_bitter_units(self):
-        return self._bitter_units
+        return self.bitter_units
 
     def get_wort_cool_time(self):
-        return self._wort_cool_time
+        return self.wort_cool_time
 
     def get_ferment_cool_temp(self):
-        return self._ferment_cool_temp
+        return self.ferment_cool_temp
 
     def get_wort_volume(self):
-        return self._wort_volume
+        return self.wort_volume
 
     def get_mill_time(self):
-        return self._mill_time
+        return self.mill_time
 
