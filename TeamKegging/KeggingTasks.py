@@ -113,7 +113,7 @@ class KeggingTasks:
 
             # prints current task and asks if complete
             print("Current task: " + taskList[taskCounter])
-            self.keg_log(1, "kegging", "Current task: " + taskList[taskCounter] + " INITIATED.")  # logging to service now
+            self.keg_log(self.batch_id, "Kegging", "Current task: " + taskList[taskCounter] + " INITIATED.")  # logging to service now
             print()
             ans = raw_input("Has this task been completed? Enter (y/n): ")
             if ans == 'y':
@@ -122,7 +122,7 @@ class KeggingTasks:
                     if taskRFID in employeeRFID:  # checks to see if RFID is in list
                         print()
 
-                        self.keg_log(self.batch_id, "kegging", "Current task: " + taskList[taskCounter] + " COMPLETED.")  # logging to service now
+                        self.keg_log(self.batch_id, "Kegging", "Current task: " + taskList[taskCounter] + " COMPLETED.")  # logging to service now
                         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())  # retrieves current timestamp
                         timeStampList.append(currentTimeStamp)  # adds current timestamp to list
                         RFIDLinkToTask.append(taskRFID)  # adds RFID to completed task
