@@ -130,7 +130,7 @@ class KegCount:
             else:
                 print("Please Enter a valid Keg Style")
 
-    def kc_new_keg(self)
+    def kc_new_keg(self):
         """
         Method that asks the user to enter information for a new Keg object
         :param new_id: Keg ID for the new Keg
