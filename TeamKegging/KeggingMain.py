@@ -17,9 +17,10 @@ km_full_loglist = []
 
 
 class KeggingMain:
-    def __init__(self, batch_id, kegging_status):
+    def __init__(self, batch_id, kegging_status,recipe_ibu):
         self.batch_id = batch_id
         self.kegging_status = kegging_status
+        self.recipe_ibu = float(recipe_ibu)
 
     def keg_log(self, bb_stage, log_message):
         """
@@ -81,7 +82,7 @@ class KeggingMain:
         for n in self.km_get_full_loglist():
             print(n)
 
-    def start(self,recipe_ibu):
+    def start(self):
         """
         Main Kegging Process start method
         :return: starts the Kegging Process
@@ -90,11 +91,11 @@ class KeggingMain:
         batch_id = self.batch_id
         # batch_id = input("Please enter the batch id of the brite beer: ")
         self.brite_start()
-        self.qa_start("Daibo,",1122,recipe_ibu)
+        self.qa_start("Daibo,",1122, self.recipe_ibu)
         self.kt_start()
         self.kc_start()
         self.print_km_full_loglist()
 
 
-#keg1 = KeggingMain(1234, "KEGGING_START")
-#keg1.start(38.5)
+#keg1 = KeggingMain(1234, "KEGGING_START", 38.5)
+#keg1.start()
