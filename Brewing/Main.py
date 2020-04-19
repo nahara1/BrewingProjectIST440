@@ -23,20 +23,21 @@ def main():
     # Get a brew request
 
     try:
-        # 1 - Get brew request id and initialize request_number
+        # 1 - Get brew request id and initialize request_number, which is
+        #     going to be used as the brew batch id
         request_id = BrewRequest.get_request_id()
-        request_number = ''
+        brew_batch_id = ''
 
         # 2 - Get brew request number
         if request_id != '':
-            request_number = BrewRequest.get_brew_request_number(request_id)
+            brew_batch_id = BrewRequest.get_brew_request_number(request_id)
         else:
             main()
         # 3 - Update brew request
         BrewRequest.update_brew_stage(request_id, "Approval")
 
         # 4 - Get requested brew id based on request number
-        item_id = BrewRequest.get_catalog_item_id(request_number)
+        item_id = BrewRequest.get_catalog_item_id(brew_batch_id)
 
         # 5 - Get requested item name based on its id
         item_name = BrewRequest.get_catalog_item_name(item_id)
@@ -50,13 +51,13 @@ def main():
         # create order obj
 
         # create Prep BB Stage obj
-        bb_stage = Brew.set_up_brew_stage(request_number)
+        bb_stage = Brew.set_up_brew_stage(brew_batch_id)
 
 
         # Create Brew Batch Object
 
         # Hard-coded bb size value
-        brew_batch = BrewBatch.BrewBatch(request_number, recipe, datetime.datetime.now(), bb_stage,
+        brew_batch = BrewBatch.BrewBatch(brew_batch_id, recipe, datetime.datetime.now(), bb_stage,
                                          "in prep",
                                          recipe.get_batch_size())
 
@@ -77,7 +78,7 @@ def main():
         # Call Boiling
         boil_temp = recipe.get_boil_temp()
         boil_time = recipe.get_boil_time()
-        Boil.run_boil(request_number, boil_temp, boil_time)
+        Boil.run_boil(brew_batch_id, boil_temp, boil_time)
 
         # Call Ferment
         ferment_time = recipe.get_ferment_time()
@@ -89,8 +90,9 @@ def main():
 
         # Call Kegging
         recipe_ibu = recipe.get_ibu()
-        kegging_process = KeggingMain.KeggingMain(request_id, "BRITE_START,", recipe_ibu)
+        kegging_process = KeggingMain(brew_batch_id, "BRITE_START,", recipe_ibu)
         kegging_process.start()
+
     except Exception as e:
 
         print("Error message: ", e)
