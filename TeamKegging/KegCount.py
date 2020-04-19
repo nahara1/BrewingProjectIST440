@@ -22,7 +22,6 @@ class KegCount:
         return "Batch ID: {}\n" \
                "Final Status: {}\n".format(self.batch_id, self.kc_status)
 
-
     def kc_log(self, batch_id, bb_stage, log_message):
         """
         Logging Method for the Keg Count
@@ -83,26 +82,25 @@ class KegCount:
         return kc_f_count
 
     def input_keg_id(self):
-        return input("Enter the Keg ID: ")
-
         """
         Asks the user to input the Keg ID.
         This function returns nothing.
         """
+        return input("Enter the Keg ID: ")
 
     def input_keg_volume(self):
-        return float(input("Enter the Beer Volume: "))
         """
         Asks the user to input the beer volume.
         This function returns nothing.
         """
+        return float(input("Enter the Beer Volume: "))
 
     def input_keg_pressure(self):
-        return float(input("Enter the Keg Pressure (PSI): "))
         """
         Asks the user to input the Keg Pressure.
         This function returns nothing.
         """
+        return float(input("Enter the Keg Pressure (PSI): "))
 
     def input_keg_style(self):
         while True:
@@ -117,19 +115,20 @@ class KegCount:
                 print("Please Enter a valid Keg Style")
 
     def kc_new_keg(self):
+        """
+        Method that asks the user to enter information for a new Keg object
+        :param new_id: Keg ID for the new Keg
+        :param new_style: Keg Type for the new keg
+        :param new_vol: Beer Volume for the Keg
+        :param new_pressure: Keg Final Pressure
+        :return: returns the information in string format of the new keg
+        """
+
         new_id = self.input_keg_id()
         new_style = self.input_keg_style()
         new_vol = self.input_keg_volume()
         new_pressure = self.input_keg_pressure()
 
-        """
-        User needs to fulfill the need param
-        :param new_id: 
-        :param new_style: 
-        :param new_vol: 
-        :param new_pressure:
-        :return: Sends a log to ServiceNow
-        """
 
         new_keg = Keg(new_id, "DEFAULT", new_vol, new_pressure, "DEFAULT")
 
