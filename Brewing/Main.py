@@ -63,6 +63,7 @@ def main():
                                          "in prep",
                                          recipe.get_batch_size())
 
+
         # Call Prep
         s = Sanitization
         t = Temperature
@@ -73,9 +74,10 @@ def main():
         w.WeightScale
         q.QualityCheck
         Prep_Main.prep_main()
+
         # Call Mashing
         m = MillingMachine.MillingMachine()
-        MillingMachine.MillingMachine.mill_grains(m, recipe)
+        MillingMachine.MillingMachine.mill_grains(m, recipe, request_number)
 
         # Call Boiling
         boil_temp = recipe.get_boil_temp()
