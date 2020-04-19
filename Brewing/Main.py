@@ -80,6 +80,11 @@ def main():
         Boil.run_boil(request_number, boil_temp, boil_time)
 
         # Call Ferment
+        ferment_time = recipe.get_ferment_time()
+        ferment_temp = recipe.get_ferment_temp()
+        original_gravity = recipe.get_og()
+        final_gravity = recipe.get_fg()
+        recipe_abv = recipe.get_abv()
 
 
         # Call Kegging

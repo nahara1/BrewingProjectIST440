@@ -6,25 +6,29 @@
 # Rev: 3
 import datetime
 import random
-random_temp = 0
+
 import time
 from Brewing.Log import Log
+from Brewing import ServiceNowLog
 import Brewing.BrewMaster
+
 
 class FermentationVessel:
     def __init__(self):
         self.vessel_id = 1
         self.brew_master_id = 345
-        self.fermentation_time = 5
+        self.fermentation_time = time
         self.original_gravity = 1.05
         self.final_gravity = 1.01
         self.base_abv = 5.25
-    def get_wort(self, batch_id):
+
+    def get_wort(self, request_number):
         """
         Function for receiving the wort
-        :param batch_id: the ID of the current batch
+        :param request_number: the ID of the current batch
         :return: Return log
         """
+        status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Starting Fermentation Process\"}"
         log = Log(1, "Receiving wort", "Received wort from Team Boil", datetime.datetime.now(), "pass")
         print(log.generate_log())
         print("-----------------------------------------")
@@ -53,10 +57,10 @@ class FermentationVessel:
         print(log.generate_log())
         base_measurement = 0
         try:
-            while  base_measurement < self.original_gravity:
-                print("Measuring: ",  base_measurement, "g/mL") # grams per milli-Liter
+            while base_measurement < self.original_gravity:
+                print("Measuring: ", base_measurement, "g/mL")  # grams per milli-Liter
                 time.sleep(1)
-                base_measurement +=0.050
+                base_measurement += 0.050
                 if base_measurement == self.original_gravity:
                     print("Original Gravity has been measured")
                     print("-----------------------------------------")
@@ -77,7 +81,6 @@ class FermentationVessel:
         """
         return self.original_gravity
 
-
     def add_yeast(self):
         """
         Function for adding activated yeast to the fermentation vessel with wort
@@ -91,7 +94,6 @@ class FermentationVessel:
         self.close_lid()
 
         return ("Yeast added")
-
 
     def close_lid(self):
         """
@@ -110,7 +112,8 @@ class FermentationVessel:
         :param: self
         :return: Return fermentation temperature
         """
-        log = Log(7, "Ferment.setFermentTemperature", "Temperature is set at %.2f" % self.sample_ferment_tempertature, datetime.datetime.now(), "pass")
+        log = Log(7, "Ferment.setFermentTemperature", "Temperature is set at %.2f" % self.sample_ferment_tempertature,
+                  datetime.datetime.now(), "pass")
         print(log.generate_log())
         self.begin_fermentation_process()
 
@@ -152,7 +155,7 @@ class FermentationVessel:
         base_measurement = 0
         try:
             while base_measurement < self.final_gravity:
-                print("Measuring Final Gravity: ", base_measurement, "g/mL") # grams per milli-Liter
+                print("Measuring Final Gravity: ", base_measurement, "g/mL")  # grams per milli-Liter
                 time.sleep(1)
                 base_measurement += 0.050
                 if base_measurement == self.final_gravity:
@@ -181,7 +184,6 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.qa(1)
 
-
     def qa(self, brew_master_id):
         """
         Function for quality testing
@@ -192,7 +194,7 @@ class FermentationVessel:
         print(log.generate_log())
         try:
             difference = self.final_gravity - self.original_gravity
-            measured_abv = (difference*131.25)
+            measured_abv = (difference * 131.25)
             abs(measured_abv) == measured_abv
             if measured_abv == self.base_abv:
                 log = Log(13, "Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "pass")
@@ -203,8 +205,7 @@ class FermentationVessel:
         print("-----------------------------------------")
         self.send_to_kegging()
 
-
-    def send_to_kegging(self):
+    def send_to_kegging(self, request_number):
         """
         Function to send filtered Ale to Team Kegging
         :param: self
@@ -212,6 +213,5 @@ class FermentationVessel:
         """
         log = Log(13, "Ferment.send_to_kegging", "Ale sent to kegging", datetime.datetime.now(), "pass")
         print(log.generate_log())
+        status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Fermentation Process has ended\"}"
         print("-----------------------------------------")
-
-

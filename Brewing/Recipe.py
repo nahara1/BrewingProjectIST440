@@ -83,7 +83,7 @@ class Recipe:
         # Ferment
         self._ferment_time = ferment_time
         self._ferment_temp = ferment_temp
-        self._ferment_yeast_temp = ferment_yeast_temp
+
 
     def get_id(self):
         return self._recipe_id
