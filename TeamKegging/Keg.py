@@ -35,6 +35,12 @@ class Keg:
                                                self.max_volume)
 
     def set_style_sixtel(self):
+        """
+        Function that is used to set the keg container to a sixtel
+        :param max_volume : the maximum volume that a keg can hold to be labeled as a sixtel
+        :param keg_style : the style of the keg being used
+        :return: float
+        """
         self.max_volume = 5.16
         self.keg_style = "KEG_SIXTEL"
 
