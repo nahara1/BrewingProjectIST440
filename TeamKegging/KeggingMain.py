@@ -40,7 +40,7 @@ class KeggingMain:
         Method that starts a brite tank (ID:1) with default temp 55F, 5 gallon limit
         :return: starts brite tank, logs to bt_loglist and appends to km_full_loglist
         """
-        bt1 = KeggingBriteTank(1, 55, 5, 5, 0, "BRITE_START")
+        bt1 = KeggingBriteTank(1, 55, 5, 5, 0, "BRITE_START") #
         bt1.start_brite_tank(self.batch_id)
         km_full_loglist.extend(bt1.get_bt_loglist())
 

@@ -23,12 +23,24 @@ class TasteTest:
         self.tt_ibu = tt_ibu
 
     def get_status(self):
+        """
+        Method that returns the status of the Taste Test object
+
+        :return: String format status report
+        """
         return "Taste Test ID: {}\n" \
                "Taster Name: {}\n" \
                "Taster ID: {}\n" \
                "Taste Test Status: {}\n".format(self.tt_id, self.taster_name, self.taster_id, self.tt_status)
 
     def tt_log(self, batch_id, bb_stage, log_message):
+        """
+
+        :param batch_id: batch_id or request_id of the current beer batch
+        :param bb_stage: current stage in the brewing Process
+        :param log_message: the message or log that will be sent to service now or appened to the log list
+        :return: sends a log with timestamp to ServiceNow and appends to the log list
+        """
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
             bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
@@ -36,6 +48,12 @@ class TasteTest:
         tt_loglist.append(status_log)
 
     def record_quality(self, batch_id):
+        """
+        Method called in Taste Test to record a tester name, RFID and quality report prompt with a log.
+
+        :param batch_id: The batch_id or request_id of the current beer batch
+        :return: None.
+        """
         report_correct = False
         while not report_correct:
             print()
@@ -61,6 +79,12 @@ class TasteTest:
                 pass
 
     def record_ibu(self, batch_id, recipe_ibu):
+        """
+        Method called in Taste Test to prompt and store a Taster and IBU report.
+        :param batch_id: the current Batch ID or Request ID of the current beer batch
+        :param recipe_ibu: the required IBU target given by a recipe
+        :return: None.
+        """
         ibu_correct = False
         while not ibu_correct:
             print()
@@ -89,6 +113,11 @@ class TasteTest:
                 pass
 
     def quality_pass_fail(self, batch_id):
+        """
+        Method that is called in Taste Test to confirm the final pass/fail or a beer batch with log.
+        :param batch_id: the current Batch ID or Request ID of the current beer batch
+        :return: None
+        """
         quality_pass = False
         while not quality_pass:
             self.record_quality(batch_id)
@@ -101,14 +130,18 @@ class TasteTest:
                 pass
 
     def tt_main(self, batch_id, recipe_ibu):  # kegging task start
+        """
+        Main Taste Test method that calls the QA, IBU, and Pass/Fail methods and logs.
 
-        # list of tasks
-        t1 = '1. Record Beer Quality'
-        t2 = '2. Record IBU (International Bitterness Units)'
-        t3 = '3. P / F'
+        :param batch_id: the current Batch ID or Request ID of the current beer batch
+        :param recipe_ibu: the required IBU target given by a recipe
+        :return: None. Logs all Taste Test events
+        """
 
-        # declaring lists
-        taskList = [t1, t2, t3]
+        # list of tasks unused, here for reminder
+        #t1 = '1. Record Beer Quality'
+        #t2 = '2. Record IBU (International Bitterness Units)'
+        #t3 = '3. P / F'
 
         self.tt_status = "QA_START"
         self.tt_log(batch_id, "Kegging", "Taste Test In Progress")
@@ -119,6 +152,10 @@ class TasteTest:
         self.tt_log(batch_id, "Kegging", "Ready for Kegging Tasks")
 
     def get_tt_loglist(self):
+        """
+        Method that returns the log list of Taste Test events
+        :return: list of log events from Taste Test
+        """
         return tt_loglist
 
 #tt1 = TasteTest(1,"Daibo",1111,"QA_START",0)

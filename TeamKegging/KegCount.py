@@ -19,6 +19,10 @@ class KegCount:
         self.kc_status = kc_status
 
     def get_status(self):
+        """
+        Method that returns the status of the Keg Count process
+        :return: String format of the status of the Keg Count object
+        """
         return "Batch ID: {}\n" \
                "Final Status: {}\n".format(self.batch_id, self.kc_status)
 
