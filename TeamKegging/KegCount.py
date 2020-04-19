@@ -44,6 +44,10 @@ class KegCount:
         kc_loglist.append(status_log)
 
     def kc_confirm_batch(self):
+        """
+        Method called in Keg Count process that confirms the batch ID of the current beer batch. Logs events
+        :return: None.
+        """
         while True:
             # logging to service now
             print("")
@@ -62,6 +66,10 @@ class KegCount:
             self.kc_log(self.batch_id, "Kegging", "Keg Count: Counting final Kegs")
 
     def kc_count_kegs(self):
+        """
+        Method called in the Keg Count process that confirms the number of kegs in the batch. Logs events
+        :return: None
+        """
         kc_done = False
         kc_f_count = 0
         while not kc_done:
@@ -88,25 +96,29 @@ class KegCount:
     def input_keg_id(self):
         """
         Asks the user to input the Keg ID.
-        This function returns nothing.
+        :return: User input Keg ID
         """
         return input("Enter the Keg ID: ")
 
     def input_keg_volume(self):
         """
         Asks the user to input the beer volume.
-        This function returns nothing.
+        :return: User input Beer Volume
         """
         return float(input("Enter the Beer Volume: "))
 
     def input_keg_pressure(self):
         """
         Asks the user to input the Keg Pressure.
-        This function returns nothing.
+        :return: User input keg pressure
         """
         return float(input("Enter the Keg Pressure (PSI): "))
 
     def input_keg_style(self):
+        """
+        Method that returns a keg style based off user input
+        :return: Keg Type KEG_SIXTEL, KEG_QUARTER_STUBBY, or KEG_QUARTER_SLIM
+        """
         while True:
             answer = input("Enter the Keg Type (Sixtel/Quarter Stubby/Quarter Slim): ")
             if answer in ['Sixtel', 'sixtel', "SIXTEL"]:
@@ -118,11 +130,11 @@ class KegCount:
             else:
                 print("Please Enter a valid Keg Style")
 
-    def kc_new_keg(self):
+    def kc_new_keg(self)
         """
         Method that asks the user to enter information for a new Keg object
         :param new_id: Keg ID for the new Keg
-        :param new_style: Keg Type for the new keg
+        :param new_style: Keg Type for the new keg called from input_keg_style method
         :param new_vol: Beer Volume for the Keg
         :param new_pressure: Keg Final Pressure
         :return: returns the information in string format of the new keg
@@ -145,6 +157,10 @@ class KegCount:
         return new_keg.get_info()
 
     def kc_record_keg_id(self):
+        """
+        Main Method call that confirms the completion of Keg Count process and logs
+        :return: None. calls kc_log method
+        """
         kc_done = False
         keglist = []
         keg_num = 0
@@ -178,9 +194,17 @@ class KegCount:
         self.kc_log(self.batch_id, "Kegging", "Keg List:" + str(keglist))
 
     def get_kc_loglist(self):
+        """
+        Method that returns list of log events occuring in Keg Count Process
+        :return: list of log events
+        """
         return kc_loglist
 
     def kc_main(self):
+        """
+        Main Keg Count function Call
+        :return: None
+        """
         self.kc_confirm_batch()
         self.kc_record_keg_id()
 
