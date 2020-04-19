@@ -95,13 +95,14 @@ class SensorHelper:
         return self.send_values()
         logging.info("Thread %s: finishing Send_Values", self)
 
-    def boil_timer(self, request_number, timer):
+    def boil_timer(self, request_number, boil_time):
         boilOverTemp = 0
-        for x in reversed(range(timer)):
+        boil_time = int(boil_time)
+        for x in reversed(range(boil_time)):
             print(x+1)
             sleep(1)
             # Test if Brew has over boiled
-            boilOverTemp = random.randrange(1, 50)
+            boilOverTemp = random.randrange(1, 200)
             if boilOverTemp == 1:
                 print("BEEP! Brew has boiled over! Trash brew.")
                 sleep(1)

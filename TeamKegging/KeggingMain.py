@@ -31,8 +31,8 @@ class KeggingMain:
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(self.batch_id) + "\", \"brew_batch_stage\":\"" + str(
             bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
-        # ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        print(status_log)
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+
 
     def brite_start(self):
         """
@@ -96,5 +96,5 @@ class KeggingMain:
         self.print_km_full_loglist()
 
 
-keg1 = KeggingMain(1234, "KEGGING_START")
-keg1.start(38.5)
+#keg1 = KeggingMain(1234, "KEGGING_START")
+#keg1.start(38.5)

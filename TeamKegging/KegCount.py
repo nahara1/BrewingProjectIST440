@@ -35,9 +35,9 @@ class KegCount:
         """
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
-            bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
+            bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
 
-        # ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         kc_loglist.append(status_log)
 
     def kc_confirm_batch(self):

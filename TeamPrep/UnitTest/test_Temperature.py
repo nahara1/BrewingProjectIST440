@@ -6,14 +6,12 @@
 # Last Date Changed:4/7
 # Rev
 
-
-
 import unittest
-
-
+from TeamPrep import Temperature
+t = Temperature
 class TestTemperature(unittest.TestCase):
     def test_read_temp(self):
-        self.failUnless(True)
+            self.assertTrue(t)
 
 
 if __name__ == '__main__':

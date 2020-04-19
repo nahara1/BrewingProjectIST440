@@ -314,21 +314,27 @@ def get_recipe(recipe_name):
 
     recipe_obj = extract_values(data, 'batch_size')
     batch_size = str(recipe_obj).replace("['", "").replace("']", "")
+    batch_size = int(batch_size)
 
     recipe_obj = extract_values(data, 'abv')
     abv = str(recipe_obj).replace("['", "").replace("']", "")
+    abv = float(abv)
 
     recipe_obj = extract_values(data, 'ibu')
     ibu = str(recipe_obj).replace("['", "").replace("']", "")
+    ibu = int(ibu)
 
     recipe_obj = extract_values(data, 'og')
     og = str(recipe_obj).replace("['", "").replace("']", "")
+    og = float(og)
 
     recipe_obj = extract_values(data, 'fg')
     fg = str(recipe_obj).replace("['", "").replace("']", "")
+    fg = float(fg)
 
     recipe_obj = extract_values(data, 'yeast_amount')
     yeast_amt = str(recipe_obj).replace("['", "").replace("']", "")
+    yeast_amt = int(yeast_amt)
 
     recipe_obj = extract_values(data, 'yeast')
     yeast = str(recipe_obj).replace("['", "").replace("']", "")
@@ -340,14 +346,14 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'grain_bill')
     grain = str(recipe_obj).replace("['", "").replace("']", "")
     grain = ast.literal_eval(grain)
-    print(grain)
-
 
     recipe_obj = extract_values(data, 'water_temperature')
     water_temp = str(recipe_obj).replace("['", "").replace("']", "")
+    water_temp = int(water_temp)
 
     recipe_obj = extract_values(data, 'water_volume')
     water_volume = str(recipe_obj).replace("['", "").replace("']", "")
+    water_volume = int(water_volume)
 
     recipe_obj = extract_values(data, 'mill_time')
     mill_time = str(recipe_obj).replace("['", "").replace("']", "")
@@ -355,24 +361,31 @@ def get_recipe(recipe_name):
 
     recipe_obj = extract_values(data, 'sparging_time')
     sparge_time = str(recipe_obj).replace("['", "").replace("']", "")
+    sparge_time = int(sparge_time)
 
-    recipe_obj = extract_values(data, 'wort_stirring_time')
+    recipe_obj = extract_values(data, 'stir_time')
     stir_time = str(recipe_obj).replace("['", "").replace("']", "")
+    stir_time = int(stir_time)
 
     recipe_obj = extract_values(data, 'hlt_heating_time')
     hlt_heat_time = str(recipe_obj).replace("['", "").replace("']", "")
+    hlt_heat_time = int(hlt_heat_time)
 
     recipe_obj = extract_values(data, 'wort_separation_time')
     wort_separation_time = str(recipe_obj).replace("['", "").replace("']", "")
+    wort_separation_time = int(wort_separation_time)
 
     recipe_obj = extract_values(data, 'wort_volume')
     wort_volume = str(recipe_obj).replace("['", "").replace("']", "")
+    wort_volume = int(wort_volume)
 
     recipe_obj = extract_values(data, 'boil_temperature')
     boil_temp = str(recipe_obj).replace("['", "").replace("']", "")
+    boil_temp = int(boil_temp)
 
     recipe_obj = extract_values(data, 'boiling_duration')
     boil_duration = str(recipe_obj).replace("['", "").replace("']", "")
+    boil_duration = int(boil_duration)
 
     # Stored as name-value pairs
     recipe_obj = extract_values(data, 'hop_schedule')
@@ -384,15 +397,19 @@ def get_recipe(recipe_name):
 
     recipe_obj = extract_values(data, 'wort_chill_temperature')
     wort_chill_temp = str(recipe_obj).replace("['", "").replace("']", "")
+    #wort_chill_temp = float(wort_chill_temp)
 
     recipe_obj = extract_values(data, 'ferment_duration')
     ferment_time = str(recipe_obj).replace("['", "").replace("']", "")
+    ferment_time = int(ferment_time)
 
     recipe_obj = extract_values(data, 'ferment_temperature')
     ferment_temp = str(recipe_obj).replace("['", "").replace("']", "")
+    #ferment_temp = float(ferment_temp)
 
     recipe_obj = extract_values(data, 'ferment_yeast_temp')
     ferment_yeast_temp = str(recipe_obj).replace("['", "").replace("']", "")
+    #ferment_yeast_temp = float(ferment_yeast_temp)
 
 
     # Create recipe object

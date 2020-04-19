@@ -8,14 +8,15 @@
 
 # import RPi.GPIO as GPIO
 from TeamPrep import QualityCheck_Prep
-# from Brewing import BrewRequest
+# from Brewing import
 # from Brewing import ServiceNowLog
 # from Brewing import  ServiceNowToMongo
-from Sanitization import Sanitization
-from Temperature import Temperature
-from WeightScale import WeightScale
+from TeamPrep.Sanitization import Sanitization
+from TeamPrep.Temperature import Temperature
+from TeamPrep.WeightScale import WeightScale
 import threading
 import time
+import numpy
 
 # from queue import Queue
 """
@@ -81,7 +82,8 @@ def thread_function(thread_id):
             break
         break
 
-def main():
+
+def prep_main():
     time.sleep(2)
     thread_list = []
     # to create upto 5 Threads
@@ -106,4 +108,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    prep_main()

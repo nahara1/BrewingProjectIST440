@@ -16,8 +16,9 @@ class Keg:
 
     def get_status(self):
         """
-        Status
-        :return:
+        Gets the status of the keg object
+
+        :return: Keg object
         """
         return "Keg ID: {}\n" \
                "Keg Type: {}\n" \
@@ -27,6 +28,11 @@ class Keg:
                                              self.max_volume)
 
     def get_info(self):
+        '''
+        Gets the information of keg object, formatted to be logged into ServiceNow
+
+        :return: Keg object
+        '''
         return "Keg ID: {} :: " \
                "Keg Type: {} :: " \
                "Keg Current Volume: {} :: " \
@@ -35,13 +41,34 @@ class Keg:
                                                self.max_volume)
 
     def set_style_sixtel(self):
+        """
+        Function that is used to set the keg container to a sixtel container
+
+        :param max_volume : the maximum volume that a keg can hold to be labeled as a sixtel
+        :param keg_style : the style of the keg being used
+        :return: float
+        """
         self.max_volume = 5.16
         self.keg_style = "KEG_SIXTEL"
 
     def set_style_quater_stubby(self):
+        '''
+        Function that is used to set the keg container to a quarter stubby container
+
+        :param max_volume : the maximum volume that a keg can hold to be labeled as a quarter stubby
+        :param keg_style : the style of the keg being used
+        :return: float
+        '''
         self.max_volume = 7.75
         self.keg_style = "KEG_QUARTER_STUBBY"
 
     def set_style_quarter_slim(self):
+        '''
+        Function that is used to set the keg container to a quarter slim container
+
+        :param max_volume : the maximum volume that a keg can hold to be labeled as a quarter slim
+        :param keg_style : the style of the keg being used
+        :return: float
+        '''
         self.max_volume = 7.75
         self.keg_style = "KEG_QUARTER_SLIM"

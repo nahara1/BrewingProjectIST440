@@ -1,21 +1,20 @@
 # Project: Brewing Automation System - Capstone Project
-# Purpose Details: class for connecting between cloud and local databases
+# Purpose Details: Main class for Boil Process that runs helper classes
 # Course: IST 440W - 001
-# Author: Alex Hirsh (ajh6196@psu.edu)
+# Author: Team Boiling
 # Date Developed: 3/18/20
-# Last Date Changed: 4/16/2020
-# Rev 6
+# Last Date Changed: 4/18/2020
+# Rev 7
 
 import datetime
 import time
 import logging
 
-from Brewing.Recipe import Recipe
 from TeamBoiling import QualityCheck
 from TeamBoiling import DisplayHelper
 from TeamBoiling import SensorHelper
 from TeamBoiling.UnitTests import TempBoilRecipe
-from Brewing import BrewRequest
+
 
 class Boil:
 
@@ -55,7 +54,6 @@ class Boil:
         logging.info("Thread %s: End Boiling", self)
 
     logging.info("Thread %s: Start Getters and Setters")
-
 
     def get_boil_time(self):
         """
@@ -145,17 +143,13 @@ class Boil:
         self.update_boil_status(False)
         logging.info("Thread %s: Stop Boiling", self)
 
-    # add conditions once boiling is finished
-    # e.g. if yes, continue and run next methods and log success message
-    # else if no, stop all & log failed message
+
+# Method to run Boil Process from Main.py
 
 
-def run_boil(request_number):
-    # Hard coding for current functionality
-    boilTime = 10
-
-    DisplayHelper.DisplayHelper.print_start_info(request_number, stage_date_time=datetime.datetime.now(), boil_time=10, boil_temp=100, is_boiling='True')
-    SensorHelper.SensorHelper.boil_timer(request_number, boilTime)
-    DisplayHelper.DisplayHelper.print_end_info(end_stage_date_time=datetime.datetime.now(), stage_duration=boilTime)
+def run_boil(request_number, boil_temp, boil_time):
+    DisplayHelper.DisplayHelper.print_start_info(request_number, boil_temp, boil_time, stage_date_time=datetime.datetime.now(), is_boiling='True')
+    SensorHelper.SensorHelper.boil_timer(request_number, boil_time)
+    DisplayHelper.DisplayHelper.print_end_info(end_stage_date_time=datetime.datetime.now(), stage_duration=boil_time)
     QualityCheck.QualityCheck.get_QA_Check(request_number)
 
