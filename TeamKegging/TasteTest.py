@@ -83,7 +83,7 @@ class TasteTest:
                 self.tt_ibu = ibu
                 ibu_correct = True
                 self.tt_status = "QA_IBU_TASTING"
-                ibu_report = "Quality Assurance IBU Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id  + str(ibu)
+                ibu_report = "Quality Assurance IBU Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id  + " IBU: " +str(ibu)
                 self.tt_log(batch_id, "Kegging", ibu_report)
             elif choice in ['N', 'n', 'no', 'No', 'NO']:
                 pass
