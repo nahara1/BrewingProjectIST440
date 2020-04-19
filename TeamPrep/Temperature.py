@@ -10,34 +10,39 @@
 import random
 import time
 
-"""
+
 # sensor = 11
-pin = 4
+# pin = 4
 
 # button for temperature
-t_button_pin = 13 # DOWN key
+# t_button_pin = 13 # DOWN key
 
 # Pin setup
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-"""
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+
 class Temperature:
-    """
-    def __init__(self,button):
-        self.button = button
-    """
+
+    # def __init__(self,button):
+    #    '''
+    #   Defines attributes of sanitization
+    #   '''
+    #    self.button = button
+    #   '''
+    #  Adds method to the attribute for sanitization
+    #    '''
     
     def read_temp(self):
         temperature = random.randrange(55, 85, 1)
-        input("\033[1m    2. Press Enter to measure temperature of yeast: \033[0m")
+        input("\033[1m    2. Press Enter to measure temperature of yeast: \033[0m\n")
         # GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
         time.sleep(3)
         # humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
         # temperature = 9.0/5.0 * temperature + 32
         if temperature < 60 or temperature > 80:
-            print('\t\t\tTemp = \033[1;31;40m{0:0.0f}*\033[0;0m F'.format(temperature))
+            print('\t\t\tTemp = \033[1m{0:0.0f}*\033[0;0m F'.format(temperature))
         else:
-            print('\t\t\tTemp = \033[1;32;40m{0:0.0f}*\033[0;0m F'.format(temperature))
+            print('\t\t\tTemp = \033[1m{0:0.0f}*\033[0;0m F'.format(temperature))
         time.sleep(2)
 
         return temperature
@@ -45,15 +50,15 @@ class Temperature:
     def yeast_temp(self):
         tmp = self.read_temp()
         while( tmp > 80 or tmp < 60):
-            print("\033[1;31;40m\t\b***Temperature of yeast is out of range.***\033[0;0m")
-            print("\033[1;31;40m  ***Bring another yeast and measure temperature again.*** \033[0;0m\n")
+            print("\t\b***Temperature of yeast is out of range.***")
+            print("  ***Bring another yeast and measure temperature again.*** ")
             time.sleep(5)
             
             #print("      press down button to measure temperature of yeast: ")
             tmp = self.read_temp()
 
             # GPIO.wait_for_edge(t_button_pin, GPIO.FALLING)
-        print("\033[1;32;40m       Temperature of yeast is in range and ready to use.\033[0;0m\n")
+        print("       Temperature of yeast is in range and ready to use.\n")
         time.sleep(2)
         
          

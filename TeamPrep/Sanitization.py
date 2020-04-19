@@ -10,34 +10,34 @@
 import time
 from Brewing import ServiceNowLog
 
-"""
+
 # button for sanitization
-s_button_pin = 26 # UP key
+# s_button_pin = 26 # UP key
 
 # Pin setup
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-"""
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+
 class Sanitization:
-    """
-    def __init__(self,button):
-        '''
-        Defines attributes of sanitization
-        '''
-        self.button = button
-        '''
-        Adds method to the attribute for sanitization 
-        '''
-    """
+
+    # def __init__(self,button):
+    #    '''
+    #   Defines attributes of sanitization
+    #   '''
+    #    self.button = button
+    #   '''
+    #  Adds method to the attribute for sanitization
+    #    '''
+
     '''
     logging for sanitation
     '''
     def sanitization(self):
         time.sleep(1)
-        input("\033[1m" + "\n   \033[0;39;40m 1. Press Enter when sanitization is done:\033[0;0m" + "\033[0m \n")
+        input("\033[1m" + "\n    1. Press Enter when sanitization is done:" + "\033[0m \n")
         # GPIO.wait_for_edge(self.button,GPIO.FALLING)
         time.sleep(1)
-        message = ("   \033[0;32;40mSanitization Completed.\033[0;0m ")
+        message = ("   Sanitization Completed. ")
         print("\t\t" + message + "\n")
         time.sleep(2)
 

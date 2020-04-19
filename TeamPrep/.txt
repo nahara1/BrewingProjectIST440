@@ -1,2 +1,0 @@
-Temp=24.0 & 
-Humidity=46.0%
