@@ -121,7 +121,7 @@ class TasteTest:
     def get_tt_loglist(self):
         return tt_loglist
 
-tt1 = TasteTest(1,"Daibo",1111,"QA_START",0)
-tt1.tt_main(1,38.5)
-for n in tt1.get_tt_loglist():
-    print(n)
+#tt1 = TasteTest(1,"Daibo",1111,"QA_START",0)
+#tt1.tt_main(1,38.5)
+#for n in tt1.get_tt_loglist():
+#    print(n)
