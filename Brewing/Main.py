@@ -7,6 +7,7 @@ from TeamPrep import  Sanitization
 from TeamPrep import Temperature
 from TeamPrep import WeightScale
 from TeamPrep import QualityCheck_Prep
+from TeamPrep import Prep_Main
 from Brewing import BrewBatchStage
 from TeamMashing import MillingMachine
 import datetime
@@ -67,6 +68,7 @@ def main():
         t.Temperature
         w.WeightScale
         q.QualityCheck
+        Prep.Prep_Main(s,t, w,q)
         # Call Mashing
         m = MillingMachine.MillingMachine()
         MillingMachine.MillingMachine.mill_grains(m, recipe)
