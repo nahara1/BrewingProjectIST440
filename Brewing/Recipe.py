@@ -134,6 +134,14 @@ class Recipe:
     def get_hop_amt(self):
         return self.hop_hop_amt
 
+    def get_hops_weight(self, hop_hop_amt):
+        weight = 0
+        for value in hop_hop_amt.values():
+            str(value).replace("<", "")
+            value = int(value)
+            weight = weight + value
+        return weight
+
     def get_add_hop_time(self):
         return self.add_hop_time
         
