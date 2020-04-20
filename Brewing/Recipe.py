@@ -121,9 +121,6 @@ class Recipe:
     def get_ferment_temp(self):
         return self.ferment_temp
 
-    def get_ferment_yeast_temp(self):
-        return self.ferment_yeast_temp
-
     def get_grain_weight(self, grain):
         weight = 0
         float(weight)
@@ -134,9 +131,6 @@ class Recipe:
             weight = weight + value
         return weight
 
-    def get_yeast_begin_temp(self):
-        return self.yeast_begin_temp
-        
     def get_hop_amt(self):
         return self.hop_hop_amt
 
@@ -149,23 +143,8 @@ class Recipe:
     def get_add_yeast_temp(self):
         return self.add_yeast_temp
 
-    def get_ferment_temp(self):
-        return self.ferment_temp
-
-    def get_wort_cool_temp(self):
-        return self.wort_cool_temp
-
-    def get_carbonation(self):
-        return self.carbonation
-
-    def get_bitter_units(self):
-        return self.bitter_units
-
     def get_wort_cool_time(self):
         return self.wort_cool_time
-
-    def get_ferment_cool_temp(self):
-        return self.ferment_cool_temp
 
     def get_wort_volume(self):
         return self.wort_volume

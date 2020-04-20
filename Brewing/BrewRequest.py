@@ -10,11 +10,6 @@ This module handles the retrieval of brew request data from ServiceNow
 """
 
 from Brewing import Recipe
-from Brewing import BrewBatch
-from Brewing import BrewBatchStage
-import datetime
-from Brewing import Log
-import sys
 
 import time
 import ast
@@ -339,9 +334,6 @@ def get_recipe(recipe_name):
     recipe_obj = extract_values(data, 'yeast')
     yeast = str(recipe_obj).replace("['", "").replace("']", "")
 
-    # recipe_obj = extract_values(data, 'yeast_initial_temperature')
-    # yeast_initial_temp = str(recipe_obj).replace("['", "").replace("']", "")
-
     # Grain type and amount stored as name-value pairs
     recipe_obj = extract_values(data, 'grain_bill')
     grain = str(recipe_obj).replace("['", "").replace("']", "")
@@ -407,16 +399,12 @@ def get_recipe(recipe_name):
     ferment_temp = str(recipe_obj).replace("['", "").replace("']", "")
     #ferment_temp = float(ferment_temp)
 
-    recipe_obj = extract_values(data, 'ferment_yeast_temp')
-    ferment_yeast_temp = str(recipe_obj).replace("['", "").replace("']", "")
-    #ferment_yeast_temp = float(ferment_yeast_temp)
-
 
     # Create recipe object
     recipe_obj = Recipe.Recipe(recipe_id, recipe_name, abv, ibu, og, fg, batch_size, yeast_amt, yeast, grain,
                                water_volume, water_temp, mill_time, sparge_time,
                                stir_time, hlt_heat_time, wort_separation_time, boil_temp, boil_duration, hop_schedule, hop_amt,
-                               wort_chill_temp, ferment_time, ferment_temp, ferment_yeast_temp, wort_volume)
+                               wort_chill_temp, ferment_time, ferment_temp, wort_volume)
 
 
     print()
