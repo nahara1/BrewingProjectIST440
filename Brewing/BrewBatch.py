@@ -9,11 +9,11 @@
 import datetime
 import time
 import logging
+from Brewing import Recipe
 from Brewing import BrewBatchStage
 
 
 class BrewBatch():
-
     _bb_id = 0
     _recipe_id = 0
     _bb_start_date_time = datetime
@@ -22,6 +22,8 @@ class BrewBatch():
     _bb_duration = time
     _bb_status = ""
     _bb_size = ""
+    recipe = Recipe
+    _request_number = ''
 
     def __init__(self):
         """
@@ -39,7 +41,7 @@ class BrewBatch():
     def __init__(self, recipe_id, bb_start_date_time, bb_end_date_time, bb_stage, bb_status, bb_size):
         """
         Overloaded Constructor Method allows parameters to be accessed with methods and attributes
-        :param recipe_id: ID for the recipe of the brew batch
+        :param recipe: recipe of the brew batch
         :param bb_start_date_time:  start date and time of the brew batch
         :param bb_end_date_time: end date and time of the brew batch
         :param bb_stage: stage of the brew batch
@@ -56,7 +58,7 @@ class BrewBatch():
         self._bb_size = bb_size
         logging.info("Thread %s: finishing BrewBatch", self)  # Threading
 
-    def __init__(self, _bb_id, recipe, bb_start_date_time, bb_stage, bb_status, bb_size):
+    def __init__(self, request_number, recipe, bb_start_date_time, bb_stage, bb_status, bb_size):
         """
         Overloaded Constructor Method allows parameters to be accessed with methods and attributes
         :param recipe: Recipe object
@@ -66,8 +68,9 @@ class BrewBatch():
         :param bb_size: size of the brew batch
         """
         logging.info("Thread %s: starting BrewBatch", self)  # Threading
-        self._bb_id = _bb_id
+        self._request_number = request_number
         self._recipe = recipe
+        self._bb_stage = bb_stage
         self._bb_start_date_time = bb_start_date_time
         self._bb_status = bb_status
         self._bb_size = bb_size
@@ -200,5 +203,20 @@ class BrewBatch():
         :return: returns and sets the size of the brew batch
         """
         self._bb_size = bb_size
+
+    def get_request_number(self):
+        """
+        Gets the request number of the brew batch
+        :return: returns the brew batch request number
+        """
+        return self._request_number
+
+    def set_request_number(self, request_number):
+        """
+        Sets the request number of the brew batch
+        :param request_number:
+        :return: sets the brew batch number
+        """
+        self._request_number = request_number
 
     logging.info("Thread %s: finishing Getters and Setters")  # Threading
