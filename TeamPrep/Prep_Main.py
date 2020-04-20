@@ -8,15 +8,12 @@
 
 # import RPi.GPIO as GPIO
 from TeamPrep import QualityCheck_Prep
-# from Brewing import
-# from Brewing import ServiceNowLog
-# from Brewing import  ServiceNowToMongo
 from TeamPrep.Sanitization import Sanitization
 from TeamPrep.Temperature import Temperature
 from TeamPrep.WeightScale import WeightScale
+from Brewing import ServiceNowLog
 import threading
 import time
-import numpy
 
 # from queue import Queue
 """
@@ -52,9 +49,11 @@ This thread function will be called each time this file runs to check them tempe
 def thread_function(thread_id):
     while True:
         try:
-            s.sanitization()
+            print()
+            # s.sanitization()
             try:
-                t.yeast_temp()
+                print()
+                # t.yeast_temp()
                 try:
                     w.read_weight_grains()
                     try:

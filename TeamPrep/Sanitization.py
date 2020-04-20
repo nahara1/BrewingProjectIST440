@@ -8,7 +8,10 @@
 
 # import RPi.GPIO as GPIO
 import time
-from Brewing import ServiceNowLog
+import datetime
+from Brewing.Log import Log
+from Brewing.ServiceNowLog import ServiceNowLog
+
 
 
 # button for sanitization
@@ -32,14 +35,23 @@ class Sanitization:
     '''
     logging for sanitation
     '''
-    def sanitization(self):
-        time.sleep(1)
+    def sanitization(self, request_number):
+
+        time.sleep(3)
         input("\033[1m" + "\n    1. Press Enter when sanitization is done:" + "\033[0m \n")
         # GPIO.wait_for_edge(self.button,GPIO.FALLING)
         time.sleep(1)
         message = ("   Sanitization Completed. ")
         print("\t\t" + message + "\n")
-        time.sleep(2)
+        try:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Prep.Sanitization", "Sanitization done.", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            time.sleep(2)
+        except Exception as e:
+            print(e)
 
 
 # # USAGE

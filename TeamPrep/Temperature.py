@@ -47,12 +47,21 @@ class Temperature:
 
         return temperature
         
-    def yeast_temp(self):
+    def yeast_temp(self, request_number):
         tmp = self.read_temp()
         while( tmp > 80 or tmp < 60):
             print("\t\b***Temperature of yeast is out of range.***")
             print("  ***Bring another yeast and measure temperature again.*** ")
-            time.sleep(5)
+            time.sleep(3)
+            try:
+                status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
+                sn_log = ServiceNowLog()
+                ServiceNowLog.create_new_log(sn_log, status_log)
+                log = Log(2, "Prep.Temperature", "Temperature of yeast is not in range.", datetime.datetime.now(), "fail")
+                print(log.generate_log())
+                time.sleep(2)
+            except Exception as e:
+                print(e)
             
             #print("      press down button to measure temperature of yeast: ")
             tmp = self.read_temp()
@@ -60,6 +69,15 @@ class Temperature:
             # GPIO.wait_for_edge(t_button_pin, GPIO.FALLING)
         print("       Temperature of yeast is in range and ready to use.\n")
         time.sleep(2)
+        try:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(3, "Prep.Temperature", "Temperature of yeast measured.", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            time.sleep(2)
+        except Exception as e:
+            print(e)
         
          
 
