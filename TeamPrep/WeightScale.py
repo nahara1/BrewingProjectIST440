@@ -10,10 +10,10 @@
 import random
 import time
 import numpy
-from Brewing import BrewRequest
+import copy
+from Brewing.Recipe import Recipe
 from Brewing.ServiceNowLog import ServiceNowLog
-from Brewing.Log import Log
-
+from Brewing.BrewRequest import Recipe
 
 # sensor = 11
 # pin = 4
@@ -34,19 +34,24 @@ class WeightScale:
     #   '''
     #  Adds method to the attribute for sanitization
     #    '''
+
+
+
     def __init__(self, recipe):  # constructor initalized field
 
-        self.grains = recipe.grain
-        self.hops = recipe.get_hop_amt()
+        self.grains = copy.copy(recipe.grain)
+        self.hops = recipe.get_hop_amt(self)
 
-    def get_grains(self):
+    def get_grain(self):
         return self.grains
+    def get_hop_amt(self):
+        return self.hops
 
     '''
     interface for weighing grains
     '''
 
-    def read_weight_grains(self, recipe):
+    def read_weight_grains(self):
         grain = self.grains.keys()
         weight = self.grains.values()
         for i in range(0, len(grain)):

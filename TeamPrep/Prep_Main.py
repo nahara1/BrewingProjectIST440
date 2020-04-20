@@ -62,23 +62,18 @@ def thread_function(thread_id):
                             w.read_weight_sugar()
                             try:
                                 QualityCheck_Prep.QualityCheck.get_QA_Check()
-                            except:
-                                break
-                        except:
-                            # GPIO.cleanup()
-                            break
-                    except:
-                        # GPIO.cleanup()
-                        break
-                except:
-                    # GPIO.cleanup()
-                    break
-            except:
-                # GPIO.cleanup()
-                break
-        except:
-            # GPIO.cleanup()
-            break
+                            except Exception as e:
+                                print(e)
+                        except Exception as e:
+                            print(e)
+                    except Exception as e:
+                        print(e)
+                except Exception as e:
+                     print(e)
+            except Exception as e:
+                print(e)
+        except Exception as e:
+            print(e)
         break
 
 
