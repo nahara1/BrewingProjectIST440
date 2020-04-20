@@ -57,19 +57,13 @@ def main():
         # 7 - Update brew request status
         BrewRequest.update_brew_stage(request_id, "Preparation Stage")
 
-        # create order obj
-
-        # create Prep BB Stage obj
+        # Create Prep BB Stage obj
         bb_stage = Brew.set_up_brew_stage(request_number)
 
-
         # Create Brew Batch Object
-
-        # Hard-coded bb size value
         brew_batch = BrewBatch.BrewBatch(request_number, recipe, datetime.datetime.now(), bb_stage,
                                          "in prep",
                                          recipe.get_batch_size())
-
 
         # Call Prep
         s = Sanitization
@@ -80,7 +74,7 @@ def main():
         t.Temperature
         w.WeightScale
         q.QualityCheck
-        Prep_Main.prep_main()
+        #Prep_Main.prep_main()
 
         # Call Mashing
         m = MillingMachine.MillingMachine()
