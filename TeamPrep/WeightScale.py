@@ -53,7 +53,7 @@ class WeightScale:
 
     def read_weight_grains(self):
         grain = self.grains.keys()
-        weight = self.grains.values()
+        weight = self.grains_weight = recipe.get_grain_weight(recipe.get_grain())
         for i in range(0, len(grain)):
             weight_scale = 0.0
             print("    \033[1m3. To brew the beer for this batch, " + str(weight(i)) + " pounds of " + grain(
