@@ -10,8 +10,8 @@ from TeamKegging.KeggingBriteTank import KeggingBriteTank
 from TeamKegging.TasteTest import TasteTest
 from TeamKegging.KeggingTasks import KeggingTasks
 from TeamKegging.KegCount import KegCount
-from Brewing.ServiceNowLog import ServiceNowLog
-
+from Brewing import ServiceNowLog
+import datetime
 
 km_full_loglist = []
 
@@ -30,11 +30,11 @@ class KeggingMain:
         :return: creates a log message in JSON string format
         """
         try:
-            # currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
-            status_log = "{\"batch_id\":\"" + str(self.batch_id) + "\", \"brew_batch_stage\":\"" + str(
-                bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
-            sn_log = ServiceNowLog()
-            ServiceNowLog.create_new_log(sn_log, status_log)
+            batch_id = self.batch_id
+            currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+            status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
+                bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog.ServiceNowLog(), status_log)
         except Exception as e:
             print("Kegging Main Logging Error: " + str(e))
 
@@ -106,12 +106,12 @@ class KeggingMain:
             print("Welcome to the Kegging Process")
             # batch_id = input("Please enter the batch id of the brite beer: ")
             self.brite_start()
-            self.qa_start("Daibo,", 1122, self.recipe_ibu)
+            self.qa_start("Default Taster,", 0000, self.recipe_ibu)
             self.kt_start()
             self.kc_start()
             self.print_km_full_loglist()
         except Exception as e:
             print("Kegging Process Error: " + str(e))
 
-# keg1 = KeggingMain(1234, "KEGGING_START", 38.5)
+# keg1 = KeggingMain(1234, "KEGGING_START_TEST", 38.5)
 # keg1.start()

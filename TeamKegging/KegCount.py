@@ -8,7 +8,7 @@
 
 from TeamKegging.Keg import Keg
 from Brewing import ServiceNowLog
-
+import datetime
 
 kc_loglist = []
 
@@ -37,13 +37,10 @@ class KegCount:
 
         """
         try:
-
-            # currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+            currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
             status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
-                bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
-
-            sn_log = ServiceNowLog()
-            ServiceNowLog.create_new_log(sn_log, status_log)
+                bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
+            ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog.ServiceNowLog(), status_log)
             kc_loglist.append(status_log)
         except Exception as e:
             print("Keg Count Log Error:  " + str(e))
