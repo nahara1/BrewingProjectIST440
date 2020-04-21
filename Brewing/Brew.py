@@ -77,6 +77,4 @@ def start_brew_batch(request_number, brew_stage, recipe):
                                      "Prep Stage",
                                      recipe.get_batch_size())
 
-
-
     return brew_batch

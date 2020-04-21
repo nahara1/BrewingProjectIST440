@@ -41,8 +41,8 @@ def call_prep(request_number, recipe):
     w = WeightScale.WeightScale()
     # q = QualityCheck_Prep.QualityCheck()
 
-    #Sanitization.Sanitization.sanitization(s, request_number)
-    #Temperature.Temperature.yeast_temp(t, request_number)
+    # Sanitization.Sanitization.sanitization(s, request_number)
+    # Temperature.Temperature.yeast_temp(t, request_number)
     WeightScale.WeightScale.read_weight_grains(w, recipe)
     WeightScale.WeightScale.read_weight_hops(w, recipe)
 
@@ -141,13 +141,13 @@ def main():
         # Call Prep
         call_prep(request_number, recipe)
         # Call Mashing
-        #call_mash(request_number, recipe)
+        # call_mash(request_number, recipe)
         # Call Boiling
-        #call_boil(request_number, recipe)
+        # call_boil(request_number, recipe)
         # Call Ferment
-        #call_ferment(request_number, recipe)
+        # call_ferment(request_number, recipe)
         # Call Kegging
-        #call_kegging(request_number, recipe)
+        # call_kegging(request_number, recipe)
 
     except Exception as e:
 
@@ -158,5 +158,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
