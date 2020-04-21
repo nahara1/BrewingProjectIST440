@@ -49,7 +49,7 @@ class TasteTest:
             ServiceNowLog.create_new_log(sn_log, status_log)
             tt_loglist.append(status_log)
         except Exception as e:
-            print("Taste Test Logging error:" + e)
+            print("Taste Test Logging error:" + str(e))
 
     def record_quality(self, batch_id):
         """
@@ -84,7 +84,7 @@ class TasteTest:
                 elif choice in ['N', 'n', 'no', 'No', 'NO']:
                     pass
         except Exception as e:
-            print("Quality Report Entry Error: " + e)
+            print("Quality Report Entry Error: " + str(e))
 
     def record_ibu(self, batch_id, recipe_ibu):
         """
@@ -123,7 +123,7 @@ class TasteTest:
                 elif choice in ['N', 'n', 'no', 'No', 'NO']:
                     pass
         except Exception as e:
-            print("IBU Report Input Error: " + e)
+            print("IBU Report Input Error: " + str(e))
 
     def quality_pass_fail(self, batch_id):
         """
@@ -144,7 +144,7 @@ class TasteTest:
                 elif result in ['N', 'n', 'no', 'No', 'NO']:
                     pass
         except Exception as e:
-            print("Final QA Test Input Error: " + e)
+            print("Final QA Test Input Error: " + str(e))
 
     def tt_main(self, batch_id, recipe_ibu):  # kegging task start
         """
@@ -169,7 +169,7 @@ class TasteTest:
 
             self.tt_log(batch_id, "Kegging", "Ready for Kegging Tasks")
         except Exception as e:
-            print("Taste Test Process Error: " + e)
+            print("Taste Test Process Error: " + str(e))
 
     def get_tt_loglist(self):
         """

@@ -44,7 +44,7 @@ class KeggingTasks:
         """
         return kt_loglist
 
-    def Keggingtasksmain(self):  # kegging task start
+    def keggingtasksmain(self):  # kegging task start
         """
         kegging task list
         :param: task completion (y/n)
@@ -90,8 +90,6 @@ class KeggingTasks:
             length = len(taskList)
             taskCounter = 0
             taskStatusCounter = 0
-            taskStatus = 0
-            currentTimeStamp = 0
 
             # main loop for kegging tasks until completion
             while taskCounter < length:
@@ -153,10 +151,10 @@ class KeggingTasks:
             print("All Cellarman tasks completed.")
             self.keg_log(batch_id, "Kegging", "Kegging Tasks: All Cellarman tasks completed.")  # logging to service now
         except Exception as e:
-            print("KeggingTasks Method has failed.")
+            print("KeggingTasks Method has failed." + str(e))
 
 # kt1 = KeggingTasks(1234, 'Cellarman tasks', 'TASK_START')
-# kt1.Keggingtasksmain()
+# kt1.keggingtasksmain()
 # print()
 
 # prints log that gets sent to service now (for dev)
