@@ -17,7 +17,7 @@ km_full_loglist = []
 
 
 class KeggingMain:
-    def __init__(self, batch_id, kegging_status,recipe_ibu):
+    def __init__(self, batch_id, kegging_status, recipe_ibu):
         self.batch_id = batch_id
         self.kegging_status = kegging_status
         self.recipe_ibu = float(recipe_ibu)
@@ -30,7 +30,7 @@ class KeggingMain:
         :return: creates a log message in JSON string format
         """
         try:
-            #currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+            # currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
             status_log = "{\"batch_id\":\"" + str(self.batch_id) + "\", \"brew_batch_stage\":\"" + str(
                 bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
             sn_log = ServiceNowLog()
@@ -38,14 +38,13 @@ class KeggingMain:
         except Exception as e:
             print("Kegging Main Logging Error: " + e)
 
-
     def brite_start(self):
         """
         Method that starts a brite tank (ID:1) with default temp 55F, 5 gallon limit
         :return: starts brite tank, logs to bt_loglist and appends to km_full_loglist
         """
         try:
-            bt1 = KeggingBriteTank(1, 55, 5, 5, 0, "BRITE_START") #
+            bt1 = KeggingBriteTank(1, 55, 5, 5, 0, "BRITE_START")  #
             bt1.start_brite_tank(self.batch_id)
             km_full_loglist.extend(bt1.get_bt_loglist())
         except Exception as e:
@@ -108,13 +107,12 @@ class KeggingMain:
             batch_id = self.batch_id
             # batch_id = input("Please enter the batch id of the brite beer: ")
             self.brite_start()
-            self.qa_start("Daibo,",1122, self.recipe_ibu)
+            self.qa_start("Daibo,", 1122, self.recipe_ibu)
             self.kt_start()
             self.kc_start()
             self.print_km_full_loglist()
         except Exception as e:
             print("Kegging Process Error: " + e)
 
-
-#keg1 = KeggingMain(1234, "KEGGING_START", 38.5)
-#keg1.start()
+# keg1 = KeggingMain(1234, "KEGGING_START", 38.5)
+# keg1.start()
