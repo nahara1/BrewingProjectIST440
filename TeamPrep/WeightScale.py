@@ -182,3 +182,4 @@ class WeightScale:
                         input("       Press Enter to dispense one more packet: ")
                     time.sleep(2)
         return weight_scale
+

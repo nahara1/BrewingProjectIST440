@@ -36,7 +36,7 @@ class MillingMachine():  # MillingMachine Start
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Starting Mashing Process\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(2, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "pass")
+            log = Log(1, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
 

@@ -27,84 +27,88 @@ import sys
 import time
 import threading
 
+def call_prep(request_number, recipe):
+
+    s = Sanitization.Sanitization()
+    t = Temperature.Temperature()
+    w = WeightScale.WeightScale()
+    # q = QualityCheck_Prep.QualityCheck()
+
+    Sanitization.Sanitization.sanitization(s, request_number)
+    Temperature.Temperature.yeast_temp(t, request_number)
+    WeightScale.WeightScale.read_weight_grains(w, recipe)
+    WeightScale.WeightScale.read_weight_hops(w, recipe)
+
+def call_mash(request_number, recipe):
+    m = MillingMachine.MillingMachine()
+    MillingMachine.MillingMachine.mill_grains(m, recipe, request_number)
+
+def call_boil(request_number, recipe):
+    boil_temp = recipe.get_boil_temp()
+    boil_time = recipe.get_boil_time()
+    Boil.run_boil(request_number, boil_temp, boil_time)
+
+def call_ferment(request_number, recipe):
+    ferment_time = recipe.get_ferment_time()
+    ferment_temp = recipe.get_ferment_temp()
+    original_gravity = recipe.get_og()
+    final_gravity = recipe.get_fg()
+    recipe_abv = recipe.get_abv()
+    Fermentation.start_fermentation_process(request_number, recipe)
+
+def call_kegging(request_number, recipe):
+    recipe_ibu = recipe.get_ibu()
+    kegging_process = KeggingMain(request_number, "BRITE_START,", recipe_ibu)
+    kegging_process.start()
 
 def main():
     # Get a brew request
+    # 1 - Get brew request id and initialize request_number, which is
+    #     going to be used as the brew batch id
+    request_id = BrewRequest.get_request_id()
+    request_number = ''
+
+    # 2 - Get brew request number
+    if request_id != '':
+        request_number = BrewRequest.get_brew_request_number(request_id)
+    else:
+        main()
+    # 3 - Update brew request
+    BrewRequest.update_brew_stage(request_id, "Approval")
+
+    # 4 - Get requested brew id based on request number
+    item_id = BrewRequest.get_catalog_item_id(request_number)
+
+    # 5 - Get requested item name based on its id
+    item_name = BrewRequest.get_catalog_item_name(item_id)
+
+    # 6 - Get recipe data and create a Python object based on brew request name
+    recipe = BrewRequest.get_recipe(item_name)
+
+    # 7 - Update brew request status
+    BrewRequest.update_brew_stage(request_id, "Preparation Stage")
+
+    # Create Prep BB Stage obj
+    bb_stage = Brew.set_up_brew_stage(request_number)
+
+    # Create Brew Batch Object
+    brew_batch = BrewBatch.BrewBatch(request_number, recipe, datetime.datetime.now(), bb_stage,
+                                     "in prep",
+                                     recipe.get_batch_size())
 
     try:
-        # 1 - Get brew request id and initialize request_number, which is
-        #     going to be used as the brew batch id
-        request_id = BrewRequest.get_request_id()
-        request_number = ''
-
-        # 2 - Get brew request number
-        if request_id != '':
-            request_number = BrewRequest.get_brew_request_number(request_id)
-        else:
-            main()
-        # 3 - Update brew request
-        BrewRequest.update_brew_stage(request_id, "Approval")
-
-        # 4 - Get requested brew id based on request number
-        item_id = BrewRequest.get_catalog_item_id(request_number)
-
-        # 5 - Get requested item name based on its id
-        item_name = BrewRequest.get_catalog_item_name(item_id)
-
-        # 6 - Get recipe data and create a Python object based on brew request name
-        recipe = BrewRequest.get_recipe(item_name)
-
-        # 7 - Update brew request status
-        BrewRequest.update_brew_stage(request_id, "Preparation Stage")
-
-        # Create Prep BB Stage obj
-        bb_stage = Brew.set_up_brew_stage(request_number)
-
-        # Create Brew Batch Object
-        brew_batch = BrewBatch.BrewBatch(request_number, recipe, datetime.datetime.now(), bb_stage,
-                                         "in prep",
-                                         recipe.get_batch_size())
 
         # Call Prep
 
-
-        s = Sanitization.Sanitization()
-        t = Temperature.Temperature()
-        w = WeightScale.WeightScale()
-        q = QualityCheck_Prep.QualityCheck()
-
-        Sanitization.Sanitization.sanitization(s, request_number)
-        Temperature.Temperature.yeast_temp(t, request_number)
-        WeightScale.WeightScale.read_weight_grains(w, recipe)
-        WeightScale.WeightScale.read_weight_hops(w, recipe)
-
-
-
-
-
-
+        call_prep(request_number, recipe)
         # Call Mashing
-        m = MillingMachine.MillingMachine()
-        MillingMachine.MillingMachine.mill_grains(m, recipe, request_number)
-
+        #call_mash(request_number, recipe)
         # Call Boiling
-        boil_temp = recipe.get_boil_temp()
-        boil_time = recipe.get_boil_time()
-        Boil.run_boil(request_number, boil_temp, boil_time)
-
+        #call_boil(request_number, recipe)
         # Call Ferment
-        ferment_time = recipe.get_ferment_time()
-        ferment_temp = recipe.get_ferment_temp()
-        original_gravity = recipe.get_og()
-        final_gravity = recipe.get_fg()
-        recipe_abv = recipe.get_abv()
-        Fermentation.start_fermentation_process(request_number, recipe)
-
-
+        #call_ferment(request_number, recipe)
         # Call Kegging
-        recipe_ibu = recipe.get_ibu()
-        kegging_process = KeggingMain(request_number, "BRITE_START,", recipe_ibu)
-        kegging_process.start()
+        #call_kegging(request_number, recipe)
 
     except Exception as e:
 
@@ -115,3 +119,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

@@ -19,7 +19,7 @@ class FermentationVessel:
     def __init__(self, recipe):
         self.vessel_id = 1
         self.brew_master_id = 2
-        self.ferment_time = time
+        self.ferment_time = recipe.get_ferment_time()
         self.ferment_temp = recipe.get_ferment_temp()
         self.original_gravity = recipe.get_og()
         self.final_gravity = recipe.get_fg()

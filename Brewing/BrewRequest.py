@@ -384,7 +384,7 @@ def get_recipe(recipe_name):
     hop_schedule = str(recipe_obj).replace("['", "").replace("']", "")
 
     # Stored as name-value pairs
-    recipe_obj = extract_values(data, 'hop_hop_amt')
+    recipe_obj = extract_values(data, 'hop_hop_amount')
     hop_amt = str(recipe_obj).replace("['", "").replace("']", "")
     hop_amt = ast.literal_eval(hop_amt)
 
