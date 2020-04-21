@@ -28,6 +28,12 @@ import time
 import threading
 
 def call_prep(request_number, recipe):
+    """
+    Call Team Prep's Process
+    :param request_number: brew batch id
+    :param recipe: a Recipe instance
+    :return none
+    """
 
     s = Sanitization.Sanitization()
     t = Temperature.Temperature()
@@ -40,10 +46,22 @@ def call_prep(request_number, recipe):
     WeightScale.WeightScale.read_weight_hops(w, recipe)
 
 def call_mash(request_number, recipe):
+    """
+    Calls Team Mashing's Process
+    :param request_number: brew batch id
+    :param recipe: a Recipe instance
+    :return: none
+    """
     m = MillingMachine.MillingMachine()
     MillingMachine.MillingMachine.mill_grains(m, recipe, request_number)
 
 def call_boil(request_number, recipe):
+    """
+    Call Team Boil's Process
+    :param request_number: brew batch id
+    :param recipe: a Recipe instance
+    :return: none
+    """
     boil_temp = recipe.get_boil_temp()
     boil_time = recipe.get_boil_time()
     Boil.run_boil(request_number, boil_temp, boil_time)
