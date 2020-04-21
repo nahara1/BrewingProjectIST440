@@ -58,7 +58,7 @@ class KeggingTasks:
             print("Starting Cellarman Tasks. The current batch is (Batch ID: " + str(self.batch_id)+  ").")
             batch_id = raw_input("Please confirm the batch ID: ")  # user input for batch ID
             confirm_batch_id = raw_input("Are you sure? Enter (y/n): ")
-            if confirm_batch_id == 'y':
+            if confirm_batch_id in ['Y', 'y', 'yes', 'Yes', 'YES']:
                 self.keg_log(batch_id, "Kegging", "Kegging Tasks: Batch ID entered as: " + batch_id)  # logging to service now
                 break
             else:
@@ -116,7 +116,7 @@ class KeggingTasks:
             self.keg_log(self.batch_id, "Kegging", "Current task: " + taskList[taskCounter] + " INITIATED.")  # logging to service now
             print()
             ans = raw_input("Has this task been completed? Enter (y/n): ")
-            if ans == 'y':
+            if ans in ['Y', 'y', 'yes', 'Yes', 'YES']:
                 while True:  # validation of RFID loop
                     taskRFID = raw_input("Please enter your RFID number: ")
                     if taskRFID in employeeRFID:  # checks to see if RFID is in list
