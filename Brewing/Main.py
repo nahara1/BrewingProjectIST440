@@ -49,6 +49,12 @@ def call_boil(request_number, recipe):
     Boil.run_boil(request_number, boil_temp, boil_time)
 
 def call_ferment(request_number, recipe):
+    """
+    Method Calls Team Ferment's Process
+    :param request_number:
+    :param recipe:
+    :return: none
+    """
     ferment_time = recipe.get_ferment_time()
     ferment_temp = recipe.get_ferment_temp()
     original_gravity = recipe.get_og()
@@ -57,11 +63,21 @@ def call_ferment(request_number, recipe):
     Fermentation.start_fermentation_process(request_number, recipe)
 
 def call_kegging(request_number, recipe):
+    """
+    Method Calls Team Kegging's Process
+    :param request_number:
+    :param recipe:
+    :return:
+    """
     recipe_ibu = recipe.get_ibu()
     kegging_process = KeggingMain(request_number, "BRITE_START,", recipe_ibu)
     kegging_process.start()
 
 def main():
+    """
+    Method gets brew requests from service now
+    :return: none
+    """
     # Get a brew request
     # 1 - Get brew request id and initialize request_number, which is
     #     going to be used as the brew batch id
