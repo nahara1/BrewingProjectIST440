@@ -51,7 +51,6 @@ class Recipe:
         self.ferment_time = ferment_time
         self.ferment_temp = ferment_temp
 
-
     def get_id(self):
         return self.recipe_id
 
@@ -144,7 +143,7 @@ class Recipe:
 
     def get_add_hop_time(self):
         return self.add_hop_time
-        
+
     def get_add_yeast_time(self):
         return self.add_yeast_time
 
@@ -159,4 +158,3 @@ class Recipe:
 
     def get_mill_time(self):
         return self.mill_time
-
