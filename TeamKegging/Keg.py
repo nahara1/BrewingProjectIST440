@@ -30,7 +30,6 @@ class Keg:
         except Exception as e:
             print("Error Message: " + e)
 
-
     def get_info(self):
         '''
         Gets the information of keg object, formatted to be logged into ServiceNow
@@ -58,7 +57,7 @@ class Keg:
         self.max_volume = 5.16
         self.keg_style = "KEG_SIXTEL"
 
-    def set_style_quater_stubby(self):
+    def set_style_quarter_stubby(self):
         '''
         Function that is used to set the keg container to a quarter stubby container
 

@@ -38,7 +38,7 @@ class KegCount:
         """
         try:
 
-            #currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+            # currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
             status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
                 bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
 
@@ -161,13 +161,12 @@ class KegCount:
             new_vol = self.input_keg_volume()
             new_pressure = self.input_keg_pressure()
 
-
             new_keg = Keg(new_id, "DEFAULT", new_vol, new_pressure, "DEFAULT")
 
             if new_style == "KEG_SIXTEL":
                 new_keg.set_style_sixtel()
             elif new_style == "KEG_QUARTER_STUBBY":
-                new_keg.set_style_quater_stubby()
+                new_keg.set_style_quarter_stubby()
             elif new_style == "KEG_QUARTER_SLIM":
                 new_keg.set_style_quarter_slim()
             else:
@@ -187,7 +186,7 @@ class KegCount:
             keg_num = 0
             total_kegs = self.kc_count_kegs()
         except Exception as e:
-            print("Keg Count Error: "+ e)
+            print("Keg Count Error: " + e)
 
         try:
             while keg_num < total_kegs:
@@ -210,7 +209,7 @@ class KegCount:
                 self.kc_log(self.batch_id, "Kegging", kc_log_message)
             print("---------------------------------------")
         except Exception as e2:
-            print("Keg Record Error: "+ e2)
+            print("Keg Record Error: " + e2)
 
         for n in keglist:
             print(n)
@@ -221,11 +220,11 @@ class KegCount:
             self.kc_log(self.batch_id, "Kegging", "All Kegging Processes Complete")
             self.kc_log(self.batch_id, "Kegging", "Keg List:" + str(keglist))
         except Exception as e3:
-            print("Keg Count Listing Error: "+ e3)
+            print("Keg Count Listing Error: " + e3)
 
     def get_kc_loglist(self):
         """
-        Method that returns list of log events occuring in Keg Count Process
+        Method that returns list of log events occurring in Keg Count Process
         :return: list of log events
         """
         return kc_loglist
@@ -243,7 +242,7 @@ class KegCount:
         try:
             self.kc_record_keg_id()
         except Exception as record_error:
-            print("Keg Record Error: "+ record_error)
+            print("Keg Record Error: " + record_error)
 
 # kc1 = KegCount(1234, "KEG_COUNT_READY")
 # kc1.kc_main()

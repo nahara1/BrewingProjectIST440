@@ -10,7 +10,6 @@
 import datetime
 from Brewing import ServiceNowLog
 
-
 tt_loglist = []
 
 
@@ -72,7 +71,7 @@ class TasteTest:
                 print("")
                 print("The report you have entered is as follows:")
                 print("")
-                print("Name: "+ tt_taster + " RFID: " + tt_taster_id)
+                print("Name: " + tt_taster + " RFID: " + tt_taster_id)
                 print()
                 print(tt_quality)
                 print("")
@@ -80,12 +79,12 @@ class TasteTest:
                 if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
                     report_correct = True
                     self.tt_status = "QA_TASTING"
-                    beer_report = "Quality Assurance Beer Quality Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id + tt_quality
+                    beer_report = "Quality Assurance Beer Quality Report:: " + "Name: " + tt_taster + " RFID: " + tt_taster_id + tt_quality
                     self.tt_log(batch_id, "Kegging", beer_report)
                 elif choice in ['N', 'n', 'no', 'No', 'NO']:
                     pass
         except Exception as e:
-            print("Quality Report Entry Error: "+ e)
+            print("Quality Report Entry Error: " + e)
 
     def record_ibu(self, batch_id, recipe_ibu):
         """
@@ -103,8 +102,9 @@ class TasteTest:
                 print()
                 tt_taster = input("Enter your name: ")
                 tt_taster_id = input("Enter you RFID number: ")
-                ibu = float(input("Please enter the IBUs (International Bitterness Units) for beer batch (Batch_ID: " + str(
-                    batch_id) + "): "))
+                ibu = float(
+                    input("Please enter the IBUs (International Bitterness Units) for beer batch (Batch_ID: " + str(
+                        batch_id) + "): "))
                 print()
                 print("The IBUs you have entered is as follows:")
                 print()
@@ -117,7 +117,8 @@ class TasteTest:
                     self.tt_ibu = ibu
                     ibu_correct = True
                     self.tt_status = "QA_IBU_TASTING"
-                    ibu_report = "Quality Assurance IBU Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id  + " IBU: " +str(ibu)
+                    ibu_report = "Quality Assurance IBU Report:: " + "Name: " + tt_taster + " RFID: " + tt_taster_id + " IBU: " + str(
+                        ibu)
                     self.tt_log(batch_id, "Kegging", ibu_report)
                 elif choice in ['N', 'n', 'no', 'No', 'NO']:
                     pass
@@ -134,7 +135,8 @@ class TasteTest:
             quality_pass = False
             while not quality_pass:
                 self.record_quality(batch_id)
-                result = input( "This is the Final QA Pass Fail Result" + "\n" + "Does beer batch (Batch_ID: " + str(batch_id) + ") pass Quality Assurance Inspection (Y/N): ")
+                result = input("This is the Final QA Pass Fail Result" + "\n" + "Does beer batch (Batch_ID: " + str(
+                    batch_id) + ") pass Quality Assurance Inspection (Y/N): ")
                 if result in ['Y', 'y', 'yes', 'Yes', 'YES']:
                     quality_pass = True
                     qa_report = "Quality Assurance: Beer Quality Test Passed."
@@ -142,7 +144,7 @@ class TasteTest:
                 elif result in ['N', 'n', 'no', 'No', 'NO']:
                     pass
         except Exception as e:
-            print("Final QA Test Input Error: "+ e)
+            print("Final QA Test Input Error: " + e)
 
     def tt_main(self, batch_id, recipe_ibu):  # kegging task start
         """
@@ -154,9 +156,9 @@ class TasteTest:
         """
 
         # list of tasks unused, here for reminder
-        #t1 = '1. Record Beer Quality'
-        #t2 = '2. Record IBU (International Bitterness Units)'
-        #t3 = '3. P / F'
+        # t1 = '1. Record Beer Quality'
+        # t2 = '2. Record IBU (International Bitterness Units)'
+        # t3 = '3. P / F'
 
         try:
             self.tt_status = "QA_START"
@@ -176,7 +178,7 @@ class TasteTest:
         """
         return tt_loglist
 
-#tt1 = TasteTest(1,"Daibo",1111,"QA_START",0)
-#tt1.tt_main(1,38.5)
-#for n in tt1.get_tt_loglist():
+# tt1 = TasteTest(1,"Daibo",1111,"QA_START",0)
+# tt1.tt_main(1,38.5)
+# for n in tt1.get_tt_loglist():
 #    print(n)

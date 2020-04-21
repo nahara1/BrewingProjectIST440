@@ -153,8 +153,6 @@ class KeggingBriteTank:  # Brite Tank
         except Exception as e:
             print("Brite Tank Tempearature and Pressure out of Range: " + e)
 
-
-
     def get_volume_dif(self):
         """
         Gets the volume difference for the brite tank
@@ -273,7 +271,7 @@ class KeggingBriteTank:  # Brite Tank
                 elif choice in ['N', 'n', 'no', 'No', 'NO']:
                     selection = True
         except Exception as e:
-            print("Temperature Operation Selection Input Error: "+ e)
+            print("Temperature Operation Selection Input Error: " + e)
 
     def auto_temp(self, target_temp):
         """
@@ -358,7 +356,7 @@ class KeggingBriteTank:  # Brite Tank
                 elif choice in ['N', 'n', 'no', 'No', 'NO']:
                     selection = True
         except Exception as e:
-            print("Pressure Operation Selection Input Error: "+ e)
+            print("Pressure Operation Selection Input Error: " + e)
 
     def auto_psi(self, target_psi):
         """
@@ -428,7 +426,7 @@ class KeggingBriteTank:  # Brite Tank
             bt_psi_log = "Brite Tank: Brite Tank Pressure in Range"
             self.bt_log(batch_id, "Kegging", bt_psi_log)
 
-            # Currently Manual input for target carbonation, can substitute from recipe pull from ServicenNow
+            # Currently Manual input for target carbonation, can substitute from recipe pull from ServiceNow
             recipe_carb = float(input("Please enter the target carbonation volume: "))
 
             # Simulated Automatic pressure adjustment to hit targeted PSI, aims to overshoot rather than undershoot because opening valves loses pressure
@@ -436,7 +434,7 @@ class KeggingBriteTank:  # Brite Tank
             bt_carb_log = "Brite Tank: Carbonation Ready at " + str(self.get_carbonation()) + " volumes"
             self.bt_log(batch_id, "Kegging", bt_carb_log)
 
-            # Send Ready for QA Test Messaage
+            # Send Ready for QA Test Message
             print("The Batch is ready for Quality Assurance Taste Tests")
             bt_carb_end_log = "Brite Tanks: Ready for QA Test"
             self.bt_status = "QA_READY"
