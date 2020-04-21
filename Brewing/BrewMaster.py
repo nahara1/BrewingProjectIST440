@@ -1,4 +1,4 @@
-# Project: IST 440 Barlog Brewery
+# Project: IST 440 Balrog Brewery
 # Purpose Details: To develop a Brew Master class that holds the information to the BrewMaster
 # Course: IST 440
 # Author: Team Ferment
