@@ -4,7 +4,7 @@
 # Author: TeamPrep
 # Date Developed: 3/23
 # Last Date Changed:4/18
-# Rev
+# Rev 1
 
 # import RPi.GPIO as GPIO
 import random
