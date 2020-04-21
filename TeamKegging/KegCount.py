@@ -36,12 +36,17 @@ class KegCount:
         :return: Sends a log to ServiceNow with timestamp appended to the beginning of the log message
 
         """
-        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
-        status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
-            bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
+        try:
 
-        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        kc_loglist.append(status_log)
+            #currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+            status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
+                bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
+
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            kc_loglist.append(status_log)
+        except Exception as e:
+            print("Error Message:  " e)
 
     def kc_confirm_batch(self):
         """
