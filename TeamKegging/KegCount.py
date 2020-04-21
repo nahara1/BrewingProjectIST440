@@ -73,7 +73,7 @@ class KegCount:
                                 "Keg Count: Batch ID Confirmation Error")  # logging to service now
                     print()
         except Exception as e:
-            print("Error Message: " + e)
+            print("Keg Count Batch Confirm Error " + e)
 
     def kc_count_kegs(self):
         """
@@ -104,7 +104,7 @@ class KegCount:
                     pass
             return kc_f_count
         except Exception as e:
-            print("Error Message: " + e)
+            print("Keg Count Count Error: " + e)
 
     def input_keg_id(self):
         """
@@ -143,7 +143,7 @@ class KegCount:
             else:
                 print("Please Enter a valid Keg Style")
         except Exception as e:
-            print("Error Message: " + e)
+            print("Keg Style Input Error: " + e)
 
     def kc_new_keg(self):
         """
@@ -174,7 +174,7 @@ class KegCount:
                 pass
             return new_keg.get_info()
         except Exception as e:
-            print("Error Message: " + e)
+            print("Keg Count New Keg Entry Error: " + e)
 
     def kc_record_keg_id(self):
         """
@@ -221,7 +221,7 @@ class KegCount:
             self.kc_log(self.batch_id, "Kegging", "All Kegging Processes Complete")
             self.kc_log(self.batch_id, "Kegging", "Keg List:" + str(keglist))
         except Exception as e3:
-            print("Keg Listing Error: "+ e3)
+            print("Keg Count Listing Error: "+ e3)
 
     def get_kc_loglist(self):
         """
