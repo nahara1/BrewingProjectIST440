@@ -231,7 +231,6 @@ def get_catalog_item_name(cat_id):
 
 
 def update_brew_stage(sys_id, stage):
-    # Stage is a string
     """
     Updates the request Stage column in the sc_request table
     As teh brew batch passes along each brew stage, this method will be called to updated the stage
