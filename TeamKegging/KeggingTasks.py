@@ -153,7 +153,7 @@ class KeggingTasks:
             print("All Cellarman tasks completed.")
             self.keg_log(batch_id, "Kegging", "Kegging Tasks: All Cellarman tasks completed.")  # logging to service now
         except Exception as e:
-            print(e)
+            print("KeggingTasks Method has failed.")
 
 # kt1 = KeggingTasks(1234, 'Cellarman tasks', 'TASK_START')
 # kt1.Keggingtasksmain()
