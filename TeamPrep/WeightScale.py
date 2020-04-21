@@ -59,6 +59,7 @@ class WeightScale:
         grain = list(recipe.grain.keys())
         weight = list(recipe.grain.values())
         weight = list(map(lambda x: float(x.replace(",", "")), weight))
+
         j = 1
         for i in range(len(grain)):
             weight_scale = 0.0
@@ -109,10 +110,7 @@ class WeightScale:
         hop = list(recipe.hop_hop_amt.keys())
         weight = list(recipe.hop_hop_amt.values())
         weight = list(map(lambda x: float(x.replace(",", "")), weight))
-
         j = 1
-
-
         for i in range(len(hop)):
             weight_scale = 0.0
             print("    \033[1m4." + str(j) + " To brew the beer for this batch, " + str(weight[i]) + " oz of " + hop[i] + " Hops needed.\033[0m\n")
@@ -131,8 +129,8 @@ class WeightScale:
                 # time.sleep(2)
 
                 print("       \033[1m" + str(weight_scale) + "\033[0m pound(s) \033[1m" + hop[i] + "\033[0m Hops recieved. \033[1m" + str(
-                    self.hop_hop_amt - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
-                if self.hop_hop_amt == weight_scale:
+                    float(weight[i]) - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
+                if float(weight[i]) == weight_scale:
                     time.sleep(2)
                     print("       \033[1m" + hop[i] + "\033[0m Hops are measured and \033[1m" + str(weight_scale) + "\033[0m pounds recieved. \n")
                 else:
