@@ -20,12 +20,16 @@ class Keg:
 
         :return: Keg object
         """
-        return "Keg ID: {}\n" \
-               "Keg Type: {}\n" \
-               "Keg Current Volume: {}\n" \
-               "Keg Pressure: {}\n" \
-               "Keg Max Volume: {}\n".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure,
-                                             self.max_volume)
+        try:
+            return "Keg ID: {}\n" \
+                   "Keg Type: {}\n" \
+                   "Keg Current Volume: {}\n" \
+                   "Keg Pressure: {}\n" \
+                   "Keg Max Volume: {}\n".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure,
+                                                 self.max_volume)
+        except Exception as e:
+            print("Error Message: " + e)
+
 
     def get_info(self):
         '''
@@ -33,12 +37,15 @@ class Keg:
 
         :return: Keg object
         '''
-        return "Keg ID: {} :: " \
-               "Keg Type: {} :: " \
-               "Keg Current Volume: {} :: " \
-               "Keg Pressure: {} :: " \
-               "Keg Max Volume: {} :: ".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure,
-                                               self.max_volume)
+        try:
+            return "Keg ID: {} :: " \
+                   "Keg Type: {} :: " \
+                   "Keg Current Volume: {} :: " \
+                   "Keg Pressure: {} :: " \
+                   "Keg Max Volume: {} :: ".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure,
+                                                   self.max_volume)
+        except Exception as e:
+            print("Error Message: " + e)
 
     def set_style_sixtel(self):
         """

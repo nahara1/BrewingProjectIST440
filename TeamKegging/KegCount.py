@@ -36,34 +36,42 @@ class KegCount:
         :return: Sends a log to ServiceNow with timestamp appended to the beginning of the log message
 
         """
-        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
-        status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
-            bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
+        try:
 
-        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        kc_loglist.append(status_log)
+            #currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+            status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
+                bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
+
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            kc_loglist.append(status_log)
+        except Exception as e:
+            print("Error Message:  " + e)
 
     def kc_confirm_batch(self):
         """
         Method called in Keg Count process that confirms the batch ID of the current beer batch. Logs events
         :return: None.
         """
-        while True:
-            # logging to service now
-            print("")
-            print("Starting Cellarman Tasks. The current batch is (Batch ID: " + str(self.batch_id) + ").")
-            save_batch_id = input("Please confirm the batch ID: ")  # user input for batch ID
-            confirm_batch_id = input("Are you sure? Enter (y/n): ")
-            if confirm_batch_id == 'y':
-                self.kc_log(self.batch_id, "Kegging",
-                            "Keg Count: Batch ID entered as: " + save_batch_id)  # logging to service now
-                break
-            else:
-                print("Confirmation failed. Please try again.")
-                self.kc_log(self.batch_id, "Kegging",
-                            "Keg Count: Batch ID Confirmation Mismatch")  # logging to service now
-                print()
-            self.kc_log(self.batch_id, "Kegging", "Keg Count: Counting final Kegs")
+        try:
+            while True:
+                # logging to service now
+                print("")
+                print("Starting Cellarman Tasks. The current batch is (Batch ID: " + str(self.batch_id) + ").")
+                save_batch_id = input("Please confirm the batch ID: ")  # user input for batch ID
+                confirm_batch_id = input("Are you sure? Enter (y/n): ")
+                if confirm_batch_id == 'y':
+                    self.kc_log(self.batch_id, "Kegging",
+                                "Keg Count: Batch ID entered as: " + save_batch_id)  # logging to service now
+                    break
+                else:
+                    print("Confirmation failed. Please try again.")
+                    self.kc_log(self.batch_id, "Kegging",
+                                "Keg Count: Batch ID Confirmation Mismatch")  # logging to service now
+                    print()
+                self.kc_log(self.batch_id, "Kegging", "Keg Count: Counting final Kegs")
+        except Exception as e:
+            print("Error Message: " + e)
 
     def kc_count_kegs(self):
         """
