@@ -9,7 +9,6 @@ from pip._vendor.distlib.compat import raw_input
 
 import datetime
 from Brewing import ServiceNowLog
-from Brewing.ServiceNowLog import ServiceNowLog
 
 kt_loglist = []
 
@@ -33,8 +32,7 @@ class KeggingTasks:
         currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
             bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
-        sn_log = ServiceNowLog()
-        ServiceNowLog.create_new_log(sn_log, status_log)
+        ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog.ServiceNowLog(), status_log)
         kt_loglist.append(status_log)
 
     def get_kt_loglist(self):

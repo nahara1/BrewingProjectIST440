@@ -44,9 +44,7 @@ class TasteTest:
             currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
             status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
                 bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
-
-            sn_log = ServiceNowLog()
-            ServiceNowLog.create_new_log(sn_log, status_log)
+            ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog.ServiceNowLog(), status_log)
             tt_loglist.append(status_log)
         except Exception as e:
             print("Taste Test Logging error:" + str(e))
@@ -78,6 +76,8 @@ class TasteTest:
                 choice = input("Is this correct (Y/N): ")
                 if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
                     report_correct = True
+                    self.taster_name = tt_taster
+                    self.taster_id = tt_taster_id
                     self.tt_status = "QA_TASTING"
                     beer_report = "Quality Assurance Beer Quality Report:: " + "Name: " + tt_taster + " RFID: " + tt_taster_id + tt_quality
                     self.tt_log(batch_id, "Kegging", beer_report)
