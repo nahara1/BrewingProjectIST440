@@ -139,13 +139,29 @@ def main():
     try:
 
         # Call Prep
-        call_prep(request_number, recipe)
+        # call_prep(request_number, recipe)
+
+        # Update Request Stage
+        BrewRequest.update_brew_stage(request_id, "Mashing Stage")
+
         # Call Mashing
         # call_mash(request_number, recipe)
-        # Call Boiling
+
+        # Update Request Stage
+        BrewRequest.update_brew_stage(request_id, "Boiling Stage")
+
+        # Call Boil
         # call_boil(request_number, recipe)
+
+        # Update Request Stage
+        BrewRequest.update_brew_stage(request_id, "Fermentation Stage")
+
         # Call Ferment
         # call_ferment(request_number, recipe)
+
+        # Update Request Stage
+        BrewRequest.update_brew_stage(request_id, "Kegging Stage")
+
         # Call Kegging
         # call_kegging(request_number, recipe)
 
