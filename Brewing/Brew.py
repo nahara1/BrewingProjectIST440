@@ -18,7 +18,7 @@ import time
 
 def set_up_brew_stage(request_number):
     """
-    Initializes Brew Batch Stage Object in order to start the brewing process
+    Initializes a Brew Batch Stage Object in order to start the brewing process
     :param request_number: ServiceNow generated request number
     :return: a Brew Batch Stage object
     """
@@ -48,11 +48,11 @@ def set_up_brew_stage(request_number):
 
 def start_brew_batch(request_number, brew_stage, recipe):
     """
-    Starts  brew batch by setting up the brew batch id, initial stage, and corresponding recipe
+    Starts a brew batch by setting up the brew batch id, initial stage, and corresponding recipe
     :param request_number: Request Number to be used as the Brew Batch ID
     :param brew_stage: Brew Batch Stage object
     :param recipe: Recipe Object
-    :return: Brew Batch object
+    :return:      a Brew Batch object
     """
 
     # Create log in ServiceNow
@@ -69,12 +69,14 @@ def start_brew_batch(request_number, brew_stage, recipe):
     print(log.generate_log())
     print("-----------------------------------------")
 
-    # create a BrewBatch object to be returned and passed along to the otehr brew phases
-    brew_batch = BrewBatch.BrewBatch(request_number, recipe, datetime.datetime.now(), datetime.datetime.now(),
+    # Save log to MongoDB
+
+    # Create a BrewBatch object to be returned and passed along to the otehr brew phases
+    brew_batch = BrewBatch.BrewBatch(request_number, recipe, datetime.datetime.now(),
                                      brew_stage,
                                      "Prep Stage",
                                      recipe.get_batch_size())
 
-    # Save log to mongoDB
+
 
     return brew_batch
