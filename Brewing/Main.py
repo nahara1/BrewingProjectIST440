@@ -34,9 +34,9 @@ def call_prep(request_number, recipe):
     w = WeightScale.WeightScale()
     # q = QualityCheck_Prep.QualityCheck()
 
-    Sanitization.Sanitization.sanitization(s, request_number)
-    Temperature.Temperature.yeast_temp(t, request_number)
-    WeightScale.WeightScale.read_weight_grains(w, recipe)
+    #Sanitization.Sanitization.sanitization(s, request_number)
+    #Temperature.Temperature.yeast_temp(t, request_number)
+    #WeightScale.WeightScale.read_weight_grains(w, recipe)
     WeightScale.WeightScale.read_weight_hops(w, recipe)
 
 def call_mash(request_number, recipe):
@@ -99,7 +99,6 @@ def main():
     try:
 
         # Call Prep
-
         call_prep(request_number, recipe)
         # Call Mashing
         #call_mash(request_number, recipe)

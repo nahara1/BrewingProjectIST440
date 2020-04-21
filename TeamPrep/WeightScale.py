@@ -123,7 +123,7 @@ class WeightScale:
             time.sleep(2)
             input("       Press Enter button to dispense one packet of \033[1m" + hop[i] + "\033[0m Hops:\n")
 
-            for weight_scale in arange(float(hop[i])):
+            for weight_scale in arange(float(weight[i])):
                 weight_scale = weight_scale + 1
                 # GPIO.wait_for_edge(w_button_pin, GPIO.FALLING)
                 time.sleep(2)
