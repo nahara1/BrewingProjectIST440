@@ -4,6 +4,8 @@
 # Author: TeamPrep
 # Date Developed: Development Phase
 # Last Date Changed: 4/8/2020
+
+
 class Customer:
     def __init__(self, customer_id, customer_name, customer_address, customer_phone, customer_email):
         self.customer_id = customer_id
@@ -46,14 +48,15 @@ class Customer:
         return self.customer_phone
 
     def get_customer_email(self):
-
         '''
         gets the customer email
         :return: customer email
         '''
         return self.customer_email
-#Need to install requests package for python
-#easy_install requests
+
+
+# Need to install requests package for python
+# easy_install requests
 import requests
 
 # Set the request parameters
@@ -64,14 +67,14 @@ user = 'IST440'
 pwd = 'IST440'
 
 # Set proper headers
-headers = {"Content-Type":"application/json","Accept":"application/json"}
+headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
 # Do the HTTP request
-response = requests.get(url, auth=(user, pwd), headers=headers )
+response = requests.get(url, auth=(user, pwd), headers=headers)
 
 # Check for HTTP codes other than 200
 if response.status_code != 200:
-    print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:',response.json())
+    print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
     exit()
 
 # Decode the JSON response into a dictionary and use the data

@@ -12,7 +12,6 @@ import logging
 
 
 class BrewBatchStage():
-
     _bb_stage_id = 0
     _bb_stage_start_date_time = datetime
     _bb_stage_end_date_time = datetime
@@ -31,7 +30,8 @@ class BrewBatchStage():
         self._bb_stage_duration
         self._bb_stage_status
 
-    def __init__(self, _bb_stage_id, _bb_stage_start_date_time, _bb_stage_end_date_time, _bb_stage_duration, _bb_stage_status):
+    def __init__(self, _bb_stage_id, _bb_stage_start_date_time, _bb_stage_end_date_time, _bb_stage_duration,
+                 _bb_stage_status):
         """
         Overloads constructor with parameters
         :param _bb_stage_id: ID for BrewBatchStage
@@ -48,7 +48,6 @@ class BrewBatchStage():
         self._bb_stage_duration = time
         self._bb_stage_status = _bb_stage_status
         logging.info("Thread %s: Brew Batch Ending", self)
-
 
     # Overloaded Constructor
 
@@ -136,4 +135,3 @@ class BrewBatchStage():
         self._bb_stage_duration = _bb_stage_duration
 
     logging.info("Thread %s: End Getters and Setters")
-
