@@ -131,14 +131,14 @@ class Recipe:
             weight = weight + value
         return weight
 
-    def get_hop_amt(self):
+    def get_hop_hop_amt(self):
         return self.hop_hop_amt
 
     def get_hops_weight(self, hop_hop_amt):
         weight = 0
         for value in hop_hop_amt.values():
             str(value).replace("<", "")
-            value = int(value)
+            value = float(value)
             weight = weight + value
         return weight
 

@@ -66,15 +66,22 @@ def main():
                                          recipe.get_batch_size())
 
         # Call Prep
-        s = Sanitization
-        t = Temperature
-        w = WeightScale
-        q = QualityCheck_Prep
-        s.Sanitization
-        t.Temperature
-        w.WeightScale
-        q.QualityCheck
-        #Prep_Main.prep_main()
+
+
+        s = Sanitization.Sanitization()
+        t = Temperature.Temperature()
+        w = WeightScale.WeightScale()
+        q = QualityCheck_Prep.QualityCheck()
+
+        Sanitization.Sanitization.sanitization(s, request_number)
+        Temperature.Temperature.yeast_temp(t, request_number)
+        WeightScale.WeightScale.read_weight_grains(w, recipe)
+        WeightScale.WeightScale.read_weight_hops(w, recipe)
+
+
+
+
+
 
         # Call Mashing
         m = MillingMachine.MillingMachine()

@@ -9,11 +9,12 @@
 # import RPi.GPIO as GPIO
 import random
 import time
-import numpy
+from numpy import arange
 import copy
 from Brewing.Recipe import Recipe
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing.BrewRequest import Recipe
+
 
 # sensor = 11
 # pin = 4
@@ -35,52 +36,63 @@ class WeightScale:
     #  Adds method to the attribute for sanitization
     #    '''
 
+    def __init__(self):  # constructor initalized field
 
-
-    def __init__(self, recipe):  # constructor initalized field
-
-        self.grains = copy.copy(recipe.grain)
-        self.hops = recipe.get_hop_amt(self)
+        self.hop_hop_amt = None
+        self.grain = None
 
     def get_grain(self):
-        return self.grains
-    def get_hop_amt(self):
-        return self.hops
+        self.grain = Recipe.Recipe.get_grain()
+        return self.grain
+
+    def get_hop_hop_amt(self):
+        self.hop_hop_amt = Recipe.Recipe.get_hop_hop_amt()
+        return self.hop_hop_amt
 
     '''
     interface for weighing grains
     '''
 
-    def read_weight_grains(self):
-        grain = self.grains.keys()
-        weight = self.grains_weight = recipe.get_grain_weight(recipe.get_grain())
-        for i in range(0, len(grain)):
+    def read_weight_grains(self, recipe):
+
+        global weight_scale
+        grain = list(recipe.grain.keys())
+        weight = list(recipe.grain.values())
+        weight = list(map(lambda x: float(x.replace(",", "")), weight))
+        j = 1
+        for i in range(len(grain)):
             weight_scale = 0.0
-            print("    \033[1m3. To brew the beer for this batch, " + str(weight(i)) + " pounds of " + grain(
-                i) + " needed.\033[0m\n")
+
+            print("    \033[1m3." + str(j) + " To brew the beer for this batch, " + str(weight[i]) + " pounds of " + grain[i]
+                  , " needed.\033[0m\n"
+                  )
             time.sleep(2)
             print("       ****Weight scale is calibrated to \033[1m0.0\033[0m. \n")
             time.sleep(1)
-            print("       To dispense \033[1m1\033[0m packet of \033[1m1.0\033[0m pound " + grain(i) + " : \n")
+            print("       To dispense \033[1m1\033[0m packet of \033[1m1.0\033[0m pound \033[1m" + grain[i] + "\033[0m : \n")
             time.sleep(1)
-            input("       Press the right button to dispense one " + grain(i) + " packet:\n")
-            for weight_scale in numpy.arange(0, int(weight(i))):
+            input("       Press the right button to dispense one \033[1m" + grain[i] + "\033[0m packet:\n")
+
+
+            for weight_scale in arange(float(weight[i])):
                 weight_scale = weight_scale + 1.0
                 # GPIO.wait_for_edge(w_button_pin, GPIO.FALLING)
                 time.sleep(2)
                 # print("     Press Enter to dispense 1 packet of 1 pound All Grains on weight scale : ")
                 # time.sleep(2)
                 print("       \033[1m" + str(
-                    weight_scale) + "\033[0;0m pound(s) " + grain(i) + " received. \033[1m" + str(
-                    weight(i) - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
-                if int(weight(i)) == weight_scale:
-                    print("       " + grain(i) + " are measured and \033[1m" + str(
+                    weight_scale) + "\033[0;0m pound(s) \033[1m" + grain[i] + "\033[0m received. \033[1m" + str(
+                    weight[i] - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
+                if float(weight[i]) == weight_scale:
+                    print("       \033[1m" + grain[i] + "\033[0m are measured and \033[1m" + str(
                         weight_scale) + "\033[0m pounds received.  \n")
                 else:
                     # print("       \033[1;31;40m" + str(weight_scale) + "\033[0;0m pound(s) All Grains recieved. \033[1;33;40m" + str(weight-weight_scale) + "\033[0;0m pound(s) left to be dispensed. \n")
-                    input("       Press the right button to dispense one more packet: ")
+                    input("       Press the right button to dispense one more packet of \033[1m" + grain[i] + "\033[0m: ")
                 time.sleep(2)
-                i = i + 1
+            j = j + 1
+            i = i + 1
+
         return weight_scale
 
     '''
@@ -90,35 +102,46 @@ class WeightScale:
     interface for weighing hops
     '''
 
-    def read_weight_hops(self):
-        weight_scale = 0.0
-        weight = random.randrange(1, 5, 1) * 0.5
+    def read_weight_hops(self, recipe):
 
-        print("    \033[1m4. To brew the beer for this batch, " + str(weight) + " pounds of Hops needed.\033[0m\n")
-        time.sleep(2)
-        print("       ****Weight scale is calibrated to \033[1m0.0\033[0m. \n")
-        time.sleep(2)
-        print("       To dispense \033[1m1\033[0m packet of \033[1m0.5\033[0m pound Hops : \n")
-        time.sleep(2)
-        input("       Press Enter button to dispense one packet of Hops:\n")
+        global weight_scale
 
-        for weight_scale in numpy.arange(0.0, weight + 0.01, 0.5):
-            if weight_scale > 0:
+        hop = list(recipe.hop_hop_amt.keys())
+        weight = list(recipe.hop_hop_amt.values())
+        weight = list(map(lambda x: float(x.replace(",", "")), weight))
+
+        j = 1
+
+
+        for i in range(len(hop)):
+            weight_scale = 0.0
+            print("    \033[1m4." + str(j) + " To brew the beer for this batch, " + str(weight[i]) + " oz of " + hop[i] + " Hops needed.\033[0m\n")
+            time.sleep(2)
+            print("       ****Weight scale is calibrated to \033[1m0.0\033[0m. \n")
+            time.sleep(2)
+            print("       To dispense \033[1m1\033[0m packet of \033[1m1.0\033[0m oz \033[1m" + hop[i] + "\033[0m Hops : \n")
+            time.sleep(2)
+            input("       Press Enter button to dispense one packet of \033[1m" + hop[i] + "\033[0m Hops:\n")
+
+            for weight_scale in arange(float(hop[i])):
+                weight_scale = weight_scale + 1
                 # GPIO.wait_for_edge(w_button_pin, GPIO.FALLING)
                 time.sleep(2)
                 # print("     Press right button to dispense 1 packet of 0.5 pound Hops on weight scale : ")
                 # time.sleep(2)
 
-                print("       \033[1m" + str(weight_scale) + "\033[0m pound(s) Hops recieved. \033[1m" + str(
-                    weight - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
-                if weight == weight_scale:
+                print("       \033[1m" + str(weight_scale) + "\033[0m pound(s) \033[1m" + hop[i] + "\033[0m Hops recieved. \033[1m" + str(
+                    self.hop_hop_amt - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
+                if self.hop_hop_amt == weight_scale:
                     time.sleep(2)
-                    print("       Hops are measured and \033[1m" + str(weight_scale) + "\033[0m pounds recieved. \n")
+                    print("       \033[1m" + hop[i] + "\033[0m Hops are measured and \033[1m" + str(weight_scale) + "\033[0m pounds recieved. \n")
                 else:
                     # print("       \033[1;31;40m" + str(weight_scale) + "\033[0;0m pound(s) Hops recieved. \033[1;33;40m" + str(weight-weight_scale) + "\033[0;0m pound(s) left to be dispensed. \n")
                     time.sleep(2)
-                    input("       Press the right button to dispense one more packet: \n")
+                    input("       Press the right button to dispense one more packet \033[1m" + hop[i] + "\033[0m: \n")
                 time.sleep(2)
+            j = j + 1
+            i = i + 1
         return weight_scale
 
     '''
@@ -139,7 +162,7 @@ class WeightScale:
             print("       To dispense \033[1m1\033[0m packet of \033[1m0.05\033[0m pound Sugar : \n")
             time.sleep(1)
             input("       Press Enter to dispense one packet of sugar:\n")
-            for weight_scale in numpy.arange(0.00, weight + 0.01, 0.05):
+            for weight_scale in arange(0.00, weight + 0.01, 0.05):
                 if weight_scale > 0:
                     # GPIO.wait_for_edge(w_button_pin, GPIO.FALLING)
                     time.sleep(2)

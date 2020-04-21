@@ -9,6 +9,9 @@
 # import RPi.GPIO as GPIO
 import random
 import time
+import datetime
+from Brewing.Log import Log
+from Brewing.ServiceNowLog import ServiceNowLog
 
 
 # sensor = 11
@@ -51,7 +54,7 @@ class Temperature:
         tmp = self.read_temp()
         while( tmp > 80 or tmp < 60):
             print("\t\b***Temperature of yeast is out of range.***")
-            print("  ***Bring another yeast and measure temperature again.*** ")
+            print("  ***Bring another yeast and measure temperature again.*** \n")
             time.sleep(3)
             try:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"

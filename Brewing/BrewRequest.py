@@ -386,6 +386,7 @@ def get_recipe(recipe_name):
     # Stored as name-value pairs
     recipe_obj = extract_values(data, 'hop_hop_amt')
     hop_amt = str(recipe_obj).replace("['", "").replace("']", "")
+    hop_amt = ast.literal_eval(hop_amt)
 
     recipe_obj = extract_values(data, 'wort_chill_temperature')
     wort_chill_temp = str(recipe_obj).replace("['", "").replace("']", "")

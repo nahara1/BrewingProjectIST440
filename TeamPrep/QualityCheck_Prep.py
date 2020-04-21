@@ -100,7 +100,7 @@ class QualityCheck:
                 quality_checked = ""
                 sleep(1)
             else:
-                text = input("Please Enter Yes or No: ")
+                text = input("\nPlease Enter Yes or No: ")
                 quality_checked = text
 
 

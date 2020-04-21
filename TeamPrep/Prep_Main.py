@@ -50,10 +50,10 @@ def thread_function(thread_id):
     while True:
         try:
             print()
-            # s.sanitization()
+            s.sanitization()
             try:
                 print()
-                # t.yeast_temp()
+                t.yeast_temp()
                 try:
                     w.read_weight_grains()
                     try:
