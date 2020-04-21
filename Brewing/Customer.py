@@ -20,10 +20,10 @@ class Customer:
         customer_email = str
 
     def get_customer_id(self):
-        '''
+        """
         gets the customer id
         :return: customer id
-        '''
+        """
         return self.customer_id
 
     def get_customer_name(self):
