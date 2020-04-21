@@ -46,6 +46,7 @@ def call_prep(request_number, recipe):
     WeightScale.WeightScale.read_weight_grains(w, recipe)
     WeightScale.WeightScale.read_weight_hops(w, recipe)
 
+
 def call_mash(request_number, recipe):
     """
     Calls Team Mashing's Process
@@ -55,6 +56,7 @@ def call_mash(request_number, recipe):
     """
     m = MillingMachine.MillingMachine()
     MillingMachine.MillingMachine.mill_grains(m, recipe, request_number)
+
 
 def call_boil(request_number, recipe):
     """
@@ -66,6 +68,7 @@ def call_boil(request_number, recipe):
     boil_temp = recipe.get_boil_temp()
     boil_time = recipe.get_boil_time()
     Boil.run_boil(request_number, boil_temp, boil_time)
+
 
 def call_ferment(request_number, recipe):
     """
@@ -81,6 +84,7 @@ def call_ferment(request_number, recipe):
     recipe_abv = recipe.get_abv()
     Fermentation.start_fermentation_process(request_number, recipe)
 
+
 def call_kegging(request_number, recipe):
     """
     Method Calls Team Kegging's Process
@@ -91,6 +95,7 @@ def call_kegging(request_number, recipe):
     recipe_ibu = recipe.get_ibu()
     kegging_process = KeggingMain(request_number, "BRITE_START,", recipe_ibu)
     kegging_process.start()
+
 
 def main():
     """
