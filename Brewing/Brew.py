@@ -71,7 +71,7 @@ def start_brew_batch(request_number, brew_stage, recipe):
 
     # Save log to MongoDB
 
-    # Create a BrewBatch object to be returned and passed along to the otehr brew phases
+    # Create a BrewBatch object to be returned and passed along to the other brew phases
     brew_batch = BrewBatch.BrewBatch(request_number, recipe, datetime.datetime.now(),
                                      brew_stage,
                                      "Prep Stage",
