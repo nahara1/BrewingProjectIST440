@@ -1,4 +1,4 @@
-# Project: IST 440 Barlog Brewery
+# Project: IST 440 Balrog Brewery
 # Purpose Details: To create a Recipe Class, used by each to retrieve information about the Lager's recipe.
 # Course: IST 440
 # Author: Team Ferment
