@@ -8,7 +8,7 @@
 
 from TeamKegging.Keg import Keg
 from Brewing import ServiceNowLog
-import datetime
+
 
 kc_loglist = []
 
@@ -46,7 +46,7 @@ class KegCount:
             ServiceNowLog.create_new_log(sn_log, status_log)
             kc_loglist.append(status_log)
         except Exception as e:
-            print("Keg Count Log Error:  " + e)
+            print("Keg Count Log Error:  " + str(e))
 
     def kc_confirm_batch(self):
         """
@@ -73,7 +73,7 @@ class KegCount:
                                 "Keg Count: Batch ID Confirmation Error")  # logging to service now
                     print()
         except Exception as e:
-            print("Keg Count Batch Confirm Error " + e)
+            print("Keg Count Batch Confirm Error " + str(e))
 
     def kc_count_kegs(self):
         """
@@ -104,7 +104,7 @@ class KegCount:
                     pass
             return kc_f_count
         except Exception as e:
-            print("Keg Count Count Error: " + e)
+            print("Keg Count Count Error: " + str(e))
 
     def input_keg_id(self):
         """
@@ -143,15 +143,12 @@ class KegCount:
             else:
                 print("Please Enter a valid Keg Style")
         except Exception as e:
-            print("Keg Style Input Error: " + e)
+            print("Keg Style Input Error: " + str(e))
 
     def kc_new_keg(self):
         """
         Method that asks the user to enter information for a new Keg object
-        :param new_id: Keg ID for the new Keg
-        :param new_style: Keg Type for the new keg called from input_keg_style method
-        :param new_vol: Beer Volume for the Keg
-        :param new_pressure: Keg Final Pressure
+
         :return: returns the information in string format of the new keg
         """
 
@@ -173,20 +170,16 @@ class KegCount:
                 pass
             return new_keg.get_info()
         except Exception as e:
-            print("Keg Count New Keg Entry Error: " + e)
+            print("Keg Count New Keg Entry Error: " + str(e))
 
     def kc_record_keg_id(self):
         """
         Main Method call that confirms the completion of Keg Count process and logs
         :return: None. calls kc_log method
         """
-        try:
-            kc_done = False
-            keglist = []
-            keg_num = 0
-            total_kegs = self.kc_count_kegs()
-        except Exception as e:
-            print("Keg Count Error: " + e)
+        keglist = []
+        keg_num = 0
+        total_kegs = self.kc_count_kegs()
 
         try:
             while keg_num < total_kegs:
@@ -198,7 +191,7 @@ class KegCount:
                 print("Enter the information for Keg " + str(keg_num) + " ")
 
                 confirm = 'N'
-                while not confirm in ['Y', 'y', 'Yes', 'yes', 'YES']:
+                while confirm in ['Y', 'y', 'Yes', 'yes', 'YES']:
                     print("Keg " + str(keg_num) + ". ")
                     new_keg = self.kc_new_keg()
                     print()
@@ -209,7 +202,7 @@ class KegCount:
                 self.kc_log(self.batch_id, "Kegging", kc_log_message)
             print("---------------------------------------")
         except Exception as e2:
-            print("Keg Record Error: " + e2)
+            print("Keg Record Error: " + str(e2))
 
         for n in keglist:
             print(n)
@@ -220,7 +213,7 @@ class KegCount:
             self.kc_log(self.batch_id, "Kegging", "All Kegging Processes Complete")
             self.kc_log(self.batch_id, "Kegging", "Keg List:" + str(keglist))
         except Exception as e3:
-            print("Keg Count Listing Error: " + e3)
+            print("Keg Count Listing Error: " + str(e3))
 
     def get_kc_loglist(self):
         """
@@ -237,12 +230,12 @@ class KegCount:
         try:
             self.kc_confirm_batch()
         except Exception as confirm_error:
-            print("Batch Confirmation Method Error :" + confirm_error)
+            print("Batch Confirmation Method Error :" + str(confirm_error))
 
         try:
             self.kc_record_keg_id()
         except Exception as record_error:
-            print("Keg Record Error: " + record_error)
+            print("Keg Record Error: " + str(record_error))
 
 # kc1 = KegCount(1234, "KEG_COUNT_READY")
 # kc1.kc_main()

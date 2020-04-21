@@ -6,6 +6,7 @@
 # Last Date Changed: 4/18/2020
 # Rev: 1.1
 
+
 class Keg:
     def __init__(self, keg_id, keg_style, current_volume, keg_pressure, max_volume):
         self.keg_id = keg_id
@@ -28,14 +29,14 @@ class Keg:
                    "Keg Max Volume: {}\n".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure,
                                                  self.max_volume)
         except Exception as e:
-            print("Error Message: " + e)
+            print("Error Message: " + str(e))
 
     def get_info(self):
-        '''
+        """
         Gets the information of keg object, formatted to be logged into ServiceNow
 
         :return: Keg object
-        '''
+        """
         try:
             return "Keg ID: {} :: " \
                    "Keg Type: {} :: " \
@@ -44,37 +45,34 @@ class Keg:
                    "Keg Max Volume: {} :: ".format(self.keg_id, self.keg_style, self.current_volume, self.keg_pressure,
                                                    self.max_volume)
         except Exception as e:
-            print("Error Message: " + e)
+            print("Error Message: " + str(e))
 
     def set_style_sixtel(self):
         """
         Function that is used to set the keg container to a sixtel container
 
-        :param max_volume : the maximum volume that a keg can hold to be labeled as a sixtel
-        :param keg_style : the style of the keg being used
+
         :return: float
         """
         self.max_volume = 5.16
         self.keg_style = "KEG_SIXTEL"
 
     def set_style_quarter_stubby(self):
-        '''
+        """
         Function that is used to set the keg container to a quarter stubby container
 
-        :param max_volume : the maximum volume that a keg can hold to be labeled as a quarter stubby
-        :param keg_style : the style of the keg being used
+
         :return: float
-        '''
+        """
         self.max_volume = 7.75
         self.keg_style = "KEG_QUARTER_STUBBY"
 
     def set_style_quarter_slim(self):
-        '''
+        """
         Function that is used to set the keg container to a quarter slim container
 
-        :param max_volume : the maximum volume that a keg can hold to be labeled as a quarter slim
-        :param keg_style : the style of the keg being used
+
         :return: float
-        '''
+        """
         self.max_volume = 7.75
         self.keg_style = "KEG_QUARTER_SLIM"

@@ -43,7 +43,7 @@ class KeggingBriteTank:  # Brite Tank
             ServiceNowLog.create_new_log(sn_log, status_log)
             bt_loglist.append(status_log)
         except Exception as e:
-            print("Brite Tank Logging Error: " + e)
+            print("Brite Tank Logging Error: " + str(e))
 
     def get_status(self):
         """
@@ -151,13 +151,11 @@ class KeggingBriteTank:  # Brite Tank
             else:
                 return "Error"
         except Exception as e:
-            print("Brite Tank Tempearature and Pressure out of Range: " + e)
+            print("Brite Tank Tempearature and Pressure out of Range: " + str(e))
 
     def get_volume_dif(self):
         """
-        Gets the volume difference for the brite tank
-        :param bt_current_volume
-        :param bt_max_volume
+
         :return: Remaining free volume of the brite tank
         """
         if self.bt_current_volume < self.bt_max_volume:
@@ -228,7 +226,7 @@ class KeggingBriteTank:  # Brite Tank
                 print("The tank temperature in in the ideal range.")
                 self.bt_status = "BT_TEMPERATURE_READY"
         except Exception as e:
-            print("Temperature Range Error: " + e)
+            print("Temperature Range Error: " + str(e))
 
     def temp_choice(self):
         """
@@ -271,7 +269,7 @@ class KeggingBriteTank:  # Brite Tank
                 elif choice in ['N', 'n', 'no', 'No', 'NO']:
                     selection = True
         except Exception as e:
-            print("Temperature Operation Selection Input Error: " + e)
+            print("Temperature Operation Selection Input Error: " + str(e))
 
     def auto_temp(self, target_temp):
         """
@@ -294,7 +292,7 @@ class KeggingBriteTank:  # Brite Tank
                 self.print_carb_status()
             return self.bt_temp
         except Exception as e:
-            print("Automatic Temperature Error: " + e)
+            print("Automatic Temperature Error: " + str(e))
 
     def bt_psi_control(self):
         """
@@ -314,7 +312,7 @@ class KeggingBriteTank:  # Brite Tank
                 print("The tank pressure is in range")
                 self.bt_status = "BT_PSI_READY"
         except Exception as e:
-            print("Pressure Range Error: " + e)
+            print("Pressure Range Error: " + str(e))
 
     def psi_choice(self):
         """
@@ -356,7 +354,7 @@ class KeggingBriteTank:  # Brite Tank
                 elif choice in ['N', 'n', 'no', 'No', 'NO']:
                     selection = True
         except Exception as e:
-            print("Pressure Operation Selection Input Error: " + e)
+            print("Pressure Operation Selection Input Error: " + str(e))
 
     def auto_psi(self, target_psi):
         """
@@ -379,7 +377,7 @@ class KeggingBriteTank:  # Brite Tank
                 self.print_carb_status()
             return self.bt_psi
         except Exception as e:
-            print("Automatic Pressure Error: " + e)
+            print("Automatic Pressure Error: " + str(e))
 
     def auto_carb(self, target_carb):
         """
@@ -403,7 +401,7 @@ class KeggingBriteTank:  # Brite Tank
                     print("Error")
                 self.print_carb_status()
         except Exception as e:
-            print("Automatic Carbonation Error: " + e)
+            print("Automatic Carbonation Error: " + str(e))
 
     def start_brite_tank(self, batch_id):
         """
@@ -441,7 +439,7 @@ class KeggingBriteTank:  # Brite Tank
             self.bt_log(batch_id, "Kegging", bt_carb_end_log)
 
         except Exception as e:  # error handling
-            print("Brite Tank Error:" + e)
+            print("Brite Tank Error:" + str(e))
 
     def get_bt_loglist(self):
         """
