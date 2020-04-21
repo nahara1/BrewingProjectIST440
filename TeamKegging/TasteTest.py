@@ -85,7 +85,7 @@ class TasteTest:
                 elif choice in ['N', 'n', 'no', 'No', 'NO']:
                     pass
         except Exception as e:
-            print(e)
+            print("Quality Report Entry Error: "+ e)
 
     def record_ibu(self, batch_id, recipe_ibu):
         """
@@ -94,32 +94,35 @@ class TasteTest:
         :param recipe_ibu: the required IBU target given by a recipe
         :return: None.
         """
-        ibu_correct = False
-        while not ibu_correct:
-            print()
-            print("This is the IBU Report")
-            print("The target IBU (International Bitterness Unit) Score is (" + str(recipe_ibu) + ").")
-            print()
-            tt_taster = input("Enter your name: ")
-            tt_taster_id = input("Enter you RFID number: ")
-            ibu = float(input("Please enter the IBUs (International Bitterness Units) for beer batch (Batch_ID: " + str(
-                batch_id) + "): "))
-            print()
-            print("The IBUs you have entered is as follows:")
-            print()
-            print("Name: " + tt_taster + " RFID: " + tt_taster_id)
-            print()
-            print(str(ibu))
-            print()
-            choice = input("Is this correct (Y/N): ")
-            if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
-                self.tt_ibu = ibu
-                ibu_correct = True
-                self.tt_status = "QA_IBU_TASTING"
-                ibu_report = "Quality Assurance IBU Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id  + " IBU: " +str(ibu)
-                self.tt_log(batch_id, "Kegging", ibu_report)
-            elif choice in ['N', 'n', 'no', 'No', 'NO']:
-                pass
+        try:
+            ibu_correct = False
+            while not ibu_correct:
+                print()
+                print("This is the IBU Report")
+                print("The target IBU (International Bitterness Unit) Score is (" + str(recipe_ibu) + ").")
+                print()
+                tt_taster = input("Enter your name: ")
+                tt_taster_id = input("Enter you RFID number: ")
+                ibu = float(input("Please enter the IBUs (International Bitterness Units) for beer batch (Batch_ID: " + str(
+                    batch_id) + "): "))
+                print()
+                print("The IBUs you have entered is as follows:")
+                print()
+                print("Name: " + tt_taster + " RFID: " + tt_taster_id)
+                print()
+                print(str(ibu))
+                print()
+                choice = input("Is this correct (Y/N): ")
+                if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
+                    self.tt_ibu = ibu
+                    ibu_correct = True
+                    self.tt_status = "QA_IBU_TASTING"
+                    ibu_report = "Quality Assurance IBU Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id  + " IBU: " +str(ibu)
+                    self.tt_log(batch_id, "Kegging", ibu_report)
+                elif choice in ['N', 'n', 'no', 'No', 'NO']:
+                    pass
+        except Exception as e:
+            print("IBU Report Input Error: " + e)
 
     def quality_pass_fail(self, batch_id):
         """
@@ -127,16 +130,19 @@ class TasteTest:
         :param batch_id: the current Batch ID or Request ID of the current beer batch
         :return: None
         """
-        quality_pass = False
-        while not quality_pass:
-            self.record_quality(batch_id)
-            result = input( "This is the Final QA Pass Fail Result" + "\n" + "Does beer batch (Batch_ID: " + str(batch_id) + ") pass Quality Assurance Inspection (Y/N): ")
-            if result in ['Y', 'y', 'yes', 'Yes', 'YES']:
-                quality_pass = True
-                qa_report = "Quality Assurance: Beer Quality Test Passed."
-                self.tt_log(batch_id, "Kegging", qa_report)
-            elif result in ['N', 'n', 'no', 'No', 'NO']:
-                pass
+        try:
+            quality_pass = False
+            while not quality_pass:
+                self.record_quality(batch_id)
+                result = input( "This is the Final QA Pass Fail Result" + "\n" + "Does beer batch (Batch_ID: " + str(batch_id) + ") pass Quality Assurance Inspection (Y/N): ")
+                if result in ['Y', 'y', 'yes', 'Yes', 'YES']:
+                    quality_pass = True
+                    qa_report = "Quality Assurance: Beer Quality Test Passed."
+                    self.tt_log(batch_id, "Kegging", qa_report)
+                elif result in ['N', 'n', 'no', 'No', 'NO']:
+                    pass
+        except Exception as e:
+            print("Final QA Test Input Error: "+ e)
 
     def tt_main(self, batch_id, recipe_ibu):  # kegging task start
         """
@@ -152,13 +158,16 @@ class TasteTest:
         #t2 = '2. Record IBU (International Bitterness Units)'
         #t3 = '3. P / F'
 
-        self.tt_status = "QA_START"
-        self.tt_log(batch_id, "Kegging", "Taste Test In Progress")
+        try:
+            self.tt_status = "QA_START"
+            self.tt_log(batch_id, "Kegging", "Taste Test In Progress")
 
-        self.record_ibu(batch_id, recipe_ibu)
-        self.quality_pass_fail(batch_id)
+            self.record_ibu(batch_id, recipe_ibu)
+            self.quality_pass_fail(batch_id)
 
-        self.tt_log(batch_id, "Kegging", "Ready for Kegging Tasks")
+            self.tt_log(batch_id, "Kegging", "Ready for Kegging Tasks")
+        except Exception as e:
+            print("Taste Test Process Error: " + e)
 
     def get_tt_loglist(self):
         """

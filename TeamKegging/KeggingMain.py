@@ -29,11 +29,14 @@ class KeggingMain:
         :param log_message: Log message
         :return: creates a log message in JSON string format
         """
-        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
-        status_log = "{\"batch_id\":\"" + str(self.batch_id) + "\", \"brew_batch_stage\":\"" + str(
-            bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
-        sn_log = ServiceNowLog()
-        ServiceNowLog.create_new_log(sn_log, status_log)
+        try:
+            #currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+            status_log = "{\"batch_id\":\"" + str(self.batch_id) + "\", \"brew_batch_stage\":\"" + str(
+                bb_stage) + "\", \"log\":\"" + str(log_message) + "\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+        except Exception as e:
+            print("Kegging Main Logging Error: " + e)
 
 
     def brite_start(self):
@@ -41,32 +44,44 @@ class KeggingMain:
         Method that starts a brite tank (ID:1) with default temp 55F, 5 gallon limit
         :return: starts brite tank, logs to bt_loglist and appends to km_full_loglist
         """
-        bt1 = KeggingBriteTank(1, 55, 5, 5, 0, "BRITE_START") #
-        bt1.start_brite_tank(self.batch_id)
-        km_full_loglist.extend(bt1.get_bt_loglist())
+        try:
+            bt1 = KeggingBriteTank(1, 55, 5, 5, 0, "BRITE_START") #
+            bt1.start_brite_tank(self.batch_id)
+            km_full_loglist.extend(bt1.get_bt_loglist())
+        except Exception as e:
+            print("Brite Tank Start Error: " + e)
 
     def qa_start(self, taster_name, taster_id, recipe_ibu):
         """
         Method that starts the taste test
         :return: Starts taste test and creates log to tt_loglist and appends to km_full_loglist
         """
-        tt1 = TasteTest(self.batch_id, taster_name, taster_id, "QA_START", recipe_ibu)
-        tt1.tt_main(self.batch_id, 38.5)
-        km_full_loglist.extend(tt1.get_tt_loglist())
+        try:
+            tt1 = TasteTest(self.batch_id, taster_name, taster_id, "QA_START", recipe_ibu)
+            tt1.tt_main(self.batch_id, 38.5)
+            km_full_loglist.extend(tt1.get_tt_loglist())
+        except Exception as e:
+            print("Taste Test Start Error: " + e)
 
     def kt_start(self):
         """
         Method that starts the cellarman tasks
         :return: Starts cellarman (kegging) tasks and logs to kt_loglist and appends to km_full_loglist
         """
-        kt1 = KeggingTasks(self.batch_id, 'Cellarman tasks', 'TASK_START')
-        kt1.Keggingtasksmain()
-        km_full_loglist.extend((kt1.get_kt_loglist()))
+        try:
+            kt1 = KeggingTasks(self.batch_id, 'Cellarman tasks', 'TASK_START')
+            kt1.Keggingtasksmain()
+            km_full_loglist.extend((kt1.get_kt_loglist()))
+        except Exception as e:
+            print("Kegging Tasks Start Error: " + e)
 
     def kc_start(self):
-        kc1 = KegCount(self.batch_id, "KEG_COUNT_READY")
-        kc1.kc_main()
-        km_full_loglist.extend((kc1.get_kc_loglist()))
+        try:
+            kc1 = KegCount(self.batch_id, "KEG_COUNT_READY")
+            kc1.kc_main()
+            km_full_loglist.extend((kc1.get_kc_loglist()))
+        except Exception as e:
+            print("Keg Count Start Error" + e)
 
     def km_get_full_loglist(self):
         """
@@ -88,14 +103,17 @@ class KeggingMain:
         Main Kegging Process start method
         :return: starts the Kegging Process
         """
-        print("Welcome to the Kegging Process")
-        batch_id = self.batch_id
-        # batch_id = input("Please enter the batch id of the brite beer: ")
-        self.brite_start()
-        self.qa_start("Daibo,",1122, self.recipe_ibu)
-        self.kt_start()
-        self.kc_start()
-        self.print_km_full_loglist()
+        try:
+            print("Welcome to the Kegging Process")
+            batch_id = self.batch_id
+            # batch_id = input("Please enter the batch id of the brite beer: ")
+            self.brite_start()
+            self.qa_start("Daibo,",1122, self.recipe_ibu)
+            self.kt_start()
+            self.kc_start()
+            self.print_km_full_loglist()
+        except Exception as e:
+            print("Kegging Process Error: " + e)
 
 
 #keg1 = KeggingMain(1234, "KEGGING_START", 38.5)
