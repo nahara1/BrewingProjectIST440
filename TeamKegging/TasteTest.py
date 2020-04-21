@@ -41,13 +41,16 @@ class TasteTest:
         :param log_message: the message or log that will be sent to service now or appened to the log list
         :return: sends a log with timestamp to ServiceNow and appends to the log list
         """
-        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
-        status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
-            bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
+        try:
+            currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+            status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
+                bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
 
-        sn_log = ServiceNowLog()
-        ServiceNowLog.create_new_log(sn_log, status_log)
-        tt_loglist.append(status_log)
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            tt_loglist.append(status_log)
+        except Exception as e:
+            print("Taste Test Logging error:" + e)
 
     def record_quality(self, batch_id):
         """
@@ -56,29 +59,33 @@ class TasteTest:
         :param batch_id: The batch_id or request_id of the current beer batch
         :return: None.
         """
-        report_correct = False
-        while not report_correct:
-            print()
-            print("This is the Quality Report")
-            tt_taster = input("Enter your name: ")
-            tt_taster_id = input("Enter you RFID number: ")
-            tt_quality = input(
-                "Please enter the beer quality report for beer batch (Batch_ID: " + str(batch_id) + "): ")
-            print("")
-            print("The report you have entered is as follows:")
-            print("")
-            print("Name: "+ tt_taster + " RFID: " + tt_taster_id)
-            print()
-            print(tt_quality)
-            print("")
-            choice = input("Is this correct (Y/N): ")
-            if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
-                report_correct = True
-                self.tt_status = "QA_TASTING"
-                beer_report = "Quality Assurance Beer Quality Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id + tt_quality
-                self.tt_log(batch_id, "Kegging", beer_report)
-            elif choice in ['N', 'n', 'no', 'No', 'NO']:
-                pass
+        try:
+
+            report_correct = False
+            while not report_correct:
+                print()
+                print("This is the Quality Report")
+                tt_taster = input("Enter your name: ")
+                tt_taster_id = input("Enter you RFID number: ")
+                tt_quality = input(
+                    "Please enter the beer quality report for beer batch (Batch_ID: " + str(batch_id) + "): ")
+                print("")
+                print("The report you have entered is as follows:")
+                print("")
+                print("Name: "+ tt_taster + " RFID: " + tt_taster_id)
+                print()
+                print(tt_quality)
+                print("")
+                choice = input("Is this correct (Y/N): ")
+                if choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
+                    report_correct = True
+                    self.tt_status = "QA_TASTING"
+                    beer_report = "Quality Assurance Beer Quality Report:: " + "Name: "+ tt_taster + " RFID: " + tt_taster_id + tt_quality
+                    self.tt_log(batch_id, "Kegging", beer_report)
+                elif choice in ['N', 'n', 'no', 'No', 'NO']:
+                    pass
+        except Exception as e:
+            print(e)
 
     def record_ibu(self, batch_id, recipe_ibu):
         """

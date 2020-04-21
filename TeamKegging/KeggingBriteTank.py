@@ -34,13 +34,16 @@ class KeggingBriteTank:  # Brite Tank
         :return: Sends a log to ServiceNow with timestamp appended to the beginning of the log message
 
         """
-        currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
-        status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
-            bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
+        try:
+            currentTimeStamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+            status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
+                bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
 
-        sn_log = ServiceNowLog()
-        ServiceNowLog.create_new_log(sn_log, status_log)
-        bt_loglist.append(status_log)
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            bt_loglist.append(status_log)
+        except Exception as e:
+            print("Brite Tank Logging Error: " + e)
 
     def get_status(self):
         """
@@ -136,16 +139,21 @@ class KeggingBriteTank:  # Brite Tank
 
         carbcharttemp = math.floor(self.bt_temp) - 29
         carbchartpsi = math.floor(self.bt_psi)
-        batchcarb = carbchart[carbcharttemp][carbchartpsi]
+        try:
+            batchcarb = carbchart[carbcharttemp][carbchartpsi]
 
-        if 30 <= self.bt_temp <= 65 and 1 <= self.bt_psi < 31:
-            return batchcarb
-        elif self.bt_temp < 30 or self.bt_temp >= 30:
-            return "Unknown"
-        elif self.bt_psi < 1 or self.bt_psi >= 31:
-            return "Unknown"
-        else:
-            return "Error"
+            if 30 <= self.bt_temp <= 65 and 1 <= self.bt_psi < 31:
+                return batchcarb
+            elif self.bt_temp < 30 or self.bt_temp >= 30:
+                return "Unknown"
+            elif self.bt_psi < 1 or self.bt_psi >= 31:
+                return "Unknown"
+            else:
+                return "Error"
+        except Exception as e:
+            print("Brite Tank Tempearature and Pressure out of Range: " + e)
+
+
 
     def get_volume_dif(self):
         """
@@ -163,7 +171,7 @@ class KeggingBriteTank:  # Brite Tank
         :param cur_temp: the current tank temperature
         :return: Current Temperature of the Brite Tank
         """
-        self.bt_temp = cur_temp
+        self.bt_temp = float(cur_temp)
         return cur_temp
 
     def get_bt_temp(self):
@@ -179,7 +187,7 @@ class KeggingBriteTank:  # Brite Tank
         :param cur_psi: the current tank pressure
         :return: Current PSI of the Brite Tank
         """
-        self.bt_psi = cur_psi
+        self.bt_psi = float(cur_psi)
         return cur_psi
 
     def get_bt_psi(self):
@@ -222,7 +230,7 @@ class KeggingBriteTank:  # Brite Tank
                 print("The tank temperature in in the ideal range.")
                 self.bt_status = "BT_TEMPERATURE_READY"
         except Exception as e:
-            print(e)
+            print("Temperature Range Error: " + e)
 
     def temp_choice(self):
         """
@@ -230,39 +238,42 @@ class KeggingBriteTank:  # Brite Tank
 
         :return: Sets the bright tank temperature between 30 and 65 degrees Fahrenheit
         """
-        selection = False
-        while not selection:
-            choice = input(
-                "Would you like to Manually or Automatically Adjust Temperature? Enter (M/A) or (N) to exit: ")
-            if choice in ['m', 'M', 'manual', 'Manual', 'MANUAL', 'manually', 'Manually', 'MANUALLY']:
-                selection = True
-                temp_ready = False
-                while not temp_ready:
-                    print("You have selected Manual temperature operation.")
-                    new_temp = float(input(
-                        "When the brite tank has reached your desired temperature, enter its value (degrees Fahrenheit): "))
-                    if 30 <= new_temp < 66:
-                        temp_ready = True
-                        self.update_bt_temp(new_temp)
-                    else:
-                        print("")
-                        print("Please adjust the temperature between 30 and 65 degrees Fahrenheit.")
-                self.print_carb_status()
-            elif choice in ['a', 'A', 'auto', 'Auto', 'AUTO', 'automatically', 'Automatically', 'AUTOMATICALLY']:
-                selection = True
-                temp_ready = False
-                while not temp_ready:
-                    print("You have selected Automatic temperature operation.")
-                    target_temp = float(input("Enter the target Temperature (degrees Fahrenheit): "))
-                    if 30 <= target_temp < 66:
-                        temp_ready = True
-                        self.auto_temp(
-                            target_temp)  # contains the simulated delay value for temperature adjustments for temperature values
-                    else:
-                        print("")
-                        print("Please enter a temperature between 30 and 65 degrees Fahrenheit.")
-            elif choice in ['N', 'n', 'no', 'No', 'NO']:
-                selection = True
+        try:
+            selection = False
+            while not selection:
+                choice = input(
+                    "Would you like to Manually or Automatically Adjust Temperature? Enter (M/A) or (N) to exit: ")
+                if choice in ['m', 'M', 'manual', 'Manual', 'MANUAL', 'manually', 'Manually', 'MANUALLY']:
+                    selection = True
+                    temp_ready = False
+                    while not temp_ready:
+                        print("You have selected Manual temperature operation.")
+                        new_temp = float(input(
+                            "When the brite tank has reached your desired temperature, enter its value (degrees Fahrenheit): "))
+                        if 30 <= new_temp < 66:
+                            temp_ready = True
+                            self.update_bt_temp(new_temp)
+                        else:
+                            print("")
+                            print("Please adjust the temperature between 30 and 65 degrees Fahrenheit.")
+                    self.print_carb_status()
+                elif choice in ['a', 'A', 'auto', 'Auto', 'AUTO', 'automatically', 'Automatically', 'AUTOMATICALLY']:
+                    selection = True
+                    temp_ready = False
+                    while not temp_ready:
+                        print("You have selected Automatic temperature operation.")
+                        target_temp = float(input("Enter the target Temperature (degrees Fahrenheit): "))
+                        if 30 <= target_temp < 66:
+                            temp_ready = True
+                            self.auto_temp(
+                                target_temp)  # contains the simulated delay value for temperature adjustments for temperature values
+                        else:
+                            print("")
+                            print("Please enter a temperature between 30 and 65 degrees Fahrenheit.")
+                elif choice in ['N', 'n', 'no', 'No', 'NO']:
+                    selection = True
+        except Exception as e:
+            print("Temperature Operation Selection Input Error: "+ e)
 
     def auto_temp(self, target_temp):
         """
@@ -271,18 +282,21 @@ class KeggingBriteTank:  # Brite Tank
         :param target_temp: The target temperature of the brite tank in degrees Fahrenheit
         :return: Sets the temperature in the brite tank to the specified degree Fahrenheit
         """
-        while self.bt_temp != target_temp:
-            time.sleep(sim_sleep_mod)
-            if self.bt_temp < target_temp and abs(self.bt_temp - target_temp) >= 1:
-                self.bt_temp += 1
-            elif self.bt_temp > target_temp and abs(self.bt_temp - target_temp) >= 1:
-                self.bt_temp -= 1
-            elif abs(self.bt_temp - target_temp) < 1 or self.bt_temp == target_temp:
-                self.bt_temp = target_temp
-            else:
-                print("Error")
-            self.print_carb_status()
-        return self.bt_temp
+        try:
+            while self.bt_temp != target_temp:
+                time.sleep(sim_sleep_mod)
+                if self.bt_temp < target_temp and abs(self.bt_temp - target_temp) >= 1:
+                    self.bt_temp += 1
+                elif self.bt_temp > target_temp and abs(self.bt_temp - target_temp) >= 1:
+                    self.bt_temp -= 1
+                elif abs(self.bt_temp - target_temp) < 1 or self.bt_temp == target_temp:
+                    self.bt_temp = target_temp
+                else:
+                    print("Error")
+                self.print_carb_status()
+            return self.bt_temp
+        except Exception as e:
+            print("Automatic Temperature Error: " + e)
 
     def bt_psi_control(self):
         """
@@ -302,7 +316,7 @@ class KeggingBriteTank:  # Brite Tank
                 print("The tank pressure is in range")
                 self.bt_status = "BT_PSI_READY"
         except Exception as e:
-            print(e)
+            print("Pressure Range Error: " + e)
 
     def psi_choice(self):
         """
@@ -310,38 +324,41 @@ class KeggingBriteTank:  # Brite Tank
 
         :return:  Sets the brite tank pressure to values between 1 and 30 PSI
         """
-        selection = False
-        while not selection:
-            choice = input("Would you like to Manually or Automatically Adjust PSI? Enter (M/A) or (N) to exit: ")
-            if choice in ['m', 'M', 'manual', 'Manual', 'MANUAL', 'manually', 'Manually', 'MANUALLY']:
-                selection = True
-                psi_ready = False
-                while not psi_ready:
-                    print("You have selected Manual PSI operation.")
-                    new_psi = float(input(
-                        "When the brite tank has reached your desired pressure, enter its value (PSI): "))
-                    if 1 <= new_psi < 31:
-                        psi_ready = True
-                        self.update_bt_psi(new_psi)
-                    else:
-                        print("")
-                        print("Please adjust the pressure between 1 and 30 PSI.")
-                self.print_carb_status()
-            elif choice in ['a', 'A', 'auto', 'Auto', 'AUTO', 'automatically', 'Automatically', 'AUTOMATICALLY']:
-                selection = True
-                psi_ready = False
-                while not psi_ready:
-                    print("You have selected Automatic PSI operation.")
-                    target_psi = float(input("Enter the target pressure (PSI): "))
-                    if 1 <= target_psi < 31:
-                        psi_ready = True
-                        self.auto_psi(
-                            target_psi)  # contains the simulated delay value for pressure adjustments for pressure values
-                    else:
-                        print("")
-                        print("Please enter a pressure between 1 and 30 PSI.")
-            elif choice in ['N', 'n', 'no', 'No', 'NO']:
-                selection = True
+        try:
+            selection = False
+            while not selection:
+                choice = input("Would you like to Manually or Automatically Adjust PSI? Enter (M/A) or (N) to exit: ")
+                if choice in ['m', 'M', 'manual', 'Manual', 'MANUAL', 'manually', 'Manually', 'MANUALLY']:
+                    selection = True
+                    psi_ready = False
+                    while not psi_ready:
+                        print("You have selected Manual PSI operation.")
+                        new_psi = float(input(
+                            "When the brite tank has reached your desired pressure, enter its value (PSI): "))
+                        if 1 <= new_psi < 31:
+                            psi_ready = True
+                            self.update_bt_psi(new_psi)
+                        else:
+                            print("")
+                            print("Please adjust the pressure between 1 and 30 PSI.")
+                    self.print_carb_status()
+                elif choice in ['a', 'A', 'auto', 'Auto', 'AUTO', 'automatically', 'Automatically', 'AUTOMATICALLY']:
+                    selection = True
+                    psi_ready = False
+                    while not psi_ready:
+                        print("You have selected Automatic PSI operation.")
+                        target_psi = float(input("Enter the target pressure (PSI): "))
+                        if 1 <= target_psi < 31:
+                            psi_ready = True
+                            self.auto_psi(
+                                target_psi)  # contains the simulated delay value for pressure adjustments for pressure values
+                        else:
+                            print("")
+                            print("Please enter a pressure between 1 and 30 PSI.")
+                elif choice in ['N', 'n', 'no', 'No', 'NO']:
+                    selection = True
+        except Exception as e:
+            print("Pressure Operation Selection Input Error: "+ e)
 
     def auto_psi(self, target_psi):
         """
@@ -350,18 +367,21 @@ class KeggingBriteTank:  # Brite Tank
         :param target_psi: the target brite tank pressure in PSI
         :return: Sets the pressure in the brite tank to the specified PSI
         """
-        while self.bt_psi != target_psi:
-            time.sleep(sim_sleep_mod)
-            if self.bt_psi < target_psi and abs(self.bt_psi - target_psi) >= 1:
-                self.bt_psi += 1
-            elif self.bt_psi > target_psi and abs(self.bt_psi - target_psi) >= 1:
-                self.bt_psi -= 1
-            elif abs(self.bt_psi - target_psi) < 1 or self.bt_psi == target_psi:
-                self.bt_psi = target_psi
-            else:
-                print("Error")
-            self.print_carb_status()
-        return self.bt_psi
+        try:
+            while self.bt_psi != target_psi:
+                time.sleep(sim_sleep_mod)
+                if self.bt_psi < target_psi and abs(self.bt_psi - target_psi) >= 1:
+                    self.bt_psi += 1
+                elif self.bt_psi > target_psi and abs(self.bt_psi - target_psi) >= 1:
+                    self.bt_psi -= 1
+                elif abs(self.bt_psi - target_psi) < 1 or self.bt_psi == target_psi:
+                    self.bt_psi = target_psi
+                else:
+                    print("Error")
+                self.print_carb_status()
+            return self.bt_psi
+        except Exception as e:
+            print("Automatic Pressure Error: " + e)
 
     def auto_carb(self, target_carb):
         """
@@ -369,20 +389,23 @@ class KeggingBriteTank:  # Brite Tank
         :param target_carb: the target bright beer CO2 volume
         :return: Sets the pressure in the brite tank to adjust to a specified CO2 volume
         """
-        carbonation_ready = False
-        while not carbonation_ready and 2 <= self.bt_psi < 31:
-            time.sleep(sim_sleep_mod)
-            if self.get_carbonation() < target_carb:
-                self.bt_psi += 1
-                if self.get_carbonation() > target_carb:
+        try:
+            carbonation_ready = False
+            while not carbonation_ready and 2 <= self.bt_psi < 31:
+                time.sleep(sim_sleep_mod)
+                if self.get_carbonation() < target_carb:
+                    self.bt_psi += 1
+                    if self.get_carbonation() > target_carb:
+                        carbonation_ready = True
+                elif self.get_carbonation() > target_carb:
+                    self.bt_psi -= 1
+                elif self.get_carbonation() == target_carb:
                     carbonation_ready = True
-            elif self.get_carbonation() > target_carb:
-                self.bt_psi -= 1
-            elif self.get_carbonation() == target_carb:
-                carbonation_ready = True
-            else:
-                print("Error")
-            self.print_carb_status()
+                else:
+                    print("Error")
+                self.print_carb_status()
+        except Exception as e:
+            print("Automatic Carbonation Error: " + e)
 
     def start_brite_tank(self, batch_id):
         """
@@ -420,7 +443,7 @@ class KeggingBriteTank:  # Brite Tank
             self.bt_log(batch_id, "Kegging", bt_carb_end_log)
 
         except Exception as e:  # error handling
-            print(e)
+            print("Brite Tank Error:" + e)
 
     def get_bt_loglist(self):
         """
