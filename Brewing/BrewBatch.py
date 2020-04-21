@@ -53,6 +53,7 @@ class BrewBatch():
         self._recipe_id = recipe_id
         self._bb_start_date_time = bb_start_date_time
         self._bb_end_date_time = bb_end_date_time
+        self._bb_stage = bb_stage
         self._bb_duration = bb_end_date_time - bb_start_date_time
         self._bb_status = bb_status
         self._bb_size = bb_size
