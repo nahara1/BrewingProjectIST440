@@ -6,6 +6,7 @@
 # Last Date Changed:4/18
 # Rev 1
 
+from Brewing import Recipe
 # import RPi.GPIO as GPIO
 import random
 import time
