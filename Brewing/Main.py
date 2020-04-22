@@ -6,7 +6,6 @@
 # Last Date Changed: 4/18/20
 # Rev 22
 
-from Brewing import Recipe
 from Brewing import Brew
 from Brewing import BrewRequest
 from Brewing import BrewBatch
@@ -14,17 +13,10 @@ from TeamFerment import Fermentation
 from TeamPrep import Sanitization
 from TeamPrep import Temperature
 from TeamPrep import WeightScale
-from TeamPrep.QualityCheck_Prep import QualityCheck
-from Brewing import BrewBatchStage
 from TeamMashing import MillingMachine
 import datetime
 from TeamBoiling import Boil
 from TeamKegging.KeggingMain import KeggingMain
-from TeamFerment.Fermentation import start_fermentation_process
-from Brewing import Log
-import sys
-import time
-import threading
 
 
 def call_prep(request_number, recipe):
@@ -38,7 +30,7 @@ def call_prep(request_number, recipe):
     s = Sanitization.Sanitization()
     t = Temperature.Temperature()
     w = WeightScale.WeightScale()
-    q = QualityCheck.QualityCheck_Prep.QualityCheck()
+    # q = QualityCheck.QualityCheck_Prep.QualityCheck()
 
     Sanitization.Sanitization.sanitization(s, request_number)
     Temperature.Temperature.yeast_temp(t, request_number)
