@@ -40,7 +40,8 @@ class Sanitization:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(1, "Prep.Sanitization", "Asked for manual input if Sanitization completed.", datetime.datetime.now(), "pass")
+            log = Log(1, "Prep.Sanitization", "Asked for manual input if Sanitization completed.",
+                      datetime.datetime.now(), "pass")
             print(log.generate_log())
 
             time.sleep(2)
@@ -55,14 +56,15 @@ class Sanitization:
             log = Log(1, "Prep.Sanitization", "Sanitization done - Input received.", datetime.datetime.now(), "pass")
             print(log.generate_log())
             time.sleep(2)
-            except Exception as e:
-                status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
-                sn_log = ServiceNowLog()
-                ServiceNowLog.create_new_log(sn_log, status_log)
-                log = Log(1, "Prep.Sanitization", "Input for Sanitization completed failed.", datetime.datetime.now(), "pass")
-                print(log.generate_log())
-                time.sleep(2)
 
+        except Exception as e:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Prep.Sanitization", "Input for Sanitization completed failed.", datetime.datetime.now(),
+                      "pass")
+            print(log.generate_log())
+            time.sleep(2)
 
 # # USAGE
 # s = sanitization(s_button_pin)
