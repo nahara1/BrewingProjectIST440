@@ -3,8 +3,6 @@ import datetime
 import time
 
 from TeamMashing.MillingMachine import MillingMachine
-from Brewing.Log import Log
-from TeamMashing.HotLiquorTank import HotLiquorTank
 from TeamMashing.RecipeMashing import recipe_mashing
 
 class MillingMachineTest(unittest.TestCase):

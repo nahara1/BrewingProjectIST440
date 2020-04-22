@@ -3,7 +3,6 @@ import time
 import unittest
 
 from TeamMashing.Wort import Wort
-from Brewing.Log import Log
 from TeamMashing.RecipeMashing import recipe_mashing
 
 class WortTest(unittest.TestCase):

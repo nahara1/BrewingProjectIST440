@@ -3,8 +3,6 @@ import unittest
 import time
 
 from TeamMashing.SpargingTank import SpargingTank
-from Brewing.Log import Log
-from TeamMashing.Wort import Wort
 from TeamMashing.RecipeMashing import recipe_mashing
 
 class SpargingTankTest(unittest.TestCase):
