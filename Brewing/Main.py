@@ -10,9 +10,9 @@ from Brewing import Brew
 from Brewing import BrewRequest
 from Brewing import BrewBatch
 from TeamFerment import Fermentation
-from TeamPrep import Sanitization
+# from TeamPrep import Sanitization
 from TeamPrep import Temperature
-from TeamPrep import WeightScale
+# from TeamPrep import WeightScale
 from TeamMashing import MillingMachine
 import datetime
 from TeamBoiling import Boil
@@ -130,30 +130,35 @@ def main():
     try:
 
         # Call Prep
+        # Add boolean has_passed that if True, calls next Team's process, else False doesn't call
         # call_prep(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Mashing Stage")
 
         # Call Mashing
+        # Add boolean has_passed that if True, calls next Team's process, else False doesn't call
         # call_mash(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Boiling Stage")
 
         # Call Boil
+        # Add boolean has_passed that if True, calls next Team's process, else False doesn't call
         # call_boil(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Fermentation Stage")
 
         # Call Ferment
+        # Add boolean has_passed that if True, calls next Team's process, else False doesn't call
         # call_ferment(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Kegging Stage")
 
         # Call Kegging
+        # Add boolean has_passed that if True, calls next Team's process, else False doesn't call
         # call_kegging(request_number, recipe)
 
     except Exception as e:
