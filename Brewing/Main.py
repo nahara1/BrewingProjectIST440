@@ -30,7 +30,7 @@ def call_prep(request_number, recipe):
     s = Sanitization.Sanitization()
     t = Temperature.Temperature()
     w = WeightScale.WeightScale()
-    # q = QualityCheck.QualityCheck_Prep.QualityCheck()
+    # q = QualityCheck_Prep.QualityCheck()
 
     Sanitization.Sanitization.sanitization(s, request_number)
     Temperature.Temperature.yeast_temp(t, request_number)
@@ -130,7 +130,7 @@ def main():
     try:
 
         # Call Prep
-        call_prep(request_number, recipe)
+        # call_prep(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Mashing Stage")
