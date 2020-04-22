@@ -6,39 +6,17 @@
 # Last Date Changed:4/18
 # Rev
 
-# import RPi.GPIO as GPIO
+import threading
+import time
+
 from TeamPrep import QualityCheck_Prep
 from TeamPrep.Sanitization import Sanitization
 from TeamPrep.Temperature import Temperature
 from TeamPrep.WeightScale import WeightScale
-from Brewing import ServiceNowLog
-import threading
-import time
 
-# from queue import Queue
-"""
-# sensor = 11
-pin = 4
-
-# button for sanitization
-s_button_pin = 26 # UP key
-# button for temperature
-t_button_pin = 13 # DOWN key
-# button for weight
-w_button_pin = 19 # Right key
-
-# Pin setup
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.setup(t_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.setup(w_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-"""
 s = Sanitization()
 t = Temperature()
 w = WeightScale()
-# b = BrewRequest()
-q = QualityCheck_Prep()
-
 
 # this function will called on staring of every thread
 '''
@@ -46,30 +24,24 @@ This thread function will be called each time this file runs to check them tempe
 '''
 
 
-def thread_function(thread_id):
+def thread_function():
     while True:
         try:
-            print()
-            s.sanitization()
+            s.sanitization(s,request_number)
             try:
-                print()
-                t.yeast_temp()
+                t.yeast_temp(t)
                 try:
-                    w.read_weight_grains()
+                    w.read_weight_grains(w)
                     try:
-                        w.read_weight_hops()
+                        w.read_weight_hops(w)
                         try:
-                            w.read_weight_sugar()
-                            try:
-                                QualityCheck_Prep.QualityCheck.get_QA_Check()
-                            except Exception as e:
-                                print(e)
+                            QualityCheck_Prep.QualityCheck.get_QA_Check()
                         except Exception as e:
                             print(e)
                     except Exception as e:
                         print(e)
                 except Exception as e:
-                     print(e)
+                    print(e)
             except Exception as e:
                 print(e)
         except Exception as e:
@@ -77,10 +49,11 @@ def thread_function(thread_id):
         break
 
 
+# noinspection SpellCheckingInspection
 def prep_main():
     time.sleep(2)
     thread_list = []
-    # to create upto 5 Threads
+    # to create up to 5 Threads
     for x in range(5):
         # status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Starting Preparation Process\"}"
         # ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)

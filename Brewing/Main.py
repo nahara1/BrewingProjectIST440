@@ -14,7 +14,7 @@ from TeamFerment import Fermentation
 from TeamPrep import Sanitization
 from TeamPrep import Temperature
 from TeamPrep import WeightScale
-from TeamPrep import QualityCheck_Prep
+# from TeamPrep import QualityCheck_Prep
 from TeamPrep import Prep_Main
 from Brewing import BrewBatchStage
 from TeamMashing import MillingMachine
@@ -28,7 +28,6 @@ import time
 import threading
 
 
-
 def call_prep(request_number, recipe):
     """
     Call Team Prep's Process
@@ -40,7 +39,7 @@ def call_prep(request_number, recipe):
     s = Sanitization.Sanitization()
     t = Temperature.Temperature()
     w = WeightScale.WeightScale()
-    q = QualityCheck_Prep.QualityCheck()
+    # q = QualityCheck_Prep.QualityCheck()
 
     Sanitization.Sanitization.sanitization(s, request_number)
     Temperature.Temperature.yeast_temp(t, request_number)
@@ -140,7 +139,7 @@ def main():
     try:
 
         # Call Prep
-        # call_prep(request_number, recipe)
+        call_prep(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Mashing Stage")

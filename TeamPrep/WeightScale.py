@@ -6,46 +6,28 @@
 # Last Date Changed:4/22
 # Rev 3
 
-from Brewing import Recipe
-# import RPi.GPIO as GPIO
-import random
+
 import time
 from numpy import arange
-import copy
 from Brewing.Recipe import Recipe
-from Brewing.ServiceNowLog import ServiceNowLog
+# from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing.BrewRequest import Recipe
 
 
-# sensor = 11
-# pin = 4
-
-# button for weight
-# w_button_pin =  19# Right key
-
-# Pin setup
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(w_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-
+# noinspection PyUnusedLocal,PyMethodMayBeStatic,PyMethodMayBeStatic,PyMethodMayBeStatic
 class WeightScale:
-    # def __init__(self,button):
-    #    '''
-    #   Defines attributes of sanitization
-    #   '''
-    #    self.button = button
-    #   '''
-    #  Adds method to the attribute for sanitization
-    #    '''
 
-    def __init__(self):  # constructor initalized field
+    def __init__(self):  # constructor initialized field
 
         self.hop_hop_amt = None
         self.grain = None
 
+    # noinspection PyArgumentList,PyArgumentList
     def get_grain(self):
         self.grain = Recipe.Recipe.get_grain()
         return self.grain
 
+    # noinspection PyArgumentList,PyArgumentList
     def get_hop_hop_amt(self):
         self.hop_hop_amt = Recipe.Recipe.get_hop_hop_amt()
         return self.hop_hop_amt
@@ -54,9 +36,8 @@ class WeightScale:
     interface for weighing grains
     '''
 
+    # noinspection PyUnboundLocalVariable
     def read_weight_grains(self, recipe):
-
-        global weight_scale
         try:
             grain = list(recipe.grain.keys())
             weight = list(recipe.grain.values())
@@ -100,15 +81,14 @@ class WeightScale:
             print(e)
 
     '''
-    logging of weight measurments
+    logging of weight measurements
     '''
     '''
     interface for weighing hops
     '''
 
+    # noinspection PyUnusedLocal,PyUnusedLocal,PyUnboundLocalVariable
     def read_weight_hops(self, recipe):
-
-        global weight_scale
         try:
             hop = list(recipe.hop_hop_amt.keys())
             weight = list(recipe.hop_hop_amt.values())
@@ -135,13 +115,13 @@ class WeightScale:
                     # time.sleep(2)
 
                     print("       \033[1m" + str(weight_scale) + "\033[0m pound(s) \033[1m" + hop[
-                        i] + "\033[0m Hops recieved. \033[1m" + str(
+                        i] + "\033[0m Hops received. \033[1m" + str(
                         float(weight[i]) - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
                     time.sleep(2)
                     if float(weight[i]) == weight_scale:
                         time.sleep(2)
                         print("       \033[1m" + hop[i] + "\033[0m Hops are measured and \033[1m" + str(
-                            weight_scale) + "\033[0m pounds recieved. \n")
+                            weight_scale) + "\033[0m pounds received. \n")
                     time.sleep(2)
                 j = j + 1
                 i = i + 1
