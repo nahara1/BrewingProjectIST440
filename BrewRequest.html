@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module BrewRequest</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>BrewRequest</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/narrara/BrewingProjectIST440/Brewing/BrewRequest.py">/Users/narrara/BrewingProjectIST440/Brewing/BrewRequest.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;module&nbsp;handles&nbsp;the&nbsp;retrieval&nbsp;of&nbsp;brew&nbsp;request&nbsp;data&nbsp;from&nbsp;ServiceNow</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Brewing.Recipe.html">Brewing.Recipe</a><br>
+</td><td width="25%" valign=top><a href="ast.html">ast</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-extract_values"><strong>extract_values</strong></a>(obj, key)</dt><dd><tt>Extracts&nbsp;values&nbsp;from&nbsp;a&nbsp;nested&nbsp;json&nbsp;given&nbsp;a&nbsp;specific&nbsp;key<br>
+:param&nbsp;obj:&nbsp;a&nbsp;json&nbsp;payload<br>
+:param&nbsp;key:&nbsp;any&nbsp;key&nbsp;present&nbsp;in&nbsp;the&nbsp;nested&nbsp;json&nbsp;payload<br>
+:return:&nbsp;a&nbsp;value&nbsp;of&nbsp;the&nbsp;given&nbsp;key</tt></dd></dl>
+ <dl><dt><a name="-get_brew_request_number"><strong>get_brew_request_number</strong></a>(req_id)</dt><dd><tt>Gets&nbsp;the&nbsp;brew&nbsp;order&nbsp;request&nbsp;number&nbsp;corresponding&nbsp;to&nbsp;the&nbsp;request&nbsp;id&nbsp;given<br>
+:param&nbsp;req_id:&nbsp;brew&nbsp;request&nbsp;unique&nbsp;row&nbsp;identifier<br>
+:return:&nbsp;brew&nbsp;request&nbsp;number</tt></dd></dl>
+ <dl><dt><a name="-get_catalog_item_id"><strong>get_catalog_item_id</strong></a>(request_number)</dt><dd><tt>Gets&nbsp;the&nbsp;catalog&nbsp;item&nbsp;unique&nbsp;identifier&nbsp;which&nbsp;has&nbsp;been&nbsp;requested&nbsp;by&nbsp;a&nbsp;customer<br>
+based&nbsp;on&nbsp;the&nbsp;given&nbsp;request&nbsp;number<br>
+&nbsp;<br>
+:param&nbsp;request_number:&nbsp;a&nbsp;brew&nbsp;request&nbsp;order&nbsp;number<br>
+:return:&nbsp;ServiceNow&nbsp;Catalog&nbsp;Item&nbsp;ID</tt></dd></dl>
+ <dl><dt><a name="-get_catalog_item_name"><strong>get_catalog_item_name</strong></a>(cat_id)</dt><dd><tt>Get&nbsp;catalog&nbsp;item&nbsp;name&nbsp;given&nbsp;its&nbsp;id,&nbsp;which&nbsp;corresponds&nbsp;to&nbsp;a&nbsp;recipe&nbsp;name&nbsp;in&nbsp;the&nbsp;Recipe&nbsp;table.<br>
+&nbsp;<br>
+:param&nbsp;cat_id:&nbsp;Catalog&nbsp;Item&nbsp;Unique&nbsp;Identifier<br>
+:return:&nbsp;a&nbsp;catalog&nbsp;item&nbsp;name</tt></dd></dl>
+ <dl><dt><a name="-get_recipe"><strong>get_recipe</strong></a>(recipe_name)</dt><dd><tt>Gets&nbsp;all&nbsp;recipe&nbsp;fields&nbsp;in&nbsp;the&nbsp;ServiceNow&nbsp;table&nbsp;given&nbsp;a&nbsp;recipe&nbsp;name.<br>
+Each&nbsp;recipe&nbsp;value&nbsp;is&nbsp;retrieved&nbsp;and&nbsp;parsed&nbsp;into&nbsp;a&nbsp;string&nbsp;and&nbsp;into&nbsp;an&nbsp;integer&nbsp;or&nbsp;float,<br>
+and&nbsp;then&nbsp;a&nbsp;Recipe&nbsp;object&nbsp;is&nbsp;created&nbsp;out&nbsp;of&nbsp;those&nbsp;values.<br>
+&nbsp;<br>
+:param&nbsp;recipe_name:&nbsp;The&nbsp;name&nbsp;of&nbsp;a&nbsp;recipe,&nbsp;also&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;catalog&nbsp;item<br>
+:return:&nbsp;a&nbsp;Recipe&nbsp;object</tt></dd></dl>
+ <dl><dt><a name="-get_request_id"><strong>get_request_id</strong></a>()</dt><dd><tt>Retrieves&nbsp;the&nbsp;most&nbsp;recent&nbsp;brew&nbsp;request&nbsp;id&nbsp;from&nbsp;the&nbsp;ServiceNow&nbsp;requests&nbsp;table<br>
+:return:&nbsp;request_id</tt></dd></dl>
+ <dl><dt><a name="-update_brew_stage"><strong>update_brew_stage</strong></a>(sys_id, stage)</dt><dd><tt>Updates&nbsp;the&nbsp;request&nbsp;Stage&nbsp;column&nbsp;in&nbsp;the&nbsp;sc_request&nbsp;table<br>
+As&nbsp;teh&nbsp;brew&nbsp;batch&nbsp;passes&nbsp;along&nbsp;each&nbsp;brew&nbsp;stage,&nbsp;this&nbsp;method&nbsp;will&nbsp;be&nbsp;called&nbsp;to&nbsp;updated&nbsp;the&nbsp;stage<br>
+of&nbsp;the&nbsp;corresponding&nbsp;brew&nbsp;request<br>
+:param&nbsp;sys_id:&nbsp;unique&nbsp;identifier&nbsp;of&nbsp;a&nbsp;brew&nbsp;request<br>
+:param&nbsp;stage:&nbsp;Brew&nbsp;Batch&nbsp;current&nbsp;stage</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>pwd</strong> = 'IST440'<br>
+<strong>user</strong> = 'IST440'</td></tr></table>
+</body></html>
