@@ -3,15 +3,14 @@
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/18
-# Rev
+# Last Date Changed:4/22
+# Rev 3
 
 # import RPi.GPIO as GPIO
 import time
 import datetime
 from Brewing.Log import Log
 from Brewing.ServiceNowLog import ServiceNowLog
-
 
 
 # button for sanitization
@@ -22,7 +21,6 @@ from Brewing.ServiceNowLog import ServiceNowLog
 # GPIO.setup(s_button_pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 class Sanitization:
-
     # def __init__(self,button):
     #    '''
     #   Defines attributes of sanitization
@@ -35,14 +33,17 @@ class Sanitization:
     '''
     logging for sanitation
     '''
-    def sanitization(self, request_number):
 
-        time.sleep(3)
-        input("\033[1m" + "\n    1. Press Enter when sanitization is done:" + "\033[0m \n")
-        # GPIO.wait_for_edge(self.button,GPIO.FALLING)
-        time.sleep(1)
-        message = ("   Sanitization Completed. ")
-        print("\t\t" + message + "\n")
+    def sanitization(self, request_number):
+        try:
+            time.sleep(3)
+            input("\033[1m" + "\n    1. Press Enter when sanitization is done:" + "\033[0m \n")
+            # GPIO.wait_for_edge(self.button,GPIO.FALLING)
+            time.sleep(1)
+            message = ("   Sanitization Completed.\n")
+            print("\t\t" + message + "\n")
+        except Exception as e:
+            print(e)
         try:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
             sn_log = ServiceNowLog()
@@ -52,7 +53,6 @@ class Sanitization:
             time.sleep(2)
         except Exception as e:
             print(e)
-
 
 # # USAGE
 # s = sanitization(s_button_pin)
