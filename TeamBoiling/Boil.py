@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: Team Boiling
 # Date Developed: 3/18/20
-# Last Date Changed: 4/18/2020
-# Rev 7
+# Last Date Changed: 4/22/2020
+# Rev 8
 
 import datetime
 import time
@@ -13,25 +13,25 @@ import logging
 from TeamBoiling import QualityCheck
 from TeamBoiling import DisplayHelper
 from TeamBoiling import SensorHelper
-from TeamBoiling.UnitTests import TempBoilRecipe
+from TeamBoiling.RecipeBoil import RecipeBoil
 
 
 class Boil:
 
-    _boil_time = time
-    _boil_temp = 0.0
+    _boil_time = 0
+    _boil_temp = 0
     _stage_date_time = datetime
     _stage_duration = datetime
     _end_stage_date_time = datetime
-    _is_boiling = bool
+    _is_boiling = False
 
     def __init__(self):
         """
         constructor method
         :param self: allows access to methods and attributes
         """
-        self._boil_time = TempBoilRecipe.TempBoilRecipe.boil_time
-        self._boil_temp = TempBoilRecipe.TempBoilRecipe.boil_temp
+        self._boil_time = RecipeBoil.boil_time
+        self._boil_temp = RecipeBoil.boil_temp
         self._stage_date_time
         self._stage_duration = datetime.datetime
         self._is_boiling
@@ -131,7 +131,7 @@ class Boil:
         :param _is_boiling: checks that boiling is in progress
         :return: returns boiling status
         """
-        self._is_boiling = _is_boiling
+        self._is_boiling = False
         logging.info("Thread %s: Update Boiling Status", self)
 
     def finish_boil(self, qaCheck):
@@ -153,3 +153,8 @@ def run_boil(request_number, boil_temp, boil_time):
     DisplayHelper.DisplayHelper.print_end_info(end_stage_date_time=datetime.datetime.now(), stage_duration=boil_time)
     QualityCheck.QualityCheck.get_QA_Check(request_number)
 
+
+"""
+if __name__ == '__main__':
+    run_boil('request_number', 'boil_temp', 'boil_time')
+"""
