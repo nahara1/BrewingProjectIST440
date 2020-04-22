@@ -1,3 +1,11 @@
+# Project: Brewing Project
+# Purpose Details: UnitTests for SpargingTank
+# Course: IST 440W
+# Author: Team Mashing
+# Date Developed: 4/10/2020
+# Last Date Changed: 4/21/2020
+# Rev: 2.0
+
 import datetime
 import unittest
 import time
