@@ -37,7 +37,7 @@ s = Sanitization()
 t = Temperature()
 w = WeightScale()
 # b = BrewRequest()
-# q = QualityCheck_Prep()
+q = QualityCheck_Prep()
 
 
 # this function will called on staring of every thread

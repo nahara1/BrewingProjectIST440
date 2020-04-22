@@ -4,7 +4,7 @@
 # Author: IST 440W - 001
 # Date Developed: 4/18/20
 # Last Date Changed: 4/18/20
-# Rev 3
+# Rev 22
 
 from Brewing import Recipe
 from Brewing import Brew
@@ -40,10 +40,10 @@ def call_prep(request_number, recipe):
     s = Sanitization.Sanitization()
     t = Temperature.Temperature()
     w = WeightScale.WeightScale()
-    # q = QualityCheck_Prep.QualityCheck()
+    q = QualityCheck_Prep.QualityCheck()
 
-    # Sanitization.Sanitization.sanitization(s, request_number)
-    # Temperature.Temperature.yeast_temp(t, request_number)
+    Sanitization.Sanitization.sanitization(s, request_number)
+    Temperature.Temperature.yeast_temp(t, request_number)
     WeightScale.WeightScale.read_weight_grains(w, recipe)
     WeightScale.WeightScale.read_weight_hops(w, recipe)
 

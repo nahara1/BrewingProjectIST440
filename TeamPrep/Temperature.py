@@ -4,7 +4,7 @@
 # Author: TeamPrep
 # Date Developed: 3/23
 # Last Date Changed:4/18
-# Rev
+# Rev 3
 
 # import RPi.GPIO as GPIO
 import random
@@ -36,19 +36,21 @@ class Temperature:
     #    '''
     
     def read_temp(self):
-        temperature = random.randrange(55, 85, 1)
-        input("\033[1m    2. Press Enter to measure temperature of yeast: \033[0m\n")
-        # GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
-        time.sleep(3)
-        # humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-        # temperature = 9.0/5.0 * temperature + 32
-        if temperature < 60 or temperature > 80:
-            print('\t\t\tTemp = \033[1m{0:0.0f}*\033[0;0m F'.format(temperature))
-        else:
-            print('\t\t\tTemp = \033[1m{0:0.0f}*\033[0;0m F'.format(temperature))
-        time.sleep(2)
-
-        return temperature
+        try:
+            temperature = random.randrange(55, 85, 1)
+            input("\033[1m    2. Press Enter to measure temperature of yeast: \033[0m\n")
+            # GPIO.wait_for_edge(t_button_pin,GPIO.FALLING)
+            time.sleep(3)
+            # humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+            # temperature = 9.0/5.0 * temperature + 32
+            if temperature < 60 or temperature > 80:
+                print('\t\t\tTemp = \033[1m{0:0.0f}*\033[0;0m F'.format(temperature))
+            else:
+                print('\t\t\tTemp = \033[1m{0:0.0f}*\033[0;0m F'.format(temperature))
+            time.sleep(2)
+            return temperature
+        except Exception as e:
+            print(e)
         
     def yeast_temp(self, request_number):
         tmp = self.read_temp()
