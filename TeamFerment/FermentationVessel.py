@@ -195,7 +195,7 @@ class FermentationVessel:
             :param: self
             :return: Return log and filtered Ale
             """
-            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Drainig Ale\"}"
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Draining Ale\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
             log = Log(11, "Ferment.drainAle", "Draining Ale. Sending to QA", datetime.datetime.now(), "pass")
             print(log.generate_log())
