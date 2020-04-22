@@ -3,11 +3,10 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 4/21/2020
+# Last Date Changed: 4/18/2020
 # Rev: 2.0
 
 from TeamMashing.MillingMachine import MillingMachine
-from TeamMashing.HotLiquorTank import HotLiquorTank
 import threading
 
 def start_mashing_process(): # Mashing process start
@@ -26,7 +25,3 @@ def start_mashing_process(): # Mashing process start
 
 if __name__ == "__main__": # verify main method
     start_mashing_process()  # initiates mashing process
-
-#This is a test commit -Andrew Soulchin
-
-#Test Commit - Aaron W.

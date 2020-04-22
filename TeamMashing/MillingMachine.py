@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 4/18/2020
-# Rev: 2.0
+# Last Date Changed: 4/21/2020
+# Rev: 3.0
 
 import datetime
 import time
@@ -12,6 +12,7 @@ import time
 from Brewing.Log import Log
 from TeamMashing.HotLiquorTank import HotLiquorTank
 from Brewing.ServiceNowLog import ServiceNowLog
+
 
 class MillingMachine():  # MillingMachine Start
     def __init__(self):  # constructor initalized fields
@@ -58,6 +59,12 @@ class MillingMachine():  # MillingMachine Start
             print("-----------------------------------------")
             self.send_grains_to_sparging_tank(recipe, request_number)
         except Exception as e:  # error handling
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Mashing Process Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
             print(e)
 
     def send_grains_to_sparging_tank(self, recipe, request_number):
@@ -80,4 +87,10 @@ class MillingMachine():  # MillingMachine Start
             hlt = HotLiquorTank()
             hlt.heat_water(recipe, request_number)
         except Exception as e:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Sending Grains to Sparging Tank Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.Milling", "Send Grains to Sparging Tank", datetime.datetime.now(), "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
             print(e)
