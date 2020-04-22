@@ -36,23 +36,33 @@ class Sanitization:
 
     def sanitization(self, request_number):
         try:
-            time.sleep(3)
+            time.sleep(1)
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Prep.Sanitization", "Asked for manual input if Sanitization completed.", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+
+            time.sleep(2)
             input("\033[1m" + "\n    1. Press Enter when sanitization is done:" + "\033[0m \n")
             # GPIO.wait_for_edge(self.button,GPIO.FALLING)
             time.sleep(1)
             message = ("   Sanitization Completed.\n")
             print("\t\t" + message + "\n")
-        except Exception as e:
-            print(e)
-        try:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(1, "Prep.Sanitization", "Sanitization done.", datetime.datetime.now(), "pass")
+            log = Log(1, "Prep.Sanitization", "Sanitization done - Input received.", datetime.datetime.now(), "pass")
             print(log.generate_log())
             time.sleep(2)
-        except Exception as e:
-            print(e)
+            except Exception as e:
+                status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
+                sn_log = ServiceNowLog()
+                ServiceNowLog.create_new_log(sn_log, status_log)
+                log = Log(1, "Prep.Sanitization", "Input for Sanitization completed failed.", datetime.datetime.now(), "pass")
+                print(log.generate_log())
+                time.sleep(2)
+
 
 # # USAGE
 # s = sanitization(s_button_pin)

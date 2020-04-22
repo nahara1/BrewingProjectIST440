@@ -63,6 +63,7 @@ class WeightScale:
             weight = list(map(lambda x: float(x.replace(",", "")), weight))
 
             j = 1
+
             for i in range(len(grain)):
                 weight_scale = 0.0
 
@@ -76,7 +77,7 @@ class WeightScale:
                 print("       To dispense \033[1m1\033[0m packet of \033[1m1.0\033[0m pound \033[1m" + grain[
                     i] + "\033[0m : \n")
                 time.sleep(1)
-                input("       Press the right button to dispense one \033[1m" + grain[i] + "\033[0m packet:\n")
+                input("       Press the Enter to dispense \033[1m" + grain[i] + "\033[0m packet(s):\n")
 
                 for weight_scale in arange(float(weight[i])):
                     weight_scale = weight_scale + 1.0
@@ -87,13 +88,10 @@ class WeightScale:
                     print("       \033[1m" + str(
                         weight_scale) + "\033[0;0m pound(s) \033[1m" + grain[i] + "\033[0m received. \033[1m" + str(
                         weight[i] - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
+                    time.sleep(2)
                     if float(weight[i]) == weight_scale:
                         print("       \033[1m" + grain[i] + "\033[0m are measured and \033[1m" + str(
                             weight_scale) + "\033[0m pounds received.  \n")
-                    else:
-                        # print("       \033[1;31;40m" + str(weight_scale) + "\033[0;0m pound(s) All Grains recieved. \033[1;33;40m" + str(weight-weight_scale) + "\033[0;0m pound(s) left to be dispensed. \n")
-                        input("       Press the right button to dispense one more packet of \033[1m" + grain[
-                            i] + "\033[0m: ")
                     time.sleep(2)
                 j = j + 1
                 i = i + 1
@@ -139,15 +137,11 @@ class WeightScale:
                     print("       \033[1m" + str(weight_scale) + "\033[0m pound(s) \033[1m" + hop[
                         i] + "\033[0m Hops recieved. \033[1m" + str(
                         float(weight[i]) - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
+                    time.sleep(2)
                     if float(weight[i]) == weight_scale:
                         time.sleep(2)
                         print("       \033[1m" + hop[i] + "\033[0m Hops are measured and \033[1m" + str(
                             weight_scale) + "\033[0m pounds recieved. \n")
-                    else:
-                        # print("       \033[1;31;40m" + str(weight_scale) + "\033[0;0m pound(s) Hops recieved. \033[1;33;40m" + str(weight-weight_scale) + "\033[0;0m pound(s) left to be dispensed. \n")
-                        time.sleep(2)
-                        input("       Press the right button to dispense one more packet \033[1m" + hop[
-                            i] + "\033[0m: \n")
                     time.sleep(2)
                 j = j + 1
                 i = i + 1
