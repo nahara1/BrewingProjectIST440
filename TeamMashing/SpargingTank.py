@@ -3,8 +3,8 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 4/18/2020
-# Rev: 2.0
+# Last Date Changed: 4/21/2020
+# Rev: 3.0
 import datetime
 import time
 from Brewing.Log import Log
