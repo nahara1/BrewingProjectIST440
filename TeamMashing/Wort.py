@@ -45,6 +45,12 @@ class Wort:
 
             self.check_water_volume(recipe, request_number)
         except Exception as e:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Checking Water Temp Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.Wort", "Checking Water Temp Failed", datetime.datetime.now(), "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
             print(e)
 
     def check_water_volume(self, recipe, request_number):
@@ -69,6 +75,12 @@ class Wort:
 
             self.check_wort_volume(recipe, request_number)
         except Exception as e:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Checking Water Volume Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.Wort", "Checking Water Volume Failed", datetime.datetime.now(), "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
             print(e)
 
     def check_wort_volume(self, recipe, request_number):    # Wort Volume? Should we use it as BatchSize
@@ -94,6 +106,12 @@ class Wort:
 
             self.separate_wort(recipe, request_number)
         except Exception as e:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Check Wort Volume Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.Wort", "Check Wort Volume Failed", datetime.datetime.now(), "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
             print(e)
 
     def separate_wort(self, recipe, request_number):
@@ -136,4 +154,10 @@ class Wort:
             print("-----------------------------------------")
 
         except Exception as e:  # error handling
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Wort Separation Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.Wort", "Wort Separation Failed", datetime.datetime.now(), "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
             print(e)
