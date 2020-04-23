@@ -21,10 +21,9 @@ from TeamBoiling import Boil
 from TeamKegging.KeggingMain import KeggingMain
 
 
-
 def call_prep(request_number, recipe):
     """
-    Call Team Prep's Process
+    Calls Team Prep's Process
     :param request_number: brew batch id
     :param recipe: a Recipe instance
     :return none
@@ -54,7 +53,7 @@ def call_mash(request_number, recipe):
 
 def call_boil(request_number, recipe):
     """
-    Call Team Boil's Process
+    Calls Team Boil's Process
     :param request_number: brew batch id
     :param recipe: a Recipe instance
     :return: none
@@ -93,7 +92,7 @@ def call_kegging(request_number, recipe):
 
 def main():
     """
-    Method gets brew requests from service now
+    Gets brew requests from ServiceNow and initiates brewing through its completion
     :return: none
     """
     # Get a brew request
