@@ -100,7 +100,7 @@ class SensorHelper:
         boil_time = int(boil_time)
         for x in reversed(range(boil_time)):
             print(x+1)
-            sleep(.25)
+            sleep(1)
             # Test if Brew has over boiled
             boilOverTemp = random.randrange(1, 200)
             if boilOverTemp == 1:
