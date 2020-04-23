@@ -130,7 +130,7 @@ def main():
     try:
 
         # Call Prep
-        call_prep(request_number, recipe)
+        #call_prep(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Mashing Stage")
