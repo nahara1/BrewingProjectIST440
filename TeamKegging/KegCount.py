@@ -8,6 +8,7 @@
 
 from TeamKegging.Keg import Keg
 from Brewing import ServiceNowLog
+from Brewing import MongoLogging
 import datetime
 
 kc_loglist = []
@@ -41,6 +42,8 @@ class KegCount:
             status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
                 bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog.ServiceNowLog(), status_log)
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, batch_id, "Kegging", log_message)
             kc_loglist.append(status_log)
         except Exception as e:
             print("Keg Count Log Error:  " + str(e))
