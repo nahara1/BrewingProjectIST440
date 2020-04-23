@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Recipe</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Recipe</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/narrara/BrewingProjectIST440/Brewing/Recipe.py">/Users/narrara/BrewingProjectIST440/Brewing/Recipe.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Project:&nbsp;IST&nbsp;440&nbsp;Balrog&nbsp;Brewery<br>
+#&nbsp;Purpose&nbsp;Details:&nbsp;To&nbsp;create&nbsp;a&nbsp;<a href="#Recipe">Recipe</a>&nbsp;Class,&nbsp;used&nbsp;by&nbsp;each&nbsp;to&nbsp;retrieve&nbsp;information&nbsp;about&nbsp;the&nbsp;Lager's&nbsp;recipe.<br>
+#&nbsp;Course:&nbsp;IST&nbsp;440<br>
+#&nbsp;Author:&nbsp;Team&nbsp;Ferment<br>
+#&nbsp;Date&nbsp;Developed:&nbsp;3/16/2020<br>
+#&nbsp;Last&nbsp;Date&nbsp;Changed:&nbsp;4/18/2020<br>
+#&nbsp;Rev:&nbsp;6</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="Recipe.html#Recipe">Recipe</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Recipe">class <strong>Recipe</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Recipe">Recipe</a>(recipe_id,&nbsp;name,&nbsp;abv,&nbsp;ibu,&nbsp;og,&nbsp;fg,&nbsp;batch_size,&nbsp;yeast_storage_amt,&nbsp;yeast,&nbsp;grain,&nbsp;water_volume,&nbsp;water_temp,&nbsp;mill_time,&nbsp;sparge_time,&nbsp;stir_time,&nbsp;hlt_heat_time,&nbsp;wort_separation_time,&nbsp;boil_temp,&nbsp;boil_duration,&nbsp;hop_schedule,&nbsp;hop_hop_amt,&nbsp;after_boil_chill_temp,&nbsp;ferment_time,&nbsp;ferment_temp,&nbsp;wort_volume)<br>
+&nbsp;<br>
+This&nbsp;class&nbsp;was&nbsp;written&nbsp;to&nbsp;be&nbsp;used&nbsp;by&nbsp;each&nbsp;team.&nbsp;All&nbsp;of&nbsp;the&nbsp;attributes&nbsp;are&nbsp;available&nbsp;to&nbsp;be&nbsp;obtained&nbsp;by&nbsp;getters.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Recipe-__init__"><strong>__init__</strong></a>(self, recipe_id, name, abv, ibu, og, fg, batch_size, yeast_storage_amt, yeast, grain, water_volume, water_temp, mill_time, sparge_time, stir_time, hlt_heat_time, wort_separation_time, boil_temp, boil_duration, hop_schedule, hop_hop_amt, after_boil_chill_temp, ferment_time, ferment_temp, wort_volume)</dt><dd><tt><a href="#Recipe">Recipe</a>&nbsp;Constructor<br>
+:param&nbsp;recipe_id:&nbsp;recipe&nbsp;id<br>
+:param&nbsp;name:&nbsp;recipe&nbsp;name<br>
+:param&nbsp;abv:&nbsp;recipe&nbsp;ABV<br>
+:param&nbsp;ibu:&nbsp;recipe&nbsp;IBU<br>
+:param&nbsp;og:&nbsp;recipe&nbsp;OG<br>
+:param&nbsp;fg:&nbsp;rccipe&nbsp;FG<br>
+:param&nbsp;batch_size:&nbsp;rccipe&nbsp;batch&nbsp;size<br>
+:param&nbsp;yeast_storage_amt:&nbsp;rccipe&nbsp;yeast&nbsp;storage&nbsp;amount<br>
+:param&nbsp;yeast:&nbsp;recipe&nbsp;yeast<br>
+:param&nbsp;grain:&nbsp;recipe&nbsp;grain&nbsp;bill&nbsp;listing&nbsp;grains&nbsp;and&nbsp;weights<br>
+:param&nbsp;water_volume:&nbsp;recipe&nbsp;water&nbsp;volume<br>
+:param&nbsp;water_temp:&nbsp;recipe&nbsp;water&nbsp;temperature<br>
+:param&nbsp;mill_time:&nbsp;recipe&nbsp;mill&nbsp;time<br>
+:param&nbsp;sparge_time:&nbsp;recipe&nbsp;sparge&nbsp;time<br>
+:param&nbsp;stir_time:&nbsp;recipe&nbsp;stir&nbsp;time<br>
+:param&nbsp;hlt_heat_time:&nbsp;recipe&nbsp;HLT&nbsp;heat&nbsp;time<br>
+:param&nbsp;wort_separation_time:&nbsp;recipe&nbsp;wort&nbsp;separation&nbsp;time<br>
+:param&nbsp;boil_temp:&nbsp;recipe&nbsp;boil&nbsp;temperature<br>
+:param&nbsp;boil_duration:&nbsp;recipe&nbsp;boil&nbsp;duration<br>
+:param&nbsp;hop_schedule:&nbsp;recipe&nbsp;hop&nbsp;addition&nbsp;times&nbsp;schddule<br>
+:param&nbsp;hop_hop_amt:&nbsp;recipe&nbsp;hops&nbsp;and&nbsp;weight<br>
+:param&nbsp;after_boil_chill_temp:&nbsp;recipe&nbsp;wort&nbsp;chill&nbsp;temperature<br>
+:param&nbsp;ferment_time:&nbsp;recipe&nbsp;fermentation&nbsp;time<br>
+:param&nbsp;ferment_temp:&nbsp;recipe&nbsp;fermentation&nbsp;temperature<br>
+:param&nbsp;wort_volume:&nbsp;recipe&nbsp;wort&nbsp;volume</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_abv"><strong>get_abv</strong></a>(self)</dt><dd><tt>Gets&nbsp;ABV<br>
+:return:&nbsp;<a href="#Recipe">Recipe</a>&nbsp;ABV&nbsp;level</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_add_yeast_temp"><strong>get_add_yeast_temp</strong></a>(self)</dt><dd><tt>Gets&nbsp;yeast&nbsp;temperature<br>
+:return:&nbsp;yeast&nbsp;temperature</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_add_yeast_time"><strong>get_add_yeast_time</strong></a>(self)</dt><dd><tt>Gets&nbsp;yeast&nbsp;addition&nbsp;time<br>
+:return:&nbsp;yeast&nbsp;addition&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_after_boil_chill_temp"><strong>get_after_boil_chill_temp</strong></a>(self)</dt><dd><tt>Gets&nbsp;wort&nbsp;chil&nbsp;temperature<br>
+:return:&nbsp;expected&nbsp;after&nbsp;boil&nbsp;work&nbsp;temperature</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_batch_size"><strong>get_batch_size</strong></a>(self)</dt><dd><tt>Gets&nbsp;the&nbsp;batch&nbsp;size<br>
+:return:&nbsp;<a href="#Recipe">Recipe</a>&nbsp;batch&nbsp;size</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_boil_temp"><strong>get_boil_temp</strong></a>(self)</dt><dd><tt>Gets&nbsp;boil&nbsp;temperature<br>
+:return:&nbsp;boil&nbsp;temperature</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_boil_time"><strong>get_boil_time</strong></a>(self)</dt><dd><tt>Gets&nbsp;boil&nbsp;time<br>
+:return:&nbsp;boil&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_ferment_temp"><strong>get_ferment_temp</strong></a>(self)</dt><dd><tt>Gets&nbsp;fermentation&nbsp;temperature<br>
+:return:&nbsp;fermentation&nbsp;temperature</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_ferment_time"><strong>get_ferment_time</strong></a>(self)</dt><dd><tt>Gets&nbsp;fermentation&nbsp;time<br>
+:return:&nbsp;ferment&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_fg"><strong>get_fg</strong></a>(self)</dt><dd><tt>Gets&nbsp;Final&nbsp;Gravity<br>
+:return:&nbsp;<a href="#Recipe">Recipe</a>&nbsp;final&nbsp;gravity</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_grain"><strong>get_grain</strong></a>(self)</dt><dd><tt>Gets&nbsp;dictionary&nbsp;of&nbsp;grains&nbsp;and&nbsp;corresponding&nbsp;measures<br>
+:return:&nbsp;a&nbsp;grains&nbsp;dictionary&nbsp;of&nbsp;types&nbsp;and&nbsp;measures</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_grain_weight"><strong>get_grain_weight</strong></a>(self, grain)</dt><dd><tt>Gets&nbsp;the&nbsp;recipe&nbsp;total&nbsp;weight&nbsp;of&nbsp;grains<br>
+:param&nbsp;grain:&nbsp;a&nbsp;grains&nbsp;bill&nbsp;dictionary<br>
+:return:&nbsp;total&nbsp;weight&nbsp;of&nbsp;grains</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_hlt_heat_time"><strong>get_hlt_heat_time</strong></a>(self)</dt><dd><tt>Gets&nbsp;Hot&nbsp;Liquor&nbsp;Tank&nbsp;heat&nbsp;time<br>
+:return:&nbsp;HLT&nbsp;heat&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_hop_hop_amt"><strong>get_hop_hop_amt</strong></a>(self)</dt><dd><tt>Gets&nbsp;hops&nbsp;names&nbsp;and&nbsp;respective&nbsp;amounts<br>
+:return:&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;hops&nbsp;and&nbsp;respective&nbsp;weights</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_hop_schedule"><strong>get_hop_schedule</strong></a>(self)</dt><dd><tt>Gets&nbsp;hop&nbsp;schedule<br>
+:return:&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;hops&nbsp;and&nbsp;times&nbsp;to&nbsp;add&nbsp;them</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_hops_weight"><strong>get_hops_weight</strong></a>(self, hop_hop_amt)</dt><dd><tt>Gets&nbsp;total&nbsp;hops&nbsp;weight<br>
+:param&nbsp;hop_hop_amt:&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;hops&nbsp;and&nbsp;respective&nbsp;weights<br>
+:return:&nbsp;total&nbsp;hops&nbsp;weight</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_ibu"><strong>get_ibu</strong></a>(self)</dt><dd><tt>Gets&nbsp;IBU<br>
+:return:&nbsp;<a href="#Recipe">Recipe</a>&nbsp;International&nbsp;Bitter&nbsp;Units</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_id"><strong>get_id</strong></a>(self)</dt><dd><tt>Gets&nbsp;<a href="#Recipe">Recipe</a>&nbsp;ID<br>
+:return:&nbsp;recipe&nbsp;id</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_mill_time"><strong>get_mill_time</strong></a>(self)</dt><dd><tt>Gets&nbsp;milling&nbsp;time<br>
+:return:&nbsp;milling&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_name"><strong>get_name</strong></a>(self)</dt><dd><tt>Gets&nbsp;<a href="#Recipe">Recipe</a>&nbsp;Name<br>
+:return:&nbsp;recipe&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_og"><strong>get_og</strong></a>(self)</dt><dd><tt>Gets&nbsp;original&nbsp;gravity<br>
+:return:&nbsp;original&nbsp;gravity</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_sparge_time"><strong>get_sparge_time</strong></a>(self)</dt><dd><tt>Gets&nbsp;sparge&nbsp;time<br>
+:return:&nbsp;sparge&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_stir_time"><strong>get_stir_time</strong></a>(self)</dt><dd><tt>Gets&nbsp;stirring&nbsp;time<br>
+:return:&nbsp;stir&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_water_temp"><strong>get_water_temp</strong></a>(self)</dt><dd><tt>Gets&nbsp;water&nbsp;temperature<br>
+:return:&nbsp;water&nbsp;temperature</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_water_volume"><strong>get_water_volume</strong></a>(self)</dt><dd><tt>Gets&nbsp;water&nbsp;volume<br>
+:return:&nbsp;water&nbsp;volume</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_wort_separation_time"><strong>get_wort_separation_time</strong></a>(self)</dt><dd><tt>Gets&nbsp;wort&nbsp;separation&nbsp;time<br>
+:return:&nbsp;wort&nbsp;separation&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_wort_volume"><strong>get_wort_volume</strong></a>(self)</dt><dd><tt>Gets&nbsp;desired&nbsp;wort&nbsp;volume<br>
+:return:&nbsp;desired&nbsp;wort&nbsp;volume</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_yeast"><strong>get_yeast</strong></a>(self)</dt><dd><tt>Gets&nbsp;Yest<br>
+:return:&nbsp;yeast</tt></dd></dl>
+
+<dl><dt><a name="Recipe-get_yeast_storage_amt"><strong>get_yeast_storage_amt</strong></a>(self)</dt><dd><tt>Gets&nbsp;yeast&nbsp;storage&nbsp;amount<br>
+:return:&nbsp;yeast&nbsp;amount</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>recipe_id</strong> = 0</dl>
+
+</td></tr></table></td></tr></table>
+</body></html>
