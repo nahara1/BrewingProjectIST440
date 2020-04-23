@@ -6,7 +6,7 @@
 # Last Date Changed: 4/18/20
 # Rev 1
 
-"""This module is used to initialize a new batch for the automated process to begin """
+""" This module is used to initialize a new batch for the automated process to begin """
 
 from Brewing import BrewBatch
 from Brewing import BrewBatchStage
@@ -20,7 +20,7 @@ def set_up_brew_stage(request_number):
     """
     Initializes a Brew Batch Stage Object in order to start the brewing process
     :param request_number: ServiceNow generated request number
-    :return: a Brew Batch Stage object
+    :return: a Brew Batch Stage instance
     """
     print("Starting Prep Stage")
 
@@ -52,7 +52,7 @@ def start_brew_batch(request_number, brew_stage, recipe):
     :param request_number: Request Number to be used as the Brew Batch ID
     :param brew_stage: Brew Batch Stage object
     :param recipe: Recipe Object
-    :return:      a Brew Batch object
+    :return:      a Brew Batch instance
     """
 
     # Create log in ServiceNow
@@ -65,7 +65,8 @@ def start_brew_batch(request_number, brew_stage, recipe):
     print("Successfully logged that Prep Stage is in progress")
 
     print("-----------------------------------------")
-    log = Log.Log("Prep", "Prep Initialized", datetime.datetime.now(), "pass")
+
+    log = Log.Log(123, "Prep", "Prep Initialized", datetime.datetime.now(), "pass")
     print(log.generate_log())
     print("-----------------------------------------")
 
