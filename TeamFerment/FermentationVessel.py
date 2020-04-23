@@ -75,7 +75,7 @@ class FermentationVessel:
         """
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Measuring Original Gravity\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        log = Log(4, "Ferment.Measure Original Gravity", "Measuring original gravity ", datetime.datetime.now(),
+        log = Log(4, "Ferment.MeasureOriginalGravity", "Measuring original gravity ", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
         base_measurement = 0
@@ -117,7 +117,7 @@ class FermentationVessel:
         try:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Adding yeast to vessel\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-            log = Log(6, "Ferment.addYeast", "Activated yeast has been added to the fermentation vessel",
+            log = Log(5, "Ferment.addYeast", "Activated yeast has been added to the fermentation vessel",
                       datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
@@ -140,7 +140,7 @@ class FermentationVessel:
         try:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Closing lid of vessel\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-            log = Log(7, "Ferment.closeLid", "Closing lid", datetime.datetime.now(), "pass")
+            log = Log(6, "Ferment.closeLid", "Closing lid", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
         except Exception as ex:
@@ -161,10 +161,10 @@ class FermentationVessel:
         try:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\" Setting fermentation temperature\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-            log = Log(8, "Ferment.setFermentTemperature",
+            log = Log(7, "Ferment.setFermentTemperature",
                       "Temperature is set at %.2f" % self.sample_ferment_tempertature, datetime.datetime.now(), "pass")
             print(log.generate_log())
-        except Exception as ex:  # error handling
+        except Exception as ex:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\" Set Fermentation Temperature Process Failed\"}"
             ServiceNowLog.create_new_log(self, status_log)
             log = Log(1, "Ferment.setFermentTemperature", datetime.datetime.now(), "fail")
@@ -181,7 +181,7 @@ class FermentationVessel:
         """
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\" Fermentation had begun\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        log = Log(9, "Ferment.beginFermentationProcess", "Beginning Fermentation Process", datetime.datetime.now(),
+        log = Log(8, "Ferment.beginFermentationProcess", "Beginning Fermentation Process", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
         try:
@@ -196,7 +196,7 @@ class FermentationVessel:
                               datetime.datetime.now(),
                               "pass")
                     print(log.generate_log())
-        except Exception as ex:  # error handling
+        except Exception as ex:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\" Fermentation Process Failed\"}"
             ServiceNowLog.create_new_log(self, status_log)
             log = Log(1, "Ferment.beginFermentationProcess", datetime.datetime.now(), "fail")
@@ -213,7 +213,7 @@ class FermentationVessel:
         """
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\" Measuring Final Gravity\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        log = Log(11, "Ferment.FinalGravity", "Measuring Final Gravity", datetime.datetime.now(), "pass")
+        log = Log(9, "Ferment.MeasureFinalGravity", "Measuring Final Gravity", datetime.datetime.now(), "pass")
         print(log.generate_log())
         base_measurement = 0
         try:
@@ -224,11 +224,11 @@ class FermentationVessel:
                 if base_measurement == self.final_gravity:
                     print("Final Gravity has been measured")
                     print("-----------------------------------------")
-                    log = Log(10, "Ferment.MeasureFinalGravity", " Final gravity measured ",
+                    log = Log(9, "Ferment.MeasureFinalGravity", " Final gravity measured ",
                               datetime.datetime.now(),
                               "pass")
                     print(log.generate_log())
-        except Exception as ex:  # error handling
+        except Exception as ex:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\" Measure Final Gravity Process Failed\"}"
             ServiceNowLog.create_new_log(self, status_log)
             log = Log(1, "Ferment.MeasureFinalGravity", datetime.datetime.now(), "fail")
@@ -249,11 +249,11 @@ class FermentationVessel:
         try:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Draining Ale\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-            log = Log(11, "Ferment.drainAle", "Draining Ale. Sending to QA", datetime.datetime.now(), "pass")
+            log = Log(10, "Ferment.drainAle", "Draining Ale. Sending to QA", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
             self.qa(1)
-        except Exception as ex:  # error handling
+        except Exception as ex:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\" Draining Ale Process Failed\"}"
             ServiceNowLog.create_new_log(self, status_log)
             log = Log(1, "Ferment.drainAle", datetime.datetime.now(), "fail")
@@ -269,16 +269,16 @@ class FermentationVessel:
         """
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Checking Quality Assurance\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-        log = Log(12, "Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "fail")
+        log = Log(11, "Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "fail")
         print(log.generate_log())
         try:
             difference = self.final_gravity - self.original_gravity
             measured_abv = (difference * 131.25)
             abs(measured_abv) == measured_abv
             if measured_abv == self.base_abv:
-                log = Log(13, "Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "pass")
+                log = Log(11, "Ferment.QualityAssurance", "Quality Assurance", datetime.datetime.now(), "pass")
                 print(log.generate_log())
-        except Exception as ex:  # error handling
+        except Exception as ex:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Quality AssuranceProcess Failed\"}"
             ServiceNowLog.create_new_log(self, status_log)
             log = Log(1, "Ferment.QualityAssurance", datetime.datetime.now(), "fail")
@@ -296,10 +296,10 @@ class FermentationVessel:
         try:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Sending Ale to the Kegging Process\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-            log = Log(13, "Ferment.send_to_kegging", "Ale sent to kegging", datetime.datetime.now(), "pass")
+            log = Log(12, "Ferment.send_to_kegging", "Ale sent to kegging", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
-        except Exception as ex:  # error handling
+        except Exception as ex:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Send to Kegging Process Failed\"}"
             ServiceNowLog.create_new_log(self, status_log)
             log = Log(1, "Ferment.send_to_kegging", datetime.datetime.now(), "fail")
@@ -312,11 +312,10 @@ class FermentationVessel:
         try:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Sanitizing Vessel\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-            log = Log(14, "Ferment.sanitize_vessels", datetime.datetime.now(), "pass")
+            log = Log(13, "Ferment.sanitize_vessels", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
-
-        except Exception as ex:  # error handling
+        except Exception as ex:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Sanitation Process Failed\"}"
             ServiceNowLog.create_new_log(self, status_log)
             log = Log(1, "Ferment.sanitize_vessels", datetime.datetime.now(), "fail")
