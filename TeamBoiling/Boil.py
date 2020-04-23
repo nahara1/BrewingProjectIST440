@@ -11,7 +11,7 @@ import time
 import logging
 
 from TeamBoiling import QualityCheck
-from TeamBoiling.DisplayHelper import DisplayHelper
+from TeamBoiling import DisplayHelper
 from TeamBoiling import SensorHelper
 from TeamBoiling.UnitTests import TempBoilRecipe
 
@@ -137,8 +137,8 @@ class Boil:
 
 
 def run_boil(request_number, boil_temp, boil_time):
-    DisplayHelper.DisplayHelper.print_start_info(request_number, boil_temp, boil_time, stage_date_time=datetime.datetime.now(), is_boiling='True')
+    DisplayHelper.DisplayHelper.print_start_info(request_number, boil_temp, boil_time, stage_date_time=datetime.datetime.now())
     SensorHelper.SensorHelper.boil_timer(request_number, boil_time)
     DisplayHelper.DisplayHelper.print_end_info(end_stage_date_time=datetime.datetime.now(), stage_duration=boil_time)
-    QualityCheck.QualityCheck.get_QA_Check(request_number)
+    return QualityCheck.QualityCheck.get_QA_Check(request_number)
 

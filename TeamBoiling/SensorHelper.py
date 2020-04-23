@@ -8,10 +8,10 @@
 
 import logging
 import random
-from Brewing import ServiceNowLog
 from Brewing.ServiceNowLog import ServiceNowLog
 from time import sleep
 
+sleep_time = .25
 
 class SensorHelper:
 
@@ -101,19 +101,19 @@ class SensorHelper:
         boil_time = int(boil_time)
         for x in reversed(range(boil_time)):
             print(x+1)
-            sleep(1)
+            sleep(sleep_time)
             # Test if Brew has over boiled
             boilOverTemp = random.randrange(1, 200)
             if boilOverTemp == 1:
                 print("BEEP! Brew has boiled over! Trash brew.")
-                sleep(1)
+                sleep(sleep_time)
                 print("Brew has stopped boiling")
-                sleep(1)
+                sleep(sleep_time)
                 print("Logging to Service Now...")
-                sleep(1)
+                sleep(sleep_time)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Brew has Boiled Over\"}"
                 sn_log = ServiceNowLog()
-                ServiceNowLog.ServiceNowLog.create_new_log(sn_log, status_log)
+                ServiceNowLog.create_new_log(sn_log, status_log)
                 break
 
         if boilOverTemp != 1:

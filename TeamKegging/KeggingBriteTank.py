@@ -41,7 +41,6 @@ class KeggingBriteTank:  # Brite Tank
                 bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog.ServiceNowLog(), status_log)
             bt_loglist.append(status_log)
-            MongoLogging.MongoLogging().MongoLog(status_log)
             ml = MongoLogging.MongoLogging()
             MongoLogging.MongoLogging.MongoLog(ml, batch_id, "Kegging", log_message)
 

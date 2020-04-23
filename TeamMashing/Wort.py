@@ -13,6 +13,7 @@ from Brewing.ServiceNowLog import ServiceNowLog
 
 # Wort class checks for water temperature, water volume and records separation time.
 
+sleep_time = .25
 
 class Wort:
     def __init__(self):
@@ -134,7 +135,7 @@ class Wort:
             # Counts the separation time in seconds
             while self.separation_time > 0:
                 print("Wort Separating Time Left: ", self.separation_time, "min")
-                time.sleep(1)
+                time.sleep(sleep_time)
                 self.separation_time -= 1
 
                 # Verifies that the wort separation has been completed.
@@ -152,6 +153,7 @@ class Wort:
 
             print("Wort Separated from Mash")
             print("-----------------------------------------")
+            return True
 
         except Exception as e:  # error handling
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Wort Separation Failed\"}"

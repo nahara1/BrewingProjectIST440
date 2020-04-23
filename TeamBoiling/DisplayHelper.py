@@ -10,8 +10,8 @@ import logging
 from datetime import datetime
 from time import sleep
 from Brewing.ServiceNowLog import ServiceNowLog
-from Brewing import ServiceNowLog
 
+sleep_time = .25
 
 class DisplayHelper:
 
@@ -38,26 +38,26 @@ class DisplayHelper:
         :param is_boiling: Is it boiling
         """
         print("Starting Boil Stage")
-        sleep(1)
+        sleep(sleep_time)
         print("Logging to ServiceNow...")
-        sleep(1)
+        sleep(sleep_time)
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Starting Boil Process\"}"
         sn_log = ServiceNowLog()
-        ServiceNowLog.ServiceNowLog.create_new_log(sn_log, status_log)
+        ServiceNowLog.create_new_log(sn_log, status_log)
         print("Successfully logged that Boil Stage has started")
         print("-----------------------------------------")
-        sleep(1)
+        sleep(sleep_time)
         print("Start Time:", stage_date_time)
-        sleep(1)
+        sleep(sleep_time)
         print("Boil Time:", boil_time, "Minutes")
-        sleep(1)
+        sleep(sleep_time)
         print("Boil Temp:", boil_temp, "Degrees Celsius")
         print("-----------------------------------------")
-        sleep(1)
+        sleep(sleep_time)
         print("Turning on Burner...")
-        sleep(3)
+        sleep(sleep_time*3)
         print("Burner is up to temp! Temperature =", boil_temp, "degrees")
-        sleep(1)
+        sleep(sleep_time)
         print('Now boiling for', boil_time, "Minutes...")
 
     def print_end_info(self, end_stage_date_time, stage_duration):
@@ -68,9 +68,9 @@ class DisplayHelper:
         """
         print("-----------------------------------------")
         print("End time:", end_stage_date_time)
-        sleep(1)
+        sleep(sleep_time)
         print("-----------------------------------------")
-        sleep(1)
+        sleep(sleep_time)
 
     logging.info("Thread %s: finishing Getters and Setters")  # Threading
 

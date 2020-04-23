@@ -9,10 +9,10 @@
 # Import Statements
 import time
 import logging
-from Brewing import ServiceNowLog
 from time import sleep
 from Brewing.ServiceNowLog import ServiceNowLog
 
+sleep_time = .25
 
 class QualityCheck:
     # Variables
@@ -170,25 +170,25 @@ class QualityCheck:
         while quality_checked != "Yes" or quality_checked != "No":
             if quality_checked == "Yes":
                 print("Logging to ServiceNow...")
-                sleep(1)
+                sleep(sleep_time)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Finished Boiling; Passed QA\"}"
                 sn_log = ServiceNowLog()
-                ServiceNowLog.ServiceNowLog.create_new_log(sn_log, status_log)
-                sleep(1)
+                ServiceNowLog.create_new_log(sn_log, status_log)
+                sleep(sleep_time)
                 print("Successfully logged that Boil has completed and passes Quality Assurance.")
-                sleep(1)
+                sleep(sleep_time)
+                return True
                 # Call Team Ferment
-                break
             elif quality_checked == "No":
                 print("Logging to ServiceNow...")
-                sleep(1)
+                sleep(sleep_time)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Finished Boiling; Failed QA\"}"
                 sn_log = ServiceNowLog()
-                ServiceNowLog.ServiceNowLog.create_new_log(sn_log, status_log)
-                sleep(1)
+                ServiceNowLog.create_new_log(sn_log, status_log)
+                sleep(sleep_time)
                 print("Quality Did not Pass, Please inspect and trash.")
-                sleep(1)
-                break
+                sleep(sleep_time)
+                return False
             else:
                 text = input("Please Enter Yes or No: ")
                 quality_checked = text

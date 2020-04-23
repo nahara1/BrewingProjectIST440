@@ -23,6 +23,8 @@ from TeamPrep.QualityCheck_Prep import QualityCheck
 from Brewing import MongoLogging
 from Brewing import ServiceNowLog
 
+main_stage = "START"
+
 
 def call_prep(request_number, recipe):
     """
@@ -39,8 +41,12 @@ def call_prep(request_number, recipe):
     Sanitization.Sanitization.sanitization(s, request_number)
     Temperature.Temperature.yeast_temp(t, request_number)
     WeightScale.WeightScale.read_weight_grains(w, recipe, request_number)
-    WeightScale.WeightScale.read_weight_hops(w, recipe,request_number)
-    QualityCheck_Prep.QualityCheck.get_QA_Check(q, request_number)
+    WeightScale.WeightScale.read_weight_hops(w, recipe, request_number)
+    while not QualityCheck_Prep.QualityCheck.get_QA_Check(q, request_number):
+        print("Prep QA Failed")
+
+    return True
+
 
 def call_mash(request_number, recipe):
     """
@@ -51,6 +57,8 @@ def call_mash(request_number, recipe):
     """
     m = MillingMachine.MillingMachine()
     MillingMachine.MillingMachine.mill_grains(m, recipe, request_number)
+    return True
+
 
 
 def call_boil(request_number, recipe):
@@ -62,7 +70,7 @@ def call_boil(request_number, recipe):
     """
     boil_temp = recipe.get_boil_temp()
     boil_time = recipe.get_boil_time()
-    Boil.run_boil(request_number, boil_temp, boil_time)
+    return Boil.run_boil(request_number, boil_temp, boil_time)
 
 
 def call_ferment(request_number, recipe):
@@ -73,6 +81,7 @@ def call_ferment(request_number, recipe):
     :return: none
     """
     Fermentation.start_fermentation_process(request_number, recipe)
+    return True
 
 
 def call_kegging(request_number, recipe):
@@ -85,6 +94,86 @@ def call_kegging(request_number, recipe):
     recipe_ibu = recipe.get_ibu()
     kegging_process = KeggingMain(request_number, "BRITE_START,", recipe_ibu)
     kegging_process.start()
+    return True
+
+
+def brew_loops(request_number, request_id, recipe):
+    try:
+        prep_pass = False
+
+        while not prep_pass:
+            # Call Prep
+            if call_prep(request_number, recipe):
+
+                # Update Request Stage
+                BrewRequest.update_brew_stage(request_id, "Mashing Stage")
+                prep_pass = True
+
+            else:
+                print("Prep Stage not completed.")
+                print("Making new batch attempt...")
+
+            mash_pass = False
+
+            while not mash_pass and prep_pass:
+                # Call Mashing
+                if call_mash(request_number, recipe):
+                    # Update Request Stage
+                    BrewRequest.update_brew_stage(request_id, "Boiling Stage")
+                    mash_pass = True
+
+                else:
+                    print("Mash Stage not completed.")
+                    print("Making new batch attempt...")
+                    prep_pass = False
+                    break
+
+            boil_pass = False
+
+            while not boil_pass and prep_pass:
+                # Call Boil
+                if call_boil(request_number, recipe):
+                    # Update Request Stage
+                    BrewRequest.update_brew_stage(request_id, "Fermentation Stage")
+                    boil_pass = True
+
+                else:
+                    print("Boil Stage not completed.")
+                    print("Making new batch attempt...")
+                    prep_pass = False
+                    break
+
+            ferment_pass = False
+
+            while not ferment_pass and prep_pass:
+                # Call Ferment
+                if call_ferment(request_number, recipe):
+                    # Update Request Stage
+                    BrewRequest.update_brew_stage(request_id, "Kegging Stage")
+                    ferment_pass = True
+
+                else:
+                    print("Ferment Stage not completed.")
+                    print("Making new batch attempt...")
+                    prep_pass = False
+                    break
+
+            kegging_pass = False
+
+            while not kegging_pass and prep_pass:
+                # Call Kegging
+                if call_kegging(request_number, recipe):
+                    print("Batch is completed")
+                    kegging_pass = True
+                else:
+                    print("Kegging Stage not completed.")
+                    print("Making new batch attempt...")
+                    prep_pass = False
+                    break
+
+    except Exception as e:
+
+        print("Error message: ", e)
 
 
 def main():
@@ -92,11 +181,15 @@ def main():
     Gets brew requests from ServiceNow and initiates brewing through its completion
     :return: none
     """
+    print("Welcome to Balrog Brewery\n")
+    input("Press any key to continue: ")
+    print("Fetching brew request...")
 
     # Get a brew request
     # 1 - Get brew request id and initialize request_number, which is
     #     going to be used as the brew batch id
     request_id = BrewRequest.get_request_id()
+    print("Request ID: ", request_id)
     request_number = ''
 
     # 2 - Get brew request number
@@ -106,6 +199,7 @@ def main():
         main()
     # 3 - Update brew request
     BrewRequest.update_brew_stage(request_id, "Approval")
+    # 534ae46a1b1098107bd975541a4bcb8a
 
     # 4 - Get requested brew id based on request number
     item_id = BrewRequest.get_catalog_item_id(request_number)
@@ -127,42 +221,12 @@ def main():
                                      "in prep",
                                      recipe.get_batch_size())
 
-    try:
-
-        # Call Prep
-        #call_prep(request_number, recipe)
-
-        # Update Request Stage
-        BrewRequest.update_brew_stage(request_id, "Mashing Stage")
-
-        # Call Mashing
-        call_mash(request_number, recipe)
-
-        # Update Request Stage
-        BrewRequest.update_brew_stage(request_id, "Boiling Stage")
-
-        # Call Boil
-        call_boil(request_number, recipe)
-
-        # Update Request Stage
-        BrewRequest.update_brew_stage(request_id, "Fermentation Stage")
-
-        # Call Ferment
-        call_ferment(request_number, recipe)
-
-        # Update Request Stage
-        BrewRequest.update_brew_stage(request_id, "Kegging Stage")
-
-        # Call Kegging
-        # call_kegging(request_number, recipe)
-
-    except Exception as e:
-
-        print("Error message: ", e)
+    #brew_loops(request_number, request_id, recipe)
+    call_kegging(request_number, recipe)
 
     main()
 
 
 if __name__ == "__main__":
     main()
-#This is a test of github at 9:33 on 4/23/2020
+# This is a test of github at 9:33 on 4/23/2020

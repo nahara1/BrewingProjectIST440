@@ -14,6 +14,7 @@ from Brewing import ServiceNowLog
 from Brewing import MongoLogging
 import Brewing.BrewMaster
 
+sleep_time = .25
 
 class FermentationVessel:
     def __init__(self, recipe):
@@ -25,12 +26,13 @@ class FermentationVessel:
         self.final_gravity = recipe.get_fg()
         self.base_abv = recipe.get_abv()
 
-    def get_wort(self, request_number, recipe, vessel_id):
+    def get_wort(self, request_number):
         """
         Function for receiving the wort
         :param request_number: the ID of the current batch
         :return: Return log
         """
+
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Starting Fermentation Process\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(1, "Receiving wort", "Received wort from Team Boil", datetime.datetime.now(), "pass")
@@ -38,9 +40,9 @@ class FermentationVessel:
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Starting Fermentation Process")
         print("-----------------------------------------")
-        self.add_to_fermentation_vessel(vessel_id=1)
+        self.add_to_fermentation_vessel(request_number)
 
-    def add_to_fermentation_vessel(self, vessel_id, request_number):
+    def add_to_fermentation_vessel(self, request_number):
         """
         Function for adding the wort to fermentation vessel
         :param: vessel_id : the ID of the vessel
@@ -54,7 +56,7 @@ class FermentationVessel:
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Wort added to Fermentation Vessel")
         print("-----------------------------------------")
-        self.measure_original_gravity()
+        self.measure_original_gravity(request_number)
 
     def measure_original_gravity(self, request_number):
         """
@@ -71,7 +73,7 @@ class FermentationVessel:
         try:
             while base_measurement < self.original_gravity:
                 print("Measuring: ", base_measurement, "g/mL")  # grams per milli-Liter
-                time.sleep(1)
+                time.sleep(sleep_time)
                 base_measurement += 0.050
                 if base_measurement == self.original_gravity:
                     print("Original Gravity has been measured")
@@ -85,7 +87,7 @@ class FermentationVessel:
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Measured Original Gravity")
         print("-----------------------------------------")
-        self.add_yeast()
+        self.add_yeast(request_number)
 
     def get_original_gravity(self):
         """
@@ -109,7 +111,7 @@ class FermentationVessel:
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Adding Yeast to Fermentation Vessel")
         print("-----------------------------------------")
-        self.close_lid()
+        self.close_lid(request_number)
         return ("Yeast added")
 
     def close_lid(self, request_number):
@@ -125,7 +127,7 @@ class FermentationVessel:
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Closing Fermentation Vessel Lid")
         print("-----------------------------------------")
-        self.begin_fermentation_process()
+        self.begin_fermentation_process(request_number)
 
     def set_ferment_temperature(self, request_number):
         """
@@ -136,13 +138,13 @@ class FermentationVessel:
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\" Setting fermentation temperature\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(7, "Ferment.setFermentTemperature",
-                  "Temperature is set at %.2f" % self.sample_ferment_tempertature,
+                  "Temperature is set at %.2f" % self.ferment_temp,
                   datetime.datetime.now(), "pass")
         print(log.generate_log())
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Setting Fermentation Temperature")
         print("-----------------------------------------")
-        self.begin_fermentation_process()
+        self.begin_fermentation_process(request_number)
 
     def begin_fermentation_process(self, request_number):
         """
@@ -156,11 +158,11 @@ class FermentationVessel:
                   "pass")
         print(log.generate_log())
         try:
-            while self.fermentation_time > 0:
-                print("Fermentation time Left: ", self.fermentation_time, "sec")
-                time.sleep(1)
-                self.fermentation_time -= 1
-                if self.fermentation_time == 0:
+            while self.ferment_time > 0:
+                print("Fermentation time Left: ", self.ferment_time, "sec")
+                time.sleep(sleep_time)
+                self.ferment_time -= 1
+                if self.ferment_time == 0:
                     print("Fermentation has completed")
                     print("-----------------------------------------")
                     log = Log(8, "Ferment.beginFermentationProcess", "Fermentation has completed",
@@ -172,7 +174,7 @@ class FermentationVessel:
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Fermentation has begun")
         print("-----------------------------------------")
-        self.measure_final_gravity()
+        self.measure_final_gravity(request_number)
 
     def measure_final_gravity(self, request_number):
         """
@@ -188,7 +190,7 @@ class FermentationVessel:
         try:
             while base_measurement < self.final_gravity:
                 print("Measuring Final Gravity: ", base_measurement, "g/mL")  # grams per milli-Liter
-                time.sleep(1)
+                time.sleep(sleep_time)
                 base_measurement += 0.050
                 if base_measurement == self.final_gravity:
                     print("Final Gravity has been measured")
@@ -202,7 +204,7 @@ class FermentationVessel:
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Measured Final Gravity")
         print("-----------------------------------------")
-        self.drain_ale()
+        self.drain_ale(request_number)
 
     def get_final_gravity(self):
         return self.final_gravity
@@ -220,7 +222,7 @@ class FermentationVessel:
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Draining Ale")
         print("-----------------------------------------")
-        self.qa(1)
+        self.qa(self.brew_master_id, request_number)
 
     def qa(self, brew_master_id, request_number):
         """
@@ -244,7 +246,7 @@ class FermentationVessel:
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Checked Quality Assurance")
         print("-----------------------------------------")
-        self.send_to_kegging()
+        self.send_to_kegging(request_number)
 
     def send_to_kegging(self, request_number):
         """

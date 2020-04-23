@@ -14,6 +14,8 @@ from TeamMashing.HotLiquorTank import HotLiquorTank
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
 
+sleep_time = .25
+
 class MillingMachine:  # MillingMachine Start
     def __init__(self):  # constructor initalized fields
         self.machine_id = 1
@@ -45,7 +47,7 @@ class MillingMachine:  # MillingMachine Start
 
             while self.mill_time > 0:
                 print("Milling Time Left: ", self.mill_time, "min")
-                time.sleep(1)
+                time.sleep(sleep_time)
                 self.mill_time -= 1
 
                 if self.mill_time == 0:
