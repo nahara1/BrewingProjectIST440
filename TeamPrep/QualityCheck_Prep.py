@@ -13,13 +13,15 @@ import time
 from Brewing.Log import Log
 import datetime
 from Brewing import MongoLogging
+from TeamPrep.WeightScale import WeightScale
 
+w = WeightScale()
 
 class QualityCheck:
 
     # noinspection PyMethodMayBeStatic
     def __init__(self):
-        self.log_no = 20
+        self.log_no = w.log_no
 
     def get_QA_Check(self, request_number):
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"QualityCheck_Prep\"}"

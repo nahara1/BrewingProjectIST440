@@ -15,14 +15,15 @@ from Brewing.Recipe import Recipe
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing.BrewRequest import Recipe
 from Brewing import MongoLogging
+from TeamPrep.Temperature import Temperature
 
-
+t = Temperature()
 # noinspection PyUnusedLocal,PyMethodMayBeStatic,PyMethodMayBeStatic,PyMethodMayBeStatic
 class WeightScale:
 
     def __init__(self):  # constructor initialized field
 
-        self.log_no = 8
+        self.log_no = t.log_no
         self.hop_hop_amt = None
         self.grain = None
 
@@ -57,7 +58,8 @@ class WeightScale:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(self.log_no + 1, "Prep.WeightScale", "Grains list and weight copied from ordered brew recipe.",
+            self.log_no = self.log_no +1
+            log = Log(self.log_no, "Prep.WeightScale", "Grains list and weight copied from ordered brew recipe.",
                       datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
@@ -68,7 +70,8 @@ class WeightScale:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(self.log_no + 1, "Prep.WeightScale", "Hops list and weight copied from ordered brew recipe.",
+            self.log_no = self.log_no + 1
+            log = Log(self.log_no, "Prep.WeightScale", "Hops list and weight copied from ordered brew recipe.",
                       datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
@@ -83,6 +86,7 @@ class WeightScale:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
+                self.log_no =   self.log_no + 1
                 log = Log(self.log_no + 1, "Prep.WeightScale", "Weight scale is set to zero.",
                           datetime.datetime.now(),
                           "pass")
@@ -94,7 +98,8 @@ class WeightScale:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
-                log = Log(self.log_no + 1, "Prep.WeightScale", "Brewer is being asked to dispense " + grain[i] + ".",
+                self.log_no = self.log_no + 1
+                log = Log(self.log_no, "Prep.WeightScale", "Brewer is being asked to dispense " + grain[i] + ".",
                           datetime.datetime.now(),
                           "pass")
                 print(log.generate_log())
@@ -124,6 +129,7 @@ class WeightScale:
                         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                         sn_log = ServiceNowLog()
                         ServiceNowLog.create_new_log(sn_log, status_log)
+                        self.log_no = self.log_no + 1
                         log = Log(self.log_no, "Prep.WeightScale", grain[i] + " grain received.",
                                   datetime.datetime.now(),
                                   "pass")
@@ -139,7 +145,8 @@ class WeightScale:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(self.log_no + 1, "Prep.WeightScale", "Failed to dispense " + grain[i] + ".",
+            self.log_no = self.log_no + 1
+            log = Log(self.log_no, "Prep.WeightScale", "Failed to dispense " + grain[i] + ".",
                       datetime.datetime.now(),
                       "fail")
             print(log.generate_log())
@@ -164,7 +171,8 @@ class WeightScale:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
-                log = Log(self.log_no + 1, "Prep.WeightScale", "Weight scale is set to zero.",
+                self.log_no = self.log_no + 1
+                log = Log(self.log_no, "Prep.WeightScale", "Weight scale is set to zero.",
                           datetime.datetime.now(),
                           "pass")
                 print(log.generate_log())
@@ -175,7 +183,8 @@ class WeightScale:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
-                log = Log(self.log_no + 1, "Prep.WeightScale", "Brewer is being asked to dispense " + hop[i] + ".",
+                self.log_no = self.log_no + 1
+                log = Log(self.log_no, "Prep.WeightScale", "Brewer is being asked to dispense " + hop[i] + ".",
                           datetime.datetime.now(),
                           "pass")
                 print(log.generate_log())
@@ -207,7 +216,8 @@ class WeightScale:
                         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                         sn_log = ServiceNowLog()
                         ServiceNowLog.create_new_log(sn_log, status_log)
-                        log = Log(self.log_no + 1, "Prep.WeightScale", hop[i] + " hop received.",
+                        self.log_no = self.log_no + 1
+                        log = Log(self.log_no, "Prep.WeightScale", hop[i] + " hop received.",
                                   datetime.datetime.now(),
                                   "pass")
                         print(log.generate_log())
@@ -222,6 +232,7 @@ class WeightScale:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
+            self.log_no = self.log_no + 1
             log = Log(self.log_no + 1, "Prep.WeightScale", "Failed to dispense " + hop[i] + ".",
                       datetime.datetime.now(),
                       "fail")
