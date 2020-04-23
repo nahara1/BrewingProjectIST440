@@ -20,6 +20,8 @@ import datetime
 from TeamBoiling import Boil
 from TeamKegging.KeggingMain import KeggingMain
 from TeamPrep.QualityCheck_Prep import QualityCheck
+from Brewing import MongoLogging
+from Brewing import ServiceNowLog
 
 
 def call_prep(request_number, recipe):
@@ -90,6 +92,7 @@ def main():
     Gets brew requests from ServiceNow and initiates brewing through its completion
     :return: none
     """
+
     # Get a brew request
     # 1 - Get brew request id and initialize request_number, which is
     #     going to be used as the brew batch id
