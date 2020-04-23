@@ -20,8 +20,7 @@ t = Temperature()
 w = WeightScale()
 s1 = ServiceNowLog()
 # this function will called on staring of every thread
-
-
+sleep_time = .25
 
 def thread_function():
     '''
@@ -58,7 +57,7 @@ def prep_main():
     Main Method for Team Prep to excute
     return: excutes main method with threads
     '''
-    time.sleep(2)
+    time.sleep(sleep_time*2)
     thread_list = []
     # to create up to 5 Threads
     for x in range(5):

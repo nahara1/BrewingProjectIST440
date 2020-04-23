@@ -15,6 +15,7 @@ import datetime
 from Brewing import MongoLogging
 from TeamPrep.WeightScale import WeightScale
 
+sleep_time = .25
 w = WeightScale()
 
 class QualityCheck:
@@ -32,20 +33,24 @@ class QualityCheck:
                   datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
+        time.sleep(sleep_time)
         ml = MongoLogging.MongoLogging()
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.QualityCheck",
                                            "Prep quality check started.")
-        time.sleep(1)
+        time.sleep(sleep_time)
         print("Please Inspect the Prep Quality Before Start Brewing to Check if it Meets CGMP Standards: \n")
         # save text as variable
         quality_checked = ""
         while quality_checked != "Yes" or quality_checked != "No":
             if quality_checked == "Yes":
                 print("Logging to ServiceNow...")
-                time.sleep(1)
+                time.sleep(sleep_time)
+                status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Finished Prep process; Passed QA\"}"
+                time.sleep(sleep_time)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"QualityCheck_Prep\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
+                time.sleep(sleep_time)
                 self.log_no = self.log_no + 1
                 log = Log(self.log_no, "Prep.QualityCheck", " Prep quality check: Passed QA.",
                           datetime.datetime.now(),
@@ -54,16 +59,20 @@ class QualityCheck:
                 ml = MongoLogging.MongoLogging()
                 MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.QualityCheck",
                                                    "Prep quality check: Passed QA.")
-                time.sleep(1)
+                time.sleep(sleep_time)
                 print("Successfully logged that Prep processes has completed and passes Quality Assurance.")
-                time.sleep(1)
-                break
+                time.sleep(sleep_time)
+                return True
             elif quality_checked == "No":
                 print("Logging to ServiceNow...")
-                time.sleep(1)
+                time.sleep(sleep_time)
+                status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Prep stage; Failed QA\"}"
+                time.sleep(sleep_time)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"QualityCheck_Prep\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
+                time.sleep(sleep_time)
+                print("Quality Did not Pass, make correction and inspect again.")
                 self.log_no = self.log_no + 1
                 log = Log(self.log_no, "Prep.QualityCheck", " Prep quality check: Failed QA.",
                           datetime.datetime.now(),
@@ -72,10 +81,10 @@ class QualityCheck:
                 ml = MongoLogging.MongoLogging()
                 MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.QualityCheck",
                                                    "Prep quality check: Failed QA.")
-                time.sleep(1)
+                time.sleep(sleep_time)
                 print("\nQuality Did not Pass, make correction and inspect again.\n")
                 quality_checked = ""
-                time.sleep(1)
+                time.sleep(sleep_time)
             else:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"QualityCheck_Prep\"}"
                 sn_log = ServiceNowLog()
@@ -83,7 +92,7 @@ class QualityCheck:
                 self.log_no = self.log_no + 1
                 log = Log(self.log_no, "Prep.QualityCheck"," Prep quality check failed and need correction .",
                           datetime.datetime.now(),
-                          "pass")
+                          "fail")
                 print(log.generate_log())
                 ml = MongoLogging.MongoLogging()
                 MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.QualityCheck",

@@ -63,7 +63,8 @@ def get_request_id():
     :return: request_id
     """
     # Requests Table url
-    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request?sysparm_query=stage%3DRequested&sysparm_fields=sys_id%2Crequested_for%2Copened_by%2Csys_created_by%2Cdelivery_address%2Cprice%2Cnumber%2Crequest_state%2Cstage&sysparm_limit=1'
+    #url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request?sysparm_query=stage%3DRequested&sysparm_fields=sys_id%2Crequested_for%2Copened_by%2Csys_created_by%2Cdelivery_address%2Cprice%2Cnumber%2Crequest_state%2Cstage&sysparm_limit=1'
+    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request?sysparm_query=stageLIKERequested&sysparm_limit=1'
 
     import requests
 

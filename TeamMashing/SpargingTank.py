@@ -11,6 +11,8 @@ from Brewing.Log import Log
 from TeamMashing.Wort import Wort
 from Brewing.ServiceNowLog import ServiceNowLog
 
+sleep_time = .25
+
 class SpargingTank: #constructor for the SpargingTank class
     def __init__(self):
         self.machine_id = 3
@@ -70,7 +72,7 @@ class SpargingTank: #constructor for the SpargingTank class
             while self.stir_time > 0:
                 print("Stirring Time Left: ", self.stir_time, "min") # prints number of seconds left until stirring is
                 # finished
-                time.sleep(1)
+                time.sleep(sleep_time)
                 self.stir_time -= 1
 
                 if self.stir_time == 0:
