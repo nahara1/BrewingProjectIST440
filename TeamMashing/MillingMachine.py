@@ -14,8 +14,7 @@ from TeamMashing.HotLiquorTank import HotLiquorTank
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
 
-
-class MillingMachine():  # MillingMachine Start
+class MillingMachine:  # MillingMachine Start
     def __init__(self):  # constructor initalized fields
         self.machine_id = 1
         self.mill_time = 0
@@ -41,7 +40,8 @@ class MillingMachine():  # MillingMachine Start
             log = Log(1, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
-            MongoLogging.MongoLogging.MongoLog(status_log)
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Milling", "Milling Started")
 
             while self.mill_time > 0:
                 print("Milling Time Left: ", self.mill_time, "min")
