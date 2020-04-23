@@ -10,20 +10,41 @@ from pymongo import MongoClient
 import datetime
 
 
-class MongoLogging():
+class MongoLogging:
 
-    client = MongoClient()
-    client = MongoClient('localhost', 27017)
-    db = client.logging_database
-    collection = db.logging_collection
+    def MongoLog(self,log):
+        """
+        method that adds a log to the MongoDB Collection
+        :param log: preformated string in JSON format to log to MongoDB
+        :return: none
+        """
+        try:
+            print("Attempting to connect to MongoDB...")
+            client = MongoClient('localhost', 27017)
+            db = client.logging_database
+            collection = db.logging_collection
+        except Exception as e:
+            print("MongoDB connection Error:" + str(e))
 
-    post = {"BrewID": "1",
-            "Brew Stage": "Prep",
-            "Log": "Began Prep",
-            "date": datetime.datetime.utcnow()}
+        try:
+            for x in collection.find({}, {'sys_id': 1}):
+                print(x)
+                if log['sys_id'] == x['sys_id']:
+                    print()
+                    print('sys_id duplicate - no document inserted')
+                else:
+                    client.test.testrecipes.insert(log)
+                    print('document inserted')
+        except Exception as e2:
+            print("Duplicate Key Error" + str(e2))
 
-    posts = db.posts
-    post_id = posts.insert_one(post).inserted_id
+    #post = {"BrewID": "1",
+    #        "Brew Stage": "Prep",
+    #        "Log": "Began Prep",
+    #        "date": datetime.datetime.utcnow()}
 
-    db.list_collection_names()
+    #posts = db.posts
+    #post_id = posts.insert_one(post).inserted_id
+
+    #db.list_collection_names()
 
