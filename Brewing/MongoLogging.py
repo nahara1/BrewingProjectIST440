@@ -27,13 +27,13 @@ class MongoLogging:
             print("MongoDB connection Error:" + str(e))
 
         try:
-            for x in collection.find({}, {'sys_id': 1}):
+            for x in MongoClient.collection.find({}, {'sys_id': 1}):
                 print(x)
                 if log['sys_id'] == x['sys_id']:
                     print()
                     print('sys_id duplicate - no document inserted')
                 else:
-                    client.logging_database.logging_collection.insert(log)
+                    MongoClient.client.logging_database.logging_collection.insert(log)
                     print('document inserted')
         except Exception as e2:
             print("Duplicate Key Error" + str(e2))
