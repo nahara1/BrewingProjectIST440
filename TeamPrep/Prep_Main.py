@@ -19,12 +19,14 @@ t = Temperature()
 w = WeightScale()
 
 # this function will called on staring of every thread
-'''
-This thread function will be called each time this file runs to check them temperature of the yeast to see if the yeast is ready for use
-'''
+
 
 
 def thread_function():
+    '''
+    Method thread function will gather each of Team Preps functionality
+    return: Threading into the main method below with exceptions
+    '''
     while True:
         try:
             s.sanitization(s)
@@ -51,6 +53,10 @@ def thread_function():
 
 # noinspection SpellCheckingInspection
 def prep_main():
+    '''
+    Main Method for Team Prep to excute
+    return: excutes main method with threads
+    '''
     time.sleep(2)
     thread_list = []
     # to create up to 5 Threads
@@ -62,10 +68,7 @@ def prep_main():
         thread_list.append(thread)
         # message = ('Batch: '+ str(x))
         print(message)
-        '''
-       This is the main method
-        '''
-
+        
         # for thread in thread_list:
         thread.start()
 

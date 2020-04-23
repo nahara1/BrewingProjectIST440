@@ -20,6 +20,10 @@ class Sanitization:
     log_no = 0
 
     def sanitization(self, request_number):
+        '''
+      Main method that runs the sanitation process to clean equipment
+      Returns: Completion is done by user pressing enter and sends logging to ServiceNOW throughout the process
+        '''
         log_no = 0
         try:
             time.sleep(1)

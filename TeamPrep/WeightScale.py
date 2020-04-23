@@ -26,20 +26,27 @@ class WeightScale:
 
     # noinspection PyArgumentList,PyArgumentList
     def get_grain(self):
+        '''
+       Method that gets grain information to prep the weighing process
+       Returns: The amount of the grain being used for the weight scale
+        '''
         self.grain = Recipe.Recipe.get_grain()
         return self.grain
-
     # noinspection PyArgumentList,PyArgumentList
     def get_hop_hop_amt(self):
+        '''
+       Method that gets hops information to prep the weighing process
+       Returns: The amount of the hops being used for the weight scale
+        '''
         self.hop_hop_amt = Recipe.Recipe.get_hop_hop_amt()
         return self.hop_hop_amt
 
-    '''
-    interface for weighing grains
-    '''
-
     # noinspection PyUnboundLocalVariable
     def read_weight_grains(self, recipe, request_number):
+        '''
+       Method that displays the actual weight of the grains
+       Returns: Float of the weight goes into the weight scale with logging to ServiceNOW
+        '''
         try:
             grain = list(recipe.grain.keys())
             weight = list(recipe.grain.values())
@@ -120,15 +127,12 @@ class WeightScale:
             print(log.generate_log())
             print(e)
 
-    '''
-    logging of weight measurements
-    '''
-    '''
-    interface for weighing hops
-    '''
-
     # noinspection PyUnusedLocal,PyUnusedLocal,PyUnboundLocalVariable
     def read_weight_hops(self, recipe, request_number):
+        '''
+       Method that displays the actual weight of the hops
+       Returns: Float of the weight goes into the weight scale with logging to ServiceNOW
+        '''
         try:
             hop = list(recipe.hop_hop_amt.keys())
             weight = list(recipe.hop_hop_amt.values())
