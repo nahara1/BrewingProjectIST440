@@ -10,45 +10,24 @@ from pymongo import MongoClient
 import datetime
 
 
-class dal:
-    def __init__(self, host, port):
-        self.host = host
-        self.port = port
-
-    def get_host(self):
-        return self.host
-
-    def get_port(self):
-        return self.port
-
-
 class MongoLogging:
 
-    def MongoLog(self, log):
+    def MongoLog(self, request_number, process, log_message):
         """
         method that adds a log to the MongoDB Collection
         :param log: preformated string in JSON format to log to MongoDB
         :return: none
         """
-        dalHandler = dal('localhost', 27017)
-        # Connection to MongoDB
         try:
-            client = MongoClient(dalHandler.getHost(), dalHandler.getPort())
-            # Select the Database
-            db = client.logging_database
-            # Select the Collection
-            collection = db.logging_collection
-            # Select one Document
+            print("Attempting to connect to MongoDB...")
+            client = MongoClient('localhost', 27017)
+            db = client.database
+            collection = db.logging_database
+
+            status_log = {"Request_No": request_number, "Brewing_Process": process, "Log_Message": log_message, "Time": datetime.datetime.now()}
+
+            collection.insert_one(status_log)
+
+            print(status_log)
         except Exception as e:
-            print("Cannot connect to the MongoDB" + str(e))
-
-        try:
-            client.logging_database.logging_collection.insert(log)
-        except Exception as e2:
-            print("Duplicate Key Error" + str(e2))
-
-
-status_log = "{\"batch_id\":\"" + str(
-    1234) + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Starting Mashing Process\"}"
-m1 = MongoLogging()
-m1.MongoLog(status_log)
+            print("MongoDB connection Error:" + str(e))
