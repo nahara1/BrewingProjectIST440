@@ -3,17 +3,11 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 3/18/2020
-# Rev: 1.1
+# Last Date Changed: 4/18/2020
+# Rev: 2.0
 
-import sys
-import time
-
-from Log import Log
 from TeamMashing.MillingMachine import MillingMachine
-from TeamMashing.SpargingTank import SpargingTank
-#from HotLiquorTank import HotLiquorTank
-from TeamMashing.Wort import Wort
+import threading
 
 def start_mashing_process(): # Mashing process start
 
@@ -22,14 +16,12 @@ def start_mashing_process(): # Mashing process start
     :returns: void
     """
 
-    m = MillingMachine(1, 1) # setting an object to milling machine, machine id and time
-    m.mill_grains() # execution to milled grains
+    m = MillingMachine() # setting an object to milling machine, machine id and time
 
-    st = SpargingTank(2, 1, 1, 1, 1, 1, 1)
-    st.stir()
+    t1 = threading.Thread(target=m.mill_grains())
 
-    w = Wort(3, 1, 1, 1)
-    w.separate_wort()
+    t1.start()
+
 
 if __name__ == "__main__": # verify main method
     start_mashing_process()  # initiates mashing process

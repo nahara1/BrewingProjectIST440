@@ -3,70 +3,135 @@
 # Course: IST 440W
 # Author: Team Mashing
 # Date Developed: 3/17/2020
-# Last Date Changed: 3/24/2020
-# Rev: 1.1
+# Last Date Changed: 4/21/2020
+# Rev: 3.0
 
-import sys
 import datetime
-import time
-from Log import Log
+from Brewing.Log import Log
+from TeamMashing.SpargingTank import SpargingTank
+from Brewing.ServiceNowLog import ServiceNowLog
 
 
 class HotLiquorTank:
-    def __init__(self, tID, wVolume, wtemperature):
-        self.tank_ID = tID
-        self.water_amount = wVolume
-        self.water_temp = wtemperature
-        self.is_transferred = False
+    def __init__(self):
+        self.tank_ID = 2
+        self.water_amount = 0
+        self.water_temp = 0
 
-    def heat_water(self): #Water heating process starts
+    def heat_water(self, recipe, request_number):  # Water heating process starts
 
         """
         The start of water heating
-        :param tID: tank ID
-        :param wVolume: volume of water
-        :param wtemperature: temperature of the water
-        :param istransferred: transfer indication
+        :param request_number:
+        :param recipe:
+        :param water_temp: temperature of the water
         :return: return log and animation of burner light.
         """
 
+        self.water_amount = recipe.get_water_volume()
+        self.water_temp = recipe.get_water_temp()
+
         try:
             # log to begin process
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Water heating\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(1, "Mashing.HotLiquorTank", "Water heating started.", datetime.datetime.now(), "pass")
             print(log.generate_log())
+            print("-----------------------------------------")
 
-            # log to end process
-            log = Log(2, "Mashing.HotLiquorTank", "Water heating completed.", datetime.datetime.now(), "pass")
-            print(log.generate_log())
-            return "Water temperature correct."
+            print("Water Temperature Heated To: ", self.water_temp, " degrees F")
+            print("-----------------------------------------")
+
+            self.check_water_temp(recipe, request_number)
 
         except Exception as e:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Water Heating Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.Milling", "Water Heating Failed", datetime.datetime.now(), "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
             print(e)
 
-    def get_tank_ID(self):
-        """
-        This gets the tank ID.
-        :return: tID
-        """
-        return self.tID
-
-    def get_water(self):
-        """
-        Getter for water volume
-        :return: water volume.
-        """
-        return self.wVolume
-
-    def send_hot_water(self):
-        """
-        
-        :return:
-        """
-        return ("Hot water is sent.")
-
-    def check_water_temp(self):
+    def check_water_temp(self, recipe, request_number):
         """
         Checks the current temperature of the water.
         :return: current water temperature
         """
-        return self.wtemperature
+        try:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Checking Water Temp\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(2, "Mashing.HotLiquorTank", "Checking Water Temperature", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
+
+            print("Water Temperature: ", self.water_temp, "degrees F")
+            print("-----------------------------------------")
+
+            self.check_water_volume(recipe, request_number)
+
+        except Exception as e:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Checking Water Temperature Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.HotLiquorTank", "Checking Water Temperature", datetime.datetime.now(), "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
+            print(e)
+
+    def check_water_volume(self, recipe, request_number):
+        """
+        Getter for water volume
+        :return: water volume.
+        """
+        try:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Checking Water Volume\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(3, "Mashing.HotLiquorTank", "Checking Water Volume", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
+
+            print("Water Volume: ", self.water_amount, "gallons")
+            print("-----------------------------------------")
+
+            self.send_hot_water_to_sparging_tank(recipe, request_number)
+
+        except Exception as e:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Checking Water Volume Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.HotLiquorTank", "Checking Water Volume Failed", datetime.datetime.now(), "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
+            print(e)
+
+    def send_hot_water_to_sparging_tank(self, recipe, request_number):
+        """
+
+        :return: print statement
+        """
+        try:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Sending Hot Water to Sparging Tank\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(3, "Mashing.HotLiquorTank", "Sending Hot Water to Sparging Tank", datetime.datetime.now(), "pass")
+            print(log.generate_log())
+            print("-----------------------------------------")
+
+            print("Hot water is sent to Sparging Tank.")
+            print("-----------------------------------------")
+
+            st = SpargingTank()
+            st.add_water(recipe, request_number)
+        except Exception as e:
+            status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Sending Hot Water to Sparging Tank Failed\"}"
+            sn_log = ServiceNowLog()
+            ServiceNowLog.create_new_log(sn_log, status_log)
+            log = Log(1, "Mashing.HotLiquorTank", "Sending Hot Water to Sparging Tank Failed", datetime.datetime.now(),
+                      "fail")
+            print(log.generate_log())
+            print("-----------------------------------------")
+            print(e)
