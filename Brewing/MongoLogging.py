@@ -33,7 +33,7 @@ class MongoLogging:
                     print()
                     print('sys_id duplicate - no document inserted')
                 else:
-                    client.test.testrecipes.insert(log)
+                    client.logging_database.logging_collection.insert(log)
                     print('document inserted')
         except Exception as e2:
             print("Duplicate Key Error" + str(e2))
