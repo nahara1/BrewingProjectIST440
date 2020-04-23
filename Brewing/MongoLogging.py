@@ -3,9 +3,9 @@
 # Course: IST 440W - 001
 # Author: Team Boiling
 # Date Developed: 4/16/20
-# Last Date Changed: 4/16/2020
-# Rev 1
-import pymongo
+# Last Date Changed: 4/23/2020
+# Rev 2
+
 from pymongo import MongoClient
 import datetime
 
@@ -15,7 +15,10 @@ class MongoLogging:
     def MongoLog(self, request_number, process, log_message):
         """
         method that adds a log to the MongoDB Collection
-        :param log: preformated string in JSON format to log to MongoDB
+        :param log_message:
+        :param process:
+        :param request_number:
+        :param log_message: preformed string in JSON format to log to MongoDB
         :return: none
         """
         try:

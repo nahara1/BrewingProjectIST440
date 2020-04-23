@@ -3,15 +3,17 @@
 # Course: IST 440W - 001
 # Author: Team Boiling
 # Date Developed: 3/18/20
-# Last Date Changed: 4/18/2020
-# Rev 4
+# Last Date Changed: 4/23/2020
+# Rev 5
 
 import logging
 from datetime import datetime
 from time import sleep
 from Brewing.ServiceNowLog import ServiceNowLog
+from Brewing import MongoLogging
 
 sleep_time = .25
+
 
 class DisplayHelper:
 
@@ -44,6 +46,11 @@ class DisplayHelper:
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Starting Boil Process\"}"
         sn_log = ServiceNowLog()
         ServiceNowLog.create_new_log(sn_log, status_log)
+        sleep(sleep_time)
+        print("Logging to MongoDB...")
+        sleep(sleep_time)
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Boiling", "Starting Boil Process")
         print("Successfully logged that Boil Stage has started")
         print("-----------------------------------------")
         sleep(sleep_time)

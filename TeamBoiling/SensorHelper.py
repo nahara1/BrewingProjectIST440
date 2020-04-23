@@ -3,15 +3,17 @@
 # Course: IST 440W - 001
 # Author: Team Boiling
 # Date Developed: 3/18/20
-# Last Date Changed: 4/18/2020
-# Rev 7
+# Last Date Changed: 4/23/2020
+# Rev 8
 
 import logging
 import random
 from Brewing.ServiceNowLog import ServiceNowLog
 from time import sleep
+from Brewing import MongoLogging
 
 sleep_time = .25
+
 
 class SensorHelper:
 
@@ -114,6 +116,11 @@ class SensorHelper:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Brew has Boiled Over\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
+                sleep(sleep_time)
+                print("Logging to MongoDB...")
+                sleep(sleep_time)
+                ml = MongoLogging.MongoLogging()
+                MongoLogging.MongoLogging.MongoLog(ml, request_number, "Boiling", "Brew had Boiled Over")
                 break
 
         if boilOverTemp != 1:

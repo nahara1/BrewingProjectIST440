@@ -3,16 +3,18 @@
 # Course: IST 440W - 001
 # Author: Team Boiling
 # Date Developed: 3/18/20
-# Last Date Changed: 4/18/2020
-# Rev 11
+# Last Date Changed: 4/23/2020
+# Rev 12
 
 # Import Statements
 import time
 import logging
 from time import sleep
 from Brewing.ServiceNowLog import ServiceNowLog
+from Brewing import MongoLogging
 
 sleep_time = .25
+
 
 class QualityCheck:
     # Variables
@@ -175,6 +177,11 @@ class QualityCheck:
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
                 sleep(sleep_time)
+                print("Logging to MongoDB...")
+                sleep(sleep_time)
+                ml = MongoLogging.MongoLogging()
+                MongoLogging.MongoLogging.MongoLog(ml, request_number, "Boiling", "Finished Boiling; Passed QA")
+                sleep(sleep_time)
                 print("Successfully logged that Boil has completed and passes Quality Assurance.")
                 sleep(sleep_time)
                 return True
@@ -186,6 +193,11 @@ class QualityCheck:
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
                 sleep(sleep_time)
+                sleep(sleep_time)
+                print("Logging to MongoDB...")
+                sleep(sleep_time)
+                ml = MongoLogging.MongoLogging()
+                MongoLogging.MongoLogging.MongoLog(ml, request_number, "Boiling", "Finished Boiling; Failed QA")
                 print("Quality Did not Pass, Please inspect and trash.")
                 sleep(sleep_time)
                 return False
