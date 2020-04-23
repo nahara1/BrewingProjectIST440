@@ -58,7 +58,7 @@ class KegCount:
 
             while not batch_confirm:
                 print("")
-                print("Starting Cellarman Tasks. The current batch is (Batch ID: " + str(self.batch_id) + ").")
+                print("Starting Keg Count Tasks. The current batch is (Batch ID: " + str(self.batch_id) + ").")
                 save_batch_id = input("Please confirm the batch ID: ")  # user input for batch ID
                 confirm_batch_id = input("Are you sure? Enter (y/n): ")
                 if confirm_batch_id in ['Y', 'y', 'yes', 'Yes', 'YES']:
@@ -74,37 +74,6 @@ class KegCount:
                     print()
         except Exception as e:
             print("Keg Count Batch Confirm Error " + str(e))
-
-    def kc_count_kegs(self):
-        """
-        Method called in the Keg Count process that confirms the number of kegs in the batch. Logs events
-        :return: None
-        """
-        try:
-            kc_done = False
-            kc_f_count = 0
-            while not kc_done:
-                kc_count = int(
-                    input("Please enter the number of kegs for beer batch (Batch_ID: " + str(self.batch_id) + "): "))
-                print("")
-                print("The number of kegs you have entered is as follows:")
-                print("")
-                print(str(kc_count))
-                print("")
-
-                kc_choice = input("Is this correct (Y/N): ")
-
-                if kc_choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
-                    self.kc_status = "KEG_COUNT_COUNTED"
-                    kc_f_count = kc_count
-                    kc_report = "Final Keg Count: " + str(kc_count) + " Keg(s)"
-                    self.kc_log(self.batch_id, "Kegging", kc_report)
-                    kc_done = True
-                elif kc_choice in ['N', 'n', 'no', 'No', 'NO']:
-                    pass
-            return kc_f_count
-        except Exception as e:
-            print("Keg Count Count Error: " + str(e))
 
     def input_keg_id(self):
         """
@@ -172,6 +141,37 @@ class KegCount:
         except Exception as e:
             print("Keg Count New Keg Entry Error: " + str(e))
 
+    def kc_count_kegs(self):
+        """
+        Method called in the Keg Count process that confirms the number of kegs in the batch. Logs events
+        :return: None
+        """
+        try:
+            kc_done = False
+            kc_f_count = 0
+            while not kc_done:
+                kc_count = int(
+                    input("Please enter the number of kegs for beer batch (Batch_ID: " + str(self.batch_id) + "): "))
+                print("")
+                print("The number of kegs you have entered is as follows:")
+                print("")
+                print(str(kc_count))
+                print("")
+
+                kc_choice = input("Is this correct (Y/N): ")
+
+                if kc_choice in ['Y', 'y', 'yes', 'Yes', 'YES']:
+                    self.kc_status = "KEG_COUNT_COUNTED"
+                    kc_f_count = kc_count
+                    kc_report = "Final Keg Count: " + str(kc_count) + " Keg(s)"
+                    self.kc_log(self.batch_id, "Kegging", kc_report)
+                    kc_done = True
+                elif kc_choice in ['N', 'n', 'no', 'No', 'NO']:
+                    pass
+            return kc_f_count
+        except Exception as e:
+            print("Keg Count Count Error: " + str(e))
+
     def kc_record_keg_id(self):
         """
         Main Method call that confirms the completion of Keg Count process and logs
@@ -179,6 +179,7 @@ class KegCount:
         """
         keglist = []
         keg_num = 0
+
         total_kegs = self.kc_count_kegs()
 
         try:
@@ -191,18 +192,19 @@ class KegCount:
                 print("Enter the information for Keg " + str(keg_num) + " ")
 
                 confirm = 'N'
-                while confirm in ['Y', 'y', 'Yes', 'yes', 'YES']:
+                while confirm not in ['Y', 'y', 'Yes', 'yes', 'YES']:
                     print("Keg " + str(keg_num) + ". ")
                     new_keg = self.kc_new_keg()
                     print()
                     print("Keg " + str(keg_num) + ". " + "\n" + str(new_keg))
                     confirm = input("Is this correct? (Y/N)")
-                keglist.append(new_keg)
+                    if confirm in ['Y', 'y', 'Yes', 'yes', 'YES']:
+                        keglist.append(new_keg)
                 kc_log_message = "Keg Count: " + str(keg_num) + ' / ' + str(total_kegs) + " Kegs Recorded"
                 self.kc_log(self.batch_id, "Kegging", kc_log_message)
             print("---------------------------------------")
         except Exception as e2:
-            print("Keg Record Error: " + str(e2))
+            print("Keg ID Error: " + str(e2))
 
         for n in keglist:
             print(n)
@@ -228,6 +230,10 @@ class KegCount:
         :return: None
         """
         try:
+            print()
+            print("Starting Keg Count Process:")
+            print()
+            print()
             self.kc_confirm_batch()
         except Exception as confirm_error:
             print("Batch Confirmation Method Error :" + str(confirm_error))
@@ -237,5 +243,6 @@ class KegCount:
         except Exception as record_error:
             print("Keg Record Error: " + str(record_error))
 
-# kc1 = KegCount(1234, "KEG_COUNT_READY")
-# kc1.kc_main()
+
+#kc1 = KegCount(1234, "KEG_COUNT_READY")
+#kc1.kc_main()

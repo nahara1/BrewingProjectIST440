@@ -5,7 +5,7 @@
 # Date Developed: 4/16/20
 # Last Date Changed: 4/16/2020
 # Rev 1
-
+import pymongo
 from pymongo import MongoClient
 import datetime
 
@@ -26,7 +26,10 @@ class MongoLogging:
 
             status_log = {"Request_No": request_number, "Brewing_Process": process, "Log_Message": log_message, "Time": datetime.datetime.now()}
 
-            collection.insert_one(status_log)
+            try:
+                collection.insert_one(status_log)
+            except TypeError:   # Error Handling for MongoDB versions that do not implement insert_one() method
+                collection.insert(status_log)
 
             print(status_log)
         except Exception as e:
