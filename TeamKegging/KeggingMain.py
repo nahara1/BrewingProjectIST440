@@ -11,6 +11,7 @@ from TeamKegging.TasteTest import TasteTest
 from TeamKegging.KeggingTasks import KeggingTasks
 from TeamKegging.KegCount import KegCount
 from Brewing import ServiceNowLog
+from Brewing import MongoLogging
 import datetime
 
 km_full_loglist = []
@@ -35,6 +36,8 @@ class KeggingMain:
             status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
                 bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog.ServiceNowLog(), status_log)
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, batch_id, "Kegging", log_message)
         except Exception as e:
             print("Kegging Main Logging Error: " + str(e))
 
