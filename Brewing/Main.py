@@ -222,7 +222,10 @@ def main():
                                      recipe.get_batch_size())
 
     #brew_loops(request_number, request_id, recipe)
-    call_kegging(request_number, recipe)
+    brew_loops(request_number,request_id,recipe)
+
+    #single process call testings
+    #call_kegging(request_number, recipe)
 
     main()
 
