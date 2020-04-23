@@ -27,7 +27,7 @@ This thread function will be called each time this file runs to check them tempe
 def thread_function():
     while True:
         try:
-            s.sanitization(s,request_number)
+            s.sanitization(s)
             try:
                 t.yeast_temp(t)
                 try:

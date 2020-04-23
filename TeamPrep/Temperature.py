@@ -14,6 +14,7 @@ from Brewing.Log import Log
 from Brewing.ServiceNowLog import ServiceNowLog
 
 
+# noinspection PyMethodMayBeStatic
 class Temperature:
     def read_temp(self, request_number):
         try:
@@ -61,7 +62,7 @@ class Temperature:
                 time.sleep(2)
             except Exception as e:
                 print(e)
-            tmp = self.read_temp()
+            tmp = self.read_temp(request_number)
         try:
             print("       Temperature of yeast is in range and ready to use.\n")
             time.sleep(2)

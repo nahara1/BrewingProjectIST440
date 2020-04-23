@@ -12,15 +12,19 @@ import datetime
 from Brewing.Log import Log
 from Brewing.ServiceNowLog import ServiceNowLog
 
+
+# noinspection PyMethodMayBeStatic
 class Sanitization:
 
+    # noinspection PyMethodMayBeStatic
     def sanitization(self, request_number):
         try:
             time.sleep(1)
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(1, "Prep.Sanitization", "Asked for manual input if Sanitization completed.", datetime.datetime.now(),
+            log = Log(1, "Prep.Sanitization", "Asked for manual input if Sanitization completed.",
+                      datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
             time.sleep(2)
@@ -41,6 +45,7 @@ class Sanitization:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(1, "Prep.Sanitization", "Input for Sanitization completed failed.", datetime.datetime.now(), "pass")
+            log = Log(1, "Prep.Sanitization", "Input for Sanitization completed failed.", datetime.datetime.now(),
+                      "pass")
             print(log.generate_log())
             time.sleep(2)

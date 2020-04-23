@@ -7,7 +7,7 @@
 # Rev 10
 
 # Import Statements
-import time
+
 import logging
 from Brewing import ServiceNowLog
 from time import sleep
@@ -19,16 +19,14 @@ class QualityCheck:
     _read_temp = float
     _read_weight_grains = float
     _read_weight_hops = float
-    _read_weight_sugar = float
 
-    def __init__(self, _sanitization, _read_temp, _read_weight_grains, _read_weight_hops, _read_weight_sugar):
+    def __init__(self, _sanitization, _read_temp, _read_weight_grains, _read_weight_hops):
 
         logging.info("Thread %s: starting QACheck", self)  # Threading
         self._sanitization = _sanitization
         self._read_temp = _read_temp
         self.read_weight_grains = _read_weight_grains
         self.read_weight_hops = _read_weight_hops
-        self.read_weight_sugar = _read_weight_sugar
         logging.info("Thread %s: finishing QACheck for Prep", self)  # Threading
 
     # Getters and Setters
@@ -66,14 +64,6 @@ class QualityCheck:
 
         self._read_weight_hops = _read_weight_hops
 
-    def get_read_weight_sugar(self):
-
-        return self._read_weight_hops()
-
-    def set_read_weight_sugar(self, _read_weight_sugar):
-
-        self._read_weight_sugar = _read_weight_sugar
-
     logging.info("Thread %s: finishing Getters and Setters for Prep")  # Threading
 
     def get_QA_Check(self):
@@ -104,6 +94,5 @@ class QualityCheck:
                 quality_checked = text
 
 
-QualityCheck: QualityCheck = QualityCheck('_sanitization', '_temperature', '_read_weight_grains', '_read_weight_hops',
-                                          '_read_weight_sugar')
+QualityCheck: QualityCheck = QualityCheck('_sanitization', '_temperature', '_read_weight_grains', '_read_weight_hops')
 # QualityCheck.get_QA_Check()
