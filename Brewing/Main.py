@@ -36,8 +36,8 @@ def call_prep(request_number, recipe):
 
     Sanitization.Sanitization.sanitization(s, request_number)
     Temperature.Temperature.yeast_temp(t, request_number)
-    WeightScale.WeightScale.read_weight_grains(w, recipe)
-    WeightScale.WeightScale.read_weight_hops(w, recipe)
+    WeightScale.WeightScale.read_weight_grains(w, recipe, request_number)
+    WeightScale.WeightScale.read_weight_hops(w, recipe,request_number)
 
 
 def call_mash(request_number, recipe):

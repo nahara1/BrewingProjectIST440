@@ -10,18 +10,23 @@
 import random
 import time
 import datetime
+from TeamPrep.Sanitization import Sanitization
 from Brewing.Log import Log
 from Brewing.ServiceNowLog import ServiceNowLog
 
-
+s = Sanitization()
 # noinspection PyMethodMayBeStatic
 class Temperature:
+    def __init__(self):
+        self.log_no = s.log_no
+
     def read_temp(self, request_number):
         try:
+            self.log_no += 1
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(1, "Prep.Temperature", "Waiting to measure temperature of yeast", datetime.datetime.now(), "pass")
+            log = Log(int(self.log_no), "Prep.Temperature", "Waiting to measure temperature of yeast", datetime.datetime.now(), "pass")
             print(log.generate_log())
             time.sleep(2)
             temperature = random.randrange(55, 85, 1)
@@ -29,19 +34,21 @@ class Temperature:
             time.sleep(3)
             print('\t\t\tTemp = \033[1m{0:0.0f}*\033[0;0m F'.format(temperature))
             time.sleep(2)
+            self.log_no += 1
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(1, "Prep.Temperature", "Temperature of yeast received", datetime.datetime.now(), "pass")
+            log = Log(int(self.log_no) , "Prep.Temperature", "Temperature of yeast received", datetime.datetime.now(), "pass")
             print(log.generate_log())
             time.sleep(2)
             return temperature
         except Exception as e:
             print(e)
+            self.log_no += 1
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(1, "Prep.Temperature", "Failed to check temperature of yeast", datetime.datetime.now(), "pass")
+            log = Log(int(self.log_no), "Prep.Temperature", "Failed to check temperature of yeast", datetime.datetime.now(), "fail")
             print(log.generate_log())
             time.sleep(2)
 
@@ -53,10 +60,11 @@ class Temperature:
                 print("\t\b***Temperature of yeast is out of range.***")
                 print("  ***Bring another yeast and measure temperature again.*** \n")
                 time.sleep(3)
+                self.log_no += 1
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
-                log = Log(2, "Prep.Temperature", "Temperature of yeast is not in range.", datetime.datetime.now(),
+                log = Log(int(self.log_no), "Prep.Temperature", "Temperature of yeast is not in range.", datetime.datetime.now(),
                           "fail")
                 print(log.generate_log())
                 time.sleep(2)
@@ -66,18 +74,20 @@ class Temperature:
         try:
             print("       Temperature of yeast is in range and ready to use.\n")
             time.sleep(2)
+            self.log_no += 1
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(3, "Prep.Temperature", "Temperature of yeast measured.", datetime.datetime.now(), "pass")
+            log = Log(int(self.log_no), "Prep.Temperature", "Temperature of yeast measured.", datetime.datetime.now(), "pass")
             print(log.generate_log())
             time.sleep(2)
         except Exception as e:
             print(e)
+            self.log_no += 1
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(1, "Prep.Temperature", "Failed to measure temperature of yeast", datetime.datetime.now(), "pass")
+            log = Log(int(self.log_no), "Prep.Temperature", "Failed to measure temperature of yeast", datetime.datetime.now(), "fail")
             print(log.generate_log())
             time.sleep(2)
 
