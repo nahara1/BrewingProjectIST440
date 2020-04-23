@@ -70,11 +70,6 @@ def call_ferment(request_number, recipe):
     :param recipe:
     :return: none
     """
-    ferment_time = recipe.get_ferment_time()
-    ferment_temp = recipe.get_ferment_temp()
-    original_gravity = recipe.get_og()
-    final_gravity = recipe.get_fg()
-    recipe_abv = recipe.get_abv()
     Fermentation.start_fermentation_process(request_number, recipe)
 
 

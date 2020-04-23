@@ -11,7 +11,7 @@ import time
 import logging
 
 from TeamBoiling import QualityCheck
-from TeamBoiling import DisplayHelper
+from TeamBoiling.DisplayHelper import DisplayHelper
 from TeamBoiling import SensorHelper
 from TeamBoiling.UnitTests import TempBoilRecipe
 
@@ -25,17 +25,6 @@ class Boil:
     _end_stage_date_time = datetime
     _is_boiling = bool
 
-    def __init__(self):
-        """
-        constructor method
-        :param self: allows access to methods and attributes
-        """
-        self._boil_time = TempBoilRecipe.TempBoilRecipe.boil_time
-        self._boil_temp = TempBoilRecipe.TempBoilRecipe.boil_temp
-        self._stage_date_time
-        self._stage_duration = datetime.datetime
-        self._is_boiling
-
     def __init__(self, _boil_time, _boil_temp, _is_boiling):
         """
         overloads constructor method for parameters
@@ -46,10 +35,10 @@ class Boil:
         :param _is_boiling: validates boiling
         """
         logging.info("Thread %s: Start Boiling", self)
-        self._boil_time = _boil_time
-        self._boil_temp = _boil_temp
+        self._boil_time = TempBoilRecipe.TempBoilRecipe.boil_time
+        self._boil_temp = TempBoilRecipe.TempBoilRecipe.boil_temp
         self._stage_date_time = datetime.datetime.now()
-        self._stage_duration = datetime
+        self._stage_duration = datetime.datetime
         self._is_boiling = _is_boiling
         logging.info("Thread %s: End Boiling", self)
 
@@ -123,7 +112,7 @@ class Boil:
         :return: start of boiling process
         """
         logging.info("Thread %s: Start Boiling", self)
-        DisplayHelper.print_info(self._start_date_time, self._boil_time, self._boil_temp, self._is_boiling)
+        DisplayHelper.print_start_info(self._stage_date_time, self._boil_time, self._boil_temp, self._is_boiling)
 
     def update_boil_status(self, _is_boiling):
         """
