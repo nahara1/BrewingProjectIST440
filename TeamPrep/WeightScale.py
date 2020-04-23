@@ -14,13 +14,16 @@ from numpy import arange
 from Brewing.Recipe import Recipe
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing.BrewRequest import Recipe
+from Brewing import MongoLogging
+from TeamPrep.Temperature import Temperature
 
+t = Temperature()
 # noinspection PyUnusedLocal,PyMethodMayBeStatic,PyMethodMayBeStatic,PyMethodMayBeStatic
 class WeightScale:
 
     def __init__(self):  # constructor initialized field
 
-        self.log_no = 8
+        self.log_no = t.log_no
         self.hop_hop_amt = None
         self.grain = None
 
@@ -32,6 +35,7 @@ class WeightScale:
         '''
         self.grain = Recipe.Recipe.get_grain()
         return self.grain
+
     # noinspection PyArgumentList,PyArgumentList
     def get_hop_hop_amt(self):
         '''
@@ -54,18 +58,26 @@ class WeightScale:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(self.log_no + 1, "Prep.WeightScale", "Grains list and weight copied from ordered brew recipe.",
+            self.log_no = self.log_no +1
+            log = Log(self.log_no, "Prep.WeightScale", "Grains list and weight copied from ordered brew recipe.",
                       datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                               "Grains list and weight copied from ordered brew recipe")
             time.sleep(1)
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(self.log_no + 1, "Prep.WeightScale", "Hops list and weight copied from ordered brew recipe.",
+            self.log_no = self.log_no + 1
+            log = Log(self.log_no, "Prep.WeightScale", "Hops list and weight copied from ordered brew recipe.",
                       datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                               "Hops list and weight copied from ordered brew recipe")
             time.sleep(1)
             j = 1
 
@@ -74,18 +86,26 @@ class WeightScale:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
+                self.log_no =   self.log_no + 1
                 log = Log(self.log_no + 1, "Prep.WeightScale", "Weight scale is set to zero.",
                           datetime.datetime.now(),
                           "pass")
                 print(log.generate_log())
+                ml = MongoLogging.MongoLogging()
+                MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                                   "Weight scale is set to zero")
                 time.sleep(1)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
-                log = Log(self.log_no + 1, "Prep.WeightScale", "Brewer is being asked to dispense " + grain[i] + ".",
+                self.log_no = self.log_no + 1
+                log = Log(self.log_no, "Prep.WeightScale", "Brewer is being asked to dispense " + grain[i] + ".",
                           datetime.datetime.now(),
                           "pass")
                 print(log.generate_log())
+                ml = MongoLogging.MongoLogging()
+                MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                                   "Brewer is being asked to dispense " + grain[i] + ".")
                 time.sleep(1)
                 print("    \033[1m3." + str(j) + " To brew the beer for this batch, " + str(weight[i]) + " pounds of " +
                       grain[i]
@@ -109,10 +129,14 @@ class WeightScale:
                         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                         sn_log = ServiceNowLog()
                         ServiceNowLog.create_new_log(sn_log, status_log)
+                        self.log_no = self.log_no + 1
                         log = Log(self.log_no, "Prep.WeightScale", grain[i] + " grain received.",
                                   datetime.datetime.now(),
                                   "pass")
                         print(log.generate_log())
+                        ml = MongoLogging.MongoLogging()
+                        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                                           grain[i] + "grain received.")
                     time.sleep(1)
                 j = j + 1
                 i = i + 1
@@ -121,10 +145,14 @@ class WeightScale:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(self.log_no + 1, "Prep.WeightScale", "Failed to dispense " + grain[i] +".",
+            self.log_no = self.log_no + 1
+            log = Log(self.log_no, "Prep.WeightScale", "Failed to dispense " + grain[i] + ".",
                       datetime.datetime.now(),
                       "fail")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                               "Failed to dispense " + grain[i] + ".")
             print(e)
 
     # noinspection PyUnusedLocal,PyUnusedLocal,PyUnboundLocalVariable
@@ -143,18 +171,26 @@ class WeightScale:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
-                log = Log(self.log_no + 1, "Prep.WeightScale", "Weight scale is set to zero.",
+                self.log_no = self.log_no + 1
+                log = Log(self.log_no, "Prep.WeightScale", "Weight scale is set to zero.",
                           datetime.datetime.now(),
                           "pass")
                 print(log.generate_log())
+                ml = MongoLogging.MongoLogging()
+                MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                                   "Weight scale is set to zero")
                 time.sleep(1)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
-                log = Log(self.log_no + 1, "Prep.WeightScale", "Brewer is being asked to dispense " + hop[i] + ".",
+                self.log_no = self.log_no + 1
+                log = Log(self.log_no, "Prep.WeightScale", "Brewer is being asked to dispense " + hop[i] + ".",
                           datetime.datetime.now(),
                           "pass")
                 print(log.generate_log())
+                ml = MongoLogging.MongoLogging()
+                MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                                   "Brewer is being asked to dispense " + hop[i] + ".")
                 time.sleep(1)
                 print(
                     "    \033[1m4." + str(j) + " To brew the beer for this batch, " + str(weight[i]) + " oz of " + hop[
@@ -180,10 +216,14 @@ class WeightScale:
                         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                         sn_log = ServiceNowLog()
                         ServiceNowLog.create_new_log(sn_log, status_log)
-                        log = Log(self.log_no + 1, "Prep.WeightScale", hop[i] + " grain received.",
+                        self.log_no = self.log_no + 1
+                        log = Log(self.log_no, "Prep.WeightScale", hop[i] + " hop received.",
                                   datetime.datetime.now(),
                                   "pass")
                         print(log.generate_log())
+                        ml = MongoLogging.MongoLogging()
+                        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                                           hop[i] + "hop received.")
                     time.sleep(2)
                 j = j + 1
                 i = i + 1
@@ -192,8 +232,12 @@ class WeightScale:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
+            self.log_no = self.log_no + 1
             log = Log(self.log_no + 1, "Prep.WeightScale", "Failed to dispense " + hop[i] + ".",
                       datetime.datetime.now(),
                       "fail")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
+                                               "Failed to dispense " + hop[i] + ".")
             print(e)

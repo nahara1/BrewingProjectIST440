@@ -9,6 +9,7 @@ from pip._vendor.distlib.compat import raw_input
 
 import datetime
 from Brewing import ServiceNowLog
+from Brewing import MongoLogging
 
 kt_loglist = []
 
@@ -33,6 +34,8 @@ class KeggingTasks:
         status_log = "{\"batch_id\":\"" + str(batch_id) + "\", \"brew_batch_stage\":\"" + str(
             bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
         ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog.ServiceNowLog(), status_log)
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, batch_id, "Kegging", log_message)
         kt_loglist.append(status_log)
 
     def get_kt_loglist(self):
