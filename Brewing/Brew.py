@@ -28,6 +28,7 @@ def set_up_brew_stage(request_number):
     bbs = BrewBatchStage.BrewBatchStage(datetime.datetime.now(), 0, 'Recipe retrieved')
 
     time.sleep(1)
+
     # Create log in ServiceNow
     print("Logging to ServiceNow...")
     time.sleep(1)

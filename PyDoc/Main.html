@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Main</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Main</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/narrara/BrewingProjectIST440/Brewing/Main.py">/Users/narrara/BrewingProjectIST440/Brewing/Main.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Project:&nbsp;Brewing&nbsp;Automation&nbsp;System&nbsp;-&nbsp;Capstone&nbsp;Project<br>
+#&nbsp;Purpose&nbsp;Details:&nbsp;Class&nbsp;to&nbsp;start&nbsp;brewing&nbsp;process<br>
+#&nbsp;Course:&nbsp;IST&nbsp;440W&nbsp;-&nbsp;001<br>
+#&nbsp;Author:&nbsp;IST&nbsp;440W&nbsp;-&nbsp;001<br>
+#&nbsp;Date&nbsp;Developed:&nbsp;4/18/20<br>
+#&nbsp;Last&nbsp;Date&nbsp;Changed:&nbsp;4/22/20<br>
+#&nbsp;Rev&nbsp;22</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="TeamBoiling.Boil.html">TeamBoiling.Boil</a><br>
+<a href="Brewing.Brew.html">Brewing.Brew</a><br>
+<a href="Brewing.BrewBatch.html">Brewing.BrewBatch</a><br>
+</td><td width="25%" valign=top><a href="Brewing.BrewRequest.html">Brewing.BrewRequest</a><br>
+<a href="TeamFerment.Fermentation.html">TeamFerment.Fermentation</a><br>
+<a href="TeamMashing.MillingMachine.html">TeamMashing.MillingMachine</a><br>
+</td><td width="25%" valign=top><a href="TeamPrep.QualityCheck_Prep.html">TeamPrep.QualityCheck_Prep</a><br>
+<a href="TeamPrep.Sanitization.html">TeamPrep.Sanitization</a><br>
+<a href="TeamPrep.Temperature.html">TeamPrep.Temperature</a><br>
+</td><td width="25%" valign=top><a href="TeamPrep.WeightScale.html">TeamPrep.WeightScale</a><br>
+<a href="datetime.html">datetime</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-call_boil"><strong>call_boil</strong></a>(request_number, recipe)</dt><dd><tt>Calls&nbsp;Team&nbsp;Boil's&nbsp;Process<br>
+:param&nbsp;request_number:&nbsp;brew&nbsp;batch&nbsp;id<br>
+:param&nbsp;recipe:&nbsp;a&nbsp;Recipe&nbsp;instance<br>
+:return:&nbsp;none</tt></dd></dl>
+ <dl><dt><a name="-call_ferment"><strong>call_ferment</strong></a>(request_number, recipe)</dt><dd><tt>Method&nbsp;Calls&nbsp;Team&nbsp;Ferment's&nbsp;Process<br>
+:param&nbsp;request_number:<br>
+:param&nbsp;recipe:<br>
+:return:&nbsp;none</tt></dd></dl>
+ <dl><dt><a name="-call_kegging"><strong>call_kegging</strong></a>(request_number, recipe)</dt><dd><tt>Method&nbsp;Calls&nbsp;Team&nbsp;Kegging's&nbsp;Process<br>
+:param&nbsp;request_number:<br>
+:param&nbsp;recipe:<br>
+:return:</tt></dd></dl>
+ <dl><dt><a name="-call_mash"><strong>call_mash</strong></a>(request_number, recipe)</dt><dd><tt>Calls&nbsp;Team&nbsp;Mashing's&nbsp;Process<br>
+:param&nbsp;request_number:&nbsp;brew&nbsp;batch&nbsp;id<br>
+:param&nbsp;recipe:&nbsp;a&nbsp;Recipe&nbsp;instance<br>
+:return:&nbsp;none</tt></dd></dl>
+ <dl><dt><a name="-call_prep"><strong>call_prep</strong></a>(request_number, recipe)</dt><dd><tt>Calls&nbsp;Team&nbsp;Prep's&nbsp;Process<br>
+:param&nbsp;request_number:&nbsp;brew&nbsp;batch&nbsp;id<br>
+:param&nbsp;recipe:&nbsp;a&nbsp;Recipe&nbsp;instance<br>
+:return&nbsp;none</tt></dd></dl>
+ <dl><dt><a name="-main"><strong>main</strong></a>()</dt><dd><tt>Gets&nbsp;brew&nbsp;requests&nbsp;from&nbsp;ServiceNow&nbsp;and&nbsp;initiates&nbsp;brewing&nbsp;through&nbsp;its&nbsp;completion<br>
+:return:&nbsp;none</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Type</strong> = typing.Type<br>
+<strong>Union</strong> = typing.Union</td></tr></table>
+</body></html>

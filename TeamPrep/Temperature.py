@@ -18,7 +18,10 @@ from Brewing.ServiceNowLog import ServiceNowLog
 class Temperature:
 
     def read_temp(self, request_number):
-
+        '''
+       Main Method that gathers temperature readings for yeast
+       Returns: Logging those readings to ServiceNOW and user has to press enter to proceed to next step
+        '''
         try:
 
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
@@ -41,6 +44,10 @@ class Temperature:
             time.sleep(2)
             return temperature
         except Exception as e:
+            '''
+           exception: checks if measurement has failed
+           Returns: String that displays the measurement has failed 
+            '''
             print(e)
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
@@ -51,6 +58,10 @@ class Temperature:
             time.sleep(2)
 
     def yeast_temp(self, request_number):
+        '''
+       Method that determines if yeast is within temperature range
+       Returns: Logging if the temperature of yeast is in range and if not then another yeast is needed
+        '''
         tmp = self.read_temp(request_number)
         # noinspection PyRedundantParentheses
         while (tmp > 80 or tmp < 60):
@@ -80,6 +91,10 @@ class Temperature:
             print(log.generate_log())
             time.sleep(2)
         except Exception as e:
+            '''
+           exception: checks if measurement has failed
+           Returns: String that displays the measurement has failed 
+            '''
             print(e)
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
