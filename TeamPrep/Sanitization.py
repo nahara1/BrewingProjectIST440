@@ -6,11 +6,11 @@
 # Last Date Changed:4/22
 # Rev 3
 
-# import RPi.GPIO as GPIO
 import time
 import datetime
 from Brewing.Log import Log
 from Brewing.ServiceNowLog import ServiceNowLog
+from Brewing import MongoLogging
 
 
 # noinspection PyMethodMayBeStatic
@@ -35,6 +35,8 @@ class Sanitization:
                       datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Sanitization", "Asked for manual input if Sanitization completed")
             time.sleep(2)
             input("\033[1m" + "\n    1. Press Enter when sanitization is done:" + "\033[0m \n")
             # GPIO.wait_for_edge(self.button,GPIO.FALLING)
@@ -49,6 +51,8 @@ class Sanitization:
             log = Log(log_no, "Prep.Sanitization", "Sanitization done - Input received.", datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Sanitization", "Sanitization done -Input received.")
             time.sleep(2)
         except Exception as e:
             print(e)
@@ -60,5 +64,7 @@ class Sanitization:
                       datetime.datetime.now(),
                       "fail")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Sanitization", "Input for Sanitization completed failed")
             time.sleep(2)
         return log_no

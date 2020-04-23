@@ -2,15 +2,16 @@
 # Course: IST 440
 # Author: Team Ferment
 # Date Developed: 4/6/20
-# Last Date Changed: 4/21/20
-# Rev: 4
+# Last Date Changed: 4/23/20
+# Rev: 5
+
 import datetime
 import random
 import time
 from Brewing.Log import Log
 from Brewing import Recipe
 from Brewing import ServiceNowLog
-# from Brewing import BrewMaster
+from Brewing import MongoLogging
 import Brewing.BrewMaster
 
 
@@ -34,6 +35,8 @@ class FermentationVessel:
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(1, "Receiving wort", "Received wort from Team Boil", datetime.datetime.now(), "pass")
         print(log.generate_log())
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Starting Fermentation Process")
         print("-----------------------------------------")
         self.add_to_fermentation_vessel(vessel_id=1)
 
@@ -48,6 +51,8 @@ class FermentationVessel:
         log = Log(2, "Addition to Fermentation Vessel", "Adding wort to fermentation vessel ", datetime.datetime.now(),
                   "pass")
         print(log.generate_log())
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Wort added to Fermentation Vessel")
         print("-----------------------------------------")
         self.measure_original_gravity()
 
@@ -77,6 +82,8 @@ class FermentationVessel:
                     print(log.generate_log())
         except Exception as ex:
             print(ex)
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Measured Original Gravity")
         print("-----------------------------------------")
         self.add_yeast()
 
@@ -99,6 +106,8 @@ class FermentationVessel:
         log = Log(5, "Ferment.addYeast", "Activated yeast has been added to the fermentation vessel",
                   datetime.datetime.now(), "pass")
         print(log.generate_log())
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Adding Yeast to Fermentation Vessel")
         print("-----------------------------------------")
         self.close_lid()
         return ("Yeast added")
@@ -113,6 +122,8 @@ class FermentationVessel:
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(6, "Ferment.closeLid", "Closing lid", datetime.datetime.now(), "pass")
         print(log.generate_log())
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Closing Fermentation Vessel Lid")
         print("-----------------------------------------")
         self.begin_fermentation_process()
 
@@ -128,6 +139,9 @@ class FermentationVessel:
                   "Temperature is set at %.2f" % self.sample_ferment_tempertature,
                   datetime.datetime.now(), "pass")
         print(log.generate_log())
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Setting Fermentation Temperature")
+        print("-----------------------------------------")
         self.begin_fermentation_process()
 
     def begin_fermentation_process(self, request_number):
@@ -155,6 +169,8 @@ class FermentationVessel:
                     print(log.generate_log())
         except Exception as ex:
             print(ex)
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Fermentation has begun")
         print("-----------------------------------------")
         self.measure_final_gravity()
 
@@ -183,6 +199,8 @@ class FermentationVessel:
                     print(log.generate_log())
         except Exception as ex:
             print(ex)
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Measured Final Gravity")
         print("-----------------------------------------")
         self.drain_ale()
 
@@ -199,6 +217,8 @@ class FermentationVessel:
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(11, "Ferment.drainAle", "Draining Ale. Sending to QA", datetime.datetime.now(), "pass")
         print(log.generate_log())
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Draining Ale")
         print("-----------------------------------------")
         self.qa(1)
 
@@ -221,6 +241,8 @@ class FermentationVessel:
                 print(log.generate_log())
         except Exception as e:
             print(e)
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Checked Quality Assurance")
         print("-----------------------------------------")
         self.send_to_kegging()
 
@@ -234,8 +256,8 @@ class FermentationVessel:
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(13, "Ferment.send_to_kegging", "Ale sent to kegging", datetime.datetime.now(), "pass")
         print(log.generate_log())
-        # status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Fermentation\", \"log\":\"Fermentation Process has ended\"}"
-        # ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Sending Ale to the Kegging Process")
         print("-----------------------------------------")
 
     def sanitization(self, request_number):
@@ -243,4 +265,6 @@ class FermentationVessel:
         ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
         log = Log(14, "Ferment.sanitize_vessels", datetime.datetime.now(), "pass")
         print(log.generate_log())
+        ml = MongoLogging.MongoLogging()
+        MongoLogging.MongoLogging.MongoLog(ml, request_number, "Fermentation", "Sanitizing Vessels")
         print("-----------------------------------------")
