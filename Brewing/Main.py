@@ -20,6 +20,8 @@ import datetime
 from TeamBoiling import Boil
 from TeamKegging.KeggingMain import KeggingMain
 from TeamPrep.QualityCheck_Prep import QualityCheck
+from Brewing import MongoLogging
+from Brewing import ServiceNowLog
 
 
 def call_prep(request_number, recipe):
@@ -70,11 +72,6 @@ def call_ferment(request_number, recipe):
     :param recipe:
     :return: none
     """
-    ferment_time = recipe.get_ferment_time()
-    ferment_temp = recipe.get_ferment_temp()
-    original_gravity = recipe.get_og()
-    final_gravity = recipe.get_fg()
-    recipe_abv = recipe.get_abv()
     Fermentation.start_fermentation_process(request_number, recipe)
 
 
@@ -95,6 +92,7 @@ def main():
     Gets brew requests from ServiceNow and initiates brewing through its completion
     :return: none
     """
+
     # Get a brew request
     # 1 - Get brew request id and initialize request_number, which is
     #     going to be used as the brew batch id
@@ -138,19 +136,19 @@ def main():
         BrewRequest.update_brew_stage(request_id, "Mashing Stage")
 
         # Call Mashing
-        # call_mash(request_number, recipe)
+        call_mash(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Boiling Stage")
 
         # Call Boil
-        # call_boil(request_number, recipe)
+        call_boil(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Fermentation Stage")
 
         # Call Ferment
-        # call_ferment(request_number, recipe)
+        call_ferment(request_number, recipe)
 
         # Update Request Stage
         BrewRequest.update_brew_stage(request_id, "Kegging Stage")

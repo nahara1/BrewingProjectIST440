@@ -13,11 +13,12 @@ from TeamPrep import QualityCheck_Prep
 from TeamPrep.Sanitization import Sanitization
 from TeamPrep.Temperature import Temperature
 from TeamPrep.WeightScale import WeightScale
+from Brewing.ServiceNowLog import ServiceNowLog
 
 s = Sanitization()
 t = Temperature()
 w = WeightScale()
-
+s1 = ServiceNowLog()
 # this function will called on staring of every thread
 
 
@@ -29,15 +30,15 @@ def thread_function():
     '''
     while True:
         try:
-            s.sanitization(s)
+            s.sanitization()
             try:
-                t.yeast_temp(t)
+                t.yeast_temp()
                 try:
-                    w.read_weight_grains(w)
+                    w.read_weight_grains()
                     try:
-                        w.read_weight_hops(w)
+                        w.read_weight_hops()
                         try:
-                            QualityCheck_Prep.QualityCheck.get_QA_Check()
+                            QualityCheck_Prep.QualityCheck.get_QA_Check(request_number)
                         except Exception as e:
                             print(e)
                     except Exception as e:

@@ -10,7 +10,7 @@ import math
 import time
 import datetime
 from Brewing import ServiceNowLog
-
+from Brewing import MongoLogging
 sim_sleep_mod = .05  # Contains the simulated delay in seconds for automatic Temperature and Pressure Controls
 bt_loglist = []
 
@@ -40,6 +40,8 @@ class KeggingBriteTank:  # Brite Tank
                 bb_stage) + "\", \"log\":\"" + currentTimeStamp + " " + str(log_message) + "\"}"
             ServiceNowLog.ServiceNowLog.create_new_log(ServiceNowLog.ServiceNowLog(), status_log)
             bt_loglist.append(status_log)
+            MongoLogging.MongoLogging().MongoLog(status_log)
+
         except Exception as e:
             print("Brite Tank Logging Error: " + str(e))
 

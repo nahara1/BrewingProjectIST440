@@ -9,6 +9,7 @@
 import logging
 import random
 from Brewing import ServiceNowLog
+from Brewing.ServiceNowLog import ServiceNowLog
 from time import sleep
 
 
@@ -92,7 +93,7 @@ class SensorHelper:
         :return: returns values sent to the sensors
         """
         logging.info("Thread %s: starting Send_Values", self)
-        return self.send_values()
+        self.send_values()
         logging.info("Thread %s: finishing Send_Values", self)
 
     def boil_timer(self, request_number, boil_time):
@@ -111,7 +112,8 @@ class SensorHelper:
                 print("Logging to Service Now...")
                 sleep(1)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Brew has Boiled Over\"}"
-                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+                sn_log = ServiceNowLog()
+                ServiceNowLog.ServiceNowLog.create_new_log(sn_log, status_log)
                 break
 
         if boilOverTemp != 1:

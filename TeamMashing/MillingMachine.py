@@ -12,6 +12,7 @@ import time
 from Brewing.Log import Log
 from TeamMashing.HotLiquorTank import HotLiquorTank
 from Brewing.ServiceNowLog import ServiceNowLog
+from Brewing import MongoLogging
 
 
 class MillingMachine():  # MillingMachine Start
@@ -40,6 +41,7 @@ class MillingMachine():  # MillingMachine Start
             log = Log(1, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
+            MongoLogging.MongoLogging.MongoLog(status_log)
 
             while self.mill_time > 0:
                 print("Milling Time Left: ", self.mill_time, "min")

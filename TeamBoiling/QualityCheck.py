@@ -11,10 +11,10 @@ import time
 import logging
 from Brewing import ServiceNowLog
 from time import sleep
+from Brewing.ServiceNowLog import ServiceNowLog
 
 
 class QualityCheck:
-
     # Variables
     _recipe_boil_temp = float
     _batch_boil_time = time
@@ -24,7 +24,8 @@ class QualityCheck:
     _overflowing = bool
     _correct_volume = bool
 
-    def __init__(self, _recipe_boil_temp, _batch_boil_time, _batch_boil_temp, _recipe_boil_time, _boil_over, _overflowing, _correct_volume):
+    def __init__(self, _recipe_boil_temp, _batch_boil_time, _batch_boil_temp, _recipe_boil_time, _boil_over,
+                 _overflowing, _correct_volume):
         """
         Constructor method and parameters initialized to be accessed
         :param _recipe_boil_temp: Boil temperature of the recipe
@@ -162,7 +163,6 @@ class QualityCheck:
 
     logging.info("Thread %s: finishing Getters and Setters")  # Threading
 
-
     def get_QA_Check(self, request_number):
         text = input("Please Inspect the Brew Quality. Does it Meet Our Standards (Yes/No)?: ")
         # save text as variable
@@ -172,7 +172,8 @@ class QualityCheck:
                 print("Logging to ServiceNow...")
                 sleep(1)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Finished Boiling; Passed QA\"}"
-                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+                sn_log = ServiceNowLog()
+                ServiceNowLog.ServiceNowLog.create_new_log(sn_log, status_log)
                 sleep(1)
                 print("Successfully logged that Boil has completed and passes Quality Assurance.")
                 sleep(1)
@@ -182,7 +183,8 @@ class QualityCheck:
                 print("Logging to ServiceNow...")
                 sleep(1)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Finished Boiling; Failed QA\"}"
-                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+                sn_log = ServiceNowLog()
+                ServiceNowLog.ServiceNowLog.create_new_log(sn_log, status_log)
                 sleep(1)
                 print("Quality Did not Pass, Please inspect and trash.")
                 sleep(1)

@@ -10,20 +10,48 @@ from pymongo import MongoClient
 import datetime
 
 
-class MongoLogging():
+class MongoLogging:
 
-    client = MongoClient()
-    client = MongoClient('localhost', 27017)
-    db = client.logging_database
-    collection = db.logging_collection
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
 
-    post = {"BrewID": "1",
-            "Brew Stage": "Prep",
-            "Log": "Began Prep",
-            "date": datetime.datetime.utcnow()}
+    def MongoLog(self, log):
+        """
+        method that adds a log to the MongoDB Collection
+        :param log: preformated string in JSON format to log to MongoDB
+        :return: none
+        """
+        try:
+            print("Attempting to connect to MongoDB...")
+            #client = MongoClient('localhost', 27017)
+            db = self.logging_database
+            collection = db.logging_collection
+        except Exception as e:
+            print("MongoDB connection Error:" + str(e))
 
-    posts = db.posts
-    post_id = posts.insert_one(post).inserted_id
+        #try:
+            #for x in MongoClient.logging_database.logging_collection.find({}, {'sys_id': 1}):
+                #print(x)
+                #if log['sys_id'] == x['sys_id']:
+                    #print()
+                    #print('sys_id duplicate - no document inserted')
+                #else:
+        MongoClient.logging_database.logging_collection.insert(log)
+                    #print('document inserted')
+        #except Exception as e2:
+            #print("Duplicate Key Error" + str(e2))
 
-    db.list_collection_names()
+    # post = {"BrewID": "1",
+    #        "Brew Stage": "Prep",
+    #        "Log": "Began Prep",
+    #        "date": datetime.datetime.utcnow()}
 
+    # posts = db.posts
+    # post_id = posts.insert_one(post).inserted_id
+
+    # db.list_collection_names()
+
+status_log = "{\"batch_id\":\"" + str(1234) + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Starting Mashing Process\"}"
+m1 = MongoLogging()
+m1.MongoLog(status_log)

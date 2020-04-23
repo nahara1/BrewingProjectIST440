@@ -9,10 +9,11 @@
 import logging
 from datetime import datetime
 from time import sleep
+from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import ServiceNowLog
 
 
-class DisplayHelper():
+class DisplayHelper:
 
     _boil_start_time = datetime
     _boil_time = float
@@ -27,7 +28,7 @@ class DisplayHelper():
 
     logging.info("Thread %s: starting Getters and Setters")  # Threading
 
-    def print_start_info(self, request_number, boil_temp, boil_time, stage_date_time, is_boiling):
+    def print_start_info(self, request_number, boil_temp, boil_time, stage_date_time):
         """
         Prints start stage information to the screen
         :param request_number:
@@ -41,7 +42,8 @@ class DisplayHelper():
         print("Logging to ServiceNow...")
         sleep(1)
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Boiling\", \"log\":\"Starting Boil Process\"}"
-        ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
+        sn_log = ServiceNowLog()
+        ServiceNowLog.ServiceNowLog.create_new_log(sn_log, status_log)
         print("Successfully logged that Boil Stage has started")
         print("-----------------------------------------")
         sleep(1)
