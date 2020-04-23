@@ -10,11 +10,19 @@ from pymongo import MongoClient
 import datetime
 
 
-class MongoLogging:
-
+class dal:
     def __init__(self, host, port):
         self.host = host
         self.port = port
+
+    def get_host(self):
+        return self.host
+
+    def get_port(self):
+        return self.port
+
+
+class MongoLogging:
 
     def MongoLog(self, log):
         """
@@ -22,36 +30,25 @@ class MongoLogging:
         :param log: preformated string in JSON format to log to MongoDB
         :return: none
         """
+        dalHandler = dal('localhost', 27017)
+        # Connection to MongoDB
         try:
-            print("Attempting to connect to MongoDB...")
-            #client = MongoClient('localhost', 27017)
-            db = self.logging_database
+            client = MongoClient(dalHandler.getHost(), dalHandler.getPort())
+            # Select the Database
+            db = client.logging_database
+            # Select the Collection
             collection = db.logging_collection
+            # Select one Document
         except Exception as e:
-            print("MongoDB connection Error:" + str(e))
+            print("Cannot connect to the MongoDB" + str(e))
 
-        #try:
-            #for x in MongoClient.logging_database.logging_collection.find({}, {'sys_id': 1}):
-                #print(x)
-                #if log['sys_id'] == x['sys_id']:
-                    #print()
-                    #print('sys_id duplicate - no document inserted')
-                #else:
-        MongoClient.logging_database.logging_collection.insert(log)
-                    #print('document inserted')
-        #except Exception as e2:
-            #print("Duplicate Key Error" + str(e2))
+        try:
+            client.logging_database.logging_collection.insert(log)
+        except Exception as e2:
+            print("Duplicate Key Error" + str(e2))
 
-    # post = {"BrewID": "1",
-    #        "Brew Stage": "Prep",
-    #        "Log": "Began Prep",
-    #        "date": datetime.datetime.utcnow()}
 
-    # posts = db.posts
-    # post_id = posts.insert_one(post).inserted_id
-
-    # db.list_collection_names()
-
-status_log = "{\"batch_id\":\"" + str(1234) + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Starting Mashing Process\"}"
+status_log = "{\"batch_id\":\"" + str(
+    1234) + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Starting Mashing Process\"}"
 m1 = MongoLogging()
 m1.MongoLog(status_log)
