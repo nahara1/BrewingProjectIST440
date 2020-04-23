@@ -57,7 +57,7 @@ class Sanitization:
             print(log.generate_log())
             ml = MongoLogging.MongoLogging()
             MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Sanitization", "Sanitization done -Input received.")
-            ime.sleep(sleep_time * 2)
+            time.sleep(sleep_time * 2)
         except Exception as e:
             print(e)
             log_no += 1

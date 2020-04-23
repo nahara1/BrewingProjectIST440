@@ -18,6 +18,7 @@ from TeamPrep.WeightScale import WeightScale
 sleep_time = .25
 w = WeightScale()
 
+
 class QualityCheck:
 
     # noinspection PyMethodMayBeStatic
@@ -90,7 +91,7 @@ class QualityCheck:
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
                 self.log_no = self.log_no + 1
-                log = Log(self.log_no, "Prep.QualityCheck"," Prep quality check failed and need correction .",
+                log = Log(self.log_no, "Prep.QualityCheck", " Prep quality check failed and need correction .",
                           datetime.datetime.now(),
                           "fail")
                 print(log.generate_log())
@@ -99,4 +100,3 @@ class QualityCheck:
                                                    "Prep check failed and need correction.")
                 text = input("\nPlease Enter Yes or No: ")
                 quality_checked = text
-
