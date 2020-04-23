@@ -41,7 +41,7 @@ class BrewBatch():
     def __init__(self, recipe_id, bb_start_date_time, bb_end_date_time, bb_stage, bb_status, bb_size):
         """
         Overloaded Constructor Method allows parameters to be accessed with methods and attributes
-        :param recipe: recipe of the brew batch
+        :param recipe_id: recipe of the brew batch
         :param bb_start_date_time:  start date and time of the brew batch
         :param bb_end_date_time: end date and time of the brew batch
         :param bb_stage: stage of the brew batch
@@ -62,7 +62,7 @@ class BrewBatch():
     def __init__(self, request_number, recipe, bb_start_date_time, bb_stage, bb_status, bb_size):
         """
         Overloaded Constructor Method allows parameters to be accessed with methods and attributes
-        :param recipe: Recipe object
+        :param recipe: Recipe instance
         :param bb_start_date_time:  start date and time of the brew batch
         :param bb_stage: stage of the brew batch
         :param bb_status: the brew batch's status
