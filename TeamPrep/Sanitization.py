@@ -15,19 +15,19 @@ from Brewing.ServiceNowLog import ServiceNowLog
 
 # noinspection PyMethodMayBeStatic
 class Sanitization:
-
     # noinspection PyMethodMayBeStatic
-    def __init__(self):
-        self.log_no = 0
+
+    log_no = 0
 
     def sanitization(self, request_number):
+        log_no = 0
         try:
             time.sleep(1)
-            self.log_no += 1
+            log_no += 1
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(self.log_no, "Prep.Sanitization", "Asked for manual input if Sanitization completed.",
+            log = Log(log_no, "Prep.Sanitization", "Asked for manual input if Sanitization completed.",
                       datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
@@ -38,23 +38,23 @@ class Sanitization:
             # noinspection PyRedundantParentheses
             message = ("   Sanitization Completed.\n")
             print("\t\t" + message + "\n")
-            self.log_no += 1
+            log_no += 1
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(self.log_no, "Prep.Sanitization", "Sanitization done - Input received.", datetime.datetime.now(),
+            log = Log(log_no, "Prep.Sanitization", "Sanitization done - Input received.", datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
             time.sleep(2)
         except Exception as e:
             print(e)
-            self.log_no += 1
+            log_no += 1
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Sanitization\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(int(self.log_no), "Prep.Sanitization", "Input for Sanitization completed failed.",
+            log = Log(int(log_no), "Prep.Sanitization", "Input for Sanitization completed failed.",
                       datetime.datetime.now(),
                       "fail")
             print(log.generate_log())
             time.sleep(2)
-        return self.log_no
+        return log_no

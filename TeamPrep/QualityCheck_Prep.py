@@ -8,91 +8,47 @@
 
 # Import Statements
 
-import logging
-from Brewing import ServiceNowLog
-from time import sleep
+from Brewing.ServiceNowLog import ServiceNowLog
+import time
+from Brewing.Log import Log
+import datetime
 
 
 class QualityCheck:
-    # Variables
-    _sanitization = bool
-    _read_temp = float
-    _read_weight_grains = float
-    _read_weight_hops = float
 
-    def __init__(self, _sanitization, _read_temp, _read_weight_grains, _read_weight_hops):
-
-        logging.info("Thread %s: starting QACheck", self)  # Threading
-        self._sanitization = _sanitization
-        self._read_temp = _read_temp
-        self.read_weight_grains = _read_weight_grains
-        self.read_weight_hops = _read_weight_hops
-        logging.info("Thread %s: finishing QACheck for Prep", self)  # Threading
-
-    # Getters and Setters
-    logging.info("Thread %s: starting Getters and Setters")  # Threading
-
-    def get_sanitization(self):
-
-        return self._sanitization
-
-    def set_recipe_boil_temp(self, _sanitization):
-
-        self._sanitization = _sanitization
-
-    def get_read_temp(self):
-
-        return self._read_temp
-
-    def set_read_temp(self, _read_temp):
-
-        self._read_temp = _read_temp
-
-    def get_read_weight_grains(self):
-
-        return self._read_weight_grains()
-
-    def set_read_weight_grains(self, _read_weight_grains):
-
-        self._read_weight_grains = _read_weight_grains
-
-    def get_read_weight_hops(self):
-
-        return self._read_weight_hops()
-
-    def set_read_weight_hops(self, _read_weight_hops):
-
-        self._read_weight_hops = _read_weight_hops
-
-    logging.info("Thread %s: finishing Getters and Setters for Prep")  # Threading
-
-    def get_QA_Check(self):
+    # noinspection PyMethodMayBeStatic
+    def get_QA_Check(self, request_number):
+        status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"QualityCheck,Prep\"}"
+        sn_log = ServiceNowLog()
+        ServiceNowLog.create_new_log(sn_log, status_log)
+        log = Log(20, "Prep.QualtyCheck", "Quality check started .",
+                  datetime.datetime.now(),
+                  "pass")
+        print(log.generate_log())
+        time.sleep(1)
         print("Please Inspect the Prep Quality Before Start Brewing to Check if it Meets CGMP Standards: \n")
         # save text as variable
         quality_checked = ""
         while quality_checked != "Yes" or quality_checked != "No":
             if quality_checked == "Yes":
                 print("Logging to ServiceNow...")
-                sleep(1)
+                time.sleep(1)
                 status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Finished Prep process; Passed QA\"}"
-                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-                sleep(1)
+                ServiceNowLog.create_new_log(sn_log, status_log)
+                time.sleep(1)
                 print("Successfully logged that Prep processes has completed and passes Quality Assurance.")
-                sleep(1)
+                time.sleep(1)
                 break
             elif quality_checked == "No":
                 print("Logging to ServiceNow...")
-                sleep(1)
+                time.sleep(1)
                 status_log = "{\"batch_id\":\"1\", \"brew_batch_stage\":\"Preparation\", \"log\":\"Prep stage; Failed QA\"}"
-                ServiceNowLog.ServiceNowLog.create_new_log(self, status_log)
-                sleep(1)
+                ServiceNowLog.create_new_log(sn_log, status_log)
+                time.sleep(1)
                 print("Quality Did not Pass, make correction and inspect again.")
                 quality_checked = ""
-                sleep(1)
+                time.sleep(1)
             else:
                 text = input("\nPlease Enter Yes or No: ")
                 quality_checked = text
 
-
-QualityCheck: QualityCheck = QualityCheck('_sanitization', '_temperature', '_read_weight_grains', '_read_weight_hops')
-# QualityCheck.get_QA_Check()

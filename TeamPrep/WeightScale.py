@@ -14,15 +14,13 @@ from numpy import arange
 from Brewing.Recipe import Recipe
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing.BrewRequest import Recipe
-from TeamPrep.Temperature import Temperature
 
-t = Temperature()
 # noinspection PyUnusedLocal,PyMethodMayBeStatic,PyMethodMayBeStatic,PyMethodMayBeStatic
 class WeightScale:
 
     def __init__(self):  # constructor initialized field
 
-        self.log_no = t.log_no
+        self.log_no = 8
         self.hop_hop_amt = None
         self.grain = None
 
@@ -86,29 +84,29 @@ class WeightScale:
                       grain[i]
                       , " needed.\033[0m\n"
                       )
-                time.sleep(2)
+                time.sleep(1)
                 print("       ****Weight scale is calibrated to \033[1m0.0\033[0m. \n")
                 time.sleep(1)
                 input("       Press the Enter to dispense \033[1m" + grain[i] + "\033[0m:\n")
 
                 for weight_scale in arange(float(weight[i])):
                     weight_scale = weight_scale + 1.0
-                    time.sleep(2)
+                    time.sleep(1)
                     print("       \033[1m" + str(
                         weight_scale) + "\033[0;0m pound(s) \033[1m" + grain[i] + "\033[0m received. \033[1m" + str(
                         weight[i] - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
-                    time.sleep(2)
+                    time.sleep(1)
                     if float(weight[i]) == weight_scale:
                         print("       \033[1m" + grain[i] + "\033[0m are measured and \033[1m" + str(
                             weight_scale) + "\033[0m pounds received.  \n")
                         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                         sn_log = ServiceNowLog()
                         ServiceNowLog.create_new_log(sn_log, status_log)
-                        log = Log(t.log_no + 1, "Prep.WeightScale", grain[i] + " grain received.",
+                        log = Log(self.log_no, "Prep.WeightScale", grain[i] + " grain received.",
                                   datetime.datetime.now(),
                                   "pass")
                         print(log.generate_log())
-                    time.sleep(2)
+                    time.sleep(1)
                 j = j + 1
                 i = i + 1
             return weight_scale
@@ -157,13 +155,10 @@ class WeightScale:
                 print(
                     "    \033[1m4." + str(j) + " To brew the beer for this batch, " + str(weight[i]) + " oz of " + hop[
                         i] + " Hops needed.\033[0m\n")
-                time.sleep(2)
+                time.sleep(1)
                 print("       ****Weight scale is calibrated to \033[1m0.0\033[0m. \n")
-                time.sleep(2)
-                print("       To dispense \033[1m1\033[0m packet of \033[1m1.0\033[0m oz \033[1m" + hop[
-                    i] + "\033[0m Hops : \n")
-                time.sleep(2)
-                input("       Press Enter button to dispense one packet of \033[1m" + hop[i] + "\033[0m Hops:\n")
+                time.sleep(1)
+                input("       Press Enter to dispense \033[1m" + hop[i] + "\033[0m Hops:\n")
 
                 for weight_scale in arange(float(weight[i])):
                     weight_scale = weight_scale + 1
@@ -172,12 +167,12 @@ class WeightScale:
                     print("       \033[1m" + str(weight_scale) + "\033[0m pound(s) \033[1m" + hop[
                         i] + "\033[0m Hops received. \033[1m" + str(
                         float(weight[i]) - weight_scale) + "\033[0m pound(s) left to be dispensed. \n")
-                    time.sleep(2)
+                    time.sleep(1)
                     if float(weight[i]) == weight_scale:
-                        time.sleep(2)
+                        time.sleep(1)
                         print("       \033[1m" + hop[i] + "\033[0m Hops are measured and \033[1m" + str(
                             weight_scale) + "\033[0m pounds received. \n")
-                        time.sleep(2)
+                        time.sleep(1)
                         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                         sn_log = ServiceNowLog()
                         ServiceNowLog.create_new_log(sn_log, status_log)

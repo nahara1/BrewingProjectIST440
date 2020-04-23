@@ -5,7 +5,7 @@
 # Date Developed: 4/18/20
 # Last Date Changed: 4/22/20
 # Rev 22
-
+from typing import Type, Union
 
 from Brewing import Brew
 from Brewing import BrewRequest
@@ -14,11 +14,12 @@ from TeamFerment import Fermentation
 from TeamPrep import Sanitization
 from TeamPrep import Temperature
 from TeamPrep import WeightScale
-# from TeamPrep import QualityCheck_Prep
+from TeamPrep import QualityCheck_Prep
 from TeamMashing import MillingMachine
 import datetime
 from TeamBoiling import Boil
 from TeamKegging.KeggingMain import KeggingMain
+from TeamPrep.QualityCheck_Prep import QualityCheck
 
 
 def call_prep(request_number, recipe):
@@ -32,13 +33,12 @@ def call_prep(request_number, recipe):
     s = Sanitization.Sanitization()
     t = Temperature.Temperature()
     w = WeightScale.WeightScale()
-    # q = QualityCheck_Prep.QualityCheck()
-
+    q = QualityCheck_Prep.QualityCheck()
     Sanitization.Sanitization.sanitization(s, request_number)
     Temperature.Temperature.yeast_temp(t, request_number)
     WeightScale.WeightScale.read_weight_grains(w, recipe, request_number)
     WeightScale.WeightScale.read_weight_hops(w, recipe,request_number)
-
+    QualityCheck_Prep.QualityCheck.get_QA_Check(q, request_number)
 
 def call_mash(request_number, recipe):
     """
