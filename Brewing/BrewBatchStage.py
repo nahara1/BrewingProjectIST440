@@ -57,7 +57,6 @@ class BrewBatchStage():
         Overloads constructor with parameters
         :param _bb_stage_id: ID for BrewBatchStage
         :param _bb_stage_start_date_time: Start Date and time for the stage of brew batch
-        :param _bb_stage_duration: duration of the brew batch stage
         :param _bb_stage_status: status of the brew batch stage
         """
 
