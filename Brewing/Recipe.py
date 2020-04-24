@@ -27,9 +27,9 @@ class Recipe:
         :param abv: recipe ABV
         :param ibu: recipe IBU
         :param og: recipe OG
-        :param fg: rccipe FG
-        :param batch_size: rccipe batch size
-        :param yeast_storage_amt: rccipe yeast storage amount
+        :param fg: recipe FG
+        :param batch_size: recipe batch size
+        :param yeast_storage_amt: recipe yeast storage amount
         :param yeast: recipe yeast
         :param grain: recipe grain bill listing grains and weights
         :param water_volume: recipe water volume

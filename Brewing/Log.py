@@ -12,6 +12,14 @@ import time
 
 class Log:
     def __init__(self, lid, brew_stage, log, log_time, pass_or_fail):  # constructor initializes fields
+        """
+        Log constructor that initializes fields
+        :param lid: log id
+        :param brew_stage: brew batch stage
+        :param log: log message
+        :param log_time: log time
+        :param pass_or_fail: log status
+        """
         self.log_id = lid
         self.brew_stage = brew_stage
         self.log = log
@@ -19,6 +27,10 @@ class Log:
         self.pass_or_fail = pass_or_fail
 
     def generate_log(self):  # method generates a log in a readable format
+        """
+        Generates a log in readable format
+        :return: a readable log
+        """
         return "LogID: {}\n" \
                "Brew Stage: {}\n" \
                "Log: {}\n" \
