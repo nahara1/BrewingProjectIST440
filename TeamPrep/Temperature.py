@@ -21,16 +21,19 @@ sleep_time = .25
 
 s = Sanitization()
 
+
 class Temperature:
 
     def __init__(self):
         self.log_no = s.log_no
 
     def read_temp(self, request_number):
-        '''
-       Main Method that gathers temperature readings for yeast
-       Returns: Logging those readings to ServiceNOW and user has to press enter to proceed to next step
-        '''
+        """
+        Gathers temperature readings for yeast and logs those readings to ServiceNow and MongoDB
+        A keyboard input is used proceed to the next step
+        :param request_number: a brew batch request number
+        :return: temperature reading
+        """
         try:
 
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
@@ -42,13 +45,14 @@ class Temperature:
             print(log.generate_log())
             time.sleep(sleep_time)
             ml = MongoLogging.MongoLogging()
-            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Temperature", "Waiting to measure temperature of yeast")
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Temperature",
+                                               "Waiting to measure temperature of yeast")
             time.sleep(sleep_time)
             temperature = random.randrange(55, 85, 1)
             input("\033[1m    2. Press Enter to measure temperature of yeast: \033[0m\n")
-            time.sleep(sleep_time*3)
+            time.sleep(sleep_time * 3)
             print('\t\t\tTemp = \033[1m{0:0.0f}*\033[0;0m F'.format(temperature))
-            time.sleep(sleep_time*2)
+            time.sleep(sleep_time * 2)
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
@@ -58,13 +62,10 @@ class Temperature:
             ml = MongoLogging.MongoLogging()
             MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Temperature",
                                                "Temperature of yeast received")
-            time.sleep(sleep_time*2)
+            time.sleep(sleep_time * 2)
             return temperature
         except Exception as e:
-            '''
-           exception: checks if measurement has failed
-           Returns: String that displays the measurement has failed 
-            '''
+          # Exception: checks if measurement has failed
             print(e)
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
@@ -73,24 +74,28 @@ class Temperature:
             log = Log(self.log_no, "Prep.Temperature", "Failed to check temperature of yeast", datetime.datetime.now(),
                       "fail")
             print(log.generate_log())
-            time.sleep(sleep_time*2)
+            time.sleep(sleep_time * 2)
             ml = MongoLogging.MongoLogging()
             MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Temperature",
                                                "Fail to check temperature of yeast")
-            time.sleep(sleep_time*2)
+            time.sleep(sleep_time * 2)
 
     def yeast_temp(self, request_number):
-        '''
-       Method that determines if yeast is within temperature range
-       Returns: Logging if the temperature of yeast is in range and if not then another yeast is needed
-        '''
+        """
+        Determines if yeast is within temperature range through a while loop that checks
+        this range. If the temperature of yeast is in range, a log is saved. And if not,
+        another yeast is needed for temperature measurement
+
+        :param request_number: a brew batch request number
+        :return: void
+        """
         tmp = self.read_temp(request_number)
         # noinspection PyRedundantParentheses
         while (tmp > 80 or tmp < 60):
             try:
                 print("\t\b***Temperature of yeast is out of range.***")
                 print("  ***Bring another yeast and measure temperature again.*** \n")
-                time.sleep(sleep_time*3)
+                time.sleep(sleep_time * 3)
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
@@ -99,17 +104,17 @@ class Temperature:
                           datetime.datetime.now(),
                           "fail")
                 print(log.generate_log())
-                time.sleep(sleep_time*2)
+                time.sleep(sleep_time * 2)
                 ml = MongoLogging.MongoLogging()
                 MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Temperature",
                                                    "Temperature of yeast is not in range.")
-                time.sleep(2)
+                time.sleep(sleep_time)
             except Exception as e:
                 print(e)
             tmp = self.read_temp(request_number)
         try:
             print("       Temperature of yeast is in range and ready to use.\n")
-            time.sleep(sleep_time*2)
+            time.sleep(sleep_time * 2)
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
@@ -117,25 +122,23 @@ class Temperature:
             log = Log(self.log_no, "Prep.Temperature", "Temperature of yeast measured.", datetime.datetime.now(),
                       "pass")
             print(log.generate_log())
-            time.sleep(sleep_time*2)
+            time.sleep(sleep_time * 2)
             ml = MongoLogging.MongoLogging()
             MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Temperature",
                                                "Temperature of yeast measured")
-            time.sleep(sleep_time*2)
+            time.sleep(sleep_time * 2)
         except Exception as e:
-            '''
-           exception: checks if measurement has failed
-           Returns: String that displays the measurement has failed 
-            '''
+
+            # Exception: checks if measurement has failed
             print(e)
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"Temperature\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            self.log_no =   self.log_no + 1
+            self.log_no = self.log_no + 1
             log = Log(self.log_no, "Prep.Temperature", "Failed to measure temperature of yeast",
                       datetime.datetime.now(), "fail")
             print(log.generate_log())
-            time.sleep(sleep_time*2)
+            time.sleep(sleep_time * 2)
             ml = MongoLogging.MongoLogging()
             MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.Temperature",
                                                "Failed to measure temperature of yeast")

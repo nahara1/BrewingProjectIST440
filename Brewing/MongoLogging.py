@@ -27,11 +27,12 @@ class MongoLogging:
             db = client.database
             collection = db.logging_database
 
-            status_log = {"Request_No": request_number, "Brewing_Process": process, "Log_Message": log_message, "Time": datetime.datetime.now()}
+            status_log = {"Request_No": request_number, "Brewing_Process": process, "Log_Message": log_message,
+                          "Time": datetime.datetime.now()}
 
             try:
                 collection.insert_one(status_log)
-            except TypeError:   # Error Handling for MongoDB versions that do not implement insert_one() method
+            except TypeError:  # Error Handling for MongoDB versions that do not implement insert_one() method
                 collection.insert(status_log)
 
             print(status_log)

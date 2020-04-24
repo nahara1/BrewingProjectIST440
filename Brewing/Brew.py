@@ -53,7 +53,7 @@ def start_brew_batch(request_number, brew_stage, recipe):
     :param request_number: Request Number to be used as the Brew Batch ID
     :param brew_stage: Brew Batch Stage object
     :param recipe: Recipe Object
-    :return:      a Brew Batch instance
+    :return: a Brew Batch instance
     """
 
     # Create log in ServiceNow
@@ -80,4 +80,3 @@ def start_brew_batch(request_number, brew_stage, recipe):
                                      recipe.get_batch_size())
 
     return brew_batch
-3

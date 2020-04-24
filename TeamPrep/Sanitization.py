@@ -3,7 +3,7 @@
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/22
+# Last Date Changed:4/23
 # Rev 3
 
 import time
@@ -15,18 +15,16 @@ from Brewing import MongoLogging
 sleep_time = .25
 
 
-# noinspection PyMethodMayBeStatic
 class Sanitization:
-    # noinspection PyMethodMayBeStatic
 
     log_no = 0
 
     def sanitization(self, request_number):
         """
         Main method that runs the sanitation process to clean equipment
-        Completion is done by user pressing enter and sends logging to ServiceNOW throughout the process
-        :param request_number:
-        :return:
+        Completion is done by pressing enter and sends logging to ServiceNOW throughout the process
+        :param request_number: a brew batch request number
+        :return: void
         """
         log_no = 0
         try:

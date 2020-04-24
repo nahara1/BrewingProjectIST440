@@ -9,137 +9,87 @@
 class Ingredients:
 
     def __init__(self, ID, quantity, weight):
+        """
+        Ingredients Constructor that defines the attributes for the ingredients
+        :param ID: ingredient ID
+        :param quantity: ingredient quantity
+        :param weight: ingredient weight
+        """
         self.ID = ID
         self.quantity = quantity
         self.weight = weight
-        '''
-        defines the attributes for the ingredients 
-        '''
+
         self.ID = int
         self.quantity = int
         self.weight = float
-        '''
-        Adds the methods to the attributes for the ingredients 
-        '''
 
 
 class Yeast(Ingredients):
+    """
+    Extend Ingredients Class
+    """
+
     def __init__(self, temp):
+        """
+        Yeast Constructor
+        Prints out a list of the attributes listed for the yeast class with data
+        that goes along with the recipe pulled from the ServiceNow table
+        :param temp: yeast temperature
+        """
         self.temp = temp
         temp = float
-        '''
-        Added the temperature attribute with the yeast class with the method
-        '''
         super().__init__(ID={""}, quantity={""}, weight={""})
 
         def __float__(self):
             return self.temp
 
-        '''
-        adds the attributes for the yeast 
-        '''
         print(Yeast)
-
-        '''
-       prints out a list of the attributes listed for the yeast abstract class with data that goes along with the recipe pulled from the ServiceNow table
-       '''
 
 
 class Grain(Ingredients):
     def __init__(self):
+        """
+        Grain Constructor
+        Defines the attributes for the grains
+        Prints out a list of the attributes listed for the grain abstract class with
+        data that goes along with the recipe pulled from the ServiceNow table
+        """
         super().__init__(ID={""}, quantity={""}, weight={""})
-        '''
-        adds the attributes for the grains
-        '''
 
         print(Grain)
 
-        '''
-        prints out a list of the attributes listed for the grain abstract class with data that goes along with the recipe pulled from the ServiceNow table
-        '''
-
 
 class Hop(Ingredients):
+    """
+    Hop Constructor
+    Defines the attributes for the hops and prints out a list of the attributes
+    listed for the hop class with the data that comes from the recipe record
+    pulled from the ServiceNow table
+    """
+
     def __init__(self):
         super().__init__(ID={""}, quantity={""}, weight={""})
-        '''
-        adds the attributes for the hops
-        '''
 
         print(Hop)
 
-        '''
-        prints out a list of the attributes listed for the hop abstract class with data that goes along with the recipe pulled from the ServiceNow table
-        '''
-
 
 class Sugar(Ingredients):
+    """
+    Sugar Constructor
+    Defines the attributes for the sugar and prints them out data that comes
+    from recipe record pulled from the ServiceNow table
+    """
+
     def __init__(self):
         super().__init__(ID={""}, quantity={""}, weight={""})
-        '''
-        adds the attributes for the sugar
-        '''
         print(Sugar)
-
-        '''
-        prints out a list of the attributes listed for the sugar abstract class with data that goes along with the recipe pulled from the ServiceNow table
-        '''
 
 
 class Water(Ingredients):
+    """
+    Water Constructor
+    Defines the attributes for the water
+    """
+
     def __init__(self):
         super().__init__(quantity={""})
-
-    '''
-    adds the attributes for the water
-    '''
-
-
-print(Water)
-'''
-prints out  the attribute listed for the water abstract class with data that goes along with the recipe pulled from the ServiceNow table
-'''
-
-
-class get_ingredient:
-    '''
-    This class will pull data from ServiceNow to add to the attributes listed above
-    '''
-
-    # Need to install requests package for python
-    # easy_install requests
-    import requests
-
-    url = ''
-    '''
-    Sets the request parameters with ServiceNow url
-    '''
-
-    user = 'IST440'
-    pwd = 'IST440'
-    '''
-    Sets the Username and Password for ServiceNow
-    '''
-
-    headers = {"Content-Type": "application/json", "Accept": "application/json"}
-    '''
-    Sets the proper headers
-    '''
-
-    response = requests.get(url, auth=(user, pwd), headers=headers)
-    '''
-    Does HTTP request and authentication of headers
-    '''
-
-    if response.status_code != 200:
-        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:', response.json())
-    exit()
-    '''
-    Checks for HTTP codes other than 200 
-    '''
-
-    data = response.json()
-    print(data)
-    '''
-    Decodes the JSON response into a dictionary and uses the data
-    '''

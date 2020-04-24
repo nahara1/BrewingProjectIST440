@@ -20,10 +20,15 @@ from TeamPrep.Temperature import Temperature
 sleep_time = .25
 
 t = Temperature()
+
+
 # noinspection PyUnusedLocal,PyMethodMayBeStatic,PyMethodMayBeStatic,PyMethodMayBeStatic
 class WeightScale:
 
     def __init__(self):  # constructor initialized field
+        """
+        WeightScale constructor
+        """
 
         self.log_no = t.log_no
         self.hop_hop_amt = None
@@ -31,28 +36,32 @@ class WeightScale:
 
     # noinspection PyArgumentList,PyArgumentList
     def get_grain(self):
-        '''
-       Method that gets grain information to prep the weighing process
-       Returns: The amount of the grain being used for the weight scale
-        '''
+        """
+        Gets the amount and types of grain being used for the weight
+        scale to prep to start the weighing process
+        :return: a grain bill dictionary
+        """
         self.grain = Recipe.Recipe.get_grain()
         return self.grain
 
     # noinspection PyArgumentList,PyArgumentList
     def get_hop_hop_amt(self):
-        '''
-       Method that gets hops information to prep the weighing process
-       Returns: The amount of the hops being used for the weight scale
-        '''
+        """
+        Gets hops types and weights to the weighing process of the Prep Stage
+        :param self: WeightScale instance
+        :return: The amount of hops being used for the weight scale
+        """
         self.hop_hop_amt = Recipe.Recipe.get_hop_hop_amt()
         return self.hop_hop_amt
 
     # noinspection PyUnboundLocalVariable
     def read_weight_grains(self, recipe, request_number):
-        '''
-       Method that displays the actual weight of the grains
-       Returns: Float of the weight goes into the weight scale with logging to ServiceNOW
-        '''
+        """
+        Displays the actual weight of the grains
+        :param recipe: a Recipe instance
+        :param request_number: brew request number
+        :return: a float, the grains weight that goes into the weight scale
+        """
         try:
             grain = list(recipe.grain.keys())
             weight = list(recipe.grain.values())
@@ -60,7 +69,7 @@ class WeightScale:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            self.log_no = self.log_no +1
+            self.log_no = self.log_no + 1
             log = Log(self.log_no, "Prep.WeightScale", "Grains list and weight copied from ordered brew recipe.",
                       datetime.datetime.now(),
                       "pass")
@@ -90,7 +99,7 @@ class WeightScale:
                 status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"WeightScale\"}"
                 sn_log = ServiceNowLog()
                 ServiceNowLog.create_new_log(sn_log, status_log)
-                self.log_no =   self.log_no + 1
+                self.log_no = self.log_no + 1
                 log = Log(self.log_no + 1, "Prep.WeightScale", "Weight scale is set to zero.",
                           datetime.datetime.now(),
                           "pass")
@@ -164,10 +173,12 @@ class WeightScale:
 
     # noinspection PyUnusedLocal,PyUnusedLocal,PyUnboundLocalVariable
     def read_weight_hops(self, recipe, request_number):
-        '''
-       Method that displays the actual weight of the hops
-       Returns: Float of the weight goes into the weight scale with logging to ServiceNOW
-        '''
+        """
+        Displays the actual weight of the hops
+        :param recipe: a Recipe instance
+        :param request_number: a brew batch request number
+        :return:  a float, the weight that goes into the weight scale
+        """
         try:
             hop = list(recipe.hop_hop_amt.keys())
             weight = list(recipe.hop_hop_amt.values())
@@ -211,7 +222,7 @@ class WeightScale:
 
                 for weight_scale in arange(float(weight[i])):
                     weight_scale = weight_scale + 1
-                    time.sleep(sleep_time*2)
+                    time.sleep(sleep_time * 2)
 
                     print("       \033[1m" + str(weight_scale) + "\033[0m pound(s) \033[1m" + hop[
                         i] + "\033[0m Hops received. \033[1m" + str(
@@ -230,11 +241,11 @@ class WeightScale:
                                   datetime.datetime.now(),
                                   "pass")
                         print(log.generate_log())
-                        time.sleep(sleep_time*2)
+                        time.sleep(sleep_time * 2)
                         ml = MongoLogging.MongoLogging()
                         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.WeightScale",
                                                            hop[i] + "hop received.")
-                    time.sleep(sleep_time*2)
+                    time.sleep(sleep_time * 2)
                 j = j + 1
                 i = i + 1
             return weight_scale

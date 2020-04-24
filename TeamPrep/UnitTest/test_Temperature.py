@@ -8,13 +8,14 @@
 
 import unittest
 from TeamPrep import Temperature
+
 t = Temperature
+
+
 class TestTemperature(unittest.TestCase):
     def test_read_temp(self):
-            self.assertTrue(t)
+        self.assertTrue(t)
 
 
 if __name__ == '__main__':
     unittest.main()
-
-

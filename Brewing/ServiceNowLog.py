@@ -12,6 +12,11 @@ import requests
 class ServiceNowLog():
 
     def create_new_log(self, log):
+        """
+        Creates a log in the ServiceNow Logging table
+        :param log: a status log message
+        :return: void
+        """
         # URL for the Logging table
         url = 'https://emplkasperpsu2.service-now.com/api/now/table/x_snc_brewing440_log?'
 

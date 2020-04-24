@@ -21,13 +21,14 @@ class SpargingTank: #constructor for the SpargingTank class
         self.water_temp = 0
 
     def add_water(self, recipe, request_number):
+        """
+        Water added to tank from hot liquor tank (HLT)
+        :param recipe: a recipe instance
+        :param request_number: a brew batch request number
+        :return:
+        """
         try:
             #adding heated water to tank
-            """
-            Water added to tank from hot liquor tank (HLT)
-            :param :Hot water from HLT
-            :return: Return log 1
-            """
 
             self.water_temp = recipe.get_water_temp()
 
@@ -63,9 +64,9 @@ class SpargingTank: #constructor for the SpargingTank class
     def stir_mash(self, recipe, request_number):
         #stirring the wort in progress
         """
-        Function to stirr the Wort-in progress sparging tank
-        :param : Wort in HLT
-        :param : time.sleep is pausing the process for 1 second
+        Function to stir the Wort-in progress sparging tank
+        :param recipe: a Recipe Instance
+        :param request_number: a brew batch request number
         :return: Return log 2
         """
         try:
@@ -120,7 +121,8 @@ class SpargingTank: #constructor for the SpargingTank class
         #empty the tank while spraying water over the remaing grains
         """
         Function to remove finished wort from Sparging tank.
-        :param : Wort in HLT
+        :param recipe: a Recipe Instance
+        :param request_number: a brew batch request number
         :return: Return log 4
         """
         try:

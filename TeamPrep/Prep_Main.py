@@ -19,14 +19,16 @@ s = Sanitization()
 t = Temperature()
 w = WeightScale()
 s1 = ServiceNowLog()
-# this function will called on staring of every thread
+# this function will be called on the start of every thread
 sleep_time = .25
 
+
 def thread_function():
-    '''
-    Method thread function will gather each of Team Preps functionality
-    return: Threading into the main method below with exceptions
-    '''
+    """
+    Method thread function that gathers each of Prep's functionality
+    Threading is implemented in the main method below with exception handling
+    :return: void
+    """
     while True:
         try:
             s.sanitization()
@@ -53,11 +55,11 @@ def thread_function():
 
 # noinspection SpellCheckingInspection
 def prep_main():
-    '''
-    Main Method for Team Prep to excute
-    return: excutes main method with threads
-    '''
-    time.sleep(sleep_time*2)
+    """
+    Main Method Call for Team Prep to excute and implement threading
+    :return:
+    """
+    time.sleep(sleep_time * 2)
     thread_list = []
     # to create up to 5 Threads
     for x in range(5):
@@ -68,7 +70,7 @@ def prep_main():
         thread_list.append(thread)
         # message = ('Batch: '+ str(x))
         print(message)
-        
+
         # for thread in thread_list:
         thread.start()
 

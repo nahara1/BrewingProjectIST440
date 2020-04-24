@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: Nahara (nkm5334)
 # Date Developed: 4/14/20
-# Last Date Changed: 4/21/20
-# Rev 5
+# Last Date Changed: 4/24/20
+# Rev 6
 
 """
 This module handles the retrieval of brew request data from ServiceNow
@@ -59,7 +59,7 @@ def extract_values(obj, key):
 
 def get_request_id():
     """
-    Retrieves the most recent brew request id from the ServiceNow requests table
+    Retrieves a brew request id from the ServiceNow requests table
     :return: request_id
     """
     # Requests Table url

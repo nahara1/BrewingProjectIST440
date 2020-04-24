@@ -29,7 +29,7 @@ def call_prep(request_number, recipe):
     Calls Team Prep's Process
     :param request_number: brew batch id
     :param recipe: a Recipe instance
-    :return none
+    :return void
     """
 
     s = Sanitization.Sanitization()
@@ -51,12 +51,11 @@ def call_mash(request_number, recipe):
     Calls Team Mashing's Process
     :param request_number: brew batch id
     :param recipe: a Recipe instance
-    :return: none
+    :return: void
     """
     m = MillingMachine.MillingMachine()
     MillingMachine.MillingMachine.mill_grains(m, recipe, request_number)
     return True
-
 
 
 def call_boil(request_number, recipe):
@@ -64,7 +63,7 @@ def call_boil(request_number, recipe):
     Calls Team Boil's Process
     :param request_number: brew batch id
     :param recipe: a Recipe instance
-    :return: none
+    :return: void
     """
     boil_temp = recipe.get_boil_temp()
     boil_time = recipe.get_boil_time()
@@ -76,7 +75,7 @@ def call_ferment(request_number, recipe):
     Method Calls Team Ferment's Process
     :param request_number:
     :param recipe:
-    :return: none
+    :return: void
     """
     Fermentation.start_fermentation_process(request_number, recipe)
     return True
@@ -87,7 +86,7 @@ def call_kegging(request_number, recipe):
     Method Calls Team Kegging's Process
     :param request_number:
     :param recipe:
-    :return:
+    :return: void
     """
     recipe_ibu = recipe.get_ibu()
     kegging_process = KeggingMain(request_number, "BRITE_START,", recipe_ibu)
@@ -96,6 +95,13 @@ def call_kegging(request_number, recipe):
 
 
 def brew_loops(request_number, request_id, recipe):
+    """
+
+    :param request_number:
+    :param request_id:
+    :param recipe:
+    :return:
+    """
     try:
         prep_pass = False
 
@@ -177,7 +183,7 @@ def brew_loops(request_number, request_id, recipe):
 def main():
     """
     Gets brew requests from ServiceNow and initiates brewing through its completion
-    :return: none
+    :return: void
     """
     print("-----------------------------------------\n")
     print("Welcome to Balrog Brewery\n")
@@ -222,16 +228,13 @@ def main():
                                      "in prep",
                                      recipe.get_batch_size())
 
-    #brew_loops(request_number, request_id, recipe)
-    brew_loops(request_number,request_id,recipe)
+    # brew_loops(request_number, request_id, recipe)
+    brew_loops(request_number, request_id, recipe)
 
-    #single process call testings
-
-    #call_mash(request_number, recipe)
+    # single process call testings
 
     main()
 
 
 if __name__ == "__main__":
     main()
-# This is a test of github at 9:33 on 4/23/2020

@@ -28,6 +28,8 @@ class Wort:
         # Checks for water temperature
         """
         Displays correct water temp in the wort phase / generates a log
+        :param recipe: a recipe instance
+        :param request_number: a brew batch request number
         :return: Displays current date, time and correct water temperature
         """
 
@@ -65,6 +67,8 @@ class Wort:
         # Checks for water volume
         """
         Displays the correct water volume / generates a log
+        :param recipe: a recipe instance
+        :param request_number: a brew batch request number
         :return: Current date, time and correct water volume
         """
 
@@ -100,6 +104,8 @@ class Wort:
         # Displays wort volume
         """
         Displays the correct wort volume / generates a log
+        :param recipe: a recipe instance
+        :param request_number: a brew batch request number
         :return: Current date, time and correct wort volume / and a log
         """
 
@@ -139,6 +145,8 @@ class Wort:
         # Separates the wort from the mash
         """
         Displays a count down while wort separation is in process
+        :param recipe: a recipe instance
+        :param request_number: a brew batch request number
         :return: Current date, time and count down to separating wort.
         """
 

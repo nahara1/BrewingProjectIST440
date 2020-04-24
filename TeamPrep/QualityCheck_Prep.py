@@ -26,6 +26,11 @@ class QualityCheck:
         self.log_no = w.log_no
 
     def get_QA_Check(self, request_number):
+        """
+        Gets the Quality Assurance for the Prep Stage
+        :param request_number: a brew batch request number
+        :return: True if QA passes
+        """
         status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Prep\", \"log\":\"QualityCheck_Prep\"}"
         sn_log = ServiceNowLog()
         ServiceNowLog.create_new_log(sn_log, status_log)
@@ -39,7 +44,7 @@ class QualityCheck:
         MongoLogging.MongoLogging.MongoLog(ml, request_number, "Prep.QualityCheck",
                                            "Prep quality check started.")
         time.sleep(sleep_time)
-        print("Please Inspect the Prep Quality Before Start Brewing to Check if it Meets CGMP Standards: \n")
+        print("Please Inspect the Prep Quality Before Starting Brewing to Check if it Meets CGMP Standards: \n")
         # save text as variable
         quality_checked = ""
         while quality_checked != "Yes" or quality_checked != "No":

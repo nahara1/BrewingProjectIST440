@@ -25,11 +25,9 @@ class MillingMachine:  # MillingMachine Start
     def mill_grains(self, recipe, request_number):  # Mill_grains process start
         """
         The start of milling grains
-        :param request_number:
+        :param request_number: a bre batch request number
         :param recipe: recipe instance
-        :param mid: machine id
-        :param mt: milling time
-        :return: Return Log and animation of milling grains
+        :return: Return Log
         """
         self.mill_time = recipe.get_mill_time()
         self.grains_weight = recipe.get_grain_weight(recipe.get_grain())
@@ -78,8 +76,9 @@ class MillingMachine:  # MillingMachine Start
     def send_grains_to_sparging_tank(self, recipe, request_number):
         # sends grains to Sparging Tank
         """
-        grains are added to the Sparging Tank
-        :param
+        Adds grains to the Sparging Tank
+        :param recipe: a Recipe instance
+        :param request_number: a bre batch request number
         :return: print statement
         """
         try:

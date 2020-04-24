@@ -23,9 +23,9 @@ class HotLiquorTank:
 
         """
         The start of water heating
-        :param request_number:
+        :param request_number: a brew request number
         :param recipe: a recipe instance
-        :return: return log and animation of burner light.
+        :return: return log
         """
 
         self.water_amount = recipe.get_water_volume()
@@ -62,6 +62,8 @@ class HotLiquorTank:
     def check_water_temp(self, recipe, request_number):
         """
         Checks the current temperature of the water.
+        :param recipe: Recipe instance
+        :param request_number: a brew batch request number
         :return: current water temperature
         """
         try:
@@ -95,6 +97,8 @@ class HotLiquorTank:
     def check_water_volume(self, recipe, request_number):
         """
         Getter for water volume
+        :param recipe: a recipe instance
+        :param request_number: a brew batch request number
         :return: water volume.
         """
         try:
@@ -127,7 +131,9 @@ class HotLiquorTank:
 
     def send_hot_water_to_sparging_tank(self, recipe, request_number):
         """
-
+        Sends water to sparging tank
+        :param recipe: a recipe instance
+        :param request_number: a bre batch request number
         :return: print statement
         """
         try:
