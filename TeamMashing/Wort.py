@@ -172,7 +172,7 @@ class Wort:
             log = Log(5, "Mashing.Wort", "Wort Separation Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
             ml = MongoLogging.MongoLogging()
-            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Wort Separation Started")
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Wort Separation Ended")
 
             print("-----------------------------------------")
 

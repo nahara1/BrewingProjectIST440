@@ -61,6 +61,8 @@ class MillingMachine:  # MillingMachine Start
             log = Log(2, "Mashing.Milling", "Milling Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Milling", "Milling Ended")
             self.send_grains_to_sparging_tank(recipe, request_number)
         except Exception as e:  # error handling
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Mashing Process Failed\"}"

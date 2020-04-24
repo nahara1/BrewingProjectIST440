@@ -89,8 +89,7 @@ class HotLiquorTank:
             print("-----------------------------------------")
 
             ml = MongoLogging.MongoLogging()
-            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
-                                               "Water Temperature Failed")
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank","Water Temperature Failed")
             print(e)
 
     def check_water_volume(self, recipe, request_number):
@@ -110,8 +109,7 @@ class HotLiquorTank:
             print("-----------------------------------------")
 
             ml = MongoLogging.MongoLogging()
-            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
-                                               "Checking Water Volume")
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank","Checking Water Volume")
 
             self.send_hot_water_to_sparging_tank(recipe, request_number)
 
@@ -123,8 +121,7 @@ class HotLiquorTank:
             print(log.generate_log())
             print("-----------------------------------------")
             ml = MongoLogging.MongoLogging()
-            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
-                                               "Checking Water Volume Failed")
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank","Checking Water Volume Failed")
             print(e)
 
 
@@ -145,8 +142,7 @@ class HotLiquorTank:
             print("-----------------------------------------")
 
             ml = MongoLogging.MongoLogging()
-            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
-                                               "Hot water is sent to Sparging Tank")
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank","Hot water is sent to Sparging Tank")
 
             st = SpargingTank()
             st.add_water(recipe, request_number)
@@ -160,7 +156,6 @@ class HotLiquorTank:
             print("-----------------------------------------")
 
             ml = MongoLogging.MongoLogging()
-            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
-                                               "Sending Hot Water to Sparging Tank Failed")
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank","Sending Hot Water to Sparging Tank Failed")
 
             print(e)
