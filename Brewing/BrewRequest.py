@@ -163,7 +163,7 @@ def get_catalog_item_id(request_number):
     import requests
 
     # Set the request parameters
-    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=request.number%253D' + request_number + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item'
+    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=requestLIKE' + request_number + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item'
 
     # Set connection to false until the HTTP request is successful
     connection_success = False
@@ -184,7 +184,7 @@ def get_catalog_item_id(request_number):
     # Decode the JSON response into a dictionary and use the data
     data = response.json()
     cat_item_id = extract_values(data, 'value')
-    print(cat_item_id)
+    print("cat id: ", cat_item_id)
     cat_item_id = str(cat_item_id).replace("['", "").replace("']", "")
     # print("Catalog Item ID: " + cat_item_id)
     return cat_item_id
