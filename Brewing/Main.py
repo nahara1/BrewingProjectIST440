@@ -23,8 +23,6 @@ from TeamPrep.QualityCheck_Prep import QualityCheck
 from Brewing import MongoLogging
 from Brewing import ServiceNowLog
 
-main_stage = "START"
-
 
 def call_prep(request_number, recipe):
     """
@@ -181,7 +179,10 @@ def main():
     Gets brew requests from ServiceNow and initiates brewing through its completion
     :return: none
     """
+    print("-----------------------------------------\n")
     print("Welcome to Balrog Brewery\n")
+    print("-----------------------------------------\n")
+
     input("Press any key to continue: ")
     print("Fetching brew request...")
 
@@ -225,7 +226,8 @@ def main():
     brew_loops(request_number,request_id,recipe)
 
     #single process call testings
-    #call_kegging(request_number, recipe)
+
+    #call_mash(request_number, recipe)
 
     main()
 

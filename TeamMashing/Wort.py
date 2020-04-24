@@ -10,6 +10,7 @@ import datetime
 import time
 from Brewing.Log import Log
 from Brewing.ServiceNowLog import ServiceNowLog
+from Brewing import MongoLogging
 
 # Wort class checks for water temperature, water volume and records separation time.
 
@@ -39,6 +40,9 @@ class Wort:
             ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(1, "Mashing.Wort", "Checking Water Temp", datetime.datetime.now(), "pass")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Checking Water Temp")
+
             print("-----------------------------------------")
 
             print("Hot Water Temperature: ", self.hot_water_temp, "degrees F")
@@ -52,6 +56,9 @@ class Wort:
             log = Log(1, "Mashing.Wort", "Checking Water Temp Failed", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Checking Water Temp Failed")
+
             print(e)
 
     def check_water_volume(self, recipe, request_number):
@@ -73,6 +80,8 @@ class Wort:
 
             print("Water Volume: ", self.water_volume, "gallons")
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Checking Water Volume")
 
             self.check_wort_volume(recipe, request_number)
         except Exception as e:
@@ -82,6 +91,9 @@ class Wort:
             log = Log(1, "Mashing.Wort", "Checking Water Volume Failed", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Checking Water Volume Failed")
+
             print(e)
 
     def check_wort_volume(self, recipe, request_number):    # Wort Volume? Should we use it as BatchSize
@@ -100,6 +112,10 @@ class Wort:
             ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(3, "Mashing.Wort", "Check Wort Volume", datetime.datetime.now(), "pass")
             print(log.generate_log())
+
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Check Wort Volume")
+
             print("-----------------------------------------")
 
             print("Wort Volume: ", self.wort_volume, "gallons")
@@ -113,6 +129,10 @@ class Wort:
             log = Log(1, "Mashing.Wort", "Check Wort Volume Failed", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Check Wort Volume Failed")
+
             print(e)
 
     def separate_wort(self, recipe, request_number):
@@ -131,6 +151,8 @@ class Wort:
             log = Log(4, "Mashing.Wort", "Wort Separation Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Wort Separation Started")
 
             # Counts the separation time in seconds
             while self.separation_time > 0:
@@ -149,6 +171,9 @@ class Wort:
             ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(5, "Mashing.Wort", "Wort Separation Ended", datetime.datetime.now(), "pass")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Wort Separation Started")
+
             print("-----------------------------------------")
 
             print("Wort Separated from Mash")
@@ -162,4 +187,7 @@ class Wort:
             log = Log(1, "Mashing.Wort", "Wort Separation Failed", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Wort", "Wort Separation Failed")
+
             print(e)

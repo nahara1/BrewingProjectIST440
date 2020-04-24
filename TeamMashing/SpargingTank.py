@@ -10,6 +10,7 @@ import time
 from Brewing.Log import Log
 from TeamMashing.Wort import Wort
 from Brewing.ServiceNowLog import ServiceNowLog
+from Brewing import MongoLogging
 
 sleep_time = .25
 
@@ -35,11 +36,16 @@ class SpargingTank: #constructor for the SpargingTank class
             ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(1, "Mashing.Sparging", "Heated water added to tank", datetime.datetime.now(), "pass")
             print(log.generate_log())
+
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Sparging", "Heated water added to tank")
+
             print("-----------------------------------------") # prints line to separate statements & log 1 is created
 
             print("Water Temp: ", self.water_temp, "degrees F") # displays water temp in degrees F
             print("Added Heated Water to Sparging Tank") # print validates the process of water being heated
             print("-----------------------------------------") # prints line to separate the next process in sparging tank
+
 
             self.stir_mash(recipe, request_number)
         except Exception as e:
@@ -49,6 +55,9 @@ class SpargingTank: #constructor for the SpargingTank class
             log = Log(1, "Mashing.Sparging", "Adding Hot Water to Tank Failed", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Sparging", "Adding Hot Water to Tank Failed")
+
             print(e)
 
     def stir_mash(self, recipe, request_number):
@@ -68,6 +77,8 @@ class SpargingTank: #constructor for the SpargingTank class
             log = Log(2, "Mashing.Sparging", "Sparging Process Started", datetime.datetime.now(), "pass")
             print(log.generate_log())
             print("-----------------------------------------") # prints line to separate statements & log 2 is created
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Sparging", "Sparging Process Started")
 
             while self.stir_time > 0:
                 print("Stirring Time Left: ", self.stir_time, "min") # prints number of seconds left until stirring is
@@ -86,6 +97,9 @@ class SpargingTank: #constructor for the SpargingTank class
             print(log.generate_log())
             print("-----------------------------------------") # prints line to separate statements & log 3 is created
 
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Sparging", "Sparging Process Ended")
+
             print("Mash Stirred") # print that the mashing is finished stirring
             print("-----------------------------------------") # prints line to separate process within SpargingTank
             self.sparg_the_tank(recipe, request_number)
@@ -96,6 +110,10 @@ class SpargingTank: #constructor for the SpargingTank class
             log = Log(1, "Mashing.Sparging", "Mashing Stirred Failed", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Sparging", "Mashing Stirred Failed")
+
             print(e)
 
     def sparg_the_tank(self, recipe, request_number):
@@ -111,6 +129,9 @@ class SpargingTank: #constructor for the SpargingTank class
             ServiceNowLog.create_new_log(sn_log, status_log)
             log = Log(4, "Mashing.Sparging", "Sparging the Tank", datetime.datetime.now(), "pass")
             print(log.generate_log())
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Sparging", "Sparging the Tank")
+
             print("-----------------------------------------") # prints line to separate statements & log 4 is created
 
             print("Tank emptying, washing grains.") # Finishing before sending it to the boiling phase
@@ -124,4 +145,7 @@ class SpargingTank: #constructor for the SpargingTank class
             log = Log(1, "Mashing.Sparging", "Sparging the Tank Failed", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Sparging", "Sparging the Tank Failed")
+
             print(e)

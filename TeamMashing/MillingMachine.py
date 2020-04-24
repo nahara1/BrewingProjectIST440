@@ -69,6 +69,8 @@ class MillingMachine:  # MillingMachine Start
             log = Log(1, "Mashing.Milling", "Milling Started", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Milling", "Milling Failed")
             print(e)
 
     def send_grains_to_sparging_tank(self, recipe, request_number):
@@ -88,13 +90,20 @@ class MillingMachine:  # MillingMachine Start
 
             print("Grains added to Sparging Tank")
             print("-----------------------------------------")
+
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Milling", "Sending Grains to Sparging Tank")
+
             hlt = HotLiquorTank()
             hlt.heat_water(recipe, request_number)
         except Exception as e:
             status_log = "{\"batch_id\":\"" + request_number + "\", \"brew_batch_stage\":\"Mashing\", \"log\":\"Sending Grains to Sparging Tank Failed\"}"
             sn_log = ServiceNowLog()
             ServiceNowLog.create_new_log(sn_log, status_log)
-            log = Log(1, "Mashing.Milling", "Send Grains to Sparging Tank", datetime.datetime.now(), "fail")
+            log = Log(1, "Mashing.Milling", "Sending Grains to Sparging Tank", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.Milling", "Sending Grains to Sparging Tank Failed")
+
             print(e)

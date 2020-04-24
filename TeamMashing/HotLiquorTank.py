@@ -10,6 +10,7 @@ import datetime
 from Brewing.Log import Log
 from TeamMashing.SpargingTank import SpargingTank
 from Brewing.ServiceNowLog import ServiceNowLog
+from Brewing import MongoLogging
 
 
 class HotLiquorTank:
@@ -23,8 +24,7 @@ class HotLiquorTank:
         """
         The start of water heating
         :param request_number:
-        :param recipe:
-        :param water_temp: temperature of the water
+        :param recipe: a recipe instance
         :return: return log and animation of burner light.
         """
 
@@ -43,6 +43,9 @@ class HotLiquorTank:
             print("Water Temperature Heated To: ", self.water_temp, " degrees F")
             print("-----------------------------------------")
 
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank", "Water heating started")
+
             self.check_water_temp(recipe, request_number)
 
         except Exception as e:
@@ -52,6 +55,8 @@ class HotLiquorTank:
             log = Log(1, "Mashing.Milling", "Water Heating Failed", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank", "Water Heating Failed")
             print(e)
 
     def check_water_temp(self, recipe, request_number):
@@ -70,6 +75,9 @@ class HotLiquorTank:
             print("Water Temperature: ", self.water_temp, "degrees F")
             print("-----------------------------------------")
 
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank", "Checking Water Temperature")
+
             self.check_water_volume(recipe, request_number)
 
         except Exception as e:
@@ -79,6 +87,10 @@ class HotLiquorTank:
             log = Log(1, "Mashing.HotLiquorTank", "Checking Water Temperature", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
+                                               "Water Temperature Failed")
             print(e)
 
     def check_water_volume(self, recipe, request_number):
@@ -97,6 +109,10 @@ class HotLiquorTank:
             print("Water Volume: ", self.water_amount, "gallons")
             print("-----------------------------------------")
 
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
+                                               "Checking Water Volume")
+
             self.send_hot_water_to_sparging_tank(recipe, request_number)
 
         except Exception as e:
@@ -106,7 +122,11 @@ class HotLiquorTank:
             log = Log(1, "Mashing.HotLiquorTank", "Checking Water Volume Failed", datetime.datetime.now(), "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
+                                               "Checking Water Volume Failed")
             print(e)
+
 
     def send_hot_water_to_sparging_tank(self, recipe, request_number):
         """
@@ -124,6 +144,10 @@ class HotLiquorTank:
             print("Hot water is sent to Sparging Tank.")
             print("-----------------------------------------")
 
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
+                                               "Hot water is sent to Sparging Tank")
+
             st = SpargingTank()
             st.add_water(recipe, request_number)
         except Exception as e:
@@ -134,4 +158,9 @@ class HotLiquorTank:
                       "fail")
             print(log.generate_log())
             print("-----------------------------------------")
+
+            ml = MongoLogging.MongoLogging()
+            MongoLogging.MongoLogging.MongoLog(ml, request_number, "Mashing.HotLiquorTank",
+                                               "Sending Hot Water to Sparging Tank Failed")
+
             print(e)
