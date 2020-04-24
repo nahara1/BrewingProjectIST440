@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: Nahara (nkm5334)
 # Date Developed: 4/14/20
-# Last Date Changed: 4/24/20
-# Rev 6
+# Last Date Changed: 4/25/20
+# Rev 7
 
 """
 This module handles the retrieval of brew request data from ServiceNow
