@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module KeggingBriteTank</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>KeggingBriteTank</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/narrara/BrewingProjectIST440/TeamKegging/KeggingBriteTank.py">/Users/narrara/BrewingProjectIST440/TeamKegging/KeggingBriteTank.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Project:&nbsp;Brewing&nbsp;Project<br>
+#&nbsp;Purpose&nbsp;Details:&nbsp;Brite&nbsp;Tank&nbsp;Object<br>
+#&nbsp;Course:&nbsp;IST&nbsp;440W<br>
+#&nbsp;Author:&nbsp;Team&nbsp;Kegging&nbsp;-&nbsp;Daibo&nbsp;Zhang<br>
+#&nbsp;Date&nbsp;Developed:&nbsp;4/03/2020<br>
+#&nbsp;Last&nbsp;Date&nbsp;Changed:&nbsp;4/18/2020<br>
+#&nbsp;Rev:&nbsp;1.4</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Brewing.MongoLogging.html">Brewing.MongoLogging</a><br>
+<a href="Brewing.ServiceNowLog.html">Brewing.ServiceNowLog</a><br>
+</td><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+<a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="KeggingBriteTank.html#KeggingBriteTank">KeggingBriteTank</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="KeggingBriteTank">class <strong>KeggingBriteTank</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#KeggingBriteTank">KeggingBriteTank</a>(bt_id,&nbsp;bt_temp,&nbsp;bt_max_volume,&nbsp;bt_current_volume,&nbsp;bt_psi,&nbsp;bt_status)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="KeggingBriteTank-__init__"><strong>__init__</strong></a>(self, bt_id, bt_temp, bt_max_volume, bt_current_volume, bt_psi, bt_status)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-auto_carb"><strong>auto_carb</strong></a>(self, target_carb)</dt><dd><tt>Method&nbsp;that&nbsp;simulates&nbsp;the&nbsp;automatic&nbsp;adjustment&nbsp;of&nbsp;PIS&nbsp;to&nbsp;a&nbsp;targeted&nbsp;carbonation&nbsp;level&nbsp;in&nbsp;CO2&nbsp;vols<br>
+:param&nbsp;target_carb:&nbsp;the&nbsp;target&nbsp;bright&nbsp;beer&nbsp;CO2&nbsp;volume<br>
+:return:&nbsp;Sets&nbsp;the&nbsp;pressure&nbsp;in&nbsp;the&nbsp;brite&nbsp;tank&nbsp;to&nbsp;adjust&nbsp;to&nbsp;a&nbsp;specified&nbsp;CO2&nbsp;volume</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-auto_psi"><strong>auto_psi</strong></a>(self, target_psi)</dt><dd><tt>Method&nbsp;that&nbsp;simulates&nbsp;automatic&nbsp;PSI&nbsp;adjustment&nbsp;through&nbsp;a&nbsp;delay.<br>
+&nbsp;<br>
+:param&nbsp;target_psi:&nbsp;the&nbsp;target&nbsp;brite&nbsp;tank&nbsp;pressure&nbsp;in&nbsp;PSI<br>
+:return:&nbsp;Sets&nbsp;the&nbsp;pressure&nbsp;in&nbsp;the&nbsp;brite&nbsp;tank&nbsp;to&nbsp;the&nbsp;specified&nbsp;PSI</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-auto_temp"><strong>auto_temp</strong></a>(self, target_temp)</dt><dd><tt>Method&nbsp;that&nbsp;simulates&nbsp;automatic&nbsp;temperature&nbsp;adjustment&nbsp;through&nbsp;a&nbsp;delay.<br>
+&nbsp;<br>
+:param&nbsp;target_temp:&nbsp;The&nbsp;target&nbsp;temperature&nbsp;of&nbsp;the&nbsp;brite&nbsp;tank&nbsp;in&nbsp;degrees&nbsp;Fahrenheit<br>
+:return:&nbsp;Sets&nbsp;the&nbsp;temperature&nbsp;in&nbsp;the&nbsp;brite&nbsp;tank&nbsp;to&nbsp;the&nbsp;specified&nbsp;degree&nbsp;Fahrenheit</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-bt_log"><strong>bt_log</strong></a>(self, batch_id, bb_stage, log_message)</dt><dd><tt>Logging&nbsp;Method&nbsp;for&nbsp;the&nbsp;Brite&nbsp;Tank&nbsp;Class.<br>
+&nbsp;<br>
+:param&nbsp;batch_id:&nbsp;The&nbsp;batch&nbsp;ID&nbsp;of&nbsp;the&nbsp;current&nbsp;batch<br>
+:param&nbsp;bb_stage:&nbsp;The&nbsp;current&nbsp;Brewing&nbsp;Stage<br>
+:param&nbsp;log_message:&nbsp;The&nbsp;main&nbsp;log&nbsp;message<br>
+:return:&nbsp;Sends&nbsp;a&nbsp;log&nbsp;to&nbsp;ServiceNow&nbsp;with&nbsp;timestamp&nbsp;appended&nbsp;to&nbsp;the&nbsp;beginning&nbsp;of&nbsp;the&nbsp;log&nbsp;message</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-bt_psi_control"><strong>bt_psi_control</strong></a>(self)</dt><dd><tt>Main&nbsp;brite&nbsp;tank&nbsp;pressure&nbsp;control&nbsp;to&nbsp;see&nbsp;if&nbsp;pressure&nbsp;is&nbsp;within&nbsp;detectable&nbsp;range.<br>
+&nbsp;<br>
+:return:&nbsp;sets&nbsp;the&nbsp;brite&nbsp;tank&nbsp;PSI&nbsp;and&nbsp;status&nbsp;to&nbsp;BT_PSI_READY</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-bt_temp_control"><strong>bt_temp_control</strong></a>(self)</dt><dd><tt>Main&nbsp;temperature&nbsp;for&nbsp;checking&nbsp;whether&nbsp;the&nbsp;temperature&nbsp;of&nbsp;the&nbsp;brite&nbsp;tank&nbsp;is&nbsp;in&nbsp;detectable&nbsp;range.<br>
+&nbsp;<br>
+:return:&nbsp;Sets&nbsp;the&nbsp;brite&nbsp;tank&nbsp;temperature&nbsp;and&nbsp;status&nbsp;as&nbsp;BT_TEMPERATURE_READY</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-get_bt_loglist"><strong>get_bt_loglist</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;returns&nbsp;a&nbsp;list&nbsp;of&nbsp;the&nbsp;brite&nbsp;tank&nbsp;log<br>
+:return:&nbsp;returns&nbsp;the&nbsp;brite&nbsp;tank&nbsp;log&nbsp;as&nbsp;a&nbsp;list</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-get_bt_psi"><strong>get_bt_psi</strong></a>(self)</dt><dd><tt>Gets&nbsp;the&nbsp;current&nbsp;tank&nbsp;pressure&nbsp;in&nbsp;PSI&nbsp;and&nbsp;returns&nbsp;the&nbsp;value<br>
+:return:&nbsp;Current&nbsp;Tank&nbsp;Pressure</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-get_bt_temp"><strong>get_bt_temp</strong></a>(self)</dt><dd><tt>Gets&nbsp;the&nbsp;current&nbsp;tank&nbsp;temperature&nbsp;in&nbsp;Fahrenheit&nbsp;and&nbsp;returns&nbsp;the&nbsp;value<br>
+:return:&nbsp;Tank&nbsp;Temperature</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-get_carbonation"><strong>get_carbonation</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;Carbonation&nbsp;level&nbsp;of&nbsp;the&nbsp;Brita&nbsp;Tank&nbsp;based&nbsp;off&nbsp;of&nbsp;Temperature&nbsp;and&nbsp;Pressure.&nbsp;Min&nbsp;Temp&nbsp;is&nbsp;30F,&nbsp;Max&nbsp;Temp&nbsp;is&nbsp;65F.&nbsp;Min&nbsp;PSI&nbsp;is&nbsp;1,&nbsp;Max&nbsp;PSI&nbsp;is&nbsp;30.<br>
+:return:&nbsp;Carbonation&nbsp;vols&nbsp;if&nbsp;Temp&nbsp;and&nbsp;PSI&nbsp;are&nbsp;within&nbsp;range,&nbsp;else&nbsp;returns&nbsp;Unknown&nbsp;as&nbsp;a&nbsp;string</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-get_status"><strong>get_status</strong></a>(self)</dt><dd><tt>Basic&nbsp;return&nbsp;string&nbsp;status&nbsp;method,&nbsp;use&nbsp;<a href="#KeggingBriteTank-print_carb_status">print_carb_status</a>()&nbsp;for&nbsp;carbonation&nbsp;status&nbsp;instead.<br>
+:return:&nbsp;Brite&nbsp;Tank&nbsp;Status</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-get_volume_dif"><strong>get_volume_dif</strong></a>(self)</dt><dd><tt>:return:&nbsp;Remaining&nbsp;free&nbsp;volume&nbsp;of&nbsp;the&nbsp;brite&nbsp;tank</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-print_carb_status"><strong>print_carb_status</strong></a>(self)</dt><dd><tt>Prints&nbsp;the&nbsp;Temperature,&nbsp;Pressure,&nbsp;and&nbsp;Carbonation&nbsp;Status&nbsp;of&nbsp;the&nbsp;brite&nbsp;tank.<br>
+&nbsp;<br>
+:return:&nbsp;Brite&nbsp;Tank&nbsp;status&nbsp;text</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-psi_choice"><strong>psi_choice</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;allows&nbsp;a&nbsp;user&nbsp;to&nbsp;choose&nbsp;between&nbsp;manual&nbsp;and&nbsp;automatic&nbsp;operation&nbsp;of&nbsp;pressure&nbsp;controls.&nbsp;Allows&nbsp;PSI&nbsp;between&nbsp;1&nbsp;and&nbsp;30.<br>
+&nbsp;<br>
+:return:&nbsp;&nbsp;Sets&nbsp;the&nbsp;brite&nbsp;tank&nbsp;pressure&nbsp;to&nbsp;values&nbsp;between&nbsp;1&nbsp;and&nbsp;30&nbsp;PSI</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-start_brite_tank"><strong>start_brite_tank</strong></a>(self, batch_id)</dt><dd><tt>Main&nbsp;Brite&nbsp;Tank&nbsp;Method&nbsp;for&nbsp;reaching&nbsp;the&nbsp;correct&nbsp;carbonation&nbsp;level&nbsp;through&nbsp;simulation<br>
+&nbsp;<br>
+:return:&nbsp;Sets&nbsp;the&nbsp;temperature&nbsp;and&nbsp;pressure&nbsp;to&nbsp;correct&nbsp;values&nbsp;in&nbsp;order&nbsp;to&nbsp;reach&nbsp;a&nbsp;targeted&nbsp;carbonation&nbsp;volume</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-temp_choice"><strong>temp_choice</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;allows&nbsp;a&nbsp;user&nbsp;to&nbsp;chose&nbsp;between&nbsp;manual&nbsp;or&nbsp;automatic&nbsp;operation&nbsp;of&nbsp;temperature&nbsp;controls.&nbsp;Only&nbsp;allows&nbsp;temperature&nbsp;to&nbsp;be&nbsp;set&nbsp;between&nbsp;30&nbsp;and&nbsp;65&nbsp;degrees&nbsp;Fahrenheit<br>
+&nbsp;<br>
+:return:&nbsp;Sets&nbsp;the&nbsp;bright&nbsp;tank&nbsp;temperature&nbsp;between&nbsp;30&nbsp;and&nbsp;65&nbsp;degrees&nbsp;Fahrenheit</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-update_bt_psi"><strong>update_bt_psi</strong></a>(self, cur_psi)</dt><dd><tt>Updates&nbsp;the&nbsp;tank&nbsp;pressure&nbsp;and&nbsp;returns&nbsp;the&nbsp;value<br>
+:param&nbsp;cur_psi:&nbsp;the&nbsp;current&nbsp;tank&nbsp;pressure<br>
+:return:&nbsp;Current&nbsp;PSI&nbsp;of&nbsp;the&nbsp;Brite&nbsp;Tank</tt></dd></dl>
+
+<dl><dt><a name="KeggingBriteTank-update_bt_temp"><strong>update_bt_temp</strong></a>(self, cur_temp)</dt><dd><tt>Updates&nbsp;the&nbsp;brite&nbsp;tank&nbsp;<a href="builtins.html#object">object</a>&nbsp;with&nbsp;the&nbsp;temperature&nbsp;and&nbsp;returns&nbsp;the&nbsp;value<br>
+:param&nbsp;cur_temp:&nbsp;the&nbsp;current&nbsp;tank&nbsp;temperature<br>
+:return:&nbsp;Current&nbsp;Temperature&nbsp;of&nbsp;the&nbsp;Brite&nbsp;Tank</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>bt_loglist</strong> = []<br>
+<strong>sim_sleep_mod</strong> = 0.05</td></tr></table>
+</body></html>

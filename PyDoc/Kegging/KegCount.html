@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module KegCount</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>KegCount</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/narrara/BrewingProjectIST440/TeamKegging/KegCount.py">/Users/narrara/BrewingProjectIST440/TeamKegging/KegCount.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Project:&nbsp;Brewing&nbsp;Automation&nbsp;System&nbsp;-&nbsp;Capstone&nbsp;Project<br>
+#&nbsp;Purpose&nbsp;Details:&nbsp;Kegging&nbsp;-&nbsp;Keg&nbsp;Class<br>
+#&nbsp;Course:&nbsp;IST&nbsp;440W&nbsp;-&nbsp;001<br>
+#&nbsp;Author:&nbsp;Daibo&nbsp;Zhang<br>
+#&nbsp;Date&nbsp;Developed:&nbsp;4/18/2020<br>
+#&nbsp;Last&nbsp;Date&nbsp;Changed:&nbsp;4/18/2020<br>
+#&nbsp;Rev:&nbsp;1.0</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Brewing.MongoLogging.html">Brewing.MongoLogging</a><br>
+</td><td width="25%" valign=top><a href="Brewing.ServiceNowLog.html">Brewing.ServiceNowLog</a><br>
+</td><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="KegCount.html#KegCount">KegCount</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="KegCount">class <strong>KegCount</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#KegCount">KegCount</a>(batch_id,&nbsp;kc_status)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="KegCount-__init__"><strong>__init__</strong></a>(self, batch_id, kc_status)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="KegCount-get_kc_loglist"><strong>get_kc_loglist</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;returns&nbsp;list&nbsp;of&nbsp;log&nbsp;events&nbsp;occurring&nbsp;in&nbsp;Keg&nbsp;Count&nbsp;Process<br>
+:return:&nbsp;list&nbsp;of&nbsp;log&nbsp;events</tt></dd></dl>
+
+<dl><dt><a name="KegCount-get_status"><strong>get_status</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;returns&nbsp;the&nbsp;status&nbsp;of&nbsp;the&nbsp;Keg&nbsp;Count&nbsp;process<br>
+:return:&nbsp;String&nbsp;format&nbsp;of&nbsp;the&nbsp;status&nbsp;of&nbsp;the&nbsp;Keg&nbsp;Count&nbsp;<a href="builtins.html#object">object</a></tt></dd></dl>
+
+<dl><dt><a name="KegCount-input_keg_id"><strong>input_keg_id</strong></a>(self)</dt><dd><tt>Asks&nbsp;the&nbsp;user&nbsp;to&nbsp;input&nbsp;the&nbsp;Keg&nbsp;ID.<br>
+:return:&nbsp;User&nbsp;input&nbsp;Keg&nbsp;ID</tt></dd></dl>
+
+<dl><dt><a name="KegCount-input_keg_pressure"><strong>input_keg_pressure</strong></a>(self)</dt><dd><tt>Asks&nbsp;the&nbsp;user&nbsp;to&nbsp;input&nbsp;the&nbsp;Keg&nbsp;Pressure.<br>
+:return:&nbsp;User&nbsp;input&nbsp;keg&nbsp;pressure</tt></dd></dl>
+
+<dl><dt><a name="KegCount-input_keg_style"><strong>input_keg_style</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;returns&nbsp;a&nbsp;keg&nbsp;style&nbsp;based&nbsp;off&nbsp;user&nbsp;input<br>
+:return:&nbsp;Keg&nbsp;Type&nbsp;KEG_SIXTEL,&nbsp;KEG_QUARTER_STUBBY,&nbsp;or&nbsp;KEG_QUARTER_SLIM</tt></dd></dl>
+
+<dl><dt><a name="KegCount-input_keg_volume"><strong>input_keg_volume</strong></a>(self)</dt><dd><tt>Asks&nbsp;the&nbsp;user&nbsp;to&nbsp;input&nbsp;the&nbsp;beer&nbsp;volume.<br>
+:return:&nbsp;User&nbsp;input&nbsp;Beer&nbsp;Volume</tt></dd></dl>
+
+<dl><dt><a name="KegCount-kc_confirm_batch"><strong>kc_confirm_batch</strong></a>(self)</dt><dd><tt>Method&nbsp;called&nbsp;in&nbsp;Keg&nbsp;Count&nbsp;process&nbsp;that&nbsp;confirms&nbsp;the&nbsp;batch&nbsp;ID&nbsp;of&nbsp;the&nbsp;current&nbsp;beer&nbsp;batch.&nbsp;Logs&nbsp;events<br>
+:return:&nbsp;None.</tt></dd></dl>
+
+<dl><dt><a name="KegCount-kc_count_kegs"><strong>kc_count_kegs</strong></a>(self)</dt><dd><tt>Method&nbsp;called&nbsp;in&nbsp;the&nbsp;Keg&nbsp;Count&nbsp;process&nbsp;that&nbsp;confirms&nbsp;the&nbsp;number&nbsp;of&nbsp;kegs&nbsp;in&nbsp;the&nbsp;batch.&nbsp;Logs&nbsp;events<br>
+:return:&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="KegCount-kc_log"><strong>kc_log</strong></a>(self, batch_id, bb_stage, log_message)</dt><dd><tt>Logging&nbsp;Method&nbsp;for&nbsp;the&nbsp;Keg&nbsp;Count<br>
+&nbsp;<br>
+:param&nbsp;batch_id:&nbsp;The&nbsp;batch&nbsp;ID&nbsp;of&nbsp;the&nbsp;current&nbsp;batch<br>
+:param&nbsp;bb_stage:&nbsp;The&nbsp;current&nbsp;Brewing&nbsp;Stage<br>
+:param&nbsp;log_message:&nbsp;The&nbsp;main&nbsp;log&nbsp;message<br>
+:return:&nbsp;Sends&nbsp;a&nbsp;log&nbsp;to&nbsp;ServiceNow&nbsp;with&nbsp;timestamp&nbsp;appended&nbsp;to&nbsp;the&nbsp;beginning&nbsp;of&nbsp;the&nbsp;log&nbsp;message</tt></dd></dl>
+
+<dl><dt><a name="KegCount-kc_main"><strong>kc_main</strong></a>(self)</dt><dd><tt>Main&nbsp;Keg&nbsp;Count&nbsp;function&nbsp;Call<br>
+:return:&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="KegCount-kc_new_keg"><strong>kc_new_keg</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;asks&nbsp;the&nbsp;user&nbsp;to&nbsp;enter&nbsp;information&nbsp;for&nbsp;a&nbsp;new&nbsp;Keg&nbsp;<a href="builtins.html#object">object</a><br>
+&nbsp;<br>
+:return:&nbsp;returns&nbsp;the&nbsp;information&nbsp;in&nbsp;string&nbsp;format&nbsp;of&nbsp;the&nbsp;new&nbsp;keg</tt></dd></dl>
+
+<dl><dt><a name="KegCount-kc_record_keg_id"><strong>kc_record_keg_id</strong></a>(self)</dt><dd><tt>Main&nbsp;Method&nbsp;call&nbsp;that&nbsp;confirms&nbsp;the&nbsp;completion&nbsp;of&nbsp;Keg&nbsp;Count&nbsp;process&nbsp;and&nbsp;logs<br>
+:return:&nbsp;None.&nbsp;calls&nbsp;kc_log&nbsp;method</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>kc_loglist</strong> = []</td></tr></table>
+</body></html>

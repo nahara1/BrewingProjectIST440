@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module TasteTest</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>TasteTest</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/narrara/BrewingProjectIST440/TeamKegging/TasteTest.py">/Users/narrara/BrewingProjectIST440/TeamKegging/TasteTest.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Project:&nbsp;Brewing&nbsp;Automation&nbsp;System&nbsp;-&nbsp;Capstone&nbsp;Project<br>
+#&nbsp;Purpose&nbsp;Details:&nbsp;Kegging&nbsp;-&nbsp;KeggingTask&nbsp;Class<br>
+#&nbsp;Course:&nbsp;IST&nbsp;440W&nbsp;-&nbsp;001<br>
+#&nbsp;Author:&nbsp;Aaleem&nbsp;Siddiqui,&nbsp;Daibo&nbsp;Zhang,&nbsp;Jun&nbsp;Baek<br>
+#&nbsp;Date&nbsp;Developed:&nbsp;4/4/2020<br>
+#&nbsp;Last&nbsp;Date&nbsp;Changed:&nbsp;4/18/2020<br>
+#&nbsp;Rev:&nbsp;9</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Brewing.MongoLogging.html">Brewing.MongoLogging</a><br>
+</td><td width="25%" valign=top><a href="Brewing.ServiceNowLog.html">Brewing.ServiceNowLog</a><br>
+</td><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="TasteTest.html#TasteTest">TasteTest</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TasteTest">class <strong>TasteTest</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#TasteTest">TasteTest</a>(tt_id,&nbsp;taster_name,&nbsp;taster_id,&nbsp;tt_status,&nbsp;tt_ibu)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TasteTest-__init__"><strong>__init__</strong></a>(self, tt_id, taster_name, taster_id, tt_status, tt_ibu)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="TasteTest-get_status"><strong>get_status</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;returns&nbsp;the&nbsp;status&nbsp;of&nbsp;the&nbsp;Taste&nbsp;Test&nbsp;<a href="builtins.html#object">object</a><br>
+&nbsp;<br>
+:return:&nbsp;String&nbsp;format&nbsp;status&nbsp;report</tt></dd></dl>
+
+<dl><dt><a name="TasteTest-get_tt_loglist"><strong>get_tt_loglist</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;returns&nbsp;the&nbsp;log&nbsp;list&nbsp;of&nbsp;Taste&nbsp;Test&nbsp;events<br>
+:return:&nbsp;list&nbsp;of&nbsp;log&nbsp;events&nbsp;from&nbsp;Taste&nbsp;Test</tt></dd></dl>
+
+<dl><dt><a name="TasteTest-quality_pass_fail"><strong>quality_pass_fail</strong></a>(self, batch_id)</dt><dd><tt>Method&nbsp;that&nbsp;is&nbsp;called&nbsp;in&nbsp;Taste&nbsp;Test&nbsp;to&nbsp;confirm&nbsp;the&nbsp;final&nbsp;pass/fail&nbsp;or&nbsp;a&nbsp;beer&nbsp;batch&nbsp;with&nbsp;log.<br>
+:param&nbsp;batch_id:&nbsp;the&nbsp;current&nbsp;Batch&nbsp;ID&nbsp;or&nbsp;Request&nbsp;ID&nbsp;of&nbsp;the&nbsp;current&nbsp;beer&nbsp;batch<br>
+:return:&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="TasteTest-record_ibu"><strong>record_ibu</strong></a>(self, batch_id, recipe_ibu)</dt><dd><tt>Method&nbsp;called&nbsp;in&nbsp;Taste&nbsp;Test&nbsp;to&nbsp;prompt&nbsp;and&nbsp;store&nbsp;a&nbsp;Taster&nbsp;and&nbsp;IBU&nbsp;report.<br>
+:param&nbsp;batch_id:&nbsp;the&nbsp;current&nbsp;Batch&nbsp;ID&nbsp;or&nbsp;Request&nbsp;ID&nbsp;of&nbsp;the&nbsp;current&nbsp;beer&nbsp;batch<br>
+:param&nbsp;recipe_ibu:&nbsp;the&nbsp;required&nbsp;IBU&nbsp;target&nbsp;given&nbsp;by&nbsp;a&nbsp;recipe<br>
+:return:&nbsp;None.</tt></dd></dl>
+
+<dl><dt><a name="TasteTest-record_quality"><strong>record_quality</strong></a>(self, batch_id)</dt><dd><tt>Method&nbsp;called&nbsp;in&nbsp;Taste&nbsp;Test&nbsp;to&nbsp;record&nbsp;a&nbsp;tester&nbsp;name,&nbsp;RFID&nbsp;and&nbsp;quality&nbsp;report&nbsp;prompt&nbsp;with&nbsp;a&nbsp;log.<br>
+&nbsp;<br>
+:param&nbsp;batch_id:&nbsp;The&nbsp;batch_id&nbsp;or&nbsp;request_id&nbsp;of&nbsp;the&nbsp;current&nbsp;beer&nbsp;batch<br>
+:return:&nbsp;None.</tt></dd></dl>
+
+<dl><dt><a name="TasteTest-tt_log"><strong>tt_log</strong></a>(self, batch_id, bb_stage, log_message)</dt><dd><tt>:param&nbsp;batch_id:&nbsp;batch_id&nbsp;or&nbsp;request_id&nbsp;of&nbsp;the&nbsp;current&nbsp;beer&nbsp;batch<br>
+:param&nbsp;bb_stage:&nbsp;current&nbsp;stage&nbsp;in&nbsp;the&nbsp;brewing&nbsp;Process<br>
+:param&nbsp;log_message:&nbsp;the&nbsp;message&nbsp;or&nbsp;log&nbsp;that&nbsp;will&nbsp;be&nbsp;sent&nbsp;to&nbsp;service&nbsp;now&nbsp;or&nbsp;appened&nbsp;to&nbsp;the&nbsp;log&nbsp;list<br>
+:return:&nbsp;sends&nbsp;a&nbsp;log&nbsp;with&nbsp;timestamp&nbsp;to&nbsp;ServiceNow&nbsp;and&nbsp;appends&nbsp;to&nbsp;the&nbsp;log&nbsp;list</tt></dd></dl>
+
+<dl><dt><a name="TasteTest-tt_main"><strong>tt_main</strong></a>(self, batch_id, recipe_ibu)</dt><dd><tt>Main&nbsp;Taste&nbsp;Test&nbsp;method&nbsp;that&nbsp;calls&nbsp;the&nbsp;QA,&nbsp;IBU,&nbsp;and&nbsp;Pass/Fail&nbsp;methods&nbsp;and&nbsp;logs.<br>
+&nbsp;<br>
+:param&nbsp;batch_id:&nbsp;the&nbsp;current&nbsp;Batch&nbsp;ID&nbsp;or&nbsp;Request&nbsp;ID&nbsp;of&nbsp;the&nbsp;current&nbsp;beer&nbsp;batch<br>
+:param&nbsp;recipe_ibu:&nbsp;the&nbsp;required&nbsp;IBU&nbsp;target&nbsp;given&nbsp;by&nbsp;a&nbsp;recipe<br>
+:return:&nbsp;None.&nbsp;Logs&nbsp;all&nbsp;Taste&nbsp;Test&nbsp;events</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>tt_loglist</strong> = []</td></tr></table>
+</body></html>

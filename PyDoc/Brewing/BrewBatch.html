@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module BrewBatch</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>BrewBatch</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/narrara/BrewingProjectIST440/Brewing/BrewBatch.py">/Users/narrara/BrewingProjectIST440/Brewing/BrewBatch.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Project:&nbsp;Brewing&nbsp;Automation&nbsp;System&nbsp;-&nbsp;Capstone&nbsp;Project<br>
+#&nbsp;Purpose&nbsp;Details:&nbsp;class&nbsp;for&nbsp;connecting&nbsp;between&nbsp;cloud&nbsp;and&nbsp;local&nbsp;databases<br>
+#&nbsp;Course:&nbsp;IST&nbsp;440W&nbsp;-&nbsp;001<br>
+#&nbsp;Author:&nbsp;Erik&nbsp;Ellis&nbsp;(eae5206@psu.edu)<br>
+#&nbsp;Date&nbsp;Developed:&nbsp;3/18/20<br>
+#&nbsp;Last&nbsp;Date&nbsp;Changed:&nbsp;4/18/20<br>
+#&nbsp;Rev&nbsp;4</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Brewing.BrewBatchStage.html">Brewing.BrewBatchStage</a><br>
+<a href="Brewing.Recipe.html">Brewing.Recipe</a><br>
+</td><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+<a href="logging.html">logging</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="BrewBatch.html#BrewBatch">BrewBatch</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="BrewBatch">class <strong>BrewBatch</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#BrewBatch">BrewBatch</a>(request_number,&nbsp;recipe,&nbsp;bb_start_date_time,&nbsp;bb_stage,&nbsp;bb_status,&nbsp;bb_size)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="BrewBatch-__init__"><strong>__init__</strong></a>(self, request_number, recipe, bb_start_date_time, bb_stage, bb_status, bb_size)</dt><dd><tt>Overloaded&nbsp;Constructor&nbsp;Method&nbsp;allows&nbsp;parameters&nbsp;to&nbsp;be&nbsp;accessed&nbsp;with&nbsp;methods&nbsp;and&nbsp;attributes<br>
+:param&nbsp;recipe:&nbsp;Recipe&nbsp;instance<br>
+:param&nbsp;bb_start_date_time:&nbsp;&nbsp;start&nbsp;date&nbsp;and&nbsp;time&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:param&nbsp;bb_stage:&nbsp;stage&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:param&nbsp;bb_status:&nbsp;the&nbsp;brew&nbsp;batch's&nbsp;status<br>
+:param&nbsp;bb_size:&nbsp;size&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-get_bb_duration"><strong>get_bb_duration</strong></a>(self)</dt><dd><tt>Calls&nbsp;the&nbsp;duration&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;the&nbsp;duration&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-get_bb_end_date_time"><strong>get_bb_end_date_time</strong></a>(self)</dt><dd><tt>gets&nbsp;the&nbsp;end&nbsp;date&nbsp;and&nbsp;time&nbsp;for&nbsp;brew&nbsp;batch<br>
+:param&nbsp;self:&nbsp;calls&nbsp;the&nbsp;end&nbsp;date&nbsp;and&nbsp;time<br>
+:return:&nbsp;returns&nbsp;the&nbsp;end&nbsp;date&nbsp;and&nbsp;time&nbsp;for&nbsp;brew&nbsp;batch</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-get_bb_size"><strong>get_bb_size</strong></a>(self)</dt><dd><tt>Gets&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;brew&nbsp;batch&nbsp;size</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-get_bb_stage"><strong>get_bb_stage</strong></a>(self)</dt><dd><tt>Gets&nbsp;the&nbsp;stage&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;the&nbsp;stage</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-get_bb_start_date_time"><strong>get_bb_start_date_time</strong></a>(self)</dt><dd><tt>Gets&nbsp;the&nbsp;Brew&nbsp;batch&nbsp;start&nbsp;date&nbsp;and&nbsp;time<br>
+:param&nbsp;self:&nbsp;calls&nbsp;the&nbsp;start&nbsp;date&nbsp;and&nbsp;time&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;the&nbsp;start&nbsp;date&nbsp;and&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-get_bb_status"><strong>get_bb_status</strong></a>(self)</dt><dd><tt>Gets&nbsp;the&nbsp;status&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;the&nbsp;status&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-get_brew_batch_id"><strong>get_brew_batch_id</strong></a>(self)</dt><dd><tt>Gets&nbsp;the&nbsp;Brew&nbsp;Batch's&nbsp;ID<br>
+:return:&nbsp;returns&nbsp;the&nbsp;ID&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch&nbsp;to&nbsp;be&nbsp;set</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-get_recipe_id"><strong>get_recipe_id</strong></a>(self)</dt><dd><tt>Calls&nbsp;the&nbsp;Recipe&nbsp;ID&nbsp;to&nbsp;be&nbsp;set&nbsp;for&nbsp;the&nbsp;recipe<br>
+:param&nbsp;self:&nbsp;allows&nbsp;access&nbsp;to&nbsp;the&nbsp;recipe&nbsp;ID<br>
+:return:&nbsp;returns&nbsp;the&nbsp;recipe&nbsp;id</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-get_request_number"><strong>get_request_number</strong></a>(self)</dt><dd><tt>Gets&nbsp;the&nbsp;request&nbsp;number&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;the&nbsp;brew&nbsp;batch&nbsp;request&nbsp;number</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-set_bb_duration"><strong>set_bb_duration</strong></a>(self, bb_duration)</dt><dd><tt>sets&nbsp;the&nbsp;duration&nbsp;time&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:param&nbsp;bb_duration:&nbsp;time&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch&nbsp;duration<br>
+:return:&nbsp;returns&nbsp;duration&nbsp;time&nbsp;and&nbsp;sets&nbsp;it</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-set_bb_end_date_time"><strong>set_bb_end_date_time</strong></a>(self, bb_end_date_time)</dt><dd><tt>setter&nbsp;for&nbsp;end&nbsp;date&nbsp;and&nbsp;time&nbsp;of&nbsp;brew&nbsp;batch<br>
+:param&nbsp;self:&nbsp;calls&nbsp;the&nbsp;end&nbsp;date&nbsp;and&nbsp;time<br>
+:param&nbsp;bb_end_date_time:&nbsp;end&nbsp;date&nbsp;and&nbsp;time&nbsp;for&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;and&nbsp;sets&nbsp;end&nbsp;date&nbsp;and&nbsp;time&nbsp;for&nbsp;brew&nbsp;batch</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-set_bb_size"><strong>set_bb_size</strong></a>(self, bb_size)</dt><dd><tt>Sets&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:param&nbsp;bb_size:&nbsp;size&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;and&nbsp;sets&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-set_bb_stage"><strong>set_bb_stage</strong></a>(self, bb_stage)</dt><dd><tt>sets&nbsp;the&nbsp;stage&nbsp;for&nbsp;brew&nbsp;batch<br>
+:param&nbsp;bb_stage:&nbsp;brew&nbsp;batch&nbsp;stage<br>
+:return:&nbsp;returns&nbsp;and&nbsp;sets&nbsp;the&nbsp;brew&nbsp;batch&nbsp;stage</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-set_bb_start_date_time"><strong>set_bb_start_date_time</strong></a>(self, bb_start_date_time)</dt><dd><tt>Setter&nbsp;for&nbsp;the&nbsp;start&nbsp;date&nbsp;and&nbsp;time&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:param&nbsp;self:&nbsp;calls&nbsp;the&nbsp;start&nbsp;date&nbsp;and&nbsp;time<br>
+:param&nbsp;bb_start_date_time:&nbsp;start&nbsp;date&nbsp;and&nbsp;time&nbsp;for&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;the&nbsp;start&nbsp;date&nbsp;and&nbsp;time,&nbsp;setting&nbsp;it&nbsp;for&nbsp;brew&nbsp;batch</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-set_bb_status"><strong>set_bb_status</strong></a>(self, bb_status)</dt><dd><tt>Sets&nbsp;the&nbsp;status&nbsp;for&nbsp;Brew&nbsp;batch<br>
+:param&nbsp;bb_status:&nbsp;brew&nbsp;batch&nbsp;status<br>
+:return:&nbsp;returns&nbsp;and&nbsp;sets&nbsp;the&nbsp;status&nbsp;of&nbsp;brew&nbsp;batch</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-set_brew_batch_id"><strong>set_brew_batch_id</strong></a>(self, bb_id)</dt><dd><tt>Setter&nbsp;for&nbsp;brew&nbsp;batch&nbsp;ID,<br>
+:param&nbsp;bb_id:&nbsp;sets&nbsp;the&nbsp;id&nbsp;for&nbsp;the&nbsp;brew&nbsp;batch<br>
+:return:&nbsp;returns&nbsp;the&nbsp;ID&nbsp;for&nbsp;the&nbsp;brew&nbsp;batch</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-set_recipe_id"><strong>set_recipe_id</strong></a>(self, recipe_id)</dt><dd><tt>Setter&nbsp;for&nbsp;the&nbsp;recipe's&nbsp;ID<br>
+:param&nbsp;self:&nbsp;sets&nbsp;the&nbsp;recipe&nbsp;ID<br>
+:param&nbsp;recipe_id:&nbsp;Variable&nbsp;for&nbsp;the&nbsp;recipe&nbsp;ID&nbsp;to&nbsp;be&nbsp;set<br>
+:return:&nbsp;returns&nbsp;the&nbsp;recipe&nbsp;ID&nbsp;to&nbsp;be&nbsp;set</tt></dd></dl>
+
+<dl><dt><a name="BrewBatch-set_request_number"><strong>set_request_number</strong></a>(self, request_number)</dt><dd><tt>Sets&nbsp;the&nbsp;request&nbsp;number&nbsp;of&nbsp;the&nbsp;brew&nbsp;batch<br>
+:param&nbsp;request_number:<br>
+:return:&nbsp;sets&nbsp;the&nbsp;brew&nbsp;batch&nbsp;number</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>recipe</strong> = &lt;module 'Brewing.Recipe' from '/Users/narrara/BrewingProjectIST440/Brewing/Recipe.py'&gt;</dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

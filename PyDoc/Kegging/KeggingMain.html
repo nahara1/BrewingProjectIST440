@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module KeggingMain</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>KeggingMain</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/narrara/BrewingProjectIST440/TeamKegging/KeggingMain.py">/Users/narrara/BrewingProjectIST440/TeamKegging/KeggingMain.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Project:&nbsp;Brewing&nbsp;Project<br>
+#&nbsp;Purpose&nbsp;Details:&nbsp;Main&nbsp;control&nbsp;for&nbsp;Kegging<br>
+#&nbsp;Course:&nbsp;IST&nbsp;440W<br>
+#&nbsp;Author:&nbsp;Team&nbsp;Kegging<br>
+#&nbsp;Date&nbsp;Developed:&nbsp;4/14/2020<br>
+#&nbsp;Last&nbsp;Date&nbsp;Changed:&nbsp;4/18/2020<br>
+#&nbsp;Rev:&nbsp;1.1</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Brewing.MongoLogging.html">Brewing.MongoLogging</a><br>
+</td><td width="25%" valign=top><a href="Brewing.ServiceNowLog.html">Brewing.ServiceNowLog</a><br>
+</td><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="KeggingMain.html#KeggingMain">KeggingMain</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="KeggingMain">class <strong>KeggingMain</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#KeggingMain">KeggingMain</a>(batch_id,&nbsp;kegging_status,&nbsp;recipe_ibu)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="KeggingMain-__init__"><strong>__init__</strong></a>(self, batch_id, kegging_status, recipe_ibu)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="KeggingMain-brite_start"><strong>brite_start</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;starts&nbsp;a&nbsp;brite&nbsp;tank&nbsp;(ID:1)&nbsp;with&nbsp;default&nbsp;temp&nbsp;55F,&nbsp;5&nbsp;gallon&nbsp;limit<br>
+:return:&nbsp;starts&nbsp;brite&nbsp;tank,&nbsp;logs&nbsp;to&nbsp;bt_loglist&nbsp;and&nbsp;appends&nbsp;to&nbsp;km_full_loglist</tt></dd></dl>
+
+<dl><dt><a name="KeggingMain-kc_start"><strong>kc_start</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="KeggingMain-keg_log"><strong>keg_log</strong></a>(self, bb_stage, log_message)</dt><dd><tt>Dynamic&nbsp;loging&nbsp;method<br>
+:param&nbsp;bb_stage:&nbsp;The&nbsp;brew&nbsp;batch&nbsp;stage&nbsp;(Kegging)<br>
+:param&nbsp;log_message:&nbsp;Log&nbsp;message<br>
+:return:&nbsp;creates&nbsp;a&nbsp;log&nbsp;message&nbsp;in&nbsp;JSON&nbsp;string&nbsp;format</tt></dd></dl>
+
+<dl><dt><a name="KeggingMain-km_get_full_loglist"><strong>km_get_full_loglist</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;returns&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;logs&nbsp;from&nbsp;Kegging&nbsp;process<br>
+:return:&nbsp;List&nbsp;of&nbsp;log&nbsp;entries</tt></dd></dl>
+
+<dl><dt><a name="KeggingMain-kt_start"><strong>kt_start</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;starts&nbsp;the&nbsp;cellarman&nbsp;tasks<br>
+:return:&nbsp;Starts&nbsp;cellarman&nbsp;(kegging)&nbsp;tasks&nbsp;and&nbsp;logs&nbsp;to&nbsp;kt_loglist&nbsp;and&nbsp;appends&nbsp;to&nbsp;km_full_loglist</tt></dd></dl>
+
+<dl><dt><a name="KeggingMain-print_km_full_loglist"><strong>print_km_full_loglist</strong></a>(self)</dt><dd><tt>Method&nbsp;that&nbsp;prints&nbsp;each&nbsp;individual&nbsp;entry&nbsp;in&nbsp;the&nbsp;full&nbsp;log&nbsp;list<br>
+:return:&nbsp;Prints&nbsp;each&nbsp;log&nbsp;entry&nbsp;individually</tt></dd></dl>
+
+<dl><dt><a name="KeggingMain-qa_start"><strong>qa_start</strong></a>(self, taster_name, taster_id, recipe_ibu)</dt><dd><tt>Method&nbsp;that&nbsp;starts&nbsp;the&nbsp;taste&nbsp;test<br>
+:return:&nbsp;Starts&nbsp;taste&nbsp;test&nbsp;and&nbsp;creates&nbsp;log&nbsp;to&nbsp;tt_loglist&nbsp;and&nbsp;appends&nbsp;to&nbsp;km_full_loglist</tt></dd></dl>
+
+<dl><dt><a name="KeggingMain-start"><strong>start</strong></a>(self)</dt><dd><tt>Main&nbsp;Kegging&nbsp;Process&nbsp;start&nbsp;method<br>
+:return:&nbsp;starts&nbsp;the&nbsp;Kegging&nbsp;Process</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>km_full_loglist</strong> = []</td></tr></table>
+</body></html>
