@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/23
-# Rev 3
+# Last Date Changed:4/28/2020
+# Rev 4
 
 import time
 import datetime
@@ -12,7 +12,7 @@ from Brewing.Log import Log
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
 
-sleep_time = .25
+sleep_time = 1
 
 
 class Sanitization:

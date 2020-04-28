@@ -3,8 +3,8 @@
 # Course: IST 440W - 001
 # Author: TeamPrep
 # Date Developed: 3/23
-# Last Date Changed:4/18
-# Rev 3
+# Last Date Changed:4/18/2020
+# Rev 4
 
 
 import random
@@ -15,7 +15,7 @@ from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
 from TeamPrep.Sanitization import Sanitization
 
-sleep_time = .25
+sleep_time = 1
 
 # noinspection PyMethodMayBeStatic
 
