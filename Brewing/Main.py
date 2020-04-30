@@ -73,8 +73,8 @@ def call_boil(request_number, recipe):
 def call_ferment(request_number, recipe):
     """
     Method Calls Team Ferment's Process
-    :param request_number:
-    :param recipe:
+    :param request_number: brew batch id
+    :param recipe: a Recipe Instance
     :return: void
     """
     Fermentation.start_fermentation_process(request_number, recipe)
@@ -84,8 +84,8 @@ def call_ferment(request_number, recipe):
 def call_kegging(request_number, recipe):
     """
     Method Calls Team Kegging's Process
-    :param request_number:
-    :param recipe:
+    :param request_number: brew batch id
+    :param recipe: a Recipe Instance
     :return: void
     """
     recipe_ibu = recipe.get_ibu()
@@ -96,11 +96,14 @@ def call_kegging(request_number, recipe):
 
 def brew_loops(request_number, request_id, recipe):
     """
+    Initiates each brewing stage under the condition that the preceding one has been
+    successfully completed. Otherwise, the preparation stage method is called again in
+    order for a new attempt to be made.
 
-    :param request_number:
-    :param request_id:
-    :param recipe:
-    :return:
+    :param request_number: brew batch id
+    :param request_id: order request id
+    :param recipe: a Recipe Instance
+    :return: void
     """
     try:
         prep_pass = False
@@ -168,6 +171,8 @@ def brew_loops(request_number, request_id, recipe):
                 # Call Kegging
                 if call_kegging(request_number, recipe):
                     print("Batch is completed")
+                    BrewRequest.update_brew_stage(request_id, "All Stages Completed")
+                    BrewRequest.update_brew_stage(request_id, "Complete")
                     kegging_pass = True
                 else:
                     print("Kegging Stage not completed.")
@@ -186,11 +191,11 @@ def main():
     :return: void
     """
     print("-----------------------------------------\n")
-    print("Welcome to Balrog Brewery\n")
+    print("       Welcome to Balrog Brewery\n")
     print("-----------------------------------------\n")
 
-    input("Press any key to continue: ")
-    print("Fetching brew request...")
+    input("Press any key to continue: \n")
+    print("Fetching brew request...\n")
 
     # Get a brew request
     # 1 - Get brew request id and initialize request_number, which is
@@ -205,6 +210,7 @@ def main():
     else:
         main()
     # 3 - Update brew request
+    BrewRequest.update_brew_stage(request_id, "Requested")
     BrewRequest.update_brew_stage(request_id, "Approval")
     # 534ae46a1b1098107bd975541a4bcb8a
 
