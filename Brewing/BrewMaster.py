@@ -6,6 +6,7 @@
 # Last Date Changed: 4/8/2020
 # Rev: 1
 
+import sys
 
 class BrewMaster:
     """

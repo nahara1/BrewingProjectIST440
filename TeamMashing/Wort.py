@@ -11,6 +11,7 @@ import time
 from Brewing.Log import Log
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
+import sys
 
 # Wort class checks for water temperature, water volume and records separation time.
 

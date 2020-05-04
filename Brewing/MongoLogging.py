@@ -14,10 +14,9 @@ class MongoLogging:
 
     def MongoLog(self, request_number, process, log_message):
         """
-        method that adds a log to the MongoDB Collection
-        :param log_message:
-        :param process:
-        :param request_number:
+        Adds a log to the MongoDB Collection
+        :param request_number: the brew batch ID
+        :param process: the process the brew is currently on
         :param log_message: preformed string in JSON format to log to MongoDB
         :return: none
         """

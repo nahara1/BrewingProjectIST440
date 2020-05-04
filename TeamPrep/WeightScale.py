@@ -16,6 +16,7 @@ from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing.BrewRequest import Recipe
 from Brewing import MongoLogging
 from TeamPrep.Temperature import Temperature
+import sys
 
 sleep_time = .25
 

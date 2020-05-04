@@ -10,6 +10,7 @@ from pip._vendor.distlib.compat import raw_input
 import datetime
 from Brewing import ServiceNowLog
 from Brewing import MongoLogging
+import sys
 
 kt_loglist = []
 

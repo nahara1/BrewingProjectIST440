@@ -7,7 +7,10 @@
 # Rev: 1.1
 
 
+import sys
+
 class Keg:
+
     def __init__(self, keg_id, keg_style, current_volume, keg_pressure, max_volume):
         self.keg_id = keg_id
         self.keg_style = keg_style

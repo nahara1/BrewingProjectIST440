@@ -49,8 +49,12 @@ and&nbsp;then&nbsp;a&nbsp;Recipe&nbsp;object&nbsp;is&nbsp;created&nbsp;out&nbsp;
 &nbsp;<br>
 :param&nbsp;recipe_name:&nbsp;The&nbsp;name&nbsp;of&nbsp;a&nbsp;recipe,&nbsp;also&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;catalog&nbsp;item<br>
 :return:&nbsp;a&nbsp;Recipe&nbsp;object</tt></dd></dl>
- <dl><dt><a name="-get_request_id"><strong>get_request_id</strong></a>()</dt><dd><tt>Retrieves&nbsp;the&nbsp;most&nbsp;recent&nbsp;brew&nbsp;request&nbsp;id&nbsp;from&nbsp;the&nbsp;ServiceNow&nbsp;requests&nbsp;table<br>
-:return:&nbsp;request_id</tt></dd></dl>
+ <dl>
+  <dt><a name="-get_request_id"><strong>get_request_id</strong></a>()</dt>
+  <dd><tt>Retrieves&nbsp;the&nbsp;most&nbsp;recent&nbsp;brew&nbsp;request&nbsp;id&nbsp;from&nbsp;the&nbsp;ServiceNow&nbsp;requests&nbsp;table<br>
+:return:&nbsp;request_id</tt>
+  </dd>
+ </dl>
  <dl><dt><a name="-update_brew_stage"><strong>update_brew_stage</strong></a>(sys_id, stage)</dt><dd><tt>Updates&nbsp;the&nbsp;request&nbsp;Stage&nbsp;column&nbsp;in&nbsp;the&nbsp;sc_request&nbsp;table<br>
 As&nbsp;teh&nbsp;brew&nbsp;batch&nbsp;passes&nbsp;along&nbsp;each&nbsp;brew&nbsp;stage,&nbsp;this&nbsp;method&nbsp;will&nbsp;be&nbsp;called&nbsp;to&nbsp;updated&nbsp;the&nbsp;stage<br>
 of&nbsp;the&nbsp;corresponding&nbsp;brew&nbsp;request<br>

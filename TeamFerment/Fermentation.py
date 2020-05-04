@@ -9,7 +9,7 @@
 from TeamFerment.FermentationVessel import FermentationVessel
 
 import threading
-
+import sys
 
 def start_fermentation_process(request_number, recipe):
     fermentation_vessel = FermentationVessel(recipe)

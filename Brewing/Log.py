@@ -8,7 +8,7 @@
 
 import sys
 import time
-
+import sys
 
 class Log:
     def __init__(self, lid, brew_stage, log, log_time, pass_or_fail):  # constructor initializes fields

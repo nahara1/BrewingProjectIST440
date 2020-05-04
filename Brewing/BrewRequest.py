@@ -11,7 +11,7 @@ This module handles the retrieval of brew request data from ServiceNow
 """
 
 from Brewing import Recipe
-
+import sys
 import time
 import ast
 
@@ -63,7 +63,6 @@ def get_request_id():
     :return: request_id
     """
     # Requests Table url
-    #url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request?sysparm_query=stage%3DRequested&sysparm_fields=sys_id%2Crequested_for%2Copened_by%2Csys_created_by%2Cdelivery_address%2Cprice%2Cnumber%2Crequest_state%2Cstage&sysparm_limit=1'
     url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_request?sysparm_query=stageLIKERequested&sysparm_limit=1'
 
     import requests
@@ -184,7 +183,6 @@ def get_catalog_item_id(request_number):
     # Decode the JSON response into a dictionary and use the data
     data = response.json()
     cat_item_id = extract_values(data, 'value')
-    print("cat id: ", cat_item_id)
     cat_item_id = str(cat_item_id).replace("['", "").replace("']", "")
     # print("Catalog Item ID: " + cat_item_id)
     return cat_item_id
@@ -192,7 +190,7 @@ def get_catalog_item_id(request_number):
 
 def get_catalog_item_name(cat_id):
     """
-    Get catalog item name given its id, which corresponds to a recipe name in the Recipe table.
+    Gets catalog item name given its id, which corresponds to a recipe name in the Recipe table.
 
     :param cat_id: Catalog Item Unique Identifier
     :return: a catalog item name

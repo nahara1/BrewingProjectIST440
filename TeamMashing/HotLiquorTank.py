@@ -11,9 +11,10 @@ from Brewing.Log import Log
 from TeamMashing.SpargingTank import SpargingTank
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
-
+import sys
 
 class HotLiquorTank:
+
     def __init__(self):
         self.tank_ID = 2
         self.water_amount = 0

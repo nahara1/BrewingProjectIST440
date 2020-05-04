@@ -13,10 +13,13 @@ from Brewing.Log import Log
 from TeamMashing.HotLiquorTank import HotLiquorTank
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
+import sys
 
 sleep_time = .25
 
 class MillingMachine:  # MillingMachine Start
+
+
     def __init__(self):  # constructor initalized fields
         self.machine_id = 1
         self.mill_time = 0
@@ -25,7 +28,7 @@ class MillingMachine:  # MillingMachine Start
     def mill_grains(self, recipe, request_number):  # Mill_grains process start
         """
         The start of milling grains
-        :param request_number: a bre batch request number
+        :param request_number: a brew batch request number
         :param recipe: recipe instance
         :return: Return Log
         """
@@ -74,7 +77,6 @@ class MillingMachine:  # MillingMachine Start
             print(e)
 
     def send_grains_to_sparging_tank(self, recipe, request_number):
-        # sends grains to Sparging Tank
         """
         Adds grains to the Sparging Tank
         :param recipe: a Recipe instance
