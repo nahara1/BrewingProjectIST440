@@ -162,7 +162,8 @@ def get_catalog_item_id(request_number):
     import requests
 
     # Set the request parameters
-    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=requestLIKE' + request_number + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item'
+    url = 'https://emplkasperpsu2.service-now.com/api/now/table/sc_req_item?sysparm_query=requestLIKE' + request_number \
+          + '&sysparm_limit=1' + '&sysparm_fields=sys_id%2Cnumber%2Ccat_item'
 
     # Set connection to false until the HTTP request is successful
     connection_success = False

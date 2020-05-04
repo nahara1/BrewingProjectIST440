@@ -5,8 +5,8 @@
 # Date Developed: 4/18/20
 # Last Date Changed: 4/22/20
 # Rev 22
-from typing import Type, Union
 
+import sys
 from Brewing import Brew
 from Brewing import BrewRequest
 from Brewing import BrewBatch
@@ -212,7 +212,7 @@ def main():
     # 3 - Update brew request
     BrewRequest.update_brew_stage(request_id, "Requested")
     BrewRequest.update_brew_stage(request_id, "Approval")
-    # 534ae46a1b1098107bd975541a4bcb8a
+
 
     # 4 - Get requested brew id based on request number
     item_id = BrewRequest.get_catalog_item_id(request_number)

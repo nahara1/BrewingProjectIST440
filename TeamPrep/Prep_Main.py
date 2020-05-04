@@ -8,6 +8,7 @@
 
 import threading
 import time
+import sys
 
 from TeamPrep import QualityCheck_Prep
 from TeamPrep.Sanitization import Sanitization
