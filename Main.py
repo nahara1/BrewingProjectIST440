@@ -3,10 +3,9 @@
 # Course: IST 440W - 001
 # Author: IST 440W - 001
 # Date Developed: 4/18/20
-# Last Date Changed: 4/22/20
-# Rev 22
+# Last Date Changed: 5/3/20
+# Rev Who Knows
 
-import sys
 from Brewing import Brew
 from Brewing import BrewRequest
 from Brewing import BrewBatch
@@ -19,10 +18,6 @@ from TeamMashing import MillingMachine
 import datetime
 from TeamBoiling import Boil
 from TeamKegging.KeggingMain import KeggingMain
-from TeamPrep.QualityCheck_Prep import QualityCheck
-from Brewing import MongoLogging
-from Brewing import ServiceNowLog
-
 
 def call_prep(request_number, recipe):
     """
