@@ -103,12 +103,13 @@ class KegCount:
         :return: Keg Type KEG_SIXTEL, KEG_QUARTER_STUBBY, or KEG_QUARTER_SLIM
         """
         try:
-            answer = input("Enter the Keg Type (Sixtel/Quarter Stubby/Quarter Slim): ")
-            if answer in ['Sixtel', 'sixtel', "SIXTEL"]:
+            answer = input("Enter the Keg Type \n(1) for Sixtel \n(2) for Quarter Stubby \n(3) for Quarter Slim) \n"
+                           "Enter your selection here: ")
+            if answer in ['1', 'Sixtel', 'sixtel', "SIXTEL"]:
                 return "KEG_SIXTEL"
-            elif answer in ['Quarter Stubby', 'QUARTER STUBBY', 'quarter stubby', 'stubby', 'Stubby', 'STUBBY']:
+            elif answer in ['2', 'Quarter Stubby', 'QUARTER STUBBY', 'quarter stubby', 'stubby', 'Stubby', 'STUBBY']:
                 return "KEG_QUARTER_STUBBY"
-            elif answer in ['Quarter Slim', 'QUARTER SLIM', 'quarter slim', 'slim', 'Slim', 'SLIM']:
+            elif answer in ['3', 'Quarter Slim', 'QUARTER SLIM', 'quarter slim', 'slim', 'Slim', 'SLIM']:
                 return "KEG_QUARTER_SLIM"
             else:
                 print("Please Enter a valid Keg Style")
