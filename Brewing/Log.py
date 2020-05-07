@@ -31,8 +31,8 @@ class Log:
         Generates a log in readable format
         :return: a readable log
         """
-        return "LogID: {}\n" \
-               "Brew Stage: {}\n" \
+
+        return "Brew Stage: {}\n" \
                "Log: {}\n" \
                "Log Time: {}\n" \
-               "Pass or Fail: {}\n".format(self.log_id, self.brew_stage, self.log, self.log_time, self.pass_or_fail)
+               "Pass or Fail: {}\n".format(self.brew_stage, self.log, self.log_time, self.pass_or_fail)
