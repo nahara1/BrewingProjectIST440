@@ -208,7 +208,6 @@ def main():
     BrewRequest.update_brew_stage(request_id, "Requested")
     BrewRequest.update_brew_stage(request_id, "Approval")
 
-
     # 4 - Get requested brew id based on request number
     item_id = BrewRequest.get_catalog_item_id(request_number)
 

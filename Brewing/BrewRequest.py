@@ -121,6 +121,7 @@ def get_brew_request_number(req_id):
 
     while not connection_success:
         try:
+            # Do the HTTP request
             response = requests.get(url, auth=(user, pwd), headers=headers)
             data = response.json()
 
@@ -129,7 +130,6 @@ def get_brew_request_number(req_id):
             print('Connection Error')
             print()
 
-        # Do the HTTP request
         else:
             connection_success = True
 
@@ -219,7 +219,6 @@ def get_catalog_item_name(cat_id):
             time.sleep(5)
             print('Connection Error')
 
-        # Do the HTTP request
         else:
             connection_success = True
 
