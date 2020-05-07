@@ -15,7 +15,7 @@ from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
 import sys
 
-sleep_time = 1
+sleep_time = .75
 
 class MillingMachine:  # MillingMachine Start
 

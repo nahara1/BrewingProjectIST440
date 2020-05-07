@@ -103,7 +103,7 @@ class KegCount:
         :return: Keg Type KEG_SIXTEL, KEG_QUARTER_STUBBY, or KEG_QUARTER_SLIM
         """
         try:
-            answer = input("Enter the Keg Type \n(1) for Sixtel \n(2) for Quarter Stubby \n(3) for Quarter Slim) \n"
+            answer = input("Enter the Keg Type \n(1) for Sixtel \n(2) for Quarter Stubby \n(3) for Quarter Slim \n"
                            "Enter your selection here: ")
             if answer in ['1', 'Sixtel', 'sixtel', "SIXTEL"]:
                 return "KEG_SIXTEL"

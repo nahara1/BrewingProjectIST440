@@ -13,7 +13,7 @@ from time import sleep
 from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
 
-sleep_time = .5
+sleep_time = .75
 
 
 class DisplayHelper:
