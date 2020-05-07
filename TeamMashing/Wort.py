@@ -15,7 +15,7 @@ import sys
 
 # Wort class checks for water temperature, water volume and records separation time.
 
-sleep_time = .25
+sleep_time = .75
 
 class Wort:
     def __init__(self):

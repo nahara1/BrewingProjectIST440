@@ -13,7 +13,7 @@ import datetime
 from Brewing import ServiceNowLog
 from Brewing import MongoLogging
 
-sim_sleep_mod = .05  # Contains the simulated delay in seconds for automatic Temperature and Pressure Controls
+sim_sleep_mod = 1  # Contains the simulated delay in seconds for automatic Temperature and Pressure Controls
 bt_loglist = []
 
 

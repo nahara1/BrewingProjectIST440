@@ -14,7 +14,7 @@ from Brewing import ServiceNowLog
 from Brewing import MongoLogging
 import Brewing.BrewMaster
 import sys
-sleep_time = .25
+sleep_time = .5
 
 class FermentationVessel:
 

@@ -13,7 +13,7 @@ from Brewing.ServiceNowLog import ServiceNowLog
 from Brewing import MongoLogging
 import sys
 
-sleep_time = .25
+sleep_time = 1
 
 class SpargingTank: #constructor for the SpargingTank class
     def __init__(self):
